@@ -1,6 +1,9 @@
 import React from 'react';
 import './cards.css'
 import CardContentXS from "./card_content/card_content_XS";
+import CardContentS from "./card_content/card_content_S";
+import CardContentL from "./card_content/card_content_L";
+
 
 
 const Card = ({classname, ad_image}) => {
@@ -11,7 +14,10 @@ const Card = ({classname, ad_image}) => {
 
 
         {
-          classname === 's' ? <CardContentXS/> : ''
+          classname === 'xs' ? <CardContentXS/> :
+            classname === 's' ? <CardContentS/> :
+              classname === 'l' ? <CardContentL/> :
+              ''
 
         }
 

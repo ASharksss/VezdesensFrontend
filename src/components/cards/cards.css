@@ -23,39 +23,55 @@
     height: 76px;
 }
 
-.s {
+.thin .card_content-img {
+    width: 1400px;
+    height: 76px;
+}
+
+.xs {
     width: 288px;
     height: 518px;
 }
 
-.s .card_content-img {
-    width: 248px;
-    height: 333px;
-
+.s {
+    width: 355px;
+    height: 615px;
 }
 
-.s .card_content-title {
+.l {
+    width: 730px;
+    height: 562px;
+}
+
+.xs .card_content-img {
+    width: 248px;
+    height: 333px;
+}
+
+.xs .card_content-title {
     font-size: 18px;
     font-weight: bold;
     margin-bottom: 10px;
 }
 
-.s .card_content-date {
+.xs .card_content-date {
     font-size: 14px;
     color:rgba(181, 183, 189, 1);
 }
 
-.s .card_content-address {
+.xs .card_content-address {
     font-size: 14px;
     color:  rgba(131, 134, 144, 1);
     margin-bottom: 5px;
 }
 
-.s .card_content-price{
+.xs .card_content-price{
     margin-top: 15px;
     font-size: 24px;
     font-family: OpenSansBold;
 }
+
+
 
 
 

@@ -4,12 +4,12 @@ import ad_image from '../../../asserts/ad_image_small.png'
 
 const SmallBlocks = () => {
   return (
-    <div className='flex small_ads'>
-      <Card classname={'s'} ad_image={ad_image}/>
-      <Card classname={'s'} ad_image={ad_image}/>
-      <Card classname={'s'} ad_image={ad_image}/>
-      <Card classname={'s'} ad_image={ad_image}/>
-      <Card classname={'s'} ad_image={ad_image}/>
+    <div className='flex small_ads align-items'>
+      <Card classname={'xs'} ad_image={ad_image}/>
+      <Card classname={'xs'} ad_image={ad_image}/>
+      <Card classname={'xs'} ad_image={ad_image}/>
+      <Card classname={'xs'} ad_image={ad_image}/>
+      <Card classname={'xs'} ad_image={ad_image}/>
     </div>
   );
 };
