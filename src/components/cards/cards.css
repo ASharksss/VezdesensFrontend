@@ -1,4 +1,5 @@
 .card {
+    color: black;
     padding: 20px;
     border-radius: 20px;
     transition: .25s;
@@ -9,8 +10,9 @@
     box-shadow: 0px 6px 40px 0px rgba(38, 38, 38, 0.22);
 }
 
-.card_content-img {
-    margin-bottom: 20px;
+
+.card_content-title {
+    margin-top: 20px;
 }
 
 .card_content-price{
@@ -21,6 +23,8 @@
 .thin {
     width: 1400px;
     height: 76px;
+    margin-top: 30px;
+    margin-bottom: 30px;
 }
 
 .thin .card_content-img {
@@ -28,19 +32,134 @@
     height: 76px;
 }
 
-.xs {
-    width: 288px;
-    height: 518px;
-}
-
 .s {
     width: 355px;
     height: 615px;
 }
 
+.s .card_content-title {
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.s .card_content-date {
+    font-size: 14px;
+    color:rgba(181, 183, 189, 1);
+}
+
+.s .card_content-address {
+    font-size: 14px;
+    color:  rgba(131, 134, 144, 1);
+    margin-bottom: 5px;
+}
+
+.s .card_content-price{
+    margin-top: 15px;
+    font-size: 24px;
+    font-family: OpenSansBold;
+}
+
 .l {
     width: 730px;
     height: 562px;
+}
+
+.l .card_content-title {
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.l .card_content-date {
+    font-size: 14px;
+    color:rgba(181, 183, 189, 1);
+}
+
+.l .card_content-address {
+    font-size: 14px;
+    color:  rgba(131, 134, 144, 1);
+    margin-bottom: 5px;
+}
+
+.l .card_content-price{
+    margin-right: 50px;
+    font-size: 32px;
+    font-family: OpenSansBold;
+}
+
+.xxl {
+    width: 1440px;
+    height: 552px;
+}
+
+.xxl .card_content-img {
+    width: 1400px;
+    height: 417px;
+}
+
+.xxl .card_content-title {
+    font-size: 32px;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.xxl .card_content-date {
+    font-size: 14px;
+    color:rgba(181, 183, 189, 1);
+}
+
+.xxl .card_content-address {
+    margin-right: 50px;
+    font-size: 14px;
+    color:  rgba(131, 134, 144, 1);
+    margin-bottom: 5px;
+}
+
+.xxl .card_content-price{
+    margin-right: 50px;
+    font-size: 32px;
+    font-family: OpenSansBold;
+}
+
+
+
+.xl {
+    width: 864px;
+    height: 478px;
+}
+
+.xl .card_content-img {
+    width: 824px;
+    height: 333px;
+}
+
+.xl .card_content-title {
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.xl .card_content-date {
+    font-size: 14px;
+    color:rgba(181, 183, 189, 1);
+}
+
+.xl .card_content-address {
+    font-size: 14px;
+    color:  rgba(131, 134, 144, 1);
+    margin-bottom: 5px;
+}
+
+.xl .card_content-price{
+    margin-right: 50px;
+    font-size: 32px;
+    font-family: OpenSansBold;
+}
+
+.xs {
+    width: 288px;
+    height: 518px;
 }
 
 .xs .card_content-img {

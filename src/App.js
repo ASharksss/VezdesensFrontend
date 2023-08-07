@@ -1,12 +1,21 @@
 import './App.css';
 import './reset.css'
 import MainPage from "./pages/MainPage";
+import {BrowserRouter, Route, Router, Routes} from "react-router-dom";
+import CardPage from "./pages/CardPage";
 
 function App() {
   return (
-    <div className="App">
-      <MainPage/>
-    </div>
+    <BrowserRouter>
+      <div className="App">
+        <Routes>
+          <Route path={'/'} element={<MainPage/>}/>
+          <Route path={'/card'} element={<CardPage/>}/>
+        </Routes>
+
+      </div>
+    </BrowserRouter>
+
   );
 }
 

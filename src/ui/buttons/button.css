@@ -1,0 +1,29 @@
+.btn-connect + .btn-connect {
+    margin-left: 15px;
+}
+
+.phone {
+    width: 93px;
+    height: 54px;
+    background: black;
+    border-radius: 10px;
+    border: 1px solid rgba(236, 236, 236, 1);
+    transition: .25s;
+}
+
+.phone:hover {
+   background-color: rgba(64, 64, 64, 1);
+}
+
+.message {
+    width: 93px;
+    height: 54px;
+    background: white;
+    border-radius: 10px;
+    border: 1px solid rgba(236, 236, 236, 1);
+    transition: .25s;
+}
+
+.message:hover {
+    background-color: rgba(246, 246, 246, 1);
+}
