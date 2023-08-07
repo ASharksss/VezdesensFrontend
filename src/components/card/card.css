@@ -1,4 +1,52 @@
+
+.card_ad_name {
+    font-family: OpenSansBold;
+    font-size: 40px;
+    margin-bottom: 50px;
+}
+
+.card_ad_address {
+    font-size: 14px;
+    color:#B5B7BD;
+    margin-left: 119px;
+    margin-bottom: 10px;
+}
+
+.main_card_img {
+    width: 389px;
+    height: 521px;
+    margin-left: 20px;
+}
+
 .small_img_card {
     width: 92px;
     height: 123px;
+}
+
+.small_img_card + .small_img_card {
+    margin-top: 15px;
+}
+
+.card_description {
+    margin-left: 45px;
+}
+
+.number_time_views {
+    color: #B5B7BD;
+    margin-bottom: 31px;
+}
+
+.card_description-title {
+    font-family: OpenSansBold;
+    font-size: 24px;
+    margin-bottom: 15px;
+    color: #070C20;
+}
+
+.card_description-text {
+    width: 435px;
+    height: 315px;
+    color: #838690;
+    font-size: 14px;
+    line-height: 20.68px;
 }

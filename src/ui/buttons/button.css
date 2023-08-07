@@ -2,6 +2,17 @@
     margin-left: 15px;
 }
 
+.show_more {
+    font-family: OpenSansSemiBold;
+    color: #838690;
+    transition: .25s;
+    margin-top: 70px;
+}
+
+.show_more:hover {
+    color: black;
+}
+
 .phone {
     width: 93px;
     height: 54px;
@@ -12,7 +23,7 @@
 }
 
 .phone:hover {
-   background-color: rgba(64, 64, 64, 1);
+    background-color: rgba(64, 64, 64, 1);
 }
 
 .message {

@@ -24,6 +24,12 @@ body {
   font-family: OpenSansRegular;
 }
 
+.wrapper {
+  width: 1400px;
+  border: 1px solid red;
+  margin: 0 auto;
+}
+
 .container {
   display: flex;
   justify-content: center;
@@ -42,8 +48,16 @@ body {
   display: flex;
 }
 
+.column {
+  flex-direction: column;
+}
+
 .jy-center {
   justify-content: center;
+}
+
+.jy-end {
+  justify-content: end;
 }
 
 .items-center {
