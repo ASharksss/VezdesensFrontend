@@ -15,8 +15,6 @@ const Card = ({classname, ad_image}) => {
       <NavLink to={'/card'} className='black'>
         <div className="card_content">
           <img src={ad_image} alt="НАЗВАНИЕ ТОВАРА" className='card_content-img'/>
-
-
           {
             classname === 'xs' ? <CardContentXS/> :
               classname === 's' ? <CardContentS/> :
@@ -24,11 +22,9 @@ const Card = ({classname, ad_image}) => {
                   classname === 'xl' ? <CardContentXL/> :
                     classname === 'xxl' ? <CardContentXXl/> :
                       ''
-
           }
         </div>
       </NavLink>
-
     </div>
   );
 };

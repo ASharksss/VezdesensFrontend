@@ -2,6 +2,7 @@ import React from 'react';
 import './card.css'
 import CardImgBlock from "./CardImgBlock";
 import CardDescription from "./card_description";
+import CardInfo from "./card_info";
 
 const CardAd = ({ad_name, ad_address}) => {
     return (
@@ -10,6 +11,7 @@ const CardAd = ({ad_name, ad_address}) => {
             <div className="flex">
                 <CardImgBlock ad_address={ad_address}/>
                 <CardDescription card_number={'№2571607180'} card_time={'сегодня в 13:04'} card_views={'1666'} />
+                <CardInfo/>
             </div>
 
         </div>

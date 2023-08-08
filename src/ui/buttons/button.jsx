@@ -7,7 +7,7 @@ const Button = ({children, classname, icon}) => {
             <button className={classname}>
                 {
                     classname === 'show_more' ? <p>{children}</p > :
-                        classname === 'phone' || classname === 'phone' ?
+                        classname === 'phone' || classname === 'message' ?
                             <img src={icon} alt="иконка"/> : 'нишо'
                 }
             </button>
