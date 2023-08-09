@@ -2,16 +2,16 @@
     margin-left: 15px;
 }
 
-.show_more {
+.stroke {
     font-family: OpenSansSemiBold;
     color: #838690;
     transition: .25s;
-    margin-top: 70px;
 }
 
-.show_more:hover {
+.stroke:hover {
     color: black;
 }
+
 
 .phone {
     width: 93px;
@@ -75,5 +75,7 @@
 .like_ads:hover {
     background-color: rgba(246, 246, 246, 1);
 }
+
+
 
 

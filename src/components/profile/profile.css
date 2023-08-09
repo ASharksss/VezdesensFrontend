@@ -1,0 +1,21 @@
+.profile_card {
+    margin-bottom: 26px;
+}
+
+.profile_card-img {
+    margin-right: 20px;
+    border-radius: 50%;
+    width: 112px;
+    height: 112px;
+}
+
+.profile_card-name {
+    width: 136px;
+    height: 67px;
+    font-size: 24px;
+}
+
+.profile_card-number {
+    font-size: 18px;
+    color: rgba(131, 134, 144, 1);
+}

@@ -26,7 +26,7 @@ const CardInfo = () => {
         </div>
         <div className="flex rating_info">
           <Rating/>
-          <p className='count_grade'>31 отзыв</p>
+
         </div>
         <div className="address">
           <h2 className='address_title'>Адрес</h2>

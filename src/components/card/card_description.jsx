@@ -21,7 +21,7 @@ const CardDescription = ({card_number, card_time, card_views}) => {
                 🧑🏻‍💻Работаем с ЮР лицами и ИП ❗️БЕЗ НДС❗️<br/>
             </p>
             <div className="flex jy-end">
-            <Button classname={'show_more'} children={'Показать еще'}/>
+            <Button classname={'stroke'} children={'Показать еще'}/>
 
             </div>
 

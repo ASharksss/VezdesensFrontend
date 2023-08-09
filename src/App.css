@@ -16,6 +16,14 @@
   font-weight: 400;
 }
 
+.mt-20 {
+  margin-top: 20px;
+}
+
+.bold {
+  font-family: OpenSansBold;
+}
+
 .black {
   color: black;
 }
