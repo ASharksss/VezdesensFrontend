@@ -1,8 +1,9 @@
 import './App.css';
 import './reset.css'
 import MainPage from "./pages/MainPage";
-import {BrowserRouter, Route, Router, Routes} from "react-router-dom";
+import {BrowserRouter, Route, Routes} from "react-router-dom";
 import CardPage from "./pages/CardPage";
+import ProfilePage from "./pages/ProfilePage";
 
 function App() {
   return (
@@ -11,6 +12,7 @@ function App() {
         <Routes>
           <Route path={'/'} element={<MainPage/>}/>
           <Route path={'/card'} element={<CardPage/>}/>
+          <Route path={'/myProfile'} element={<ProfilePage/>}/>
         </Routes>
 
       </div>

@@ -26,8 +26,11 @@ body {
 
 .wrapper {
   width: 1400px;
-  border: 1px solid red;
   margin: 0 auto;
+}
+
+.relative{
+  position: relative;
 }
 
 .container {

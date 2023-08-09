@@ -11,11 +11,19 @@
     margin-bottom: 10px;
 }
 
+.main_card_img-container:hover .like_ads {
+    display: block;
+}
+
 .main_card_img {
+    position: relative;
     width: 389px;
     height: 521px;
     margin-left: 20px;
+    transition: .25s;
+    cursor: pointer;
 }
+
 
 .small_img_card {
     width: 92px;
@@ -51,7 +59,57 @@
 }
 
 .card_info {
+    margin-left: 45px;
+    padding: 30px 45px;
     width: 389px;
     height: 521px;
     box-shadow: 0px 4px 50px 0px rgba(38, 38, 38, 0.1);
+    border-radius: 20px;
 }
+
+.card_info-price {
+    font-family: OpenSansBold;
+    font-size: 32px;
+    color: rgba(7, 12, 32, 1);
+    margin-bottom: 30px;
+}
+
+.card_info-btn {
+    margin-bottom: 30px;
+}
+
+.seller_info {
+    margin-bottom: 15px;
+}
+
+.rating_info {
+    margin-bottom: 30px;
+}
+
+.seller_info-name {
+    font-size: 18px;
+    color: rgba(7, 12, 32, 1);
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+.seller_info-name:hover {
+    color: rgba(64, 64, 64, 1);
+}
+
+.seller_info-date {
+    font-size: 14px;
+    color: rgba(181, 183, 189, 1);
+}
+
+.address_title {
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+.address_text {
+    width: 230px;
+    color: rgba(131, 134, 144, 1);
+}
+

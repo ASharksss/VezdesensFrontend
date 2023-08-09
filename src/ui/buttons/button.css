@@ -38,3 +38,42 @@
 .message:hover {
     background-color: rgba(246, 246, 246, 1);
 }
+
+.show_phone {
+    width: 192px;
+    height: 54px;
+    color: white;
+    background-color: black;
+    border-radius: 10px;
+    transition: .25s;
+    font-family: OpenSansSemiBold;
+}
+
+.show_phone:hover {
+    background-color: rgba(64, 64, 64, 1);
+}
+
+.in_card {
+    display: none;
+    position: absolute;
+    top: 45px;
+    right: 45px;
+}
+
+.like_ads {
+    display: none;
+    position: absolute;
+    bottom: 10px;
+    right: 0px;
+    background-color: rgba(255, 255, 255, 1);
+    width: 182px;
+    height: 38px;
+    color: rgba(131, 134, 144, 1);
+    z-index: 1;
+    border-radius: 10px;
+}
+.like_ads:hover {
+    background-color: rgba(246, 246, 246, 1);
+}
+
+
