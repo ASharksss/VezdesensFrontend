@@ -12,7 +12,6 @@
     color: black;
 }
 
-
 .phone {
     width: 93px;
     height: 54px;
@@ -73,6 +72,19 @@
     border-radius: 10px;
 }
 .like_ads:hover {
+    background-color: rgba(246, 246, 246, 1);
+}
+
+.edit {
+    width: 153px;
+    height: 54px;
+    background: white;
+    border-radius: 10px;
+    border: 1px solid rgba(236, 236, 236, 1);
+    transition: .25s;
+}
+
+.edit:hover {
     background-color: rgba(246, 246, 246, 1);
 }
 

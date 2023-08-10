@@ -4,7 +4,7 @@ import Button from "../../ui/buttons/button";
 
 const ProfileCard = ({avatar}) => {
   return (
-    <>
+    <div>
       <div className='profile_card flex items-center'>
         <div>
           <img src={avatar} alt="аватар" className="profile_card-img"/>
@@ -14,11 +14,11 @@ const ProfileCard = ({avatar}) => {
           <p className='profile_card-number'>+7 919 657-35-11</p>
         </div>
       </div>
-      <Rating/>
+        <Rating/>
       <div className='mt-20'>
         <Button classname={'stroke'} children={'Редактировать'}/>
       </div>
-    </>
+    </div>
 
   );
 };

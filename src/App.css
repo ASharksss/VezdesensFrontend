@@ -16,12 +16,20 @@
   font-weight: 400;
 }
 
+.w-315 {
+  width: 315px;
+}
+
 .mt-20 {
   margin-top: 20px;
 }
 
 .bold {
   font-family: OpenSansBold;
+}
+
+.semi_bold {
+  font-family: OpenSansSemiBold;
 }
 
 .black {

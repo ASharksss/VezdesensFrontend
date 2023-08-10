@@ -1,0 +1,32 @@
+
+.myAd {
+    margin-top: 80px;
+    margin-bottom: 80px;
+}
+
+.myAd + .myAd::before {
+    display: block;
+    content: '';
+    width: 1035px;
+    height: 1px;
+    background-color: rgba(181, 183, 189, 1);
+    margin-top: 80px;
+    margin-bottom: 80px;
+}
+
+.profile_content_ad {
+    margin-top: 77px;
+}
+
+.myAd_img {
+    margin-left: 51px;
+}
+
+.myAd_img-image {
+    width: 248px;
+    height: 333px;
+}
+
+.myAd_ad_description {
+    width: 526px;
+}

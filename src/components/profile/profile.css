@@ -19,3 +19,28 @@
     font-size: 18px;
     color: rgba(131, 134, 144, 1);
 }
+
+.profile_wrapper {
+    margin-left: 50px;
+}
+
+.profile_link {
+    width: 192px;
+    height: 54px;
+    border-radius: 10px;
+    border: 1px solid rgba(236, 236, 236, 1);
+    transition: .25s;
+}
+
+.profile_link:hover {
+    background-color: rgba(246, 246, 246, 1);
+}
+
+.profile_link + .profile_link {
+    margin-left: 89px;
+}
+
+.active {
+    background-color: rgba(181, 183, 189, 1);
+    color: white;
+}
