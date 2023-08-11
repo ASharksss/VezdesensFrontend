@@ -15,13 +15,26 @@
     font-size: 24px;
 }
 
+.news_banner{
+    width: 315px;
+    margin-top: 50px;
+}
+
 .profile_card-number {
     font-size: 18px;
     color: rgba(131, 134, 144, 1);
 }
 
+.profile_container {
+    margin-top: 50px;
+}
+
 .profile_wrapper {
     margin-left: 50px;
+}
+
+.profile_links {
+    margin-top: 38px;
 }
 
 .profile_link {

@@ -18,7 +18,40 @@
     margin-top: 77px;
 }
 
+.actions_row-first {
+    margin-bottom: 25px;
+}
+
+.actions_row + .actions_row {
+    margin-top: 15px;
+}
+
+.myAd_actions {
+    font-size: 14px;
+}
+
+.myAd_actions_archive {
+    margin-top: 14px;
+}
+
+.myAd_actions-title {
+    text-align: left;
+    color: rgba(7, 12, 32, 1);
+}
+
+.myAd_actions-value {
+    text-align: right;
+    color: rgba(181, 183, 189, 1);
+}
+
+.myAd_btn-edit {
+    margin-top: 59px;
+    margin-bottom: 59px;
+}
+
 .myAd_img {
+    width: 248px;
+    height: 333px;
     margin-left: 51px;
 }
 
@@ -27,6 +60,34 @@
     height: 333px;
 }
 
+.myAd_description {
+    width: 526px;
+    font-size: 14px;
+    margin-left: 35px;
+}
+
+.myAd_title {
+    font-size: 24px;
+    color: rgba(7, 12, 32, 1);
+    margin-bottom: 30px;
+}
+
+.myAd_price {
+    font-size: 32px;
+    color: rgba(7, 12, 32, 1);
+    margin-bottom: 20px;
+}
+
 .myAd_ad_description {
     width: 526px;
+    height: 142px;
+    color: rgba(131, 134, 144, 1);
+    line-height: 20.68px;
+}
+
+.myAd_open_description {
+
+    text-align: right;
+    margin-top: 41px;
+    font-size: 16px;
 }
