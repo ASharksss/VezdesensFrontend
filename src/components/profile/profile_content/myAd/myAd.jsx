@@ -1,5 +1,5 @@
 import React from 'react';
-import '../profile_content.css'
+import '../myAd.css'
 import Button from "../../../../ui/buttons/button";
 import ad_img from '../../../../asserts/ad_image_xs.png'
 import MyAdActionsActive from "./MyAdActionsActive";

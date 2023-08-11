@@ -5,6 +5,7 @@ import avatar from "../asserts/profile/profile_avatar.png"
 import news from "../asserts/profile/newsBanner.png"
 import Ad from "../components/cards/Ad";
 import ProfileContentAd from "../components/profile/profile_content/myAd/profile_content_ad";
+import Messages from "../components/profile/profile_content/messages/messages";
 
 const ProfilePage = () => {
 
@@ -58,7 +59,7 @@ const ProfilePage = () => {
             <div className='profile_content'>
               {
                 choice === 'ads' ? <ProfileContentAd/> :
-                  choice === 'dialogs' ? 'dialogs' :
+                  choice === 'dialogs' ? <Messages/> :
                     choice === 'favorites' ? 'favorites' :
                       choice === 'help' ? 'help' : 'ничего не выбрано'
               }

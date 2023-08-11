@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import '../profile_content.css'
+import '../myAd.css'
 import ActiveAds from "./ActiveAds";
 import ArchiveAd from "./ArchiveAd";
 
