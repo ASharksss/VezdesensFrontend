@@ -1,5 +1,4 @@
 
-
 .btn-connect + .btn-connect {
     margin-left: 15px;
 }
@@ -30,6 +29,17 @@
     background-color: rgba(64, 64, 64, 1);
 }
 
+.trashBlack {
+    width: 153px;
+    height: 54px;
+    background-color: rgba(102, 105, 111, 1);
+    border-radius: 10px;
+}
+
+.trashBlack:hover {
+    background-color: rgba(72, 74, 77, 1);
+}
+
 .phone {
     width: 93px;
     height: 54px;
@@ -40,6 +50,18 @@
 }
 
 .phone:hover {
+    background-color: rgba(64, 64, 64, 1);
+}
+
+.phoneTall {
+    width: 153px;
+    height: 54px;
+    background-color:rgba(22, 22, 22, 1) ;
+    border-radius: 10px;
+    transition: .25s;
+}
+
+.phoneTall:hover {
     background-color: rgba(64, 64, 64, 1);
 }
 

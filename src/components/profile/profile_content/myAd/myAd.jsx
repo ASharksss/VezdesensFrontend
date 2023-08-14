@@ -1,21 +1,23 @@
 import React from 'react';
-import '../myAd.css'
+import './myAd.css'
 import Button from "../../../../ui/buttons/button";
 import ad_img from '../../../../asserts/ad_image_xs.png'
+import favorite from "../../../../asserts/icons/favorite.svg"
 import MyAdActionsActive from "./MyAdActionsActive";
 import MyAdActionsArchive from "./MyAdActionsArchive";
+import MyAdActionsFavorite from "./MyAdActionsFavorite";
 
 const MyAd = ({classname, typeAd}) => {
   return (
     <div className={'myAd ' + classname}>
-      <div className="flex">
+      <div className=" myAd_container flex">
 
         {
           typeAd === 'activeAd' ? <MyAdActionsActive/> :
             typeAd === 'archiveAd' ? <MyAdActionsArchive/> :
-              'ничего не передано'
+              typeAd === 'favoriteAd' ? <MyAdActionsFavorite/> :
+                'ничего не передано'
         }
-
 
 
         <div className="myAd_img">
@@ -35,9 +37,16 @@ const MyAd = ({classname, typeAd}) => {
           <div className="myAd_open_description">
             <Button classname={'stroke'} children={'Показать всё'}/>
           </div>
+          {
+            typeAd === 'favoriteAd' ? <img src={favorite} alt="лоек" className='absolute'/> :
+              typeAd === 'activeAd' || typeAd === 'archiveAd' ?
+                <p className='myAd_type absolute'>Стандарт</p>
+                :
+                  'ничего не передано'
+          }
         </div>
-      </div>
 
+      </div>
     </div>
   );
 };

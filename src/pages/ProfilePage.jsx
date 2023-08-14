@@ -6,6 +6,7 @@ import news from "../asserts/profile/newsBanner.png"
 import Ad from "../components/cards/Ad";
 import ProfileContentAd from "../components/profile/profile_content/myAd/profile_content_ad";
 import Messages from "../components/profile/profile_content/messages/messages";
+import MyFavorite from "../components/profile/profile_content/myAd/myFavorite";
 
 const ProfilePage = () => {
 
@@ -60,7 +61,7 @@ const ProfilePage = () => {
               {
                 choice === 'ads' ? <ProfileContentAd/> :
                   choice === 'dialogs' ? <Messages/> :
-                    choice === 'favorites' ? 'favorites' :
+                    choice === 'favorites' ? <MyFavorite/> :
                       choice === 'help' ? 'help' : 'ничего не выбрано'
               }
             </div>

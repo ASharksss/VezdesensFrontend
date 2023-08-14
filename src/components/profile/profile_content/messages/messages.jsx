@@ -2,6 +2,7 @@ import React from 'react';
 import './messages.css'
 import Checkbox from "../../../../ui/checkbox";
 import MessageItem from "./messageItem";
+import SelectedMessages from "./selectedMessages";
 
 const Messages = () => {
   return (
@@ -25,6 +26,8 @@ const Messages = () => {
         <MessageItem/>
         <MessageItem/>
       </div>
+
+      <SelectedMessages/>
     </div>
   );
 };

@@ -2,6 +2,7 @@
 .myAd {
     margin-top: 80px;
     margin-bottom: 80px;
+
 }
 
 .myAd + .myAd::before {
@@ -12,6 +13,10 @@
     background-color: rgba(181, 183, 189, 1);
     margin-top: 80px;
     margin-bottom: 80px;
+}
+
+.myAd_container {
+    position: relative;
 }
 
 .profile_content_ad {
@@ -79,7 +84,7 @@
 }
 
 .myAd_ad_description {
-    width: 526px;
+    width: 405px;
     height: 142px;
     color: rgba(131, 134, 144, 1);
     line-height: 20.68px;
@@ -90,4 +95,42 @@
     text-align: right;
     margin-top: 41px;
     font-size: 16px;
+}
+
+.myAd_type {
+    font-size: 18px;
+    color: rgba(181, 183, 189, 1);
+}
+
+.myAd_actions_favorite-status {
+    font-size: 18px;
+    color: rgba(16, 201, 90, 1);
+    margin-bottom: 20px;
+}
+
+.myAd_actions_favorite-category {
+    color: rgba(131, 134, 144, 1);
+    margin-bottom: 52px;
+    font-size: 14px;
+}
+
+.myAd_actions_favorite-time {
+    margin-top: 52px;
+    color: rgba(181, 183, 189, 1);
+    margin-bottom: 5px;
+}
+
+.myAd_actions_favorite-views {
+    color: rgba(181, 183, 189, 1);
+}
+
+.absolute {
+    position: absolute;
+    top: 5px;
+    right: 0;
+}
+
+.favorite_filter {
+    margin-top: 77px;
+    margin-bottom: 50px;
 }

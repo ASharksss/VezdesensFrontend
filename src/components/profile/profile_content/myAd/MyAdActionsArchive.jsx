@@ -1,5 +1,5 @@
 import React from 'react';
-import '../myAd.css'
+import './myAd.css'
 import Button from "../../../../ui/buttons/button";
 import edit from "../../../../asserts/icons/edit.svg";
 import trash from "../../../../asserts/icons/trash.svg";

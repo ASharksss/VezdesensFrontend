@@ -10,7 +10,9 @@ const Button = ({children, classname, icon}) => {
             classname === 'activeAd' ? <p>{children}</p> :
               classname === 'show_phone' ? <p>{children}</p> :
                 classname === 'like_ads' ? <p>{children}</p> :
-                  classname === 'phone' || classname === 'message' || classname === 'edit' ?
+                  classname === 'phone' || classname === 'message'
+                  || classname === 'edit' || classname === 'trashBlack'
+                  || classname === 'phoneTall' ?
                     <img src={icon} alt="иконка"/> : 'нишо'
         }
       </button>
