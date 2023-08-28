@@ -21,7 +21,6 @@ const CommercialBlocksLss = () => {
         <Card classname={'s'} ad_image={ad_image_s}/>
         <Card classname={'l'} ad_image={ad_image_l}/>
       </div>
-
       <div className='flex'>
         <Card classname={'l'} ad_image={ad_image_l}/>
         <Card classname={'s'} ad_image={ad_image_s}/>
@@ -38,7 +37,6 @@ const CommercialBlocksLss = () => {
         <Card classname={'s'} ad_image={ad_image_s}/>
       </div>
     </>
-
   );
 };
 
