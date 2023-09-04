@@ -1,10 +1,12 @@
 import {configureStore} from "@reduxjs/toolkit";
 import {AdsReducer} from "./slices/boardSlice";
+import {ChatReducer} from "./slices/chatSlice";
 
 
 export const store = configureStore({
   reducer: {
-    ads: AdsReducer
+    ads: AdsReducer,
+    chat: ChatReducer
   }
 })
 

@@ -3,6 +3,7 @@ import './messages.css'
 import Checkbox from "../../../../ui/checkbox";
 import MessageItem from "./messageItem";
 import SelectedMessages from "./selectedMessages";
+import {NavLink} from "react-router-dom";
 
 const Messages = () => {
   return (
@@ -22,9 +23,16 @@ const Messages = () => {
       </div>
 
       <div className="messages_list">
-        <MessageItem/>
-        <MessageItem/>
-        <MessageItem/>
+
+        <NavLink to='/myProfile/messages'>
+          <MessageItem/>
+        </NavLink>
+        <NavLink to='/myProfile/messages'>
+          <MessageItem/>
+        </NavLink>
+        <NavLink to='/myProfile/messages'>
+          <MessageItem/>
+        </NavLink>
       </div>
 
       <SelectedMessages/>
