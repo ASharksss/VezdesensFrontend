@@ -11,7 +11,7 @@ const MainPage = () => {
   const {ads} = useSelector(state => state.ads)
 
   useEffect(() => {
-    console.log('загрзулиось')
+    console.log({ads})
     dispatch(fetchAllAds())
   }, [])
 

@@ -1,7 +1,8 @@
 import {createSlice, createAsyncThunk} from "@reduxjs/toolkit";
 import axios from '../../axios'
 
-export const fetchAllAds = createAsyncThunk('getAllAds',
+export const fetchAllAds =
+  createAsyncThunk('getAllAds',
   async () => {
     const {data} = await axios.get('api/board/getAll')
     return data

@@ -1,36 +1,26 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {useDispatch} from "react-redux";
 import {addMessage} from "../../../../redux/slices/chatSlice";
+import axios from "axios";
+import MessageItem from "./message-item";
 
 
 const Dialog = () => {
-  const [messages, setMessages] = useState([])
   const [value, setValue] = useState('')
 
   const dispatch = useDispatch()
 
-  const handleSubmit = (e) => {
-    e.preventDefault()
-    const data = {
-      chatId: 1,
-      userId:1,
-      text: value
-    }
-    dispatch(addMessage(data))
-  }
 
   return (
     <div className='dialog'>
+
       <div className="messages">
-        {
-          messages.map(mess =>
-            <div key={mess.id}>{mess.message}</div>
-          )}
+
       </div>
       <div className="area_input">
         <input type="text" value={value}
                onChange={e => setValue(e.target.value)}/>
-        <button onClick={handleSubmit}>Отправить</button>
+        <button>Отправить</button>
       </div>
     </div>
   );
