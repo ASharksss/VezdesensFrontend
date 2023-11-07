@@ -10,19 +10,19 @@ import Favorite from "../../ui/buttons/favorite";
 
 
 
-const Card = ({classname, ad_image}) => {
+const Card = ({classname, ad_image, title, address, date, price, id}) => {
   return (
     <div className={'card ' + classname}>
-      <NavLink to={'/card'} className='black'>
+      <NavLink to={`/card/${id}`} className='black'>
         <div className="card_content">
           <Favorite classname={'in_card'}/>
           <img src={ad_image} alt="НАЗВАНИЕ ТОВАРА" className='card_content-img'/>
           {
-            classname === 'xs' ? <CardContentXS/> :
-              classname === 's' ? <CardContentS/> :
-                classname === 'l' ? <CardContentL/> :
-                  classname === 'xl' ? <CardContentXL/> :
-                    classname === 'xxl' ? <CardContentXXl/> :
+            classname === 'xs' ? <CardContentXS title={title} address={address} price={price} date={date}/> :
+              classname === 's' ? <CardContentS title={title} address={address} price={price} date={date}/> :
+                classname === 'l' ? <CardContentL title={title} address={address} price={price} date={date}/> :
+                  classname === 'xl' ? <CardContentXL title={title} address={address} price={price} date={date}/> :
+                    classname === 'xxl' ? <CardContentXXl title={title} address={address} price={price} date={date}/> :
                       ''
           }
         </div>

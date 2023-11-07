@@ -9,7 +9,7 @@ export const fetchAllAds =
   })
 
 const initialState = {
-  Ads: {
+  ads: {
     items: [],
     status: 'loading'
   }
@@ -21,16 +21,16 @@ const AdsSlice = createSlice({
   reducers: {},
   extraReducers: {
     [fetchAllAds.pending]: (state) => {
-      state.Ads.items = []
-      state.Ads.status = 'loading'
+      state.ads.items = []
+      state.ads.status = 'loading'
     },
     [fetchAllAds.fulfilled]: (state, action) => {
-      state.Ads.items = action.payload
-      state.Ads.status = 'loaded'
+      state.ads.items = action.payload
+      state.ads.status = 'loaded'
     },
     [fetchAllAds.rejected]: (state) => {
-      state.Ads.items = []
-      state.Ads.status = 'error'
+      state.ads.items = []
+      state.ads.status = 'error'
     }
   }
 

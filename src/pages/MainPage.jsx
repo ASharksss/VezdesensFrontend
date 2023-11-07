@@ -7,17 +7,11 @@ import {fetchAllAds} from "../redux/slices/boardSlice";
 
 
 const MainPage = () => {
-  const dispatch = useDispatch()
-  const {ads} = useSelector(state => state.ads)
 
-  useEffect(() => {
-    console.log({ads})
-    dispatch(fetchAllAds())
-  }, [])
 
   return (
     <div className='container'>
-      <Board ads={ads}/>
+      <Board/>
     </div>
   );
 };
