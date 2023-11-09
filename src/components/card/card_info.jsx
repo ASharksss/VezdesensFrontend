@@ -6,7 +6,7 @@ import message from "../../asserts/icons/message.svg"
 import Rating from "../../ui/rating/rating";
 import {NavLink} from "react-router-dom";
 
-const CardInfo = ({price, sellerName, sellerCreated, address}) => {
+const CardInfo = ({userId, price, sellerName, sellerCreated, address}) => {
   return (
     <div className='card_info'>
       <div className="flex items-center space-between">
@@ -19,7 +19,7 @@ const CardInfo = ({price, sellerName, sellerCreated, address}) => {
       </div>
       <div>
         <div className='seller_info'>
-          <NavLink to={'/myProfile'}>
+          <NavLink to={`/myProfile/${userId}`}>
             <h2 className='seller_info-name'>{sellerName}</h2>
           </NavLink>
           <p className='seller_info-date'>{sellerCreated}</p>

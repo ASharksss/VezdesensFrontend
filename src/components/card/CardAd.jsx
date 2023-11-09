@@ -6,7 +6,7 @@ import CardInfo from "./card_info";
 import {useParams} from "react-router-dom";
 import axios from "axios";
 
-const CardAd = ({ad_name, ad_address}) => {
+const CardAd = () => {
 
   const [data, setData] = useState()
   const [isLoading, setIsLoading] = useState()
@@ -36,7 +36,9 @@ const CardAd = ({ad_name, ad_address}) => {
         <CardImgBlock ad_address={data.ad.address}/>
         <CardDescription card_number={`№ ${data.ad.id}`} card_time={data.ad.createdAt}
                          card_views={data.viewsCount} desription={data.ad.description}/>
-        <CardInfo price={data.ad.price} address={data.ad.address} sellerCreated={data.ad.user.createdAt} sellerName={data.ad.user.name}/>
+        <CardInfo price={data.ad.price} address={data.ad.address}
+                  sellerCreated={data.ad.user.createdAt} userId={data.ad.user.id}
+                  sellerName={data.ad.user.name}/>
       </div>
 
     </div>

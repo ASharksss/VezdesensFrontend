@@ -6,7 +6,7 @@ import trash from "../../../../asserts/icons/trash.svg";
 
 
 
-const MyAdActionsArchive = () => {
+const MyAdActionsArchive = ({dataUser}) => {
   return (
     <div className="myAd_actions">
       <Button classname={'activeAd'} children={'Актирвировать'}/>
@@ -17,7 +17,7 @@ const MyAdActionsArchive = () => {
 
       <div className="myAd_actions_archive">
         <div className="actions_row-first flex space-between semi_bold"><p className='myAd_actions-title'>Истек</p>
-          <p className='myAd_actions-value'>06.04.23</p></div>
+          <p className='myAd_actions-value'>{dataUser.ads.dateEndActive}</p></div>
         <div className="actions_row flex space-between semi_bold"><p className='myAd_actions-title'>Избранное</p><p
           className='myAd_actions-value'>1</p></div>
         <div className="actions_row flex space-between semi_bold"><p className='myAd_actions-title'>Сообщения</p><p

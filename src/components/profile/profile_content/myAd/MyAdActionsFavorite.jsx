@@ -7,7 +7,7 @@ import phone from "../../../../asserts/icons/phone.svg";
 import trash from "../../../../asserts/icons/trash.svg";
 
 
-const MyAdActionsFavorite = () => {
+const MyAdActionsFavorite = ({dataUser}) => {
   return (
     <div className="myAd_actions">
 

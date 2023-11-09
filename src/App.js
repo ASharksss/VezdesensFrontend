@@ -15,7 +15,7 @@ function App() {
         <Routes>
           <Route path={'/'} element={<MainPage/>}/>
           <Route path={'/card/:id'} element={<CardPage/>}/>
-          <Route path={'/myProfile'} element={<ProfilePage/>}/>
+          <Route path={'/myProfile/:id'} element={<ProfilePage/>}/>
           <Route path={'/myProfile/messages'} element={<Dialog/>}/>
         </Routes>
 
