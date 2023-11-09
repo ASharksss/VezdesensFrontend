@@ -1,28 +1,42 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 import './card.css'
 import CardImgBlock from "./CardImgBlock";
 import CardDescription from "./card_description";
 import CardInfo from "./card_info";
-import {useDispatch, useSelector} from "react-redux";
-import {fetchOneAd} from "../../redux/slices/adSlice";
+import {useParams} from "react-router-dom";
+import axios from "axios";
 
 const CardAd = ({ad_name, ad_address}) => {
 
-  const dispatch = useDispatch()
-  const {ad} = useSelector(state => state.ad)
+  const [data, setData] = useState()
+  const [isLoading, setIsLoading] = useState()
+  const {id} = useParams()
+  console.log(id)
 
   useEffect(() => {
-    dispatch(fetchOneAd)
+    axios.get(`http://localhost:5000/api/ad/getOneAd/${id}`).then(res => {
+      setData(res.data)
+      setIsLoading(true)
+    }).catch(err => {
+      console.warn(err)
+      alert('Ошибка получения объявления')
+    })
   }, [])
+
+  console.log(data)
+
+  if(!isLoading) {
+    return <div>Loading...</div>
+  }
 
   return (
     <div>
-      <h1 className='card_ad_name'>{ad_name}</h1>
+      <h1 className='card_ad_name'>{data.ad.title}</h1>
       <div className="flex">
-        <CardImgBlock ad_address={ad_address}/>
-        <CardDescription card_number={'№2571607180'} card_time={'сегодня в 13:04'}
-                         card_views={'1666'}/>
-        <CardInfo/>
+        <CardImgBlock ad_address={data.ad.address}/>
+        <CardDescription card_number={`№ ${data.ad.id}`} card_time={data.ad.createdAt}
+                         card_views={data.viewsCount} desription={data.ad.description}/>
+        <CardInfo price={data.ad.price} address={data.ad.address} sellerCreated={data.ad.user.createdAt} sellerName={data.ad.user.name}/>
       </div>
 
     </div>
