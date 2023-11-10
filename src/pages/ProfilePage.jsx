@@ -83,8 +83,8 @@ const ProfilePage = () => {
             <div className='profile_content'>
               {
                 choice === 'ads' ? <ProfileContentAd dataUser={dataUser}/> :
-                  choice === 'dialogs' ? <Messages/> :
-                    choice === 'favorites' ? <MyFavorite/> :
+                  choice === 'dialogs' ? <Messages dataUser={dataUser}/> :
+                    choice === 'favorites' ? <MyFavorite dataUser={dataUser}/> :
                       choice === 'help' ? 'help' : 'ничего не выбрано'
               }
             </div>

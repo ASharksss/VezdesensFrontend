@@ -1,7 +1,7 @@
 import React from 'react';
 import MyAd from "./myAd";
 
-const MyFavorite = () => {
+const MyFavorite = ({dataUser}) => {
   return (
     <div>
       <select className='favorite_filter'>
@@ -10,9 +10,7 @@ const MyFavorite = () => {
         <option>категория 3</option>
       </select>
       <div className="ads">
-        <MyAd typeAd={'favoriteAd'}/>
-        <MyAd typeAd={'favoriteAd'}/>
-        <MyAd typeAd={'favoriteAd'}/>
+        <MyAd typeAd={'favoriteAd'} dataUser={dataUser}/>
       </div>
     </div>
   );

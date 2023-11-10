@@ -9,3 +9,11 @@ export const group = (array, size) => {
   }
   return result;
 }
+
+export const formatDate = (date) => {
+  const d = new Date(date);
+  const year = d.getFullYear();
+  const month = String(d.getMonth() + 1).padStart(2, '0'); // добавляем ведущий ноль, если месяц < 10
+  const day = String(d.getDate()).padStart(2, '0'); // добавляем ведущий ноль, если день < 10
+  return `${day}/${month}/${year}`;
+}
