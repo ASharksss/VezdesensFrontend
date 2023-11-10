@@ -9,13 +9,12 @@ import CardContentXXl from "./card_content/card_content_XXL";
 import Favorite from "../../ui/buttons/favorite";
 
 
-
 const Card = ({classname, ad_image, title, address, date, price, id}) => {
   return (
     <div className={'card ' + classname}>
-      <NavLink to={`/card/${id}`} className='black'>
-        <div className="card_content">
-          <Favorite classname={'in_card'}/>
+      <div className="card_content">
+        <Favorite classname={'in_card'} id={id}/>
+        <NavLink to={`/card/${id}`} className='black'>
           <img src={ad_image} alt="НАЗВАНИЕ ТОВАРА" className='card_content-img'/>
           {
             classname === 'xs' ? <CardContentXS title={title} address={address} price={price} date={date}/> :
@@ -25,8 +24,8 @@ const Card = ({classname, ad_image, title, address, date, price, id}) => {
                     classname === 'xxl' ? <CardContentXXl title={title} address={address} price={price} date={date}/> :
                       ''
           }
-        </div>
-      </NavLink>
+        </NavLink>
+      </div>
     </div>
   );
 };

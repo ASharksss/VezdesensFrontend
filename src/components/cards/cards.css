@@ -13,6 +13,14 @@
 
 .card:hover .in_card {
     display: block;
+    z-index: 3;
+}
+
+.card:hover .in_card:hover>img {
+    content: url("http://localhost:5000/api/static/image/favoriteHover.png");
+}
+.card:hover .in_card.favorite>img {
+    content: url("http://localhost:5000/api/static/image/favoriteActive.png");
 }
 
 
