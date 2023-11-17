@@ -7,6 +7,9 @@ import geo from '../../asserts/icons/geo.svg'
 import profile from '../../asserts/icons/profile.svg'
 
 const Header = () => {
+
+	
+
 	return (
 		<div className='container'>
 			<div className="header_wrapper">
