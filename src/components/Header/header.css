@@ -1,0 +1,127 @@
+.header_wrapper, .header_content {
+    display: flex;
+    justify-content: center;
+    align-items: end;
+}
+
+.header_wrapper {
+    width: 1518px;
+    height: 160px;
+    box-shadow: 0px 10px 50px 0px #26262630;
+    margin-bottom: 50px;
+    padding: 30px 60px;
+    border-bottom-left-radius: 40px;
+    border-bottom-right-radius: 40px;
+}
+
+.header_logo {
+    margin-right: 40px;
+}
+
+.header_logo img {
+    min-width: 136px;
+    min-height: 123px;
+}
+
+.header_content-main {
+    width: 748px;
+    margin-right: 20px;
+    margin-left: 20px;
+
+}
+
+.header_content-ads {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 30px;
+    font-size: 14px;
+}
+
+.create_ad-btn {
+    width: 182px;
+    height: 38px;
+    padding: 9px 22px;
+    background-color: #161616;
+    color: white;
+    border-radius: 10px;
+}
+
+.create_ad-btn:hover {
+    background-color: #404040;
+}
+
+.header_content-search {
+    position: relative;
+    width: 748px;
+    height: 54px;
+    background-color: #ECECEC;
+    border-radius: 10px;
+}
+
+.search-input {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 748px;
+    height: 54px;
+    padding: 16px 0 16px 40px;
+}
+
+.search-btn {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 93px;
+    height: 54px;
+    background-color: #161616;
+    border-radius: 10px;
+}
+
+.search-btn:hover {
+    background-color: #404040;
+}
+
+.categories-btn {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 153px;
+    height: 54px;
+    border-radius: 10px;
+    color: white;
+    background-color: #161616;
+    padding: 16px 20px;
+    font-size: 16px;
+    transition: .25s;
+}
+
+.categories-btn:hover {
+    background-color: #404040;
+}
+
+.categories_btn-text {
+    margin-left: 11px;
+}
+
+.header_content-geo {
+    display: flex;
+    align-items: center;
+}
+
+
+.header_geo-name {
+    margin-left: 12px;
+    font-size: 16px;
+}
+
+.header_profile {
+    display: flex;
+    align-items: center;
+    margin-left: 100px;
+    font-size: 16px;
+    align-self: center;
+}
+
+.header_profile span {
+    margin-left: 12px;
+}

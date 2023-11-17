@@ -4,24 +4,24 @@ import MainPage from "./pages/MainPage";
 import {BrowserRouter, Route, Routes} from "react-router-dom";
 import CardPage from "./pages/CardPage";
 import ProfilePage from "./pages/ProfilePage";
-import Messages from "./components/profile/profile_content/messages/messages";
-import Dialog from "./components/profile/profile_content/messages/Dialog";
-
+import Layout from "./Layout";
+import CatalogBoardPage from "./pages/CatalogBoardPage";
 
 function App() {
   return (
     <BrowserRouter>
       <div className="App">
         <Routes>
-          <Route path={'/'} element={<MainPage/>}/>
-          <Route path={'/card/:id'} element={<CardPage/>}/>
-          <Route path={'/myProfile/:id'} element={<ProfilePage/>}/>
-          <Route path={'/myProfile/messages'} element={<Dialog/>}/>
+            <Route path={'/'} element={<Layout/>}>
+                <Route path={'/'} element={<MainPage/>}/>
+                <Route path={'/category'} element={<CatalogBoardPage/>}/>
+                <Route path={'/card/:id'} element={<CardPage/>}/>
+                <Route path={'/myProfile/:id'} element={<ProfilePage/>}/>
+            </Route>
+
         </Routes>
 
       </div>
-
-
     </BrowserRouter>
 
   );

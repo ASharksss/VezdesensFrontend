@@ -13,14 +13,6 @@
 
 .card:hover .in_card {
     display: block;
-    z-index: 3;
-}
-
-.card:hover .in_card:hover>img {
-    content: url("http://localhost:5000/api/static/image/favoriteHover.png");
-}
-.card:hover .in_card.favorite>img {
-    content: url("http://localhost:5000/api/static/image/favoriteActive.png");
 }
 
 
@@ -204,6 +196,49 @@
 }
 
 
+.card_service {
+    display: flex;
+    width: 1132px;
+    height: 280px;
+    padding: 20px;
+    border-radius: 10px;
+    transition: .25s;
+    cursor: pointer;
+}
+
+.card_service:hover {
+    box-shadow: 0px 6px 40px 0px #26262638;
+}
+
+
+.card_service-info {
+    margin-left: 35px;
+}
+
+.card_service-title {
+    font-size: 28px;
+    font-family: OpenSansBold;
+    margin-bottom: 20px;
+}
+
+.card_service-wage {
+    font-size: 24px;
+    font-family: OpenSansSemiBold;
+    margin-bottom: 20px;
+}
+
+.card_service-description {
+    width: 473px;
+    height: 135px;
+    font-size: 14px;
+    color: #838690;
+}
+
+.card_service-btns {
+    display: flex;
+    margin-left: 37px;
+    align-self: end;
+}
 
 
 
