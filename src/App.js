@@ -1,5 +1,6 @@
 import './App.css';
 import './reset.css'
+import axios from "axios";
 import MainPage from "./pages/MainPage";
 import {BrowserRouter, Route, Routes} from "react-router-dom";
 import CardPage from "./pages/CardPage";
@@ -9,6 +10,8 @@ import CatalogBoardPage from "./pages/CatalogBoardPage";
 import Auth from "./pages/Auth";
 import SignIn from "./pages/SignIn.";
 import CreateAdPage from "./pages/CreateAdPage";
+
+axios.defaults.baseURL = 'http://localhost:5000/';
 
 function App() {
   return (

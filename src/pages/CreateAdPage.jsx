@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import CreateAdItem from "../components/createAdItem/createAdItem";
 import photoPremium from "../asserts/icons/upload_premium.svg"
 import photoStandartPlus from "../asserts/icons/photoStandartPlus.svg"
@@ -7,10 +7,21 @@ import UploadPhotoPremium from "../components/uploadPhoto/uploadPhotoPremium";
 import UploadPhotoVip from "../components/uploadPhoto/uploadPhotoVip";
 import UploadPhotoStandartPlus from "../components/uploadPhoto/uploadPhotoStandartPlus";
 import UploadPhotoStandart from "../components/uploadPhoto/uploadPhotoStandart";
+import {useDispatch, useSelector} from "react-redux";
+import {fetchCategory, fetchObjects, fetchSubCategories} from "../redux/slices/adSlice";
 
 const CreateAdPage = () => {
 
 	const [typeAd, setTypeAd] = useState()
+
+	const dispatch = useDispatch()
+
+	const {categories} = useSelector(state => state.categories)
+
+	useEffect(() => {
+		dispatch(fetchCategory())
+	}, [])
+
 	console.log(typeAd)
 	return (
 		<div>
@@ -20,20 +31,31 @@ const CreateAdPage = () => {
 					<div className="create_ad_wrapper">
 						<div className="create_ad-category">
 							<h2 className='create_ad-category-title'>Категория</h2>
-							<select className='create_ad-select' name="" id="">
-								<option>Выберите значение</option>
-								<option>1</option>
-								<option>2</option>
+
+							<select className='create_ad-select' onChange={event => dispatch(fetchSubCategories(event.target.value))}>
+								<option hidden>Выберите значение</option>
+								{
+									categories.items.map((item, index) => (
+										<option key={'category' + index} value={item.id}>{item.name}</option>
+									))
+								}
 							</select>
-							<select className='create_ad-select' name="" id="">
-								<option>Выберите значение</option>
-								<option>1</option>
-								<option>2</option>
+							<select className='create_ad-select' onChange={event => dispatch(fetchObjects(event.target.value))}>
+								<option hidden>Выберите значение</option>
+								{
+									categories.subCategories.items.map((item, index) => (
+										<option key={'subCategory' + index} value={item.id}>{item.name}</option>
+									))
+								}
 							</select>
-							<select className='create_ad-select' name="" id="">
-								<option>Выберите значение</option>
-								<option>1</option>
-								<option>2</option>
+							<select className='create_ad-select'>
+								<option hidden>Выберите значение</option>
+								{
+									categories.subCategories.objects.items.map((item, index) => (
+										<option key={'subCategory' + index} value={item.id}>{item.name}</option>
+									))
+								}
+
 							</select>
 						</div>
 
@@ -46,8 +68,8 @@ const CreateAdPage = () => {
 
 							<div>
 								<span className='create_ad-name'>Размер для баннера "Premium"</span>
-								<div className={`create_ad_block premium ${typeAd === 'premium' ? 'checked_type_ad' : '' }`}
-								onClick={() => setTypeAd('premium')}
+								<div className={`create_ad_block premium ${typeAd === 'premium' ? 'checked_type_ad' : ''}`}
+										 onClick={() => setTypeAd('premium')}
 								>
 									<img src={photoPremium} alt=""/>
 								</div>
@@ -56,8 +78,8 @@ const CreateAdPage = () => {
 							<div className="flex end mt-50">
 								<div className='mr-50'>
 									<span className='create_ad-name'>Размер для баннера "Vip"</span>
-									<div className={`create_ad_block vip ${typeAd === 'vip' ? 'checked_type_ad' : '' }`}
-									onClick={() => setTypeAd('vip')}
+									<div className={`create_ad_block vip ${typeAd === 'vip' ? 'checked_type_ad' : ''}`}
+											 onClick={() => setTypeAd('vip')}
 									>
 										<img src={photoPremium} alt=""/>
 									</div>
@@ -65,16 +87,16 @@ const CreateAdPage = () => {
 
 								<div className='mr-58'>
 									<span className='create_ad-name '>Размер "Стандарт+"</span>
-									<div className={`create_ad_block standart_plus ${typeAd === 'standartPlus' ? 'checked_type_ad' : '' }`}
-									onClick={() => setTypeAd('standartPlus')}
+									<div className={`create_ad_block standart_plus ${typeAd === 'standartPlus' ? 'checked_type_ad' : ''}`}
+											 onClick={() => setTypeAd('standartPlus')}
 									>
 										<img src={photoStandartPlus} alt=""/>
 									</div>
 								</div>
 								<div>
 									<span className='create_ad-name'>Размер "Стандарт"</span>
-									<div className={`create_ad_block standart ${typeAd === 'standart' ? 'checked_type_ad' : '' }`}
-									onClick={() => setTypeAd('standart')}
+									<div className={`create_ad_block standart ${typeAd === 'standart' ? 'checked_type_ad' : ''}`}
+											 onClick={() => setTypeAd('standart')}
 									>
 										<img src={photoStandart} alt=""/>
 									</div>
@@ -95,7 +117,6 @@ const CreateAdPage = () => {
 
 
 						</div>
-
 					</div>
 				</div>
 			</div>
