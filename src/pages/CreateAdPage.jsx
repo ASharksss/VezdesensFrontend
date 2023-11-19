@@ -8,10 +8,11 @@ import UploadPhotoVip from "../components/uploadPhoto/uploadPhotoVip";
 import UploadPhotoStandartPlus from "../components/uploadPhoto/uploadPhotoStandartPlus";
 import UploadPhotoStandart from "../components/uploadPhoto/uploadPhotoStandart";
 import {useDispatch, useSelector} from "react-redux";
-import {fetchCategory, fetchCharacterObjects, fetchObjects, fetchSubCategories} from "../redux/slices/adSlice";
+import {fetchCharacterObjects} from "../redux/slices/adSlice";
 import EnterInput from "../ui/characteristicInputs/enterInput";
 import SelectInput from "../ui/characteristicInputs/selectInput";
 import CheckboxInput from "../ui/characteristicInputs/checkboxInputs";
+import {fetchCategory, fetchObjects, fetchSubCategories} from "../redux/slices/categorySlice";
 
 const CreateAdPage = () => {
 

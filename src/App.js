@@ -20,6 +20,7 @@ axios.defaults.baseURL = 'http://localhost:5000/';
 function App() {
     const dispatch = useDispatch()
     const {isAuth} = useSelector(state => state.user)
+
     useEffect(() => {
         function checkAuth() {
             const checkSession = getCookie('session')
@@ -29,27 +30,28 @@ function App() {
         }
         return checkAuth()
     }, [])
-  return (
-    <BrowserRouter>
-      <div className="App">
-        <Routes>
-            {!isAuth &&
-                <>
-                    <Route path={'/signin'} element={<SignIn/>}/>
-                    <Route path={'/signup'} element={<SignUp/>}/>
-                </>}
-            <Route path={'/'} element={<Layout/>}>
-                <Route path={'/'} element={<MainPage/>}/>
-                <Route path={'/category'} element={<CatalogBoardPage/>}/>
-                <Route path={'/card/:id'} element={<CardPage/>}/>
-                <Route path={'/profile/:id'} element={<ProfilePage/>}/>
-                <Route path={'/createAd'} element={<CreateAdPage/>}/>
-            </Route>
-        </Routes>
-      </div>
-    </BrowserRouter>
 
-  );
+    return (
+        <BrowserRouter>
+            <div className="App">
+                <Routes>
+                    {!isAuth &&
+                        <>
+                            <Route path={'/signin'} element={<SignIn/>}/>
+                            <Route path={'/signup'} element={<SignUp/>}/>
+                        </>}
+                    <Route path={'/'} element={<Layout/>}>
+                        <Route path={'/'} element={<MainPage/>}/>
+                        <Route path={'/category'} element={<CatalogBoardPage/>}/>
+                        <Route path={'/card/:id'} element={<CardPage/>}/>
+                        <Route path={'/profile/:id'} element={<ProfilePage/>}/>
+                        <Route path={'/createAd'} element={<CreateAdPage/>}/>
+                    </Route>
+                </Routes>
+            </div>
+        </BrowserRouter>
+
+    );
 }
 
 export default App;

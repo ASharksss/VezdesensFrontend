@@ -1,8 +1,9 @@
 import {configureStore} from "@reduxjs/toolkit";
 import {AdsReducer} from "./slices/boardSlice";
 import {ChatsReducer} from "./slices/chatSlice";
-import {AdReducer, CategoriesReducer} from "./slices/adSlice";
+import {AdReducer} from "./slices/adSlice";
 import {UserReducer} from "./slices/userSlice";
+import {CategoriesReducer} from "./slices/categorySlice";
 
 
 export const store = configureStore({

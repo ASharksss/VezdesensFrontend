@@ -41,7 +41,8 @@ const SignIn = () => {
                 password: password
             }
             dispatch(fetchLogin(data)).then(() => {
-                navigate('/')
+                const pathname = localStorage.getItem('last_path')
+                navigate(pathname)
             })
         }
     }
