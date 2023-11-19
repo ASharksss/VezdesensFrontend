@@ -1,10 +1,17 @@
-import React from 'react';
+import React, {useState} from 'react';
 import CreateAdItem from "../components/createAdItem/createAdItem";
 import photoPremium from "../asserts/icons/upload_premium.svg"
+import photoStandartPlus from "../asserts/icons/photoStandartPlus.svg"
+import photoStandart from "../asserts/icons/photoStandart.svg"
+import UploadPhotoPremium from "../components/uploadPhoto/uploadPhotoPremium";
+import UploadPhotoVip from "../components/uploadPhoto/uploadPhotoVip";
+import UploadPhotoStandartPlus from "../components/uploadPhoto/uploadPhotoStandartPlus";
+import UploadPhotoStandart from "../components/uploadPhoto/uploadPhotoStandart";
 
 const CreateAdPage = () => {
 
-
+	const [typeAd, setTypeAd] = useState()
+	console.log(typeAd)
 	return (
 		<div>
 			<div className="container">
@@ -29,47 +36,68 @@ const CreateAdPage = () => {
 								<option>2</option>
 							</select>
 						</div>
+
 						<div className="create_ad-size">
 							<h2 className='create_ad-size-title'>Размер объявления</h2>
-							<CreateAdItem />
+							<CreateAdItem setTypeAd={setTypeAd} typeAd={typeAd}/>
 						</div>
+
 						<div className="create_ad-blocks">
-							<div className="create_ad-block premium">
-								<span>Фото для баннера "Premium"</span>
-								<input type="file" id="file_premium" className='input_premium'/>
-								<label htmlFor="file_premium" className='label_premium'>
+
+							<div>
+								<span className='create_ad-name'>Размер для баннера "Premium"</span>
+								<div className={`create_ad_block premium ${typeAd === 'premium' ? 'checked_type_ad' : '' }`}
+								onClick={() => setTypeAd('premium')}
+								>
 									<img src={photoPremium} alt=""/>
-								</label>
+								</div>
 							</div>
 
-							<div className="flex mt-50 end">
-								<div className="create_ad-block vip">
-									<span>Фото для баннера "VIP"</span>
-									<input type="file" id="file_vip" className='input_premium'/>
-									<label htmlFor="file_vip" className='label_vip'>
+							<div className="flex end mt-50">
+								<div className='mr-50'>
+									<span className='create_ad-name'>Размер для баннера "Vip"</span>
+									<div className={`create_ad_block vip ${typeAd === 'vip' ? 'checked_type_ad' : '' }`}
+									onClick={() => setTypeAd('vip')}
+									>
 										<img src={photoPremium} alt=""/>
-									</label>
+									</div>
 								</div>
-								<div className="create_ad-block standart_plus">
-									<span>Фото "Стандарт+"</span>
-									<input type="file" id="file_standart_plus" className='input_premium'/>
-									<label htmlFor="file_standart_plus" className='label_standart_plus'>
-										<img src={photoPremium} alt=""/>
-									</label>
+
+								<div className='mr-58'>
+									<span className='create_ad-name '>Размер "Стандарт+"</span>
+									<div className={`create_ad_block standart_plus ${typeAd === 'standartPlus' ? 'checked_type_ad' : '' }`}
+									onClick={() => setTypeAd('standartPlus')}
+									>
+										<img src={photoStandartPlus} alt=""/>
+									</div>
 								</div>
-								<div className="create_ad-block standart">
-									<span>Фото "Стандарт+"</span>
-									<input type="file" id="file_standart" className='input_premium'/>
-									<label htmlFor="file_standart" className='label_standart'>
-										<img src={photoPremium} alt=""/>
-									</label>
+								<div>
+									<span className='create_ad-name'>Размер "Стандарт"</span>
+									<div className={`create_ad_block standart ${typeAd === 'standart' ? 'checked_type_ad' : '' }`}
+									onClick={() => setTypeAd('standart')}
+									>
+										<img src={photoStandart} alt=""/>
+									</div>
 								</div>
 							</div>
+						</div>
+
+
+						<div className="upload_photo">
+							<h1 className='upload_photo-h1'>Загрузка фото</h1>
+
+							{
+								typeAd === 'premium' ? <UploadPhotoPremium/> :
+									typeAd === 'vip' ? <UploadPhotoVip/> :
+										typeAd === 'standartPlus' ? <UploadPhotoStandartPlus/> :
+											typeAd === 'standart' ? <UploadPhotoStandart/> : ''
+							}
+
 
 						</div>
+
 					</div>
 				</div>
-
 			</div>
 		</div>
 	);

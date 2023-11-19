@@ -27,6 +27,15 @@
   margin-top: 50px;
 }
 
+.mr-50 {
+  margin-right: 50px;
+}
+
+.mr-58 {
+  margin-right: 58px;
+}
+
+
 .bold {
   font-family: OpenSansBold;
 }
