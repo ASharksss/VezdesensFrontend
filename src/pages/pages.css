@@ -155,9 +155,20 @@
     border: 1px solid #ffcb04;
 }
 
+.upload_photo {
+    margin-bottom: 120px;
+}
+
 .upload_photo-h1 {
     font-size: 32px;
     font-family: OpenSansBold;
     margin-bottom: 40px;
     margin-top: 120px;
+}
+
+.character-title {
+    font-size: 32px;
+    font-family: OpenSansBold;
+    margin-bottom: 40px;
+    margin-top: 60px;
 }

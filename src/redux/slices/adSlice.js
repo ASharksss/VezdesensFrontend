@@ -34,6 +34,14 @@ export const fetchObjects =
     }
   )
 
+export const fetchCharacterObjects =
+  createAsyncThunk('getCharacteristicObject',
+    async (objectId) => {
+      const {data} = await axios.get(`api/characteristic/getCharacteristicObject?objectId=${objectId}`)
+      return data
+    }
+  )
+
 const initialState = {
   ad: {
     items: [],
@@ -50,6 +58,10 @@ const initialState = {
         status: 'loading'
       }
     }
+  },
+  character: {
+    items: [],
+    status: 'loading'
   }
 }
 
@@ -70,9 +82,23 @@ const AdSlice = createSlice({
     [fetchOneAd.rejected]: (state) => {
       state.ad.items = []
       state.ad.status = 'error'
+    },
+    [fetchCharacterObjects.pending]: (state) => {
+      state.character.items = []
+      state.character.status = 'loading'
+    },
+    [fetchCharacterObjects.fulfilled]: (state, action) => {
+      state.character.items = action.payload
+      state.character.status = 'loaded'
+    },
+    [fetchCharacterObjects.rejected]: (state) => {
+      state.character.items = []
+      state.character.status = 'error'
     }
   }
 })
+
+
 
 const CategoriesSlice = createSlice({
   name: 'categories',
