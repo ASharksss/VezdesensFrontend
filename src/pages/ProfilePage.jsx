@@ -35,10 +35,8 @@ const ProfilePage = () => {
   }
 
 
-
-  const changeClass = (event) => {
-    event.currentTarget.className += ' active'
-  }
+  const elements = [{name: "Мои объявления", choice: 'ads'}, {name: "Сообщения", choice: "dialogs"},
+    {name: "Избранное", choice: "favorites"}, {name: "Помощь", choice: "help"}]
 
   return (
     <div className='container'>
@@ -53,30 +51,12 @@ const ProfilePage = () => {
           </div>
           <div className='profile_wrapper'>
             <div className="profile_links">
-              <button className='profile_link semi_bold ' onClick={(event) => {
-                setChoice('ads')
-                changeClass(event)
-              }}>
-                Мои объявления
-              </button>
-              <button className='profile_link semi_bold ' onClick={(event) => {
-                setChoice('dialogs')
-                changeClass(event)
-              }}>
-                Сообщения
-              </button>
-              <button className='profile_link semi_bold ' onClick={(event) => {
-                setChoice('favorites')
-                changeClass(event)
-              }}>
-                Избранное
-              </button>
-              <button className={'profile_link semi_bold'} onClick={(event) => {
-                setChoice('help')
-                changeClass(event)
-              }}>
-                Помощь
-              </button>
+              {elements.map((item, index) => (
+                  <button key={index} className={choice === item.choice ? 'profile_link semi_bold active' : 'profile_link semi_bold'}
+                          onClick={() => {setChoice(item.choice)}}>
+                    {item.name}
+                  </button>
+              ))}
             </div>
 
 

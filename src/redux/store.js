@@ -2,6 +2,7 @@ import {configureStore} from "@reduxjs/toolkit";
 import {AdsReducer} from "./slices/boardSlice";
 import {ChatsReducer} from "./slices/chatSlice";
 import {AdReducer, CategoriesReducer} from "./slices/adSlice";
+import {UserReducer} from "./slices/userSlice";
 
 
 export const store = configureStore({
@@ -9,7 +10,8 @@ export const store = configureStore({
     ads: AdsReducer,
     ad: AdReducer,
     chats: ChatsReducer,
-    categories: CategoriesReducer
+    categories: CategoriesReducer,
+    user: UserReducer
   }
 })
 

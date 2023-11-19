@@ -1,9 +1,9 @@
 import React from 'react';
 import './pages.css'
-import eyeClose from "../asserts/icons/eye.svg";
+import eyeClose from "../asserts/icons/eyeClose.svg";
 import {NavLink} from "react-router-dom";
 
-const SignIn = () => {
+const SignUp = () => {
 	return (
 		<div className='auth'>
 			<div className="auth_form">
@@ -37,4 +37,4 @@ const SignIn = () => {
 	);
 };
 
-export default SignIn;
+export default SignUp;

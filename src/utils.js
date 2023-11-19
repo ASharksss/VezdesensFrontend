@@ -17,3 +17,9 @@ export const formatDate = (date) => {
   const day = String(d.getDate()).padStart(2, '0'); // добавляем ведущий ноль, если день < 10
   return `${day}/${month}/${year}`;
 }
+
+export const getCookie = (name) => {
+  const value = `; ${document.cookie}`;
+  const parts = value.split(`; ${name}=`);
+  if (parts.length === 2) return parts.pop().split(';').shift();
+}
