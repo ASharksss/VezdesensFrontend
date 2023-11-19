@@ -172,3 +172,60 @@
     margin-bottom: 40px;
     margin-top: 60px;
 }
+
+.create_ad-descr {
+    margin-top: 120px;
+}
+
+.create_ad-descr-title {
+    font-size: 32px;
+    font-family: OpenSansBold;
+    margin-bottom: 40px;
+}
+
+.create_ad_descr-text {
+    width: 811px;
+    height: 193px;
+    background-color: #ECECEC;
+    border-radius: 10px;
+    padding: 25px;
+}
+
+.create_ad_address {
+    width: 524px;
+    height: 47px;
+    background-color: #ECECEC;
+    padding: 15px;
+    border-radius: 10px;
+}
+
+.create_ad_label {
+    font-size: 18px;
+    font-family: OpenSansBold;
+    margin-right: 205px;
+}
+
+.create_ad_phone {
+    width: 237px;
+    height: 47px;
+    background-color: #ECECEC;
+    padding: 15px;
+    border-radius: 10px;;
+
+}
+
+.create_ad_btns {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 100px;
+}
+
+.create_ad_btn {
+    width: 192px;
+    height: 54px;
+    background-color: black;
+    color: white;
+    border-radius: 10px;
+}
+

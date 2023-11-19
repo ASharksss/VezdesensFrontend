@@ -35,6 +35,9 @@
   margin-right: 58px;
 }
 
+.mb-40 {
+  margin-bottom: 40px;
+}
 
 .bold {
   font-family: OpenSansBold;
@@ -68,7 +71,6 @@ body {
   flex-direction: column;
   width: 1518px;
   margin: 0 auto;
-  border: 1px solid black;
 }
 
 .grid {

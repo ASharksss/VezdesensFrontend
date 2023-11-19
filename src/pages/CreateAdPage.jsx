@@ -134,7 +134,31 @@ const CreateAdPage = () => {
 
 								<h1 className='character-title'>Дополнительные характеристики</h1>
 
+
 							</div>}
+
+						<div className="create_ad-descr">
+							<h1 className='create_ad-descr-title'>Описание</h1>
+							<textarea className='create_ad_descr-text' placeholder='Опишите подробнее товар'></textarea>
+						</div>
+
+						<div className="create_ad-descr">
+							<h1 className='create_ad-descr-title'>Местоположение</h1>
+							<input type="text" placeholder='Введите адрес' className='create_ad_address'/>
+						</div>
+
+						<div className="create_ad-descr">
+							<h1 className='create_ad-descr-title'>Контакты</h1>
+							<div className="flex">
+								<label htmlFor="" className='create_ad_label'>Телефон</label>
+								<input type="text" placeholder='Введите номер' className='create_ad_phone'/>
+							</div>
+						</div>
+
+						<div className="create_ad_btns">
+							<button className='create_ad_btn'>Разместить</button>
+						</div>
+
 
 					</div>
 				</div>

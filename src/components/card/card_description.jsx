@@ -1,7 +1,7 @@
 import React from 'react';
 import Button from "../../ui/buttons/button";
 
-const CardDescription = ({card_number, card_time, card_views, desription}) => {
+const CardDescription = ({card_number, card_time, card_views, desription, setActiveModal, setTypeModal}) => {
     return (
         <div className='card_description'>
             <p className='number_time_views'>{card_number + ' · ' + card_time + ' · ' + card_views + ' просмотров'}</p>
@@ -9,7 +9,10 @@ const CardDescription = ({card_number, card_time, card_views, desription}) => {
             <p className='card_description-text'>
               {desription}
             </p>
-            <div className="flex jy-end">
+            <div className="flex jy-end" onClick={() => {
+              setActiveModal(true)
+              setTypeModal('description')
+            }}>
             <Button classname={'stroke'} children={'Показать еще'}/>
 
             </div>
