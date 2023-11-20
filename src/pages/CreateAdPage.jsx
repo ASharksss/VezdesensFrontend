@@ -13,21 +13,64 @@ import EnterInput from "../ui/characteristicInputs/enterInput";
 import SelectInput from "../ui/characteristicInputs/selectInput";
 import CheckboxInput from "../ui/characteristicInputs/checkboxInputs";
 import {fetchCategory, fetchObjects, fetchSubCategories} from "../redux/slices/categorySlice";
+import axios from "axios";
+import {useNavigate} from "react-router-dom";
 
 const CreateAdPage = () => {
 
-	const [typeAd, setTypeAd] = useState('')
+	const navigate = useNavigate()
+	const [loading, setLoading] = useState(false)
+	const [typeAd, setTypeAd] = useState('standart')
+	const [description, setDescription] = useState('')
+	const [geolocation, setGeolocation] = useState('')
+	const [title, setTitle] = useState('')
+	const [phone, setPhone] = useState('')
+	const [price, setPrice] = useState('')
+	const [enterValue, setEnterValue] = useState([])
+	const [selectValue, setSelectValue] = useState([])
 
 	const dispatch = useDispatch()
 
 	const {categories} = useSelector(state => state.categories)
 	const {character} = useSelector(state => state.ad)
 
+	const handleSubmit = async () => {
+		setLoading(true)
+		const date = new Date()
+		const data = {
+			title,
+			description,
+			address: geolocation,
+			price: price,
+			typeAd,
+			objectId: character.items[0].objectId,
+			bookingDateStart: date,
+			bookingDateEnd: new Date(date.setDate(date.getDate() + 30)),
+			characteristicsInput: enterValue,
+			characteristicsSelect: selectValue
+		}
+		await axios.post('api/ad/createAd', data)
+			.then((res) => {
+				console.log(res.data)
+				setLoading(false)
+				navigate(`/card/${res.data.ad.id}`)
+			})
+			.catch(err => {
+				window.alert('Ooops')
+				console.log(err)
+				setLoading(false)
+			})
+	}
+
 	const isLoadingCharacter = character.status === 'loading'
 
 	useEffect(() => {
 		dispatch(fetchCategory())
 	}, [])
+
+	if (loading) {
+		return <p>Loading...</p>
+	}
 
 	return (
 		<div>
@@ -39,23 +82,23 @@ const CreateAdPage = () => {
 							<h2 className='create_ad-category-title'>Категория</h2>
 
 							<select className='create_ad-select' onChange={event => dispatch(fetchSubCategories(event.target.value))}>
-								<option hidden>Выберите значение</option>
+								<option hidden>Выберите категорию</option>
 								{
 									categories.items.map((item, index) => (
 										<option key={'category' + index} value={item.id}>{item.name}</option>
 									))
 								}
 							</select>
-							<select className='create_ad-select'
+							<select className='create_ad-select' disabled={categories.subCategories.status === 'loading'}
 											onChange={event => dispatch(fetchObjects(event.target.value))}>
-								<option hidden>Выберите значение</option>
+								<option hidden>Выберите подкатегорию</option>
 								{
 									categories.subCategories.items.map((item, index) => (
 										<option key={'subCategory' + index} value={item.id}>{item.name}</option>
 									))
 								}
 							</select>
-							<select className='create_ad-select'
+							<select className='create_ad-select' disabled={categories.subCategories.objects.status === 'loading'}
 											onChange={event => dispatch(fetchCharacterObjects(event.target.value))}>
 								<option hidden>Выберите значение</option>
 								{
@@ -63,7 +106,6 @@ const CreateAdPage = () => {
 										<option key={'object' + index} value={item.id}>{item.name}</option>
 									))
 								}
-
 							</select>
 						</div>
 
@@ -119,16 +161,25 @@ const CreateAdPage = () => {
 							<div className="create_ad-character">
 
 								<h1 className='character-title'>Обязательные характеристики</h1>
-
+								<div className='flex column'>
+									<label className='enter_input-title'>Заголовок</label>
+									<input value={title} onChange={event => setTitle(event.target.value)}
+												 type="text" className='enter_input-input'/>
+								</div>
+								<div className='flex column'>
+									<label className='enter_input-title'>Цена</label>
+									<input value={price} onChange={event => setPrice(event.target.value)}
+												 type="text" className='enter_input-input'/>
+								</div>
 								{character.items.length > 0 &&
 									character.items.map((item, index) => (
 										<>
 											{item['characteristic']['typeCharacteristic']['name'] === 'enter' &&
-												<EnterInput key={'enter' + index} data={item['characteristic']}/>}
+												<EnterInput setEnterValue={setEnterValue} key={'enter' + index} data={item['characteristic']} id={item['characteristicId']}/>}
 											{item['characteristic']['typeCharacteristic']['name'] === 'select' &&
-												<SelectInput key={'select' + index} data={item['characteristic']}/>}
+												<SelectInput setSelectValue={setSelectValue} key={'select' + index} data={item['characteristic']} id={item['characteristicId']}/>}
 											{item['characteristic']['typeCharacteristic']['name'] === 'checkbox' &&
-												<CheckboxInput key={'checkbox' + index} data={item['characteristic']}/>}
+												<CheckboxInput setCheckboxValue={setSelectValue} key={'checkbox' + index} data={item['characteristic']} id={item['characteristicId']}/>}
 										</>
 									))
 								}
@@ -140,24 +191,27 @@ const CreateAdPage = () => {
 
 						<div className="create_ad-descr">
 							<h1 className='create_ad-descr-title'>Описание</h1>
-							<textarea className='create_ad_descr-text' placeholder='Опишите подробнее товар'></textarea>
+							<textarea onChange={event => setDescription(event.target.value)}
+												className='create_ad_descr-text' placeholder='Опишите подробнее товар'></textarea>
 						</div>
 
 						<div className="create_ad-descr">
 							<h1 className='create_ad-descr-title'>Местоположение</h1>
-							<input type="text" placeholder='Введите адрес' className='create_ad_address'/>
+							<input type="text" onChange={event => setGeolocation(event.target.value)}
+										 placeholder='Введите адрес' className='create_ad_address'/>
 						</div>
 
 						<div className="create_ad-descr">
 							<h1 className='create_ad-descr-title'>Контакты</h1>
 							<div className="flex">
 								<label htmlFor="" className='create_ad_label'>Телефон</label>
-								<input type="text" placeholder='Введите номер' className='create_ad_phone'/>
+								<input type="text" onChange={event => setPhone(event.target.value)}
+											 placeholder='Введите номер' className='create_ad_phone'/>
 							</div>
 						</div>
 
 						<div className="create_ad_btns">
-							<button className='create_ad_btn'>Разместить</button>
+							<button className='create_ad_btn' onClick={() => handleSubmit()}>Разместить</button>
 						</div>
 
 

@@ -33,7 +33,7 @@ const CardInfo = ({userId, price, sellerName, sellerCreated, address, activeModa
 					setActiveModal(true)
 					setTypeModal('rating')
 				}}>
-					<Rating/>
+					<Rating type='card'/>
 				</div>
 				<div className="address">
 					<h2 className='address_title'>Адрес</h2>

@@ -9,11 +9,11 @@ import CardContentXXl from "./card_content/card_content_XXL";
 import Favorite from "../../ui/buttons/favorite";
 
 
-const Card = ({classname, ad_image, title, address, date, price, id}) => {
+const Card = ({classname, ad_image, title, address, date, price, id, favorite}) => {
   return (
     <div className={'card ' + classname}>
       <div className="card_content">
-        <Favorite classname={'in_card'} id={id}/>
+        <Favorite classname={'in_card'} id={id} favorite={favorite}/>
         <NavLink to={`/card/${id}`} className='black'>
           <img src={ad_image} alt="НАЗВАНИЕ ТОВАРА" className='card_content-img'/>
           {

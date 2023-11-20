@@ -5,7 +5,7 @@ const ArchiveAd = ({typeAd, dataUser}) => {
   return (
     <div>
       {dataUser.ads.length === 0 ? <p>Ничего нет</p>
-        : <MyAd typeAd={'archiveAd'} dataUser={dataUser}/>}
+        : dataUser.ads.map((item, index) => ( <MyAd key={'archive' + index} typeAd={'archiveAd'} item={item.statusAdId === 4 && item}/>))}
     </div>
   );
 };

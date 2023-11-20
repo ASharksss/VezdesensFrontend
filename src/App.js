@@ -16,6 +16,7 @@ import {getCookie} from "./utils";
 import {fetchAuth} from "./redux/slices/userSlice";
 
 axios.defaults.baseURL = 'http://localhost:5000/';
+axios.defaults.withCredentials = true
 
 function App() {
     const dispatch = useDispatch()

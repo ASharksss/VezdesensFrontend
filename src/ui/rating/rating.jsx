@@ -1,12 +1,23 @@
 import React from 'react';
+import StarComponent from "./starComponent";
 
-const Rating = () => {
-  return (
-    <div className='flex' >
-      Рейтинг
-      <p className='count_grade'>31 отзыв</p>
-    </div>
-  );
+
+const Rating = ({data=[],type='user'}) => {
+	let average
+	if (type === 'user') {
+		let ratings = data.map(item => item.grade)
+		const sum = ratings.reduce((accumulator, currentValue) => accumulator + currentValue, 0);
+		average = (sum / ratings.length).toFixed(2);
+	} else {
+		average = 0
+	}
+	return (
+		<div className='flex' style={{alignItems: 'center', justifyContent: 'space-evenly'}}>
+			<span style={{fontSize: '1.5rem', fontWeight: 'bolder'}}>{average}</span>
+			<StarComponent average={average} />
+			<p className='count_grade'> {data.length} отзыв</p>
+		</div>
+	);
 };
 
 export default Rating;

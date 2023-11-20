@@ -1,11 +1,8 @@
-import React, {useEffect, useState} from 'react';
+import React from 'react';
 import Rating from "../../ui/rating/rating";
 import Button from "../../ui/buttons/button";
-import {useParams} from "react-router-dom";
-import axios from "axios";
 
 const ProfileCard = ({avatar, dataUser }) => {
-
 
   return (
     <div>
@@ -18,7 +15,7 @@ const ProfileCard = ({avatar, dataUser }) => {
           <p className='profile_card-number'>{dataUser.phone}</p>
         </div>
       </div>
-      <Rating/>
+      <Rating data={dataUser.ratings}/>
       <div className='mt-20'>
         <Button classname={'stroke'} children={'Редактировать'}/>
       </div>

@@ -1,16 +1,17 @@
 import {createSlice, createAsyncThunk} from "@reduxjs/toolkit";
-import axios from '../../axios'
+import axios from 'axios'
 
 export const fetchAllAds =
   createAsyncThunk('getAllAds',
-  async () => {
-    const {data} = await axios.get('api/board/getAll')
+  async (page) => {
+    const {data} = await axios.get(`api/board/getAll?page=${page}`)
     return data
   })
 
 const initialState = {
   ads: {
     items: [],
+		page: 1,
     status: 'loading'
   }
 }
@@ -25,7 +26,8 @@ const AdsSlice = createSlice({
       state.ads.status = 'loading'
     },
     [fetchAllAds.fulfilled]: (state, action) => {
-      state.ads.items = action.payload
+      state.ads.items = [...state.ads.items, ...action.payload.ads]
+			state.ads.page = action.payload.page
       state.ads.status = 'loaded'
     },
     [fetchAllAds.rejected]: (state) => {

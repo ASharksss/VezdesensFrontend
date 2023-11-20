@@ -6,17 +6,13 @@ import favorite from "../../../../asserts/icons/favorite.svg"
 import MyAdActionsActive from "./MyAdActionsActive";
 import MyAdActionsArchive from "./MyAdActionsArchive";
 import MyAdActionsFavorite from "./MyAdActionsFavorite";
-import {useParams} from "react-router-dom";
-import axios from "axios";
 
-const MyAd = ({classname, typeAd, dataUser}) => {
-
-  return (
-    <>
-      {
-        dataUser.ads.map((item) => (
-          <div key={'myAd' + item.id} className={'myAd ' + classname}>
-            <div className=" myAd_container flex">
+const MyAd = ({classname, typeAd, item}) => {
+	if (item) {
+		return (
+			<>
+				<div key={'myAd' + item.id} className={'myAd ' + classname}>
+					<div className=" myAd_container flex">
 
               {
                 typeAd === 'activeAd' ? <MyAdActionsActive dataUser={item}/> :
@@ -47,15 +43,11 @@ const MyAd = ({classname, typeAd, dataUser}) => {
                 }
               </div>
 
-            </div>
-          </div>
-        ))
-      }
-
-
-    </>
-
-  );
+					</div>
+				</div>
+			</>
+		);
+	}
 };
 
 export default MyAd;

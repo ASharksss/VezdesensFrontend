@@ -7,7 +7,7 @@ const SmallBlocks = ({items}) => {
     <div className='flex small_ads align-items'>
       {items !== undefined && items.map(item => (
         <Card classname={'xs'} ad_image={ad_image} title={item.title} address={item.address} price={item.price}
-              date={item.date} id={item.id} key={`card-${item.id}`}/>
+							favorite={item.favorites} date={item.date} id={item.id} key={`card-${item.id}`}/>
       ))}
     </div>
   );
