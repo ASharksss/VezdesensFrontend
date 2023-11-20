@@ -42,19 +42,19 @@ const CardAd = () => {
 				<CardImgBlock ad_address={data.ad.address}/>
 
 				<CardDescription card_number={`№ ${data.ad.id}`} card_time={data.ad.createdAt}
-												 card_views={data.viewsCount} desription={data.ad.description}
+												 card_views={data.ad.views} desription={data.ad.description}
 												 setActiveModal={setActiveModal} setTypeModal={setTypeModal}/>
 
-				<CardInfo price={data.ad.price} address={data.ad.address}
-									sellerCreated={data.ad.user.createdAt} userId={data.ad.user.id}
+				<CardInfo price={data.ad.price} address={data.ad.address} id={data.ad.id} favorite={data.ad.favorites}
+									sellerCreated={data.ad.user.createdAt} userId={data.ad.user.id} rating={data.ad.user.ratings}
 									sellerName={data.ad.user.name} setActiveModal={setActiveModal} setTypeModal={setTypeModal}/>
 			</div>
 
 			{
 				typeModal === 'description' ?
-					<ModalMain activeModal={activeModal} setActiveModal={setActiveModal} children={<DescriptionModal/>}/> :
+					<ModalMain activeModal={activeModal} setActiveModal={setActiveModal} children={<DescriptionModal description={data.ad.description}/>}/> :
 					typeModal === 'phone' ?
-						<ModalMain activeModal={activeModal} setActiveModal={setActiveModal} children={<PhoneModal/>}/> :
+						<ModalMain activeModal={activeModal} setActiveModal={setActiveModal} children={<PhoneModal phone={data.ad.user.phone}/>}/> :
 						typeModal === 'rating' ?
 							<ModalMain activeModal={activeModal} setActiveModal={setActiveModal} children={<DescriptionModal/>}/> : ''
 			}

@@ -1,10 +1,11 @@
 import React from 'react';
 import Button from "../../ui/buttons/button";
+import {formatDate} from "../../utils";
 
 const CardDescription = ({card_number, card_time, card_views, desription, setActiveModal, setTypeModal}) => {
     return (
         <div className='card_description'>
-            <p className='number_time_views'>{card_number + ' · ' + card_time + ' · ' + card_views + ' просмотров'}</p>
+            <p className='number_time_views'>{card_number + ' · ' + formatDate(card_time) + ' · ' + card_views + ' просмотров'}</p>
             <h1 className='card_description-title'>Описание</h1>
             <p className='card_description-text'>
               {desription}

@@ -34,7 +34,7 @@ const Favorite = ({classname, id, favorite}) => {
 				setIsFavorite(true)
 			}
 		}
-	}, [])
+	}, [id])
 
 	return (
 		<div className={isFavorite ? classname + ' active' : classname}

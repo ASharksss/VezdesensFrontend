@@ -5,6 +5,8 @@ import CreateAdPage from "./pages/CreateAdPage";
 import ProfilePage from "./pages/ProfilePage";
 import CardPage from "./pages/CardPage";
 import CatalogBoardPage from "./pages/CatalogBoardPage";
+import Test from "./pages/test";
+import LikeAdsPage from "./pages/LikeAdsPage";
 
 export const publicRoutes = [
     {
@@ -22,6 +24,9 @@ export const publicRoutes = [
     }, {
         path: '/category',
         Component: CatalogBoardPage
+    },{
+        path: '/test',
+        Component: LikeAdsPage
     }
 ]
 

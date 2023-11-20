@@ -25,10 +25,12 @@ const AdsSlice = createSlice({
             state.ads.status = 'loading'
         },
         [fetchAllAds.fulfilled]: (state, action) => {
-            const missingValues = action.payload.ads.filter(value => !current(state.ads.items).includes(value))
+            const missingValues = current(state.ads.items).filter(value => !action.payload.ads.includes(value))
             console.log(missingValues)
             // action.payload.ads.map(values => console.log(values))
-            state.ads.items = [...current(state.ads.items), ...missingValues]
+            if (missingValues.length === 0) {
+                state.ads.items = [...current(state.ads.items), ...action.payload.ads]
+            }
             state.ads.offset = action.payload.ads.length
             state.ads.status = 'loaded'
         },

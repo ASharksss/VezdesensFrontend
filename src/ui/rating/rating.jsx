@@ -3,6 +3,7 @@ import StarComponent from "./starComponent";
 
 
 const Rating = ({data = [], type = 'user'}) => {
+  console.log(data)
     let average
     if (type === 'user') {
         let ratings = data.map(item => item.grade)

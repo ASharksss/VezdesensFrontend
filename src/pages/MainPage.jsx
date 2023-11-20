@@ -1,8 +1,6 @@
-import React, {useEffect} from 'react';
+import React from 'react';
 
 import Board from "../components/board/Board";
-import {useDispatch, useSelector} from "react-redux";
-import {fetchAllAds} from "../redux/slices/boardSlice";
 
 
 

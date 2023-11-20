@@ -9,7 +9,6 @@ import {formatDate} from "../../../../utils";
 
 
 const MyAdActionsFavorite = ({dataUser}) => {
-
   return (
     <div className="myAd_actions">
 

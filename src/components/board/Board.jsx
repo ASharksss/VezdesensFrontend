@@ -9,15 +9,19 @@ import ad_image_xxl from '../../asserts/ad_image_xxl.png'
 import {fetchAllAds} from "../../redux/slices/boardSlice";
 import {InfiniteScroll} from "./InfiniteScroll"
 import {group} from "../../utils";
+import {useLocation} from "react-router-dom";
 
 const Board = () => {
 
+  const location = useLocation();
   const dispatch = useDispatch()
   const {ads} = useSelector(state => state.ads)
 
   useEffect(() => {
-    dispatch(fetchAllAds(0))
-  }, [])
+    if (location.pathname === '/') {
+      dispatch(fetchAllAds(0))
+    }
+  }, [location.pathname])
 
   const loading = ads.status === 'loading'
 

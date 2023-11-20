@@ -1,10 +1,10 @@
 import React from 'react';
 import './modal.css'
 
-const PhoneModal = () => {
+const PhoneModal = ({phone}) => {
 	return (
 		<div className='phone_modal'>
-			<h1 className='description_modal-title'>8 987 321-75-63</h1>
+			<h1 className='description_modal-title'>{phone}</h1>
 		</div>
 	);
 };
