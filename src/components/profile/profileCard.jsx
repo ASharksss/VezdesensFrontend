@@ -15,7 +15,7 @@ const ProfileCard = ({avatar, dataUser }) => {
           <p className='profile_card-number'>{dataUser.phone}</p>
         </div>
       </div>
-      <Rating data={dataUser.ratings}/>
+      <Rating data={dataUser.ratings} type='user'/>
       <div className='mt-20'>
         <Button classname={'stroke'} children={'Редактировать'}/>
       </div>

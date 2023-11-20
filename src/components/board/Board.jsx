@@ -1,9 +1,8 @@
-import React, {useState, useEffect, useMemo} from 'react';
+import React, {useEffect, useMemo} from 'react';
 import './board.css'
 import {useDispatch, useSelector} from "react-redux";
 import Card from "../cards/Card";
 import SmallBlocks from "./BoardBlocks/SmallBlocks";
-import CommercialBlocksLss from "./BoardBlocks/CommercialBlocksLSS";
 import Ad from "../cards/Ad";
 import CommercialBlocksXl from "./BoardBlocks/CommercialBlocksXL";
 import ad_image_xxl from '../../asserts/ad_image_xxl.png'
@@ -15,19 +14,17 @@ const Board = () => {
 
   const dispatch = useDispatch()
   const {ads} = useSelector(state => state.ads)
-	const [adData, setAdData] = useState([])
 
   useEffect(() => {
-    dispatch(fetchAllAds(1))
+    dispatch(fetchAllAds(0))
   }, [])
 
   const loading = ads.status === 'loading'
 
   const handleAds = useMemo(() => {
-    if (!loading) {
+    if (!loading && ads.items.length > 0) {
       const data = ads.items.filter(item => item.typeAdId === 1);
-			setAdData(data)
-      const groupData = group(data, 5);
+      const groupData = group(data, 5, 3); // 5x3
       return groupData.map((arrays, index) => (
         <SmallBlocks
           key={index}
@@ -39,12 +36,6 @@ const Board = () => {
       return null; // Возвращаемое значение, если !loading
     }
   }, [ads.items, loading]);
-	useEffect(() => {
-		const data = ads.items.filter(item => item.typeAdId === 1);
-		const newArray = [...adData, ...data]
-		setAdData(newArray)
-		console.log(adData)
-	}, [ads.items])
   return (
     <>
       <InfiniteScroll>
@@ -54,7 +45,7 @@ const Board = () => {
 
         <CommercialBlocksXl/>
 
-        <Ad/>
+        <Ad />
 
         {handleAds}
         {/*<CommercialBlocksLss/>*/}

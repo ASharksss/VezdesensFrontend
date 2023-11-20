@@ -53,7 +53,7 @@ const Header = () => {
                         <div className="header_content-ads">
                             <button>Продать как компания</button>
                             <button>Мои объявления</button>
-                            <NavLink to='/createAd' className='create_ad-btn'>Подать объявление</NavLink>
+                            <NavLink to={isAuth ? '/createAd' : '/signin'} className='create_ad-btn'>Подать объявление</NavLink>
                         </div>
                         <div className="header_content-search">
                             <input type="text" placeholder='Искать объявления' className='search-input'/>
