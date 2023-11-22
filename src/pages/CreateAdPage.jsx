@@ -15,10 +15,15 @@ import CheckboxInput from "../ui/characteristicInputs/checkboxInputs";
 import {fetchCategory, fetchObjects, fetchSubCategories} from "../redux/slices/categorySlice";
 import axios from "axios";
 import {useNavigate} from "react-router-dom";
+import {DataURIToBlob} from "../utils";
 
 const CreateAdPage = () => {
 
+	let formData = new FormData()
 	const navigate = useNavigate()
+	const [images, setImages] = useState([])
+	const [imageTrigger, setImageTrigger] = useState(false)
+	const [saveImages, setSaveImages] = useState([])
 	const [loading, setLoading] = useState(false)
 	const [typeAd, setTypeAd] = useState('standart')
 	const [description, setDescription] = useState('')
@@ -36,20 +41,16 @@ const CreateAdPage = () => {
 
 	const handleSubmit = async () => {
 		setLoading(true)
-		const date = new Date()
-		const data = {
-			title,
-			description,
-			address: geolocation,
-			price: price,
-			typeAd,
-			objectId: character.items[0].objectId,
-			bookingDateStart: date,
-			bookingDateEnd: new Date(date.setDate(date.getDate() + 30)),
-			characteristicsInput: enterValue,
-			characteristicsSelect: selectValue
-		}
-		await axios.post('api/ad/createAd', data)
+		setImageTrigger(true)
+	}
+
+	const createAd = async () => {
+		await axios({
+			method: 'post',
+			url: 'api/ad/createAd',
+			data: formData,
+			headers: {"Content-Type": "multipart/form-data"}
+		})
 			.then((res) => {
 				console.log(res.data)
 				setLoading(false)
@@ -61,6 +62,31 @@ const CreateAdPage = () => {
 				setLoading(false)
 			})
 	}
+
+	useEffect(() => {
+		if(saveImages.length > 0) {
+			const date = new Date()
+			formData.append('title', title)
+			formData.append('description', description)
+			formData.append('address', geolocation)
+			formData.append('price', price)
+			formData.append('typeAd', typeAd)
+			formData.append('objectId', character.items[0].objectId)
+			formData.append('bookingDateStart', date.toString())
+			formData.append('bookingDateEnd', new Date(date.setDate(date.getDate() + 30)).toString())
+			formData.append('characteristicsInput', JSON.stringify(enterValue))
+			formData.append('characteristicsSelect', JSON.stringify(selectValue))
+			saveImages.map((item) => {
+				let image = DataURIToBlob(item)
+				formData.append('images', image)
+			})
+			createAd()
+		}
+	}, [imageTrigger, saveImages])
+
+	useEffect(() => {
+		setImages([])
+	}, [typeAd])
 
 	const isLoadingCharacter = character.status === 'loading'
 
@@ -150,10 +176,14 @@ const CreateAdPage = () => {
 							<div className="upload_photo">
 								<h1 className='upload_photo-h1'>Загрузка фото</h1>
 								{
-									typeAd === 'premium' ? <UploadPhotoPremium/> :
-										typeAd === 'vip' ? <UploadPhotoVip/> :
-											typeAd === 'standartPlus' ? <UploadPhotoStandartPlus/> :
-												typeAd === 'standart' ? <UploadPhotoStandart/> : ''
+									typeAd === 'premium' ? <UploadPhotoPremium setSaveImages={setSaveImages}
+																														 imageTrigger={imageTrigger}/> :
+										typeAd === 'vip' ? <UploadPhotoVip setSaveImages={setSaveImages}
+																											 imageTrigger={imageTrigger}/> :
+											typeAd === 'standartPlus' ? <UploadPhotoStandartPlus setSaveImages={setSaveImages}
+																																					 imageTrigger={imageTrigger}/> :
+												typeAd === 'standart' ? <UploadPhotoStandart setSaveImages={setSaveImages}
+																																		 imageTrigger={imageTrigger}/> : ''
 								}
 							</div>}
 
@@ -175,11 +205,14 @@ const CreateAdPage = () => {
 									character.items.map((item, index) => (
 										<>
 											{item['characteristic']['typeCharacteristic']['name'] === 'enter' &&
-												<EnterInput setEnterValue={setEnterValue} key={'enter' + index} data={item['characteristic']} id={item['characteristicId']}/>}
+												<EnterInput setEnterValue={setEnterValue} key={'enter' + index} data={item['characteristic']}
+																		id={item['characteristicId']}/>}
 											{item['characteristic']['typeCharacteristic']['name'] === 'select' &&
-												<SelectInput setSelectValue={setSelectValue} key={'select' + index} data={item['characteristic']} id={item['characteristicId']}/>}
+												<SelectInput setSelectValue={setSelectValue} key={'select' + index}
+																		 data={item['characteristic']} id={item['characteristicId']}/>}
 											{item['characteristic']['typeCharacteristic']['name'] === 'checkbox' &&
-												<CheckboxInput setCheckboxValue={setSelectValue} key={'checkbox' + index} data={item['characteristic']} id={item['characteristicId']}/>}
+												<CheckboxInput setCheckboxValue={setSelectValue} key={'checkbox' + index}
+																			 data={item['characteristic']} id={item['characteristicId']}/>}
 										</>
 									))
 								}

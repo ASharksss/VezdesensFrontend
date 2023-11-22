@@ -1,14 +1,15 @@
 import React from 'react';
 import Card from "../../cards/Card";
 import ad_image from '../../../asserts/ad_image_small.png'
+import {HOST} from "../../../utils";
 
 const SmallBlocks = ({items}) => {
   return (
     <div className='flex small_ads align-items'>
       {items !== undefined && items.map((item, index) => (
-        item.typeAdId === 1 ?
-        <Card classname={'xs'} ad_image={ad_image} title={item.title} address={item.address} price={item.price}
-							favorite={item.favorites} date={item.date} id={item.id} key={`card-${item.id}`}/>: null
+        <Card classname={'xs'} ad_image={item.imageAds.length > 0 ? `${HOST}/${item.imageAds[0].name}` : ad_image}
+							title={item.title} address={item.address} price={item.price}
+							favorite={item.favorites} date={item.date} id={item.id} key={`card-${index}-${item.id}`}/>
       ))}
     </div>
   );

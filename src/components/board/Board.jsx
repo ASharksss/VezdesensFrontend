@@ -18,7 +18,8 @@ const Board = () => {
 	const dispatch = useDispatch()
 	const {ads} = useSelector(state => state.board)
 	const [newDataReceived, setNewDataReceived] = useState(false);
-	const [allAdsData, setAllAdsData] = useState([]);
+	const [blockData, setBlockData] = useState([]);
+	const [commercialData, setCommercialData] = useState([]);
 	const [newData, setNewData] = useState([])
 
 	useEffect(() => {
@@ -39,20 +40,39 @@ const Board = () => {
 	}, [ads.status, ads.items])
 
 	useEffect(() => {
-		if ((!loading && allAdsData.length > 0) || newDataReceived) {
-			const groupData = group(newData, 5, newData.length);
-			const missingValuesData = groupData.filter(groupValue => !allAdsData.some(adsData => _.isEqual(groupValue, adsData)))
-			if (missingValuesData.length > 0) {
-				setAllAdsData(prevState => {
+		if ((!loading && blockData.length > 0) || newDataReceived) {
+			const {resultBlock, resultCommercial} = group(newData, 5, newData.length);
+			const missingValuesBlockData = resultBlock.filter(groupValue => !blockData.some(adsData => _.isEqual(groupValue, adsData)))
+			const missingValuesCommercialData = resultCommercial.filter(groupValue => !commercialData.some(adsData => _.isEqual(groupValue, adsData)))
+			if (missingValuesBlockData.length > 0) {
+				setBlockData(prevState => {
 					if (prevState.length === 0)
-						return [...prevState, ...missingValuesData]
+						return [...prevState, ...missingValuesBlockData]
 					const allArraysHaveFiveElements = prevState.every(array => array.length === 5);
 					if (allArraysHaveFiveElements)
-						return [...prevState, ...missingValuesData];
+						return [...prevState, ...missingValuesBlockData];
 					else {
 						return prevState.map(array => {
 								if (array.length < 5) {
-									return missingValuesData[0];
+									return missingValuesBlockData[0];
+								} else {
+									return array;
+								}
+							})
+					}
+				})
+			}
+			if (missingValuesCommercialData.length > 0) {
+				setCommercialData(prevState => {
+					if (prevState.length === 0)
+						return [...prevState, ...missingValuesCommercialData]
+					const allArraysHaveFiveElements = prevState.every(array => array.length === 5);
+					if (allArraysHaveFiveElements)
+						return [...prevState, ...missingValuesCommercialData];
+					else {
+						return prevState.map(array => {
+								if (array.length < 5) {
+									return missingValuesCommercialData[0];
 								} else {
 									return array;
 								}
@@ -68,7 +88,7 @@ const Board = () => {
 			<Ad/>
 			<CommercialBlocksXl/>
 			<Ad/>
-			{allAdsData.length > 0 ? <UnionBoard allAdsData={allAdsData} /> : null}
+			{blockData.length > 0 ? <UnionBoard blockData={blockData} commercialData={commercialData}/> : null}
 		</>
 	);
 };

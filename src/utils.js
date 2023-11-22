@@ -1,9 +1,16 @@
-export const group = (array, size, length) => {
-  const result = []
-  for (let i = 0; i < length; i += size) {
-    result.push(array.slice(i, i + size));
+export const HOST = 'http://localhost:5000'
+
+export const group = (array) => {
+	const blockArray = array.filter(item => item.typeAdId === 1)
+	const commercialArray = array.filter(item => item.typeAdId === 2)
+  const resultBlock = [], resultCommercial = []
+  for (let i = 0; i < blockArray.length; i += 5) {
+		resultBlock.push(blockArray.slice(i, i + 5));
   }
-  return result;
+  for (let i = 0; i < commercialArray.length; i += 3) {
+		resultCommercial.push(commercialArray.slice(i, i + 3));
+  }
+  return {resultBlock, resultCommercial};
 }
 
 export const formatDate = (date) => {
@@ -24,4 +31,16 @@ export const numberWithSpaces = (x) => {
   let parts = x.toString().split(".");
   parts[0] = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, " ");
   return parts.join(".");
+}
+
+export const DataURIToBlob = (dataURI) => {
+	const splitDataURI = dataURI.split(',')
+	const byteString = splitDataURI[0].indexOf('base64') >= 0 ? atob(splitDataURI[1]) : decodeURI(splitDataURI[1])
+	const mimeString = splitDataURI[0].split(':')[1].split(';')[0]
+
+	const ia = new Uint8Array(byteString.length)
+	for (let i = 0; i < byteString.length; i++)
+		ia[i] = byteString.charCodeAt(i)
+
+	return new Blob([ia], { type: mimeString })
 }

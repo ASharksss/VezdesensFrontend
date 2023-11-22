@@ -1,26 +1,37 @@
-import React, {useEffect} from 'react';
+import React, { useMemo } from 'react';
 import SmallBlocks from "./SmallBlocks";
 import CommercialBlocksLss from "./CommercialBlocksLSS";
 
-let counter = 0
+const UnionBoard = ({ blockData, commercialData }) => {
+	const handleGetData = useMemo(() => {
+		const combinedData = [];
+		const smallBlocksCount = 3;
+		const commercialBlocksCount = 2;
 
-const UnionBoard = ({allAdsData}) => {
-	useEffect(() => {
-		counter = 0
-		allAdsData.map(() => counter ++)
-	}, [allAdsData])
+		for (let i = 0; i < Math.max(blockData.length, commercialData.length); i++) {
+			if ((i % (smallBlocksCount + commercialBlocksCount) < smallBlocksCount)) {
+				combinedData.push(
+					<SmallBlocks key={`blocks-${i}`} items={blockData[i]} />
+				);
+			} else {
+				// Render CommercialBlocksLss two times
+				const commercialIndex = i - smallBlocksCount;
+				if (commercialIndex < commercialData.length) {
+					combinedData.push(
+						<CommercialBlocksLss key={`commercial-${i}`} items={commercialData[commercialIndex]} />
+					);
+				}
+				if (blockData[i].length > 0) {
+					combinedData.push(
+						<SmallBlocks key={`blocks-${i}`} items={blockData[i]} />
+					);
+				}
+			}
+		}
+		return combinedData;
+	}, [blockData, commercialData]);
 
-
-	return allAdsData.map((arrays, index) => {
-		return <>
-			<SmallBlocks
-				key={`blocks-${index}`}
-				items={arrays}
-			/>
-			{arrays[0].typeAdId === 2 ?
-				<CommercialBlocksLss key={`commercial-${index}`} items={arrays}/> : null}
-		</>
-	});
+	return <>{handleGetData}</>;
 };
 
 export default UnionBoard;
