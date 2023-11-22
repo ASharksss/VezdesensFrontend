@@ -1,13 +1,14 @@
 import React from 'react';
+import {numberWithSpaces} from "../../../utils";
 
-const CardContentS = () => {
+const CardContentS = ({title, address, date, price}) => {
   return (
     <div>
       <div className="card_content-text">
-        <h1 className='card_content-title'>Массажер для тела</h1>
-        <p className='card_content-address'>Казань, Проспект Победы</p>
-        <p className='card_content-date'>Сегодня 14:52</p>
-        <p className='card_content-price'>5000Р</p>
+        <h1 className='card_content-title'>{title}</h1>
+        <p className='card_content-address'>{address}</p>
+        <p className='card_content-date'>{date}</p>
+        <p className='card_content-price'>{numberWithSpaces(parseInt(price))} ₽</p>
       </div>
     </div>
   );

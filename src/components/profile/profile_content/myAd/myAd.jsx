@@ -6,6 +6,8 @@ import favorite from "../../../../asserts/icons/favorite.svg"
 import MyAdActionsActive from "./MyAdActionsActive";
 import MyAdActionsArchive from "./MyAdActionsArchive";
 import MyAdActionsFavorite from "./MyAdActionsFavorite";
+import {NavLink} from "react-router-dom";
+import {numberWithSpaces} from "../../../../utils";
 
 const MyAd = ({classname, typeAd, item}) => {
 	if (item) {
@@ -29,10 +31,12 @@ const MyAd = ({classname, typeAd, item}) => {
 
 
                 <h1 className='myAd_title bold'>{item.title}</h1>
-                <h2 className='myAd_price bold'>{item.price}</h2>
+                <h2 className='myAd_price bold'>{numberWithSpaces(item.price)} ₽</h2>
                 <p className='myAd_ad_description'>{item.description}</p>
                 <div className="myAd_open_description">
-                  <Button classname={'stroke'} children={'Показать всё'}/>
+                    <NavLink to={`/card/${item.id}`}>
+                        <Button classname={'stroke'} children={'Показать всё'}/>
+                    </NavLink>
                 </div>
                 {
                   typeAd === 'favoriteAd' ? <img src={favorite} alt="лоек" className='absolute'/> :

@@ -1,4 +1,5 @@
 import React from 'react';
+import {numberWithSpaces} from "../../../utils";
 
 const CardContentXS = ({title, address, date, price}) => {
   return (
@@ -7,7 +8,7 @@ const CardContentXS = ({title, address, date, price}) => {
         <h1 className='card_content-title'>{title}</h1>
         <p className='card_content-address'>{address}</p>
         <p className='card_content-date'>{date}</p>
-        <p className='card_content-price'>{price}Р</p>
+        <p className='card_content-price'>{numberWithSpaces(parseInt(price))} ₽</p>
       </div>
     </div>
   );

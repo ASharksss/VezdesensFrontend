@@ -1,28 +1,20 @@
 import React from 'react';
 import Card from "../../cards/Card";
 import ad_image_s from '../../../asserts/ad_image_s.png'
-import ad_image_l from '../../../asserts/ad_image_l.png'
 
-const CommercialBlocksLss = () => {
-  return (
-    <>
-      <div className='flex'>
-        <Card classname={'s'} ad_image={ad_image_s}/>
-        <Card classname={'s'} ad_image={ad_image_s}/>
-        <Card classname={'l'} ad_image={ad_image_l}/>
-      </div>
-      <div className='flex'>
-        <Card classname={'s'} ad_image={ad_image_s}/>
-        <Card classname={'l'} ad_image={ad_image_l}/>
-        <Card classname={'s'} ad_image={ad_image_s}/>
-      </div>
-      <div className='flex'>
-        <Card classname={'s'} ad_image={ad_image_s}/>
-        <Card classname={'s'} ad_image={ad_image_s}/>
-        <Card classname={'l'} ad_image={ad_image_l}/>
-      </div>
-    </>
-  );
+
+const CommercialBlocksLss = ({items}) => {
+	return (
+		<div className='flex'>
+			{items !== undefined && items.map((item, index) => (
+				item.typeAdId === 2 ?
+					<Card classname={'s'} ad_image={ad_image_s}
+								title={item.title} address={item.address} price={item.price}
+								favorite={item.favorites} date={item.date} id={item.id}
+								key={`commercialCard-${item.index}-${item.id}`}/> : null
+			))}
+		</div>
+	);
 };
 
 export default CommercialBlocksLss;

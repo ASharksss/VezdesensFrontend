@@ -3,12 +3,13 @@ import './pages.css'
 import eyeClose from '../asserts/icons/eyeClose.svg'
 import eyeOpen from '../asserts/icons/eyeOpen.svg'
 import {NavLink, useNavigate} from "react-router-dom";
-import {useDispatch} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import {fetchLogin} from "../redux/slices/userSlice";
 
 const SignIn = () => {
     const navigate = useNavigate()
     const dispatch = useDispatch()
+    const {user} = useSelector(state => state.user)
     const [showPassword, setShowPassword] = useState(false)
     const [login, setLogin] = useState('')
     const [password, setPassword] = useState('')
@@ -40,10 +41,13 @@ const SignIn = () => {
                 login: login,
                 password: password
             }
-            dispatch(fetchLogin(data)).then(() => {
-                const pathname = localStorage.getItem('last_path')
-                navigate(pathname)
-            })
+            dispatch(fetchLogin(data))
+                .then((res) => {
+                    if (res.error === undefined) {
+                        const pathname = localStorage.getItem('last_path')
+                        navigate(pathname)
+                    }
+                })
         }
     }
 
@@ -64,6 +68,7 @@ const SignIn = () => {
                              className='auth_form-eye'/>
                     </div>
                     {(errorSubmit && password === '') && <span style={{color: 'red'}}>Поле не заполнено</span>}
+                    {user.status === 'error' && <span style={{color: 'red'}}>{user.errorMsg}</span>}
                     <span className='miss_password'>Забыли пароль?</span>
                 </div>
                 <div className="auth_form-btns">

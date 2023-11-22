@@ -5,13 +5,13 @@ import Button from "../../ui/buttons/button";
 import message from "../../asserts/icons/message.svg"
 import Rating from "../../ui/rating/rating";
 import {NavLink} from "react-router-dom";
-import {formatDate} from "../../utils";
+import {formatDate, numberWithSpaces} from "../../utils";
 
 const CardInfo = ({userId, price, sellerName, sellerCreated, address, setActiveModal, setTypeModal, id, favorite, rating}) => {
 	return (
 		<div className='card_info'>
 			<div className="flex items-center space-between">
-				<p className='card_info-price'>{price}</p>
+				<p className='card_info-price'>{numberWithSpaces(price)} ₽</p>
 				<Favorite classname={'in_card'} id={id} favorite={favorite}/>
 			</div>
 			<div className="flex card_info-btn">

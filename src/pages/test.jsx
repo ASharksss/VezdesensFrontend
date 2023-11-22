@@ -9,7 +9,7 @@ const Test = () => {
   const [adData, setAdData] = useState([])
 
   useEffect(() => {
-    dispatch(fetchAllAds(0))
+    dispatch(fetchAllAds('0|0'))
   }, [])
 
   console.log(ads.items)

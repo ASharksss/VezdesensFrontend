@@ -1,38 +1,46 @@
-import React from 'react';
+import React, {useState} from 'react';
 import './categoryAccordion.css'
 
-const CategoryAccordion = () => {
-	return (
-		<div className='cat_accordion'>
-			<h1 className='cat_accordion-h1'>Подкатегории</h1>
-			<div className="cat_accordion-item">
-				<input type="checkbox" name="category" id="cat_1" className='cat_accordion-radio'/>
-				<label className='cat_accordion-title' htmlFor='cat_1'>
-					Ищу работу
-				</label>
+const CategoryAccordion = ({category, selectedCategory, handleCategoryClick, setObjectId}) => {
+    const [checked, setChecked] = useState(null)
 
-				<div className="cat_accordion-objects">
-					<span className="objects-item">IT, интернет, телеком</span>
-					<span className="objects-item">Автомобильный бизнес</span>
-					<span className="objects-item">Банки, иневестиции</span>
-				</div>
-			</div>
+    const handleCheckedCategory = (index, item) => {
+        setChecked(index)
+        handleCategoryClick(item)
+    }
 
-			<div className="cat_accordion-item">
-				<input type="checkbox" name="category" id="cat_2" className='cat_accordion-radio'/>
-				<label className='cat_accordion-title' htmlFor='cat_2'>
-					Наименование категории
-				</label>
+    const handleCheckedSubcategory = (id) => {
+        console.log('checked', id)
+        setObjectId(id)
+    }
 
-
-				<div className="cat_accordion-objects">
-					<span className="objects-item">Один объект</span>
-					<span className="objects-item">Второй объект</span>
-					<span className="objects-item">Третий объект</span>
-				</div>
-			</div>
-		</div>
-	);
+    return (
+        <div className='cat_accordion'>
+            <h1 className='cat_accordion-h1'>Подкатегории</h1>
+            <div className="cat_accordion-item">
+                {category.map((item, index) => (
+                    <div key={`div-${index}`}>
+                        <input checked={(checked !== null && checked === index)}
+                               type="checkbox" name="category" id={`cat_${index}`} className='cat_accordion-radio'/>
+                        <label className='cat_accordion-title' htmlFor={`cat_${index}`}
+                               onClick={() => handleCheckedCategory(index, item)}>
+                            {item.name}
+                        </label>
+                        {selectedCategory && (
+                            <div className="cat_accordion-objects">
+                                {
+                                    selectedCategory.subCategories.map((subcategory, index) => (
+                                        <span onClick={() => handleCheckedSubcategory(parseInt(subcategory.id))} key={index}
+                                              className="objects-item">{subcategory.name}</span>
+                                    ))
+                                }
+                            </div>
+                        )}
+                    </div>
+                ))}
+            </div>
+        </div>
+    );
 };
 
 export default CategoryAccordion;

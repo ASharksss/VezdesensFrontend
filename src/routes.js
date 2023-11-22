@@ -10,12 +10,6 @@ import LikeAdsPage from "./pages/LikeAdsPage";
 
 export const publicRoutes = [
     {
-        path: '/signin',
-        Component: SignIn
-    }, {
-        path: '/signup',
-        Component: SignUp
-    }, {
         path: '/',
         Component: MainPage
     }, {
