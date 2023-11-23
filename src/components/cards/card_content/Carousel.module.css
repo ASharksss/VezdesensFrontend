@@ -1,0 +1,17 @@
+.carousel {
+    overflow: hidden;
+    width: 100%;
+    position: relative;
+}
+
+.carouselSlide {
+    float: left;
+    width: 100%;
+    position: relative;
+    transition: transform 0.5s ease;
+}
+
+.carousel-slide img {
+    width: 100%;
+    height: auto;
+}

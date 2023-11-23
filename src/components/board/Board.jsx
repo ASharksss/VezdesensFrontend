@@ -1,16 +1,14 @@
-import React, {useEffect, useMemo, useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import _ from 'lodash'
 import './board.css'
 import {useDispatch, useSelector} from "react-redux";
 import Card from "../cards/Card";
-import SmallBlocks from "./BoardBlocks/SmallBlocks";
 import Ad from "../cards/Ad";
 import CommercialBlocksXl from "./BoardBlocks/CommercialBlocksXL";
 import ad_image_xxl from '../../asserts/ad_image_xxl.png'
 import {fetchAllAds} from "../../redux/slices/boardSlice";
 import {group} from "../../utils";
 import {useLocation} from "react-router-dom";
-import CommercialBlocksLss from "./BoardBlocks/CommercialBlocksLSS";
 import UnionBoard from "./BoardBlocks/UnionBoard";
 
 const Board = () => {
@@ -66,12 +64,12 @@ const Board = () => {
 				setCommercialData(prevState => {
 					if (prevState.length === 0)
 						return [...prevState, ...missingValuesCommercialData]
-					const allArraysHaveFiveElements = prevState.every(array => array.length === 5);
+					const allArraysHaveFiveElements = prevState.every(array => array.length === 3);
 					if (allArraysHaveFiveElements)
 						return [...prevState, ...missingValuesCommercialData];
 					else {
 						return prevState.map(array => {
-								if (array.length < 5) {
+								if (array.length < 3) {
 									return missingValuesCommercialData[0];
 								} else {
 									return array;
@@ -88,7 +86,8 @@ const Board = () => {
 			<Ad/>
 			<CommercialBlocksXl/>
 			<Ad/>
-			{blockData.length > 0 ? <UnionBoard blockData={blockData} commercialData={commercialData}/> : null}
+			{(blockData.length > 0 && commercialData.length > 0) ?
+				<UnionBoard blockData={blockData} commercialData={commercialData}/> : null}
 		</>
 	);
 };

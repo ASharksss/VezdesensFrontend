@@ -40,11 +40,12 @@ const CreateAdPage = () => {
 	const {character} = useSelector(state => state.ad)
 
 	const handleSubmit = async () => {
-		setLoading(true)
+		// setLoading(true)
 		setImageTrigger(true)
 	}
 
 	const createAd = async () => {
+		console.log('push')
 		await axios({
 			method: 'post',
 			url: 'api/ad/createAd',
@@ -53,8 +54,12 @@ const CreateAdPage = () => {
 		})
 			.then((res) => {
 				console.log(res.data)
-				setLoading(false)
-				navigate(`/card/${res.data.ad.id}`)
+				if (res.data.status === 403) {
+					window.alert(res.data.message)
+				} else {
+					setLoading(false)
+					navigate(`/card/${res.data.ad.id}`)
+				}
 			})
 			.catch(err => {
 				window.alert('Ooops')

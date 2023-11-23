@@ -19,6 +19,10 @@
 }
 
 
+.card_content-img {
+    border-radius: 20px
+}
+
 .card_content-title {
     margin-top: 20px;
 }
@@ -43,6 +47,11 @@
 .s {
     width: 355px;
     height: 615px;
+}
+
+.s .card_content-img {
+    width: 315px;
+    height: 417px;
 }
 
 .s .card_content-title {

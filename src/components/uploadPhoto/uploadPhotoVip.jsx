@@ -57,8 +57,8 @@ const UploadPhotoVip = ({setSaveImages, imageTrigger}) => {
 								<AvatarEditor
 									ref={(editor) => (editorRefs.current[index] = editor)}
 									image={item}
-									width={188}
-									height={250}
+									width={506}
+									height={309}
 									borderRadius={10}
 									color={[255, 255, 255, 0.1]}
 									scale={1.2}
