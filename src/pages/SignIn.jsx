@@ -44,7 +44,7 @@ const SignIn = () => {
             dispatch(fetchLogin(data))
                 .then((res) => {
                     if (res.error === undefined) {
-                        const pathname = localStorage.getItem('last_path')
+                        const pathname = localStorage.getItem('last_path') || '/'
                         navigate(pathname)
                     }
                 })

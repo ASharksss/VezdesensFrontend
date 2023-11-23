@@ -11,8 +11,8 @@ import {privateRoutes, publicRoutes} from "./routes";
 import SignIn from "./pages/SignIn";
 import SignUp from "./pages/SignUp.";
 
-// axios.defaults.baseURL = 'http://localhost:5000/';
-axios.defaults.baseURL = 'http://192.168.1.115:5000/';
+axios.defaults.baseURL = 'http://localhost:5000/';
+// axios.defaults.baseURL = 'http://192.168.1.115:5000/';
 axios.defaults.withCredentials = true
 
 function App() {
