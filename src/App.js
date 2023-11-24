@@ -1,4 +1,4 @@
-import React, {useEffect} from "react";
+import React, {useEffect, useState} from "react";
 import './App.css';
 import './reset.css'
 import axios from "axios";
@@ -12,11 +12,15 @@ import SignIn from "./pages/SignIn";
 import SignUp from "./pages/SignUp.";
 
 axios.defaults.baseURL = 'http://localhost:5000/';
+// axios.defaults.baseURL = 'http://192.168.1.115:5000/';
 axios.defaults.withCredentials = true
 
 function App() {
   const dispatch = useDispatch()
-  const {isAuth} = useSelector(state => state.user)
+  const [loading, setLoading] = useState(true)
+  const {isAuth, user} = useSelector(state => state.user)
+
+  const loadingIsAuth = user.status === 'loading'
 
   useEffect(() => {
     function checkAuth() {
@@ -25,9 +29,16 @@ function App() {
          dispatch(fetchAuth(checkSession))
       }
     }
-
     return checkAuth()
   }, [])
+
+  useEffect(() => {
+    if (!loadingIsAuth) {
+      console.log(isAuth && !loadingIsAuth)
+      setLoading(false)
+    }
+  }, [loading])
+
 
   return (
     <BrowserRouter>
@@ -39,7 +50,7 @@ function App() {
             <Route key={`public-${key}`} path={path} element={<Component/>}/>
           ))}
         </Route>
-        {isAuth ?
+        {(isAuth && !loadingIsAuth) ?
           <Route path="/" element={<Layout/>}>
             {privateRoutes.map(({key, path, Component}) => (
               <Route key={`private-${key}`} path={path} element={<Component/>}/>

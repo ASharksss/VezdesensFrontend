@@ -52,3 +52,16 @@ export const DataURIToBlob = (dataURI) => {
 
 	return new Blob([ia], { type: mimeString })
 }
+
+export const encryptArrayWithKey = (array) => {
+	const key = 'tsharksss'
+	const arrayString = JSON.stringify(array);
+	let encryptedString = "";
+	for (let i = 0; i < arrayString.length; i++) {
+		const charCode = arrayString.charCodeAt(i);
+		const keyChar = key.charCodeAt(i % key.length);
+		const encryptedCharCode = charCode + keyChar;
+		encryptedString += String.fromCharCode(encryptedCharCode);
+	}
+	return encryptedString;
+}

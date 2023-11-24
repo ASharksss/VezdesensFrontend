@@ -36,7 +36,7 @@ const CardAd = () => {
 		<div>
 			<h1 className='card_ad_name'>{data.ad.title}</h1>
 			<div className="flex">
-				<CardImgBlock ad_address={data.ad.address} images={data.ad.imageAds.length > 0 ? data.ad.imageAds : []}/>
+				<CardImgBlock ad_address={data.ad.address} images={data.ad.imageAds.length > 0 ? data.ad.imageAds : []} id={data.ad.objectId}/>
 
 				<CardDescription card_number={`№ ${data.ad.id}`} card_time={data.ad.createdAt}
 												 card_views={data.ad.views} desription={data.ad.description}

@@ -4,9 +4,8 @@ import './board.css'
 import {useDispatch, useSelector} from "react-redux";
 import Card from "../cards/Card";
 import Ad from "../cards/Ad";
-import CommercialBlocksXl from "./BoardBlocks/CommercialBlocksXL";
 import ad_image_xxl from '../../asserts/ad_image_xxl.png'
-import {fetchAllAds} from "../../redux/slices/boardSlice";
+import {fetchAllAds, fetchPremium} from "../../redux/slices/boardSlice";
 import {group} from "../../utils";
 import {useLocation} from "react-router-dom";
 import UnionBoard from "./BoardBlocks/UnionBoard";
@@ -14,7 +13,7 @@ import UnionBoard from "./BoardBlocks/UnionBoard";
 const Board = () => {
 	const location = useLocation();
 	const dispatch = useDispatch()
-	const {ads} = useSelector(state => state.board)
+	const {ads, premium} = useSelector(state => state.board)
 	const [newDataReceived, setNewDataReceived] = useState(false);
 	const [blockData, setBlockData] = useState([]);
 	const [commercialData, setCommercialData] = useState([]);
@@ -23,6 +22,7 @@ const Board = () => {
 	useEffect(() => {
 		if (location.pathname === '/') {
 			dispatch(fetchAllAds({offset: ads.offset}))
+			dispatch(fetchPremium())
 		}
 	}, [location.pathname])
 	const loading = ads.status === 'loading'
@@ -69,12 +69,12 @@ const Board = () => {
 						return [...prevState, ...missingValuesCommercialData];
 					else {
 						return prevState.map(array => {
-								if (array.length < 3) {
-									return missingValuesCommercialData[0];
-								} else {
-									return array;
-								}
-							})
+							if (array.length < 3) {
+								return missingValuesCommercialData[0];
+							} else {
+								return array;
+							}
+						})
 					}
 				})
 			}
@@ -82,9 +82,17 @@ const Board = () => {
 	}, [newData, loading, newDataReceived]);
 	return (
 		<>
-			<Card classname={'xxl'} ad_image={ad_image_xxl}/>
+			{premium.items[0] !== undefined ?
+				<Card classname={'xxl'}
+							ad_image={premium.items[0].imageAds.length > 0 ? premium.items[0].imageAds : ad_image_xxl}
+							title={premium.items[0].title} address={premium.items[0].address} price={premium.items[0].price}
+							favorite={premium.items[0].favorites} date={premium.items[0].date} id={premium.items[0].id}/> : null}
 			<Ad/>
-			<Card classname={'xxl'} ad_image={ad_image_xxl}/>
+			{premium.items[1] !== undefined ?
+				<Card classname={'xxl'}
+							ad_image={premium.items[1].imageAds.length > 0 ? premium.items[1].imageAds : ad_image_xxl}
+							title={premium.items[1].title} address={premium.items[1].address} price={premium.items[1].price}
+							favorite={premium.items[1].favorites} date={premium.items[1].date} id={premium.items[1].id}/> : null}
 			<Ad/>
 			{(blockData.length > 0 && commercialData.length > 0) ?
 				<UnionBoard blockData={blockData} commercialData={commercialData}/> : null}

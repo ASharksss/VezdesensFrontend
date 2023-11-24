@@ -1,10 +1,10 @@
 import React from 'react';
 import './button.css'
 
-const Button = ({children, classname, icon}) => {
+const Button = ({children, classname, icon, handleClick}) => {
   return (
     <div className='btn-connect '>
-      <button className={classname}>
+      <button className={classname} onClick={handleClick}>
         {
           classname === 'stroke' ? <p>{children}</p> :
             classname === 'activeAd' ? <p>{children}</p> :

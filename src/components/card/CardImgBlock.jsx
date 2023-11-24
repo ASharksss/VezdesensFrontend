@@ -4,8 +4,16 @@ import mainImg from '../../asserts/main_card_img.png'
 import SmallImg from "./SmallImg";
 import Button from "../../ui/buttons/button";
 import {STATIC_HOST} from "../../utils";
+import {useNavigate} from "react-router-dom";
 
-const CardImgBlock = ({ad_address, images}) => {
+const CardImgBlock = ({ad_address, images, id}) => {
+	const navigate = useNavigate()
+
+	const handleShowSimilar = () => navigate({
+		pathname: '/similar',
+		search: `?object=${id}`,
+	})
+
 	return (
 		<div>
 			<p className='card_ad_address'>{ad_address}</p>
@@ -17,7 +25,7 @@ const CardImgBlock = ({ad_address, images}) => {
 				</div>
 				<div className='relative main_card_img-container'>
 					<img src={images.length > 0 ? `${STATIC_HOST}/${images[0].name}` : mainImg} alt="Наушники промакс" className='main_card_img'/>
-					<Button classname={'like_ads'} children={'Показать похожие'}/>
+					<Button classname={'like_ads'} children={'Показать похожие'} handleClick={handleShowSimilar}/>
 				</div>
 			</div>
 		</div>
