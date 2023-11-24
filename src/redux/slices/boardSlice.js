@@ -11,7 +11,7 @@ export const fetchAllAds =
 const initialState = {
     ads: {
         items: [],
-        offset: '0|0',
+        offset: '0|0|0',
         status: 'loading'
     }
 }
@@ -34,7 +34,7 @@ const BoardSlice = createSlice({
             const missingValues = action.payload.ads.filter(value => !current(state.ads.items).includes(value))
             if (missingValues.length > 0) {
                 state.ads.items = [...current(state.ads.items), ...action.payload.ads]
-                state.ads.offset = `${parseInt(action.payload.blockOffset)}|${parseInt(action.payload.commercialOffset)}`
+                state.ads.offset = `${parseInt(action.payload.blockOffset)}|${parseInt(action.payload.commercialOffset)}|${parseInt(action.payload.vipOffset)}`
             }
             state.ads.status = 'loaded'
         },

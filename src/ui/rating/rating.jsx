@@ -2,10 +2,9 @@ import React from 'react';
 import StarComponent from "./starComponent";
 
 
-const Rating = ({data = [], type = 'user'}) => {
-  console.log(data)
+const Rating = ({data = []}) => {
     let average
-    if (type === 'user') {
+    if (data.length > 0) {
         let ratings = data.map(item => item.grade)
         const sum = ratings.reduce((accumulator, currentValue) => accumulator + currentValue, 0);
         average = sum !== 0 ? (sum / ratings.length).toFixed(2) : 0;

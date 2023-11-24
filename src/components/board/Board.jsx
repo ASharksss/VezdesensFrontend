@@ -46,17 +46,17 @@ const Board = () => {
 				setBlockData(prevState => {
 					if (prevState.length === 0)
 						return [...prevState, ...missingValuesBlockData]
-					const allArraysHaveFiveElements = prevState.every(array => array.length === 5);
-					if (allArraysHaveFiveElements)
+					const allArraysHaveElements = prevState.every(array => array.length === 5);
+					if (allArraysHaveElements)
 						return [...prevState, ...missingValuesBlockData];
 					else {
 						return prevState.map(array => {
-								if (array.length < 5) {
-									return missingValuesBlockData[0];
-								} else {
-									return array;
-								}
-							})
+							if (array.length < 5) {
+								return missingValuesBlockData[0];
+							} else {
+								return array;
+							}
+						})
 					}
 				})
 			}
@@ -64,8 +64,8 @@ const Board = () => {
 				setCommercialData(prevState => {
 					if (prevState.length === 0)
 						return [...prevState, ...missingValuesCommercialData]
-					const allArraysHaveFiveElements = prevState.every(array => array.length === 3);
-					if (allArraysHaveFiveElements)
+					const allArraysHaveElements = prevState.every(array => array.length === 3);
+					if (allArraysHaveElements)
 						return [...prevState, ...missingValuesCommercialData];
 					else {
 						return prevState.map(array => {
@@ -84,7 +84,7 @@ const Board = () => {
 		<>
 			<Card classname={'xxl'} ad_image={ad_image_xxl}/>
 			<Ad/>
-			<CommercialBlocksXl/>
+			<Card classname={'xxl'} ad_image={ad_image_xxl}/>
 			<Ad/>
 			{(blockData.length > 0 && commercialData.length > 0) ?
 				<UnionBoard blockData={blockData} commercialData={commercialData}/> : null}

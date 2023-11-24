@@ -3,12 +3,20 @@ export const STATIC_HOST = 'http://localhost:5000/static'
 export const group = (array) => {
 	const blockArray = array.filter(item => item.typeAdId === 1)
 	const commercialArray = array.filter(item => item.typeAdId === 2)
+	const vipArray = array.filter(item => item.typeAdId === 3)
   const resultBlock = [], resultCommercial = []
   for (let i = 0; i < blockArray.length; i += 5) {
 		resultBlock.push(blockArray.slice(i, i + 5));
   }
   for (let i = 0; i < commercialArray.length; i += 3) {
-		resultCommercial.push(commercialArray.slice(i, i + 3));
+		let chunk
+		if (vipArray.length > 0) {
+			chunk = commercialArray.slice(i, i + 2);
+			chunk.push(vipArray.shift());
+		} else {
+			chunk = commercialArray.slice(i, i + 3);
+		}
+		resultCommercial.push(chunk);
   }
   return {resultBlock, resultCommercial};
 }

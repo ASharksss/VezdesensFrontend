@@ -17,7 +17,6 @@ const CardAd = () => {
 	const [activeModal, setActiveModal] = useState(false)
 	const [typeModal, setTypeModal] = useState()
 	const {id} = useParams()
-	console.log(id)
 
 	useEffect(() => {
 		axios.get(`http://localhost:5000/api/ad/getOneAd/${id}`).then(res => {
