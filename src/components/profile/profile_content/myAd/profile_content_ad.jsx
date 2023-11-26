@@ -3,14 +3,14 @@ import './myAd.css'
 import ActiveAds from "./ActiveAds";
 import ArchiveAd from "./ArchiveAd";
 
-const ProfileContentAd = ({dataUser}) => {
+const ProfileContentAd = ({dataUser, setDataAds}) => {
 
 	const [search, setSearch] = useState('')
 	const [typeAd, setTypeAd] = useState('activeAd')
 
 	const dataSearch = {
 		...dataUser,
-		ads: dataUser.ads.filter(item => item.title.toLowerCase().includes(search.toLowerCase()))
+		ads: dataUser.filter(item => item.title.toLowerCase().includes(search.toLowerCase()))
 	}
 
 	return (
@@ -41,8 +41,8 @@ const ProfileContentAd = ({dataUser}) => {
 							 placeholder='Поиск'/>
 			</div>
 			{
-				typeAd === 'archiveAd' ? <ArchiveAd dataUser={dataSearch}/> :
-					typeAd === 'activeAd' ? <ActiveAds dataUser={dataSearch}/> : 'нишо'
+				typeAd === 'archiveAd' ? <ArchiveAd dataUser={dataSearch} setDataAds={setDataAds}/> :
+					typeAd === 'activeAd' ? <ActiveAds dataUser={dataSearch} setDataAds={setDataAds}/> : 'нишо'
 			}
 		</div>
 	);

@@ -15,6 +15,7 @@ const ProfilePage = () => {
 
   const [choice, setChoice] = useState('ads');
   const [dataUser, setDataUser] = useState([])
+  const [dataAds, setDataAds] = useState([])
   const [isLoadingUser, setIsLoadingUser] = useState(false)
   const {user} = useSelector(state => state.user)
 
@@ -25,6 +26,7 @@ const ProfilePage = () => {
       setIsLoadingUser(true)
       await axios.get(`http://localhost:5000/api/user/getOneUser/${id}`).then(res => {
         setDataUser(res.data)
+				setDataAds(res.data.ads)
         setIsLoadingUser(false)
       }).catch(err => {
         console.warn(err)
@@ -35,11 +37,9 @@ const ProfilePage = () => {
     getUserInfo()
   }, [id])
 
-
-
   const MyElements = [{name: "Мои объявления", choice: 'ads'}, {name: "Сообщения", choice: "dialogs"},
     {name: "Избранное", choice: "favorites"}, {name: "Помощь", choice: "help"}]
-  const OtherElements = [{name: "Мои объявления", choice: 'ads'}]
+  const OtherElements = [{name: "Объявления", choice: 'ads'}]
 
   if (isLoadingUser || dataUser.length === 0) {
     return <div>Loading...</div>
@@ -79,7 +79,7 @@ const ProfilePage = () => {
 
               <div className='profile_content'>
                 {
-                  choice === 'ads' ? <ProfileContentAd dataUser={dataUser}/> :
+                  choice === 'ads' ? <ProfileContentAd dataUser={dataAds} setDataAds={setDataAds}/> :
                     choice === 'dialogs' ? <Messages dataUser={dataUser}/> :
                       choice === 'favorites' ? <MyFavorite dataUser={dataUser}/> :
                         choice === 'help' ? 'help' : 'ничего не выбрано'

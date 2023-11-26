@@ -55,10 +55,7 @@ function App() {
             {privateRoutes.map(({key, path, Component}) => (
               <Route key={`private-${key}`} path={path} element={<Component/>}/>
             ))}
-          </Route> : <Route
-            path="*"
-            element={<Navigate to="/signin" replace />}
-          />}
+          </Route> : null}
         {/*<Route path="*" element={<Error404Page/>}/>*/}
       </Routes>
     </BrowserRouter>

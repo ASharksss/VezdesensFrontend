@@ -2,7 +2,7 @@ import React from 'react';
 import StarComponent from "./starComponent";
 
 
-const Rating = ({data = []}) => {
+const Rating = ({data = [], type='user'}) => {
     let average
     if (data.length > 0) {
         let ratings = data.map(item => item.grade)
@@ -11,13 +11,24 @@ const Rating = ({data = []}) => {
     } else {
         average = 0
     }
-    return (
-        <div className='flex' style={{alignItems: 'center', justifyContent: 'space-evenly'}}>
-            <span style={{fontSize: '1.5rem', fontWeight: 'bolder'}}>{average}</span>
-            <StarComponent average={average}/>
-            <p className='count_grade'> {data.length} отзыв</p>
-        </div>
-    );
+		if (type === 'user')
+			return (
+					<div className='flex' style={{alignItems: 'center', justifyContent: 'space-evenly'}}>
+							<span style={{fontSize: '1.5rem', fontWeight: 'bolder'}}>{average}</span>
+							<StarComponent average={average}/>
+							<p className='count_grade'> {data.length} отзыв</p>
+					</div>
+			);
+		else
+			return (
+				<div className='flex' style={{alignItems: 'center', justifyContent: 'flex-start'}}>
+					<span style={{fontSize: '1.5rem', fontWeight: 'bolder'}}>{average}</span>
+					<StarComponent average={average}/>
+					<div style={{display: 'flex'}}>
+						<button>Написать отзыв</button>
+					</div>
+				</div>
+			);
 };
 
 export default Rating;

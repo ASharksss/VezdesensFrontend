@@ -9,17 +9,31 @@ import axios from "axios";
 import ModalMain from "../modal/modalMain";
 import DescriptionModal from "../modal/descriptionModal";
 import PhoneModal from "../modal/phoneModal";
+import RatingModal from "../modal/ratingModal";
 
 const CardAd = () => {
 
 	const [data, setData] = useState()
+	const [dataRating, setDataRating] = useState()
 	const [isLoading, setIsLoading] = useState()
 	const [activeModal, setActiveModal] = useState(false)
 	const [typeModal, setTypeModal] = useState()
 	const {id} = useParams()
 
 	useEffect(() => {
-		axios.get(`http://localhost:5000/api/ad/getOneAd/${id}`).then(res => {
+		if (typeModal === 'rating' && activeModal === true) {
+			axios.get(`api/user/review/${data.ad.user.id}`)
+				.then(res => {
+					setDataRating(res.data)
+				}).catch(err => {
+					console.log(err)
+					window.alert('Ошибка получения рейтинга')
+			})
+		}
+	}, [typeModal, activeModal])
+
+	useEffect(() => {
+		axios.get(`api/ad/getOneAd/${id}`).then(res => {
 			setData(res.data)
 			setIsLoading(true)
 		}).catch(err => {
@@ -36,7 +50,8 @@ const CardAd = () => {
 		<div>
 			<h1 className='card_ad_name'>{data.ad.title}</h1>
 			<div className="flex">
-				<CardImgBlock ad_address={data.ad.address} images={data.ad.imageAds.length > 0 ? data.ad.imageAds : []} id={data.ad.objectId}/>
+				<CardImgBlock ad_address={data.ad.address} images={data.ad.imageAds.length > 0 ? data.ad.imageAds : []}
+											id={data.ad.objectId}/>
 
 				<CardDescription card_number={`№ ${data.ad.id}`} card_time={data.ad.createdAt}
 												 card_views={data.ad.views} desription={data.ad.description}
@@ -49,11 +64,13 @@ const CardAd = () => {
 
 			{
 				typeModal === 'description' ?
-					<ModalMain activeModal={activeModal} setActiveModal={setActiveModal} children={<DescriptionModal description={data.ad.description}/>}/> :
+					<ModalMain activeModal={activeModal} setActiveModal={setActiveModal}
+										 children={<DescriptionModal description={data.ad.description}/>}/> :
 					typeModal === 'phone' ?
-						<ModalMain activeModal={activeModal} setActiveModal={setActiveModal} children={<PhoneModal phone={data.ad.user.phone}/>}/> :
+						<ModalMain activeModal={activeModal} setActiveModal={setActiveModal}
+											 children={<PhoneModal phone={data.ad.user.phone}/>}/> :
 						typeModal === 'rating' ?
-							<ModalMain activeModal={activeModal} setActiveModal={setActiveModal} children={<DescriptionModal/>}/> : ''
+							<ModalMain activeModal={activeModal} setActiveModal={setActiveModal} children={<RatingModal data={dataRating}/>}/> : ''
 			}
 
 

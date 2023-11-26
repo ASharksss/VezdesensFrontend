@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import './header.css'
 import logo from '../../asserts/logo.svg'
 import categories from '../../asserts/icons/categories.svg'
@@ -6,15 +6,31 @@ import search from '../../asserts/icons/search.svg'
 import geo from '../../asserts/icons/geo.svg'
 import profile from '../../asserts/icons/profile.svg'
 import {useSelector} from "react-redux";
-import {NavLink} from "react-router-dom";
+import {NavLink, useLocation} from "react-router-dom";
 import CategoryModalTemplate from "../modal/categoryModal/categoryModalTemplate";
 import CategoryModal from "../modal/categoryModal/categoryModal";
+import axios from "axios";
 
 const Header = () => {
 
+	const location = useLocation()
 	const {isAuth, user} = useSelector(state => state.user)
 	const [activeModalCat, setActiveModalCat] = useState(false)
+	const [categoriesData, setCategoriesData] = useState([])
 
+	useEffect(() => {
+		const getCategories = async () => {
+			const {data} = await axios.get(`api/categories/getCategoriesList`)
+			setCategoriesData(data)
+		}
+		if (activeModalCat) {
+			getCategories()
+		}
+	}, [activeModalCat])
+
+	useEffect(() => {
+		setActiveModalCat(false)
+	}, [location.pathname, location.search])
 
 	return (
 		<div className='container'>
@@ -56,8 +72,8 @@ const Header = () => {
 				</div>
 			</div>
 			<div>
-				<CategoryModalTemplate activeModalCat={activeModalCat} setActiveModalCat={setActiveModalCat}
-															 children={<CategoryModal/>}/>
+				{activeModalCat ? <CategoryModalTemplate activeModalCat={activeModalCat} setActiveModalCat={setActiveModalCat}
+															 children={<CategoryModal data={categoriesData}/>}/> : null}
 			</div>
 		</div>
 	);

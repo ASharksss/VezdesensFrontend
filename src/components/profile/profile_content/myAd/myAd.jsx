@@ -9,7 +9,7 @@ import MyAdActionsFavorite from "./MyAdActionsFavorite";
 import {NavLink} from "react-router-dom";
 import {numberWithSpaces} from "../../../../utils";
 
-const MyAd = ({classname, typeAd, item}) => {
+const MyAd = ({classname, typeAd, item, setDataAds}) => {
 	if (item) {
 		return (
 			<>
@@ -17,8 +17,8 @@ const MyAd = ({classname, typeAd, item}) => {
 					<div className=" myAd_container flex">
 
               {
-                typeAd === 'activeAd' ? <MyAdActionsActive dataUser={item}/> :
-                  typeAd === 'archiveAd' ? <MyAdActionsArchive dataUser={item}/> :
+                typeAd === 'activeAd' ? <MyAdActionsActive dataUser={item} setDataAds={setDataAds}/> :
+                  typeAd === 'archiveAd' ? <MyAdActionsArchive dataUser={item} setDataAds={setDataAds}/> :
                     typeAd === 'favoriteAd' ? <MyAdActionsFavorite dataUser={item}/> :
                       'ничего не передано'
               }

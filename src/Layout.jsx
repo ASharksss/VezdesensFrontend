@@ -13,7 +13,7 @@ const Layout = () => {
 	const dispatch = useDispatch()
 
 	useEffect(() => {
-		localStorage.setItem('last_path', location.pathname)
+		localStorage.setItem('last_path', location.pathname + location.search)
 	}, [location.pathname]);
 
 	useEffect(() => {

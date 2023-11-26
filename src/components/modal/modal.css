@@ -78,11 +78,24 @@
     transform: scale(1);
 }
 
+.rating_modal {
+    width: 486px;
+    height: 682px;
+    text-align: left;
+    overflow-y: auto;
+}
+
+.rating_modal-title {
+    font-size: 32px;
+    font-family: OpenSansBold;
+    margin-bottom: 30px;
+}
+
 .description_modal {
     width: 486px;
     height: 682px;
     text-align: left;
-    overflow-y: scroll;
+    overflow-y: auto;
 }
 
 .description_modal-title {
@@ -99,6 +112,7 @@
 
 .categoryModal-categories {
     width: 278px;
+    margin-right: 10px;
 }
 
 .category_link {

@@ -21,23 +21,34 @@ const SimilarPage = () => {
 	let [searchParams, ] = useSearchParams();
 	const objectId = searchParams.get('object')
 
+	const getData = async () => {
+		const lastPath = localStorage.getItem('last_path')
+		const responseOffset = lastPath !== location.pathname + location.search ? offset : 0
+		const response = await axios.get(`api/board/getAll?objectId=${objectId}&offset=${responseOffset}`)
+		setData(prevState => [...prevState, ...response.data.ads])
+		setOffset(parseInt(response.data.blockOffset))
+	}
+
 	useEffect(() => {
-		const getData = async () => {
-			const response = await axios.get(`api/board/getAll?objectId=${objectId}&offset=${offset}`)
-			setData(prevState => [...prevState, ...response.data.ads])
-			setOffset(parseInt(response.data.blockOffset))
+		const lastPath = localStorage.getItem('last_path')
+		if (lastPath !== location.pathname + location.search) {
+			setData([])
+			setIgnoreIds([])
+			localStorage.setItem('last_path', location.pathname + location.search)
+			getData()
+		} else {
+			getData()
 		}
-		getData()
-	}, [location.pathname, objectId])
+	}, [location.search, objectId])
 
 	useEffect(() => {
 		const ids = data.map(item => item.id)
 		setIgnoreIds(ids)
 	}, [data])
 
-	useEffect(() => {
-		console.log(encryptArrayWithKey(ignoreIds))
-	}, [ignoreIds])
+	// useEffect(() => {
+	// 	console.log(encryptArrayWithKey(ignoreIds))
+	// }, [ignoreIds])
 
 	const forChunkData = [...data]
 	const chunkedData = chunkArray(forChunkData, 5);
