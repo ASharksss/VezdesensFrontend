@@ -132,3 +132,143 @@
 .category_link + .category_link {
     margin-top: 5px;
 }
+
+.reviews_block {
+    margin-top: 40px;
+}
+
+.reviews_cost {
+    font-size: 18px;
+    color: #B5B7BD;
+}
+
+.reviews_list {
+    margin-top: 30px;
+}
+
+.review_person {
+    display: flex;
+}
+
+.review_person + .review_person {
+    margin-top: 40px;
+}
+
+.review_avatar {
+     width: 45px;
+     height: 45px;
+     margin-right: 15px;
+ }
+
+.review_info {
+    display: flex;
+    flex-direction: column;
+}
+
+.review_avatar-img {
+    min-width: 45px;
+    min-height: 45px;
+}
+
+.review_info-name {
+    font-size: 16px;
+    color: #070C20;
+    font-family: OpenSansBold;
+    margin-bottom: 5px;
+}
+
+.review_date {
+    margin-bottom: 10px;
+    font-size: 14px;
+    color: #B5B7BD;
+}
+
+.review_text {
+    font-size: 14px;
+    color: #838690;
+    margin-top: 20px;
+}
+
+.rating_cost {
+    margin-right: 20px;
+    font-size: 32px;
+    font-family: OpenSansBold;
+}
+
+.rating_btn {
+    width: 182px;
+    height: 38px;
+    border-radius: 10px;
+    background-color: #161616;
+    color: white;
+    font-size: 14px;
+    margin-left: 45px;
+    transition: .5s;
+}
+
+.rating_btn:hover {
+    background-color: #404040;
+}
+
+/* Write review */
+
+.write_review {
+    width: 530px;
+    height: 580px;
+}
+
+.write_review-btn {
+    font-size: 18px;
+    margin-left: 15px;
+    font-family: OpenSansSemiBold;
+}
+
+.back_btn {
+    margin-bottom: 50px;
+}
+
+.write_review-main {
+    text-align: left;
+}
+
+.write_review-title {
+    font-size: 32px;
+    color: #070C20;
+    margin-bottom: 10px;
+    font-family: OpenSansBold;
+}
+
+.write_review-subtitle {
+    font-size: 14px;
+    color: #838690;
+    margin-bottom: 30px;
+}
+
+.write_review-stars {
+    margin-left: 30px;
+    font-size: 16px;
+    color: #B5B7BD;
+}
+
+.write_review-textarea {
+    width: 530px;
+    height: 234px;
+    border-radius: 10px;
+    background-color: #ECECEC;
+    padding: 16px 20px;
+    margin-top: 40px;
+}
+
+.write_review-submit {
+    width: 192px;
+    height: 54px;
+    background-color: #161616;
+    color: white;
+    border-radius: 10px;
+    margin-top: 40px;
+    transition: .5s;
+}
+
+.write_review-submit:hover {
+    background-color: #404040;
+}

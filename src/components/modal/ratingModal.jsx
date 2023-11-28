@@ -2,6 +2,7 @@ import React from 'react';
 import cardImg from '../../asserts/cardImg.png';
 import Rating from "../../ui/rating/rating";
 import StarComponent from "../../ui/rating/starComponent";
+import ReviewPerson from "./reviewPerson";
 
 const statusBar = {
 	"--height": "25px",
@@ -76,16 +77,28 @@ const RatingModal = ({data}) => {
 						<span style={{color: '#B5B7BD'}}>{data.filter(item => item.grade === 1).length}</span>
 					</div>
 				</div>
-				<div style={{display: 'flex', marginTop: '20px'}}>
+
+
+				<div className="reviews_block">
+						<span className='reviews_cost'>{data.length} отзывов</span>
+						<div className='reviews_list'>
+							{
+								data.map((item, index) => <ReviewPerson data={item}/>)
+							}
+
+						</div>
+				</div>
+
+				{/*<div style={{display: 'flex', marginTop: '20px'}}>
 					<p>{data.length} отзывов</p>
 				</div>
 				<div>
 					{data.map((item, index) =>
-						<div className='flex' key={`card-${index}=${item.id}`}>
+						<div key={`card-${index}=${item.id}`}>
 							<p>{item.text}</p>
 						</div>
 					)}
-				</div>
+				</div>*/}
 			</div>
 		</div>
 	);

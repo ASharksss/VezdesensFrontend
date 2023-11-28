@@ -120,3 +120,13 @@ body {
 .r_radius {
   border-bottom-right-radius: 40px;
 }
+
+.rating-text {
+  font-size: 18px;
+  font-family:OpenSansBold ;
+  margin-right: 10px;
+}
+
+.count_grade {
+  margin-left: 20px;
+}

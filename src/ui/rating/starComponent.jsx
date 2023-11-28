@@ -8,7 +8,7 @@ const StarComponent = ({average}) => {
 	const halfStars = average - fullStars >= 0.5;
 	const emptyStars = 5 - fullStars - (halfStars ? 1 : 0);
 	return (
-		<div>
+		<div >
 			{[...Array(fullStars)].map((_, index) => (
 				<img key={`full-${index}`} src={fullStarSVG} alt="Full Star" width='26'/>
 			))}
