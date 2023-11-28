@@ -58,7 +58,6 @@ const SimilarPage = () => {
 	}
 	return (
 		<div className='container'>
-			{/* Отображаем каждую группу */}
 			{chunkedData.map((chunk, index) => (
 				<div className='flex small_ads align-items' key={`chunk-${index}`}>
 					{chunk.map((item, itemIndex) => (

@@ -1,9 +1,13 @@
 import React, {useEffect, useState} from 'react';
 import CategoryBtn from "./categoryBtn";
+import {useSearchParams} from "react-router-dom";
 
 const CategoryModal = ({data}) => {
-	const [category, setCategory] = useState(1)
-	const [subCategory, setSubCategory] = useState(1)
+	const [searchParams,] = useSearchParams()
+	const paramsCategory = parseInt(searchParams.get('category')) || 1
+	const paramsSubCategory = parseInt(searchParams.get('subCategory')) || 1
+	const [category, setCategory] = useState(paramsCategory)
+	const [subCategory, setSubCategory] = useState(paramsSubCategory)
 	const [subCategoryData, setSubCategoryData] = useState([])
 	const [objectsData, setObjectsData] = useState([])
 	useEffect(() => {
@@ -34,17 +38,19 @@ const CategoryModal = ({data}) => {
 		<div className={'flex'}>
 			<div className="categoryModal-categories">
 				{data.map((item, index) => (
-					<CategoryBtn item={item} type={'category'} setCategory={setCategory} key={`categories-${index}`}/>
+					<CategoryBtn item={item} type={'category'} setCategory={setCategory} key={`categories-${index}`}
+											 active={parseInt(item.id) === category}/>
 				))}
 			</div>
 			<div className="categoryModal-categories">
 				{subCategoryData.map((item, index) => (
-					<CategoryBtn item={item} type={'subCategory'} setCategory={setSubCategory} key={`categories-${index}`}/>
+					<CategoryBtn item={item} type={'subCategory'} setCategory={setSubCategory} key={`categories-${index}`}
+											 active={parseInt(item.id) === subCategory}/>
 				))}
 			</div>
 			<div className="categoryModal-categories">
 				{objectsData.map((item, index) => (
-					<CategoryBtn item={item} type={'objects'} key={`categories-${index}`}/>
+					<CategoryBtn item={item} type={'objects'} key={`categories-${index}`} category={category}/>
 				))}
 			</div>
 

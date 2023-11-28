@@ -142,17 +142,17 @@ const CreateAdPage = () => {
 
 						<div className="create_ad-size">
 							<h2 className='create_ad-size-title'>Размер объявления</h2>
-							<CreateAdItem setTypeAd={setTypeAd} typeAd={typeAd}/>
+							<CreateAdItem setTypeAd={setTypeAd} typeAd={typeAd} premium={categories.premium}/>
 						</div>
 
 						<div className="create_ad-blocks">
-							<div>
+							{categories.premium ? <div>
 								<span className='create_ad-name'>Размер для баннера "Premium"</span>
 								<div className={`create_ad_block premium ${typeAd === 'premium' ? 'checked_type_ad' : ''}`}
 										 onClick={() => setTypeAd('premium')}>
 									<img src={photoPremium} alt=""/>
 								</div>
-							</div>
+							</div> : null}
 							<div className="flex end mt-50">
 								<div className='mr-50'>
 									<span className='create_ad-name'>Размер для баннера "Vip"</span>

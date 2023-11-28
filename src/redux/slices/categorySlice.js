@@ -12,7 +12,11 @@ export const fetchCategory =
 
 export const fetchCategoryList =
     createAsyncThunk('getCategoriesList',
-        async () => {
+        async (subCategoryId) => {
+					if (subCategoryId) {
+						const {data} = await axios.get(`api/categories/getCategoriesList?categoryId=${subCategoryId}`)
+						return data
+					}
             const {data} = await axios.get(`api/categories/getCategoriesList`)
             return data
         }
@@ -37,6 +41,7 @@ export const fetchObjects =
 
 const initialState = {
     categories: {
+				premium: true,
         items: [],
         status: 'loading',
         subCategories: {
@@ -64,7 +69,8 @@ const CategoriesSlice = createSlice({
             state.categories.status = 'loading'
         },
         [fetchCategory.fulfilled]: (state, action) => {
-            state.categories.items = action.payload
+            state.categories.items = action.payload.categories
+						state.categories.premium = action.payload.premium
             state.categories.status = 'loaded'
         },
         [fetchCategory.rejected]: (state) => {

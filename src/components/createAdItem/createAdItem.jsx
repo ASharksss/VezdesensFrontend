@@ -1,7 +1,7 @@
 import React from 'react';
 import './createAdItem.css'
 
-const CreateAdItem = ({setTypeAd, typeAd}) => {
+const CreateAdItem = ({setTypeAd, typeAd, premium}) => {
 
 
 	return (
@@ -49,6 +49,7 @@ const CreateAdItem = ({setTypeAd, typeAd}) => {
 							</p>
 						</div>
 					</div>
+					{premium ?
 					<div className="create_ad_size-item">
 						<input id='premium' type="radio" name='premium' className='create_ad_size-checkbox'
 									 onChange={() => setTypeAd('premium')} checked={typeAd === 'premium'}
@@ -61,7 +62,7 @@ const CreateAdItem = ({setTypeAd, typeAd}) => {
 								сколько по времени будет висеть объявление
 							</p>
 						</div>
-					</div>
+					</div> : null}
 				</div>
 			</form>
 		</>
