@@ -1,13 +1,12 @@
-import React, {useEffect, useState} from 'react';
+import React from 'react';
 import './myAd.css'
 import Button from "../../../../ui/buttons/button";
 import ad_img from '../../../../asserts/ad_image_xs.png'
-import favorite from "../../../../asserts/icons/favorite.svg"
 import MyAdActionsActive from "./MyAdActionsActive";
 import MyAdActionsArchive from "./MyAdActionsArchive";
 import MyAdActionsFavorite from "./MyAdActionsFavorite";
 import {NavLink} from "react-router-dom";
-import {numberWithSpaces} from "../../../../utils";
+import {numberWithSpaces, STATIC_HOST} from "../../../../utils";
 
 const MyAd = ({classname, typeAd, item, setDataAds}) => {
 	if (item) {
@@ -19,13 +18,13 @@ const MyAd = ({classname, typeAd, item, setDataAds}) => {
               {
                 typeAd === 'activeAd' ? <MyAdActionsActive dataUser={item} setDataAds={setDataAds}/> :
                   typeAd === 'archiveAd' ? <MyAdActionsArchive dataUser={item} setDataAds={setDataAds}/> :
-                    typeAd === 'favoriteAd' ? <MyAdActionsFavorite dataUser={item}/> :
+                    typeAd === 'favoriteAd' ? <MyAdActionsFavorite dataUser={item} setDataAds={setDataAds}/> :
                       'ничего не передано'
               }
 
 
               <div className="myAd_img">
-                <img src={ad_img} alt="НАЗВАНИЕ ТОВАРА" className='myAd_img-image'/>
+                <img src={item.imageAds.length > 0 ? `${STATIC_HOST}/${item.imageAds[0].name}` : ad_img} alt="НАЗВАНИЕ ТОВАРА" className='myAd_img-image'/>
               </div>
               <div className="myAd_description">
 
@@ -39,11 +38,9 @@ const MyAd = ({classname, typeAd, item, setDataAds}) => {
                     </NavLink>
                 </div>
                 {
-                  typeAd === 'favoriteAd' ? <img src={favorite} alt="лоек" className='absolute'/> :
                     typeAd === 'activeAd' || typeAd === 'archiveAd' ?
                       <p className='myAd_type absolute'>{item.typeAd.name}</p>
-                      :
-                      'ничего не передано'
+                      : null
                 }
               </div>
 

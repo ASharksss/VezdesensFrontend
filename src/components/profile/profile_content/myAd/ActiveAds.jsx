@@ -10,7 +10,7 @@ const ActiveAds = ({dataUser, setDataAds}) => {
           <p>Ничего нет</p>
         </div>
         : dataUser.ads.map((item, index) => (
-					<MyAd key={'active' + index} typeAd={'activeAd'} item={item.statusAdId === 1 && item} setDataAds={setDataAds}/>
+					<MyAd key={'active' + index} typeAd={'activeAd'} item={item.statusAdId === 2 && item} setDataAds={setDataAds}/>
 				))}
     </div>
   );

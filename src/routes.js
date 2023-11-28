@@ -5,6 +5,7 @@ import CardPage from "./pages/CardPage";
 import CatalogBoardPage from "./pages/CatalogBoardPage";
 import LikeAdsPage from "./pages/LikeAdsPage";
 import SimilarPage from "./pages/SimilarPage";
+import SearchPage from "./pages/SearchPage";
 
 export const publicRoutes = [
     {
@@ -22,6 +23,9 @@ export const publicRoutes = [
     },{
         path: '/similar',
         Component: SimilarPage
+    },{
+        path: '/search',
+        Component: SearchPage
     }
 ]
 

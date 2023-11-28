@@ -1,4 +1,8 @@
 import React, {useEffect, useState} from 'react';
+import InputMask from 'react-input-mask';
+import {useDispatch, useSelector} from "react-redux";
+import axios from "axios";
+import {useNavigate} from "react-router-dom";
 import CreateAdItem from "../components/createAdItem/createAdItem";
 import photoPremium from "../asserts/icons/upload_premium.svg"
 import photoStandartPlus from "../asserts/icons/photoStandartPlus.svg"
@@ -7,14 +11,11 @@ import UploadPhotoPremium from "../components/uploadPhoto/uploadPhotoPremium";
 import UploadPhotoVip from "../components/uploadPhoto/uploadPhotoVip";
 import UploadPhotoStandartPlus from "../components/uploadPhoto/uploadPhotoStandartPlus";
 import UploadPhotoStandart from "../components/uploadPhoto/uploadPhotoStandart";
-import {useDispatch, useSelector} from "react-redux";
 import {fetchCharacterObjects} from "../redux/slices/adSlice";
 import EnterInput from "../ui/characteristicInputs/enterInput";
 import SelectInput from "../ui/characteristicInputs/selectInput";
 import CheckboxInput from "../ui/characteristicInputs/checkboxInputs";
 import {fetchCategory, fetchObjects, fetchSubCategories} from "../redux/slices/categorySlice";
-import axios from "axios";
-import {useNavigate} from "react-router-dom";
 import {DataURIToBlob} from "../utils";
 
 const CreateAdPage = () => {
@@ -29,6 +30,7 @@ const CreateAdPage = () => {
 	const [description, setDescription] = useState('')
 	const [geolocation, setGeolocation] = useState('')
 	const [title, setTitle] = useState('')
+	const [objectId, setObjectId] = useState(1)
 	const [phone, setPhone] = useState('')
 	const [price, setPrice] = useState('')
 	const [enterValue, setEnterValue] = useState([])
@@ -76,7 +78,7 @@ const CreateAdPage = () => {
 			formData.append('address', geolocation)
 			formData.append('price', price)
 			formData.append('typeAd', typeAd)
-			formData.append('objectId', character.items[0].objectId)
+			formData.append('objectId', objectId)
 			formData.append('bookingDateStart', date.toString())
 			formData.append('bookingDateEnd', new Date(date.setDate(date.getDate() + 30)).toString())
 			formData.append('characteristicsInput', JSON.stringify(enterValue))
@@ -130,7 +132,10 @@ const CreateAdPage = () => {
 								}
 							</select>
 							<select className='create_ad-select' disabled={categories.subCategories.objects.status === 'loading'}
-											onChange={event => dispatch(fetchCharacterObjects(event.target.value))}>
+											onChange={event => {
+												setObjectId(parseInt(event.target.value))
+												dispatch(fetchCharacterObjects(event.target.value))
+											}}>
 								<option hidden>Выберите значение</option>
 								{
 									categories.subCategories.objects.items.map((item, index) => (
@@ -243,8 +248,8 @@ const CreateAdPage = () => {
 							<h1 className='create_ad-descr-title'>Контакты</h1>
 							<div className="flex">
 								<label htmlFor="" className='create_ad_label'>Телефон</label>
-								<input type="text" onChange={event => setPhone(event.target.value)}
-											 placeholder='Введите номер' className='create_ad_phone'/>
+								<InputMask mask="+7(999)999-99-99" type="text" onChange={event => setPhone(event.target.value)}
+											 placeholder='Введите номер' className='create_ad_phone' value={phone}/>
 							</div>
 						</div>
 

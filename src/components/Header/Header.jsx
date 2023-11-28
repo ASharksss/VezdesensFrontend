@@ -2,20 +2,21 @@ import React, {useEffect, useState} from 'react';
 import './header.css'
 import logo from '../../asserts/logo.svg'
 import categories from '../../asserts/icons/categories.svg'
-import search from '../../asserts/icons/search.svg'
+import searchSVG from '../../asserts/icons/search.svg'
 import geo from '../../asserts/icons/geo.svg'
 import profile from '../../asserts/icons/profile.svg'
 import {useSelector} from "react-redux";
-import {NavLink, useLocation} from "react-router-dom";
+import {NavLink, useLocation, useNavigate} from "react-router-dom";
 import CategoryModalTemplate from "../modal/categoryModal/categoryModalTemplate";
 import CategoryModal from "../modal/categoryModal/categoryModal";
 import axios from "axios";
 
 const Header = () => {
-
 	const location = useLocation()
+	const navigate = useNavigate()
 	const {isAuth, user} = useSelector(state => state.user)
 	const [activeModalCat, setActiveModalCat] = useState(false)
+	const [search, setSearch] = useState('')
 	const [categoriesData, setCategoriesData] = useState([])
 
 	useEffect(() => {
@@ -27,6 +28,13 @@ const Header = () => {
 			getCategories()
 		}
 	}, [activeModalCat])
+
+	const handleSearch = () => {
+	  navigate({
+			pathname: '/search',
+			search: `query=${search}`
+		})
+	}
 
 	useEffect(() => {
 		setActiveModalCat(false)
@@ -54,9 +62,10 @@ const Header = () => {
 							<NavLink to={isAuth ? '/createAd' : '/signin'} className='create_ad-btn'>Подать объявление</NavLink>
 						</div>
 						<div className="header_content-search">
-							<input type="text" placeholder='Искать объявления' className='search-input'/>
-							<button className='search-btn'>
-								<img src={search} alt="Поиск"/>
+							<input type="text" placeholder='Искать объявления' className='search-input'
+										 onChange={event => setSearch(event.target.value)}/>
+							<button className='search-btn' onClick={handleSearch}>
+								<img src={searchSVG} alt="Поиск"/>
 							</button>
 						</div>
 					</div>
