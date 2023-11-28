@@ -24,7 +24,7 @@ const ProfilePage = () => {
   useEffect(() => {
     const getUserInfo = async () => {
       setIsLoadingUser(true)
-      await axios.get(`http://localhost:5000/api/user/getOneUser/${id}`).then(res => {
+      await axios.get(`api/user/getOneUser/${id}`).then(res => {
         setDataUser(res.data)
 				setDataAds(res.data.ads)
         setIsLoadingUser(false)

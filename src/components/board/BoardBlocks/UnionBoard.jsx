@@ -15,7 +15,6 @@ const UnionBoard = ({blockData, commercialData}) => {
 					<SmallBlocks key={`blocks-${i}`} items={blockData[i]} />
 				);
 				if (blockData[i].length < 5) {
-					console.log(commercialIndex, commercialData)
 					combinedData.push(
 						<CommercialBlocksLss key={`commercial-${i}`} items={commercialData[commercialIndex-1]} />
 					);

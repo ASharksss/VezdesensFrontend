@@ -1,4 +1,4 @@
-import React, {useEffect, useRef} from 'react';
+import React, {useEffect, useRef, useState} from 'react';
 import {Outlet, useLocation} from "react-router-dom";
 import {useDispatch, useSelector} from "react-redux";
 import {fetchAllAds} from "./redux/slices/boardSlice";
@@ -10,22 +10,31 @@ const Layout = () => {
 	const footerRef = useRef();
 	const location = useLocation();
 	const {ads} = useSelector(state => state.board)
+	const [lastOffset, setLastOffset] = useState(parseInt(ads.offset.split('|')[0]))
 	const dispatch = useDispatch()
 
 	useEffect(() => {
 		localStorage.setItem('last_path', location.pathname + location.search)
 	}, [location.pathname]);
 
+	const handleObserver = async (vision=false) => {
+		if (vision && parseInt(ads.offset.split('|')[0]) !== lastOffset) {
+			await dispatch(fetchAllAds({offset: ads.offset})).then((res) => {
+				setLastOffset(parseInt(res.payload.blockOffset))
+			})
+		}
+	}
+	const observer = new IntersectionObserver(
+		async ([entry]) => {
+			if (entry.isIntersecting) {
+				await handleObserver(entry.isIntersecting)
+			}
+		},
+		{threshold: 0.001}
+	);
+
 	useEffect(() => {
 		if (location.pathname === '/') {
-			const observer = new IntersectionObserver(
-				([entry]) => {
-					if (entry.isIntersecting) {
-						dispatch(fetchAllAds({offset: ads.offset}))
-					}
-				},
-				{threshold: 0.001}
-			);
 			observer.observe(footerRef.current);
 			return () => {
 				observer.disconnect();
