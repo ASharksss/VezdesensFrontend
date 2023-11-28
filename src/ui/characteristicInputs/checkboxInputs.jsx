@@ -3,7 +3,7 @@ import React, {useEffect, useState} from 'react';
 const CheckboxInput = ({data, setCheckboxValue, id}) => {
 	const [value, setValue] = useState([])
 	const handleChangeCheckbox = (event) => {
-		const element = parseInt(event.target.id)
+		const element = parseInt(event.target.dataset.id)
 		setValue((prevState) => {
 			const existingEntryIndex = prevState.findIndex((entry) => entry === element);
 			if (existingEntryIndex !== -1) {
@@ -33,8 +33,8 @@ const CheckboxInput = ({data, setCheckboxValue, id}) => {
 			<div className='flex column mb-40'>
 				{data['characteristicValues'].map((item, index) => (
 					<div className='checkbox-item' key={'characteristicValuesCheckbox' + index}>
-						<input onChange={handleChangeCheckbox} id={item.id} checked={value.includes(item.id)} type="checkbox" className='checkbox_input-checkbox'/>
-						<label className='checkbox_input-label'>{item.name}</label>
+						<input onChange={handleChangeCheckbox} id={`checkbox-${item.name}=${item.id}`} data-id={item.id} checked={value.includes(item.id)} type="checkbox" className='checkbox_input-checkbox'/>
+						<label htmlFor={`checkbox-${item.name}=${item.id}`} className='checkbox_input-label'>{item.name}</label>
 					</div>
 				))}
 			</div>

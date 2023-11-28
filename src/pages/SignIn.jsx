@@ -34,6 +34,8 @@ const SignIn = () => {
     }
 
     const handleSubmit = (event) => {
+				event.preventDefault()
+				console.log(event)
         if (login === '' || password === '') {
             setErrorSubmit(true)
         } else {
@@ -54,8 +56,11 @@ const SignIn = () => {
     return (
         <div className='auth'>
             <div className="auth_form">
+								<NavLink to='/'>
+									<button className='auth_btn signup' style={{border: 'none'}}>← На главную</button>
+								</NavLink>
                 <h1 className='auth_form-title'>Вход</h1>
-                <div className="auth_form-inputs">
+                <div className="auth_form-inputs" onSubmit={handleSubmit}>
                     <label className='auth_form-label'>Логин</label>
                     <input onChange={handleSetUsername} type="text" placeholder='Введите логин или почту'
                            className='auth_form-input'/>
@@ -72,9 +77,9 @@ const SignIn = () => {
                     <span className='miss_password'>Забыли пароль?</span>
                 </div>
                 <div className="auth_form-btns">
-                    <button className='auth_btn login' onClick={handleSubmit}>Войти</button>
+                    <button type={'submit'} className='auth_btn signin' onClick={handleSubmit}>Войти</button>
                     <NavLink to='/signup'>
-                        <button className='auth_btn signin'>Зарегистрироваться</button>
+                        <button className='auth_btn signup'>Зарегистрироваться</button>
                     </NavLink>
                 </div>
 

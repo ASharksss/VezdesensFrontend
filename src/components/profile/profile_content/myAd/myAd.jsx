@@ -35,8 +35,6 @@ const MyAd = ({classname, typeAd, item, setDataAds}) => {
 								</div>
 							</Fancybox>
               <div className="myAd_description">
-
-
                 <h1 className='myAd_title bold'>{item.title}</h1>
                 <h2 className='myAd_price bold'>{numberWithSpaces(item.price)} ₽</h2>
                 <p className='myAd_ad_description'>{item.description}</p>

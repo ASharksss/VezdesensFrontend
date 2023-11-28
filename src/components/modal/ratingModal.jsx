@@ -21,7 +21,7 @@ const statusBar = {
 		"linear-gradient(to right, var(--fill-color) calc(var(--size, 100%) - calc(var(--height, 25px) / 2)), transparent 1%)"
 };
 
-const RatingModal = ({data}) => {
+const RatingModal = ({data, userId, setActiveModal, setDataRating}) => {
 	if (data === undefined) {
 		return <p>Loading...</p>
 	}
@@ -49,7 +49,7 @@ const RatingModal = ({data}) => {
 		<div className='rating_modal'>
 			<h1 className='rating_modal-title'>Отзывы о пользователе</h1>
 			<div className='rating_modal-text'>
-				<Rating type='ratings' data={data}/>
+				<Rating type='ratings' data={data} userId={userId} setActiveModal={setActiveModal} setDataRating={setDataRating}/>
 				<div style={{marginTop: '10px'}}>
 					<div style={{display: 'flex', marginTop: '10px'}}>
 						<StarComponent average={5}/>

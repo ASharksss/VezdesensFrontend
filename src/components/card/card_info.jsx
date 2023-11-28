@@ -12,7 +12,7 @@ const CardInfo = ({userId, price, sellerName, sellerCreated, address, setActiveM
 		<div className='card_info'>
 			<div className="flex items-center space-between">
 				<p className='card_info-price'>{numberWithSpaces(price)} ₽</p>
-				<Favorite classname={'in_card'} id={id} favorite={favorite}/>
+				<Favorite id={id} favorite={favorite}/>
 			</div>
 			<div className="flex card_info-btn">
 				<div onClick={() => {

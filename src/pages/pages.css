@@ -85,13 +85,13 @@
     border-radius: 10px;
 }
 
-.login {
+.signin {
     background-color: #161616;
     color: white;
     margin-bottom: 20px;
 }
 
-.signin {
+.signup {
     background-color: white;
     color: #070C20;
     border: 1px solid #ECECEC;

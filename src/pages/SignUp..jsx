@@ -59,7 +59,7 @@ const SignUp = () => {
 								 className='auth_form-eye'/>
 					</div>
 
-					<NavLink to='/auth' className='auth_link'>
+					<NavLink to='/signin' className='auth_link'>
 						<span className='miss_password'>Уже есть аккаунт?</span>
 					</NavLink>
 				</div>

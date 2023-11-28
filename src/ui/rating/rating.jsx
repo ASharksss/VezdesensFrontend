@@ -6,8 +6,7 @@ import writeReview from "../../components/modal/writeReview";
 import WriteReview from "../../components/modal/writeReview";
 
 
-const Rating = ({data = [], type='user'}) => {
-
+const Rating = ({data = [], type='user', userId, setDataRating}) => {
 	const [activeModal, setActiveModal] = useState(false)
 
     let average
@@ -38,7 +37,8 @@ const Rating = ({data = [], type='user'}) => {
 
 							<button className='rating_btn' onClick={() => setActiveModal(true)}>Написать отзыв</button>
 					</div>
-					<ModalMain activeModal={activeModal} setActiveModal={setActiveModal} children={<WriteReview/>}/>
+					<ModalMain activeModal={activeModal} setActiveModal={setActiveModal}
+										 children={<WriteReview userId={userId} setActiveModal={setActiveModal} setDataRating={setDataRating}/>}/>
 				</div>
 			);
 };

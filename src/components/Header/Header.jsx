@@ -35,6 +35,18 @@ const Header = () => {
 			search: `query=${search}`
 		})
 	}
+	
+	const handleExit = () => {
+		let cookies = document.cookie.split(";");
+		for (let i = 0; i < cookies.length; i++) {
+			let cookie = cookies[i];
+			let eqPos = cookie.indexOf("=");
+			let name = eqPos > -1 ? cookie.substr(0, eqPos) : cookie;
+			document.cookie = name + "=;expires=Thu, 01 Jan 1970 00:00:00 GMT;";
+			document.cookie = name + '=; path=/; expires=Thu, 01 Jan 1970 00:00:01 GMT;';
+		}
+		window.location.reload()
+	}
 
 	useEffect(() => {
 		setActiveModalCat(false)
@@ -74,10 +86,13 @@ const Header = () => {
 						<span className='header_geo-name'>Казань</span>
 					</div>
 				</div>
-				<div className="header_profile">
-					<img src={profile} alt="Профиль"/>
-					{isAuth ? <NavLink to={`/profile/${user.items.id}`}><span>Профиль</span></NavLink> :
-						<NavLink to='/signin'><span>Войти</span></NavLink>}
+				<div className="flex column header_profile">
+					<div className='flex'>
+						<img src={profile} alt="Профиль"/>
+						{isAuth ? <NavLink to={`/profile/${user.items.id}`}><span>Профиль</span></NavLink> :
+							<NavLink to='/signin'><span>Войти</span></NavLink>}
+					</div>
+					{isAuth ? <button onClick={handleExit}>Выйти</button> : null}
 				</div>
 			</div>
 			<div>

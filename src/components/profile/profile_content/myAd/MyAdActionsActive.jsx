@@ -15,11 +15,12 @@ const MyAdActionsActive = ({dataUser, setDataAds}) => {
 	}
 	return (
 		<div className="myAd_actions">
-			<div className="actions_row-first flex space-between semi_bold"><p className='myAd_actions-title'>Осталось</p>
-				<p className='myAd_actions-value'>{new Date(new Date(dataUser.dateEndActive) - new Date()).getDate()} дня</p>
-			</div>
 			{isAuth ? user.items.id === dataUser.userId ?
 				<>
+					<div className="actions_row-first flex space-between semi_bold">
+						<p className='myAd_actions-title'>Осталось</p>
+						<p className='myAd_actions-value'>{new Date(new Date(dataUser.dateEndActive) - new Date()).getDate()} дня</p>
+					</div>
 					<div className="actions_row flex space-between semi_bold">
 						<p className='myAd_actions-title'>Избранное</p>
 						<p className='myAd_actions-value'>{dataUser.favoritesCount}</p></div>

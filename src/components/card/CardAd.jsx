@@ -27,8 +27,8 @@ const CardAd = () => {
 				.then(res => {
 					setDataRating(res.data)
 				}).catch(err => {
-					console.log(err)
-					window.alert('Ошибка получения рейтинга')
+				console.log(err)
+				window.alert('Ошибка получения рейтинга')
 			})
 		}
 	}, [typeModal, activeModal])
@@ -76,7 +76,8 @@ const CardAd = () => {
 						<ModalMain activeModal={activeModal} setActiveModal={setActiveModal}
 											 children={<PhoneModal phone={data.ad.user.phone}/>}/> :
 						typeModal === 'rating' ?
-							<ModalMain activeModal={activeModal} setActiveModal={setActiveModal} children={<RatingModal data={dataRating}/>}/> : ''
+							<ModalMain activeModal={activeModal} setActiveModal={setActiveModal}
+												 children={<RatingModal data={dataRating} userId={data.ad.user.id} setActiveModal={setActiveModal} setDataRating={setDataRating}/>}/> : ''
 			}
 
 

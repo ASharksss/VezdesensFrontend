@@ -9,33 +9,33 @@ const Messages = () => {
   return (
     <div>
       <div className="messages_header flex">
-        <Checkbox/>
-        <select>
-          <option value="">1</option>
-          <option value="">2</option>
-          <option value="">3</option>
-        </select>
-        <select>
-          <option value="">1</option>
-          <option value="">2</option>
-          <option value="">3</option>
-        </select>
+        {/*<Checkbox/>*/}
+        {/*<select>*/}
+        {/*  <option value="">1</option>*/}
+        {/*  <option value="">2</option>*/}
+        {/*  <option value="">3</option>*/}
+        {/*</select>*/}
+        {/*<select>*/}
+        {/*  <option value="">1</option>*/}
+        {/*  <option value="">2</option>*/}
+        {/*  <option value="">3</option>*/}
+        {/*</select>*/}
       </div>
 
       <div className="messages_list">
-
-        <NavLink to='/myProfile/messages'>
-          <MessageItem/>
-        </NavLink>
-        <NavLink to='/myProfile/messages'>
-          <MessageItem/>
-        </NavLink>
-        <NavLink to='/myProfile/messages'>
-          <MessageItem/>
-        </NavLink>
+				<p>Пока нет сообщений</p>
+        {/*<NavLink to='/myProfile/messages'>*/}
+        {/*  <MessageItem/>*/}
+        {/*</NavLink>*/}
+        {/*<NavLink to='/myProfile/messages'>*/}
+        {/*  <MessageItem/>*/}
+        {/*</NavLink>*/}
+        {/*<NavLink to='/myProfile/messages'>*/}
+        {/*  <MessageItem/>*/}
+        {/*</NavLink>*/}
       </div>
 
-      <SelectedMessages/>
+      {/*<SelectedMessages/>*/}
     </div>
   );
 };

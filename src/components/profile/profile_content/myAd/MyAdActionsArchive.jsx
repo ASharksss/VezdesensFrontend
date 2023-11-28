@@ -15,6 +15,13 @@ const MyAdActionsArchive = ({dataUser, setDataAds}) => {
 			setDataAds(data)
 		}
 	}
+	const handleRemove = async () => {
+		const check = window.confirm('Удалить объявление?')
+		if (check) {
+			const {data} = await axios.delete(`api/ad/remove?adId=${dataUser.id}`)
+			setDataAds(data)
+		}
+	}
 	return (
 		<div className="myAd_actions">
 			{isAuth ? user.items.id === dataUser.userId ?
@@ -23,14 +30,14 @@ const MyAdActionsArchive = ({dataUser, setDataAds}) => {
 					<br/>
 					<Button classname={'edit'} icon={edit}/>
 					<br/>
-					<Button classname={'edit'} icon={trash}/>
+					<Button classname={'edit'} icon={trash} handleClick={handleRemove}/>
 				</> : null : null}
 			<div className="myAd_actions_archive">
-				<div className="actions_row-first flex space-between semi_bold"><p className='myAd_actions-title'>Истек</p>
-					<p className='myAd_actions-value'>{new Date(new Date(dataUser.dateEndActive) - new Date()).getDate()} дня</p>
-				</div>
 				{isAuth ? user.items.id === dataUser.userId ?
 					<>
+						<div className="actions_row-first flex space-between semi_bold"><p className='myAd_actions-title'>Истек</p>
+							<p className='myAd_actions-value'>{new Date(new Date(dataUser.dateEndActive) - new Date()).getDate()} дня</p>
+						</div>
 						<div className="actions_row flex space-between semi_bold">
 							<p className='myAd_actions-title'>Избранное</p>
 							<p className='myAd_actions-value'>{dataUser.favoritesCount}</p>
