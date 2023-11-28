@@ -24,7 +24,7 @@ const CardImgBlock = ({ad_address, images, id}) => {
 					) : <SmallImg img={smallImg} title={'Наушник Промакс'}/>}
 				</div>
 				<div className='relative main_card_img-container'>
-					<img src={images.length > 0 ? `${STATIC_HOST}/${images[0].name}` : mainImg} alt="Наушники промакс" className='main_card_img'/>
+					<img data-fancybox="gallery" src={images.length > 0 ? `${STATIC_HOST}/${images[0].name}` : mainImg} alt="Наушники промакс" className='main_card_img'/>
 					<Button classname={'like_ads'} children={'Показать похожие'} handleClick={handleShowSimilar}/>
 				</div>
 			</div>

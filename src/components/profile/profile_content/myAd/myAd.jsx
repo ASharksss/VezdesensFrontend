@@ -1,12 +1,13 @@
 import React from 'react';
+import {NavLink} from "react-router-dom";
 import './myAd.css'
 import Button from "../../../../ui/buttons/button";
 import ad_img from '../../../../asserts/ad_image_xs.png'
 import MyAdActionsActive from "./MyAdActionsActive";
 import MyAdActionsArchive from "./MyAdActionsArchive";
 import MyAdActionsFavorite from "./MyAdActionsFavorite";
-import {NavLink} from "react-router-dom";
 import {numberWithSpaces, STATIC_HOST} from "../../../../utils";
+import Fancybox from "../../../fancybox";
 
 const MyAd = ({classname, typeAd, item, setDataAds}) => {
 	if (item) {
@@ -23,9 +24,16 @@ const MyAd = ({classname, typeAd, item, setDataAds}) => {
               }
 
 
-              <div className="myAd_img">
-                <img src={item.imageAds.length > 0 ? `${STATIC_HOST}/${item.imageAds[0].name}` : ad_img} alt="НАЗВАНИЕ ТОВАРА" className='myAd_img-image'/>
-              </div>
+							<Fancybox
+								options={{
+									Carousel: {
+										infinite: false,
+									},
+								}}>
+								<div className="myAd_img">
+									<img data-fancybox="gallery" src={item.imageAds.length > 0 ? `${STATIC_HOST}/${item.imageAds[0].name}` : ad_img} alt="НАЗВАНИЕ ТОВАРА" className='myAd_img-image'/>
+								</div>
+							</Fancybox>
               <div className="myAd_description">
 
 
