@@ -105,6 +105,7 @@ const UserSlice = createSlice({
             state.user.items = action.payload.profile
             state.user.token = action.payload.token
             state.user.username = action.payload.username
+						axios.defaults.headers.common['Authorization'] = `Bearer ${action.payload.token}`
             state.isAuth = true
             state.user.status = 'loaded'
         },

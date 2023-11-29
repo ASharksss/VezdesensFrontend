@@ -16,7 +16,7 @@ import EnterInput from "../ui/characteristicInputs/enterInput";
 import SelectInput from "../ui/characteristicInputs/selectInput";
 import CheckboxInput from "../ui/characteristicInputs/checkboxInputs";
 import {fetchCategory, fetchObjects, fetchSubCategories} from "../redux/slices/categorySlice";
-import {DataURIToBlob} from "../utils";
+import {DataURIToBlob, numberWithSpaces} from "../utils";
 
 const CreateAdPage = () => {
 
@@ -47,7 +47,6 @@ const CreateAdPage = () => {
 	}
 
 	const createAd = async () => {
-		console.log('push')
 		await axios({
 			method: 'post',
 			url: 'api/ad/createAd',
@@ -70,13 +69,22 @@ const CreateAdPage = () => {
 			})
 	}
 
+	const handlePrice = (value) => {
+		if (value.replace(/\s+/g, '') > 1500000000) {
+			alert('Значение превышает норму')
+		} else {
+			const thousandPrice = numberWithSpaces(value.replace(/\s+/g, ''))
+			setPrice(thousandPrice)
+		}
+	}
+
 	useEffect(() => {
-		if(saveImages.length > 0) {
+		if(saveImages.length > 0 && imageTrigger) {
 			const date = new Date()
 			formData.append('title', title)
 			formData.append('description', description)
 			formData.append('address', geolocation)
-			formData.append('price', price)
+			formData.append('price', price.replace(/\s+/g, ''))
 			formData.append('typeAd', typeAd)
 			formData.append('objectId', objectId)
 			formData.append('bookingDateStart', date.toString())
@@ -89,6 +97,7 @@ const CreateAdPage = () => {
 			})
 			createAd()
 		}
+		setImageTrigger(false)
 	}, [imageTrigger, saveImages])
 
 	useEffect(() => {
@@ -208,7 +217,7 @@ const CreateAdPage = () => {
 								</div>
 								<div className='flex column'>
 									<label className='enter_input-title'>Цена</label>
-									<input value={price} onChange={event => setPrice(event.target.value)}
+									<input value={price} onChange={event => handlePrice(event.target.value)}
 												 type="text" className='enter_input-input'/>
 								</div>
 								{character.items.length > 0 &&

@@ -10,17 +10,20 @@ const Layout = () => {
 	const footerRef = useRef();
 	const location = useLocation();
 	const {ads} = useSelector(state => state.board)
-	const [lastOffset, setLastOffset] = useState(parseInt(ads.offset.split('|')[0]))
 	const dispatch = useDispatch()
 
 	useEffect(() => {
 		localStorage.setItem('last_path', location.pathname + location.search)
 	}, [location.pathname]);
+	let lastOffset = '0|0|0'
+	const loading = ads.status === 'loading'
+	if (!loading)
+		lastOffset = ads.offset
 
 	const handleObserver = async (vision=false) => {
-		if (vision && parseInt(ads.offset.split('|')[0]) !== lastOffset) {
+		if (vision && ads.offset !== lastOffset) {
 			await dispatch(fetchAllAds({offset: ads.offset})).then((res) => {
-				setLastOffset(parseInt(res.payload.blockOffset))
+				lastOffset = `${parseInt(res.payload.blockOffset)}|${parseInt(res.payload.commercialOffset)}|${parseInt(res.payload.vipOffset)}`
 			})
 		}
 	}
@@ -32,6 +35,18 @@ const Layout = () => {
 		},
 		{threshold: 0.001}
 	);
+
+	useEffect(() => {
+		if (location.pathname === '/' && !loading) {
+			const interval = setInterval(async () => {
+				console.log(lastOffset)
+				await dispatch(fetchAllAds({offset: lastOffset})).then((res) => {
+					lastOffset = `${parseInt(res.payload.blockOffset)}|${parseInt(res.payload.commercialOffset)}|${parseInt(res.payload.vipOffset)}`
+				})
+			}, 10000);
+			return () => clearInterval(interval);
+		}
+	}, [loading]);
 
 	useEffect(() => {
 		if (location.pathname === '/') {

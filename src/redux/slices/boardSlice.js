@@ -36,7 +36,6 @@ const BoardSlice = createSlice({
 				...state,
 				ads: {
 					...state.ads,
-					offset: '0|0|0',
 					status: 'loading'
 				}
 			}

@@ -94,7 +94,7 @@ const Board = () => {
 							title={premium.items[1].title} address={premium.items[1].address} price={premium.items[1].price}
 							favorite={premium.items[1].favorites} date={premium.items[1].date} id={premium.items[1].id}/> : null}
 			<Ad/>
-			{(blockData.length > 0 && commercialData.length > 0) ?
+			{(blockData.length > 0 || commercialData.length > 0) ?
 				<UnionBoard blockData={blockData} commercialData={commercialData}/> : null}
 		</>
 	);
