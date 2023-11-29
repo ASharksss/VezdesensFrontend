@@ -1,6 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import CategoryBtn from "./categoryBtn";
 import {useSearchParams} from "react-router-dom";
+import SubCategory from "./subCategory";
 
 const CategoryModal = ({data}) => {
 	const [searchParams,] = useSearchParams()
@@ -42,7 +43,12 @@ const CategoryModal = ({data}) => {
 											 active={parseInt(item.id) === category}/>
 				))}
 			</div>
-			<div className="categoryModal-categories">
+
+			<div className="categoryModal_subcategory">
+				<h1>Транспорт</h1>
+				<SubCategory/>
+			</div>
+		{/*	<div className="categoryModal-categories">
 				{subCategoryData.map((item, index) => (
 					<CategoryBtn item={item} type={'subCategory'} setCategory={setSubCategory} key={`categories-${index}`}
 											 active={parseInt(item.id) === subCategory}/>
@@ -52,7 +58,7 @@ const CategoryModal = ({data}) => {
 				{objectsData.map((item, index) => (
 					<CategoryBtn item={item} type={'objects'} key={`categories-${index}`} category={category}/>
 				))}
-			</div>
+			</div>*/}
 
 		</div>
 	);
