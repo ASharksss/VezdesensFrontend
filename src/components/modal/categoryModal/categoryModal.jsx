@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect, useMemo, useState} from 'react';
 import CategoryBtn from "./categoryBtn";
 import {useSearchParams} from "react-router-dom";
 import SubCategory from "./subCategory";
@@ -6,59 +6,52 @@ import SubCategory from "./subCategory";
 const CategoryModal = ({data}) => {
 	const [searchParams,] = useSearchParams()
 	const paramsCategory = parseInt(searchParams.get('category')) || 1
-	const paramsSubCategory = parseInt(searchParams.get('subCategory')) || 1
 	const [category, setCategory] = useState(paramsCategory)
-	const [subCategory, setSubCategory] = useState(paramsSubCategory)
 	const [subCategoryData, setSubCategoryData] = useState([])
 	const [objectsData, setObjectsData] = useState([])
+	function chunkArray(arr, chunkSize) {
+		return arr.reduce((resultArray, item, index) => {
+			const chunkIndex = Math.floor(index / chunkSize);
+			if (!resultArray[chunkIndex]) {
+				resultArray[chunkIndex] = []; // начинаем новую группу
+			}
+			resultArray[chunkIndex].push(
+				<SubCategory key={index} item={item} objects={objectsData} category={category}/>
+			);
+			return resultArray;
+		}, []);
+	}
+
 	useEffect(() => {
 		data.map((itemCat) => {
 			if (itemCat.id === category) {
 				setSubCategoryData(itemCat.subCategories)
-				itemCat.subCategories.map((itemSubCat) => {
-					if (parseInt(itemSubCat.id) === subCategory)
-						setObjectsData(itemSubCat.objects)
+				let objects = []
+				itemCat.subCategories.map(itemSubCat => {
+					objects.push({subCategory: itemSubCat.id, objects: itemSubCat.objects})
 				})
+				setObjectsData(objects)
 			}
 		})
-	}, [data])
-	useEffect(() => {
-		setObjectsData([])
-		data.map((item) => {
-			if (item.id === category)
-				setSubCategoryData(item.subCategories)
-		})
-	}, [category])
-	useEffect(() => {
-		subCategoryData.map((item) => {
-			if (parseInt(item.id) === subCategory)
-				setObjectsData(item.objects)
-		})
-	}, [subCategory])
+	}, [data, category])
+	const chunkedSubCategories = useMemo(() => {
+		return chunkArray(subCategoryData, 4).map((group, index) => (
+			<div key={index} className="flex categoryModal-row">
+				{group}
+			</div>
+		));
+	}, [subCategoryData]);
 	return (
 		<div className={'flex'}>
 			<div className="categoryModal-categories">
 				{data.map((item, index) => (
-					<CategoryBtn item={item} type={'category'} setCategory={setCategory} key={`categories-${index}`}
-											 active={parseInt(item.id) === category}/>
+					<CategoryBtn item={item} setCategory={setCategory} key={`categories-${index}`}/>
 				))}
 			</div>
 
 			<div className="categoryModal_subcategory">
-				<h1 className='modal_subcategory-title'>Транспорт</h1>
-				<div className="flex categoryModal-row">
-					<SubCategory/>
-					<SubCategory/>
-					<SubCategory/>
-					<SubCategory/>
-				</div>
-				<div className="flex categoryModal-row">
-					<SubCategory/>
-					<SubCategory/>
-					<SubCategory/>
-					<SubCategory/>
-				</div>
-
+				<h1 className='modal_subcategory-title'>{data.length > 0 ? data.find(item => item.id === category).name : null}</h1>
+				{chunkedSubCategories}
 			</div>
 		{/*	<div className="categoryModal-categories">
 				{subCategoryData.map((item, index) => (

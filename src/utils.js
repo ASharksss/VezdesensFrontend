@@ -13,8 +13,6 @@ export const group = (array) => {
 		if (vipArray.length > 0) {
 			chunk = commercialArray.slice(i, i + 2);
 			chunk.push(vipArray.shift());
-		} else {
-			chunk = commercialArray.slice(i, i + 3);
 		}
 		resultCommercial.push(chunk);
   }

@@ -35,7 +35,6 @@ function App() {
 
   useEffect(() => {
     if (!loadingIsAuth) {
-      console.log(isAuth && !loadingIsAuth)
       setLoading(false)
     }
   }, [loading])

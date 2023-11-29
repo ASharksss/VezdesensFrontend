@@ -1,16 +1,27 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import Button from "../../../../ui/buttons/button";
 import edit from "../../../../asserts/icons/edit.svg";
 import {useSelector} from "react-redux";
 import axios from "axios";
 import ModalMain from "../../../modal/modalMain";
-import hideAd from "../../../modal/hideAd";
 import HideAd from "../../../modal/hideAd";
 
 const MyAdActionsActive = ({dataUser, setDataAds}) => {
 	const {user, isAuth} = useSelector(state => state.user)
 	const [active, setActive] = useState(false)
+	const [check, setCheck] = useState(false)
 
+	const fetchArchive = async () => {
+		const {data} = await axios.get(`api/ad/archive/${dataUser.id}`);
+		setDataAds(data);
+	}
+
+	useEffect(() => {
+		if (check) {
+			fetchArchive()
+		}
+		setActive(false)
+	}, [check])
 	const handleArchive = async () => {
 		setActive(true)
 	}
@@ -38,7 +49,7 @@ const MyAdActionsActive = ({dataUser, setDataAds}) => {
 			<br/>
 			{isAuth ? user.items.id === dataUser.userId ?
 				<Button classname={'stroke'} children={'Снять с публикации'} handleClick={handleArchive}/> : null : null}
-			<ModalMain activeModal={active} setActiveModal={setActive} children={<HideAd/>}/>
+			<ModalMain activeModal={active} setActiveModal={setActive} children={<HideAd setCheck={setCheck}/>}/>
 		</div>
 	);
 };

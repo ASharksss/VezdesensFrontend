@@ -1,4 +1,4 @@
-import React, {useEffect, useRef} from 'react';
+import React, {useEffect, useRef, useState} from 'react';
 import {Outlet, useLocation} from "react-router-dom";
 import {useDispatch, useSelector} from "react-redux";
 import {fetchAllAds} from "./redux/slices/boardSlice";
@@ -11,20 +11,20 @@ const Layout = () => {
 	const location = useLocation();
 	const {ads} = useSelector(state => state.board)
 	const dispatch = useDispatch()
+	const [lastOffset, setLastOffset] = useState('0|0|0')
 
 	useEffect(() => {
 		localStorage.setItem('last_path', location.pathname + location.search)
 	}, [location.pathname]);
-	let lastOffset = '0|0|0'
 	const loading = ads.status === 'loading'
-	if (!loading)
-		lastOffset = ads.offset
 
 	const handleObserver = async (vision=false) => {
-		if ((vision && ads.offset !== lastOffset) || vision) {
-			await dispatch(fetchAllAds({offset: ads.offset})).then((res) => {
-				lastOffset = `${parseInt(res.payload.blockOffset)}|${parseInt(res.payload.commercialOffset)}|${parseInt(res.payload.vipOffset)}`
-			})
+		if (location.pathname === '/') {
+			if ((vision && ads.offset !== lastOffset) || vision) {
+				await dispatch(fetchAllAds({offset: ads.offset})).then((res) => {
+					setLastOffset(`${parseInt(res.payload.blockOffset)}|${parseInt(res.payload.commercialOffset)}|${parseInt(res.payload.vipOffset)}`)
+				})
+			}
 		}
 	}
 	const observer = new IntersectionObserver(
@@ -40,11 +40,15 @@ const Layout = () => {
 	useEffect(() => {
 		if (location.pathname === '/' && !loading) {
 			const interval = setInterval(async () => {
-				await dispatch(fetchAllAds({offset: lastOffset})).then((res) => {
-					lastOffset = `${parseInt(res.payload.blockOffset)}|${parseInt(res.payload.commercialOffset)}|${parseInt(res.payload.vipOffset)}`
-				})
+				if (location.pathname === '/') {
+					await dispatch(fetchAllAds({offset: lastOffset})).then((res) => {
+						setLastOffset(`${parseInt(res.payload.blockOffset)}|${parseInt(res.payload.commercialOffset)}|${parseInt(res.payload.vipOffset)}`)
+					})
+				}
 			}, 10000);
 			return () => clearInterval(interval);
+		} else {
+			setLastOffset('0|0|0')
 		}
 	}, [loading]);
 

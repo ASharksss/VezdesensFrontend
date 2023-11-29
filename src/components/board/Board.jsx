@@ -5,7 +5,7 @@ import {useDispatch, useSelector} from "react-redux";
 import Card from "../cards/Card";
 import Ad from "../cards/Ad";
 import ad_image_xxl from '../../asserts/ad_image_xxl.png'
-import {fetchAllAds, fetchPremium} from "../../redux/slices/boardSlice";
+import {fetchPremium} from "../../redux/slices/boardSlice";
 import {group} from "../../utils";
 import {useLocation} from "react-router-dom";
 import UnionBoard from "./BoardBlocks/UnionBoard";
@@ -21,7 +21,6 @@ const Board = () => {
 
 	useEffect(() => {
 		if (location.pathname === '/') {
-			dispatch(fetchAllAds({offset: ads.offset}))
 			dispatch(fetchPremium())
 		}
 	}, [location.pathname])
@@ -59,21 +58,13 @@ const Board = () => {
 			}
 			if (missingValuesCommercialData.length > 0) {
 				setCommercialData(prevState => {
-					if (prevState.length === 0)
-						return [...prevState, ...missingValuesCommercialData]
-					const allArraysHaveElements = prevState.every(array => array.length === 3);
-					if (allArraysHaveElements)
+					const isAllArraysHaveElements = prevState.every(array => array.length === 3);
+					if (prevState.length === 0 || isAllArraysHaveElements) {
 						return [...prevState, ...missingValuesCommercialData];
-					else {
-						return prevState.map(array => {
-							if (array.length < 3) {
-								return missingValuesCommercialData[0];
-							} else {
-								return array;
-							}
-						})
+					} else {
+						return prevState.map(array => (array.length < 3 ? missingValuesCommercialData[0] : array));
 					}
-				})
+				});
 			}
 		}
 	}, [newData, loading, newDataReceived]);

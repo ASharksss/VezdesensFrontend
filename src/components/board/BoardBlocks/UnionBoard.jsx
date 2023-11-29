@@ -27,6 +27,10 @@ const UnionBoard = ({blockData, commercialData}) => {
 				combinedData.push(
 					<SmallBlocks key={`blocks-${i}-${Math.floor(Math.random(1, 990) * 100)}`} items={blockData[i]} />
 				);
+			} else {
+				combinedData.push(
+					<CommercialBlocksLss key={`commercial-${i}`} items={commercialData[commercialIndex-2]} />
+				);
 			}
 		}
 		return combinedData;

@@ -17,6 +17,7 @@ import SelectInput from "../ui/characteristicInputs/selectInput";
 import CheckboxInput from "../ui/characteristicInputs/checkboxInputs";
 import {fetchCategory, fetchObjects, fetchSubCategories} from "../redux/slices/categorySlice";
 import {DataURIToBlob, numberWithSpaces} from "../utils";
+import LoadGIF from '../asserts/load.gif'
 
 const CreateAdPage = () => {
 
@@ -67,6 +68,7 @@ const CreateAdPage = () => {
 				console.log(err)
 				setLoading(false)
 			})
+		setImageTrigger(false)
 	}
 
 	const handlePrice = (value) => {
@@ -79,7 +81,7 @@ const CreateAdPage = () => {
 	}
 
 	useEffect(() => {
-		if(saveImages.length > 0) {
+		if(saveImages.length > 0 && imageTrigger) {
 			const date = new Date()
 			formData.append('title', title)
 			formData.append('description', description)
@@ -96,8 +98,6 @@ const CreateAdPage = () => {
 				formData.append('images', image)
 			})
 			createAd()
-		}else {
-			setImageTrigger(false)
 		}
 	}, [imageTrigger, saveImages])
 
@@ -254,17 +254,18 @@ const CreateAdPage = () => {
 										 placeholder='Введите адрес' className='create_ad_address'/>
 						</div>
 
-						<div className="create_ad-descr">
-							<h1 className='create_ad-descr-title'>Контакты</h1>
-							<div className="flex">
-								<label htmlFor="" className='create_ad_label'>Телефон</label>
-								<InputMask mask="+7(999)999-99-99" type="text" onChange={event => setPhone(event.target.value)}
-											 placeholder='Введите номер' className='create_ad_phone' value={phone}/>
-							</div>
-						</div>
-
+						{/*<div className="create_ad-descr">*/}
+						{/*	<h1 className='create_ad-descr-title'>Контакты</h1>*/}
+						{/*	<div className="flex">*/}
+						{/*		<label htmlFor="" className='create_ad_label'>Телефон</label>*/}
+						{/*		<InputMask mask="+7(999)999-99-99" type="text" onChange={event => setPhone(event.target.value)}*/}
+						{/*					 placeholder='Введите номер' className='create_ad_phone' value={phone}/>*/}
+						{/*	</div>*/}
+						{/*</div>*/}
 						<div className="create_ad_btns">
-							<button className='create_ad_btn' onClick={() => handleSubmit()}>Разместить</button>
+							<button className='create_ad_btn' onClick={() => handleSubmit()} disabled={imageTrigger}>
+								{imageTrigger ? <><img src={LoadGIF} width={32} alt={"Отправка"}/> Отправка...</>  : 'Разместить' }
+							</button>
 						</div>
 
 

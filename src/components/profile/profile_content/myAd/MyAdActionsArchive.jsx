@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import './myAd.css'
 import Button from "../../../../ui/buttons/button";
 import edit from "../../../../asserts/icons/edit.svg";
@@ -9,14 +9,24 @@ import ModalMain from "../../../modal/modalMain";
 import ReturnAd from "../../../modal/returnAd";
 
 const MyAdActionsArchive = ({dataUser, setDataAds}) => {
-
-	const [active, setActive] = useState(false)
-
 	const {user, isAuth} = useSelector(state => state.user)
+	const [active, setActive] = useState(false)
+	const [check, setCheck] = useState(false)
 	const handlePublish = async () => {
 		setActive(true)
-
 	}
+
+	const fetchPublish = async () => {
+		const {data} = await axios.get(`api/ad/publish/${dataUser.id}`)
+		setDataAds(data)
+	}
+
+	useEffect(() => {
+		if (check) {
+			fetchPublish()
+		}
+		setCheck(false)
+	}, [check])
 	const handleRemove = async () => {
 		const check = window.confirm('Удалить объявление?')
 		if (check) {
@@ -52,7 +62,7 @@ const MyAdActionsArchive = ({dataUser, setDataAds}) => {
 				<div className="actions_row flex space-between semi_bold"><p className='myAd_actions-title'>Просмотров</p><p
 					className='myAd_actions-value'>{dataUser.views}</p></div>
 			</div>
-			<ModalMain activeModal={active} setActiveModal={setActive} children={<ReturnAd/>} />
+			<ModalMain activeModal={active} setActiveModal={setActive} children={<ReturnAd setCheck={setCheck}/>} />
 
 		</div>
 	);

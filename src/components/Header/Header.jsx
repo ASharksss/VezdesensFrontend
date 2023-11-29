@@ -69,8 +69,9 @@ const Header = () => {
 					</div>
 					<div className="header_content-main">
 						<div className="header_content-ads">
-							<button>Продать как компания</button>
-							<button>Мои объявления</button>
+							<button onClick={() => alert('Функция временно не доступна')}>Продать как компания</button>
+							{isAuth ? <button onClick={() => navigate(`/profile/${user.items.id}`)}><span>Мои объявления</span></button> :
+								<button onClick={() => navigate(`/signin`)}><span>Мои объявления</span></button>}
 							<NavLink to={isAuth ? '/createAd' : '/signin'} className='create_ad-btn'>Подать объявление</NavLink>
 						</div>
 						<div className="header_content-search">
