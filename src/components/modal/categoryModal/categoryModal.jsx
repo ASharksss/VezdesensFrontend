@@ -45,8 +45,20 @@ const CategoryModal = ({data}) => {
 			</div>
 
 			<div className="categoryModal_subcategory">
-				<h1>Транспорт</h1>
-				<SubCategory/>
+				<h1 className='modal_subcategory-title'>Транспорт</h1>
+				<div className="flex categoryModal-row">
+					<SubCategory/>
+					<SubCategory/>
+					<SubCategory/>
+					<SubCategory/>
+				</div>
+				<div className="flex categoryModal-row">
+					<SubCategory/>
+					<SubCategory/>
+					<SubCategory/>
+					<SubCategory/>
+				</div>
+
 			</div>
 		{/*	<div className="categoryModal-categories">
 				{subCategoryData.map((item, index) => (

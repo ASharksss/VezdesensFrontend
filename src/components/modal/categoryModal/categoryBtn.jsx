@@ -23,7 +23,7 @@ const CategoryBtn = ({item, setCategory, type='category', active=false, category
 	}
 
 	return (
-		<div className='category_link' onClick={handleOpen} style={active ? {border: '1px solid orange'}: {}}>
+		<div className='category_link' onClick={handleOpen} >
 			<span className='category_link-text'>{item !== undefined ? item.name : null}</span>
 			<img src={cat_arrow} alt=""/>
 		</div>
