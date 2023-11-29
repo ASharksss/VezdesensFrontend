@@ -79,7 +79,7 @@ const CreateAdPage = () => {
 	}
 
 	useEffect(() => {
-		if(saveImages.length > 0 && imageTrigger) {
+		if(saveImages.length > 0) {
 			const date = new Date()
 			formData.append('title', title)
 			formData.append('description', description)
@@ -96,8 +96,9 @@ const CreateAdPage = () => {
 				formData.append('images', image)
 			})
 			createAd()
+		}else {
+			setImageTrigger(false)
 		}
-		setImageTrigger(false)
 	}, [imageTrigger, saveImages])
 
 	useEffect(() => {

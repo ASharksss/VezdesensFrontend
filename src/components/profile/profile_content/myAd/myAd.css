@@ -63,6 +63,7 @@
 .myAd_img-image {
     width: 248px;
     height: 333px;
+    border-radius: 20px;
 }
 
 .myAd_description {

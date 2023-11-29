@@ -82,6 +82,11 @@
     height: 562px;
 }
 
+.l .card_content-img{
+    width: 690px;
+    height: 417px;
+}
+
 .l .card_content-title {
     font-size: 24px;
     font-weight: bold;

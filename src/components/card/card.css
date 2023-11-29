@@ -22,12 +22,14 @@
     margin-left: 20px;
     transition: .25s;
     cursor: pointer;
+    border-radius: 20px;
 }
 
 
 .small_img_card {
     width: 92px;
     height: 123px;
+    border-radius: 20px;
 }
 
 .small_img_card + .small_img_card {
