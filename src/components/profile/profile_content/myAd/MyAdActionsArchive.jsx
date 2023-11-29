@@ -1,19 +1,21 @@
-import React from 'react';
+import React, {useState} from 'react';
 import './myAd.css'
 import Button from "../../../../ui/buttons/button";
 import edit from "../../../../asserts/icons/edit.svg";
 import trash from "../../../../asserts/icons/trash.svg";
 import axios from "axios";
 import {useSelector} from "react-redux";
+import ModalMain from "../../../modal/modalMain";
+import ReturnAd from "../../../modal/returnAd";
 
 const MyAdActionsArchive = ({dataUser, setDataAds}) => {
+
+	const [active, setActive] = useState(false)
+
 	const {user, isAuth} = useSelector(state => state.user)
 	const handlePublish = async () => {
-		const check = window.confirm('Снять с архива?')
-		if (check) {
-			const {data} = await axios.get(`api/ad/publish/${dataUser.id}`)
-			setDataAds(data)
-		}
+		setActive(true)
+
 	}
 	const handleRemove = async () => {
 		const check = window.confirm('Удалить объявление?')
@@ -50,6 +52,8 @@ const MyAdActionsArchive = ({dataUser, setDataAds}) => {
 				<div className="actions_row flex space-between semi_bold"><p className='myAd_actions-title'>Просмотров</p><p
 					className='myAd_actions-value'>{dataUser.views}</p></div>
 			</div>
+			<ModalMain activeModal={active} setActiveModal={setActive} children={<ReturnAd/>} />
+
 		</div>
 	);
 };

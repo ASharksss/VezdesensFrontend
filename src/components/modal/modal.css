@@ -314,3 +314,47 @@
 .categoryModal-row + .categoryModal-row {
     margin-top: 40px;
 }
+
+.hide_ad-title {
+    font-size: 32px;
+    font-family: OpenSansBold;
+    margin-bottom: 5px;
+
+}
+
+.hide_ad-subtitle {
+    font-size: 20px;
+    color: #838690;
+}
+
+.hide_ad-btn {
+    width: 93px;
+    height: 54px;
+    border-radius: 10px;
+    font-size: 16px;
+    font-family: OpenSansBold;
+    margin-top: 30px;
+    transition: .5s;
+}
+
+.hide_ad-btn + .hide_ad-btn {
+    margin-left: 5px;
+}
+
+.hide_ad-yes {
+    background-color: #161616;
+    color: white;
+
+}
+
+.hide_ad-yes:hover {
+    background-color: #404040;
+}
+
+.hide_ad-no {
+    border: 1px solid #ECECEC;
+}
+
+.hide_ad-no:hover {
+    background-color: #F6F6F6;
+}

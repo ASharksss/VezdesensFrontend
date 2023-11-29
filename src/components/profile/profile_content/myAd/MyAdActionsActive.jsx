@@ -1,17 +1,18 @@
-import React from 'react';
+import React, {useState} from 'react';
 import Button from "../../../../ui/buttons/button";
 import edit from "../../../../asserts/icons/edit.svg";
 import {useSelector} from "react-redux";
 import axios from "axios";
+import ModalMain from "../../../modal/modalMain";
+import hideAd from "../../../modal/hideAd";
+import HideAd from "../../../modal/hideAd";
 
 const MyAdActionsActive = ({dataUser, setDataAds}) => {
 	const {user, isAuth} = useSelector(state => state.user)
+	const [active, setActive] = useState(false)
+
 	const handleArchive = async () => {
-		const check = window.confirm('Убрать в архив?')
-		if (check) {
-			const {data} = await axios.get(`api/ad/archive/${dataUser.id}`);
-			setDataAds(data);
-		}
+		setActive(true)
 	}
 	return (
 		<div className="myAd_actions">
@@ -37,6 +38,7 @@ const MyAdActionsActive = ({dataUser, setDataAds}) => {
 			<br/>
 			{isAuth ? user.items.id === dataUser.userId ?
 				<Button classname={'stroke'} children={'Снять с публикации'} handleClick={handleArchive}/> : null : null}
+			<ModalMain activeModal={active} setActiveModal={setActive} children={<HideAd/>}/>
 		</div>
 	);
 };
