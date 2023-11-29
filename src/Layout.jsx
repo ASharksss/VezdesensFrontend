@@ -1,4 +1,4 @@
-import React, {useEffect, useRef, useState} from 'react';
+import React, {useEffect, useRef} from 'react';
 import {Outlet, useLocation} from "react-router-dom";
 import {useDispatch, useSelector} from "react-redux";
 import {fetchAllAds} from "./redux/slices/boardSlice";
@@ -21,7 +21,7 @@ const Layout = () => {
 		lastOffset = ads.offset
 
 	const handleObserver = async (vision=false) => {
-		if (vision && ads.offset !== lastOffset) {
+		if ((vision && ads.offset !== lastOffset) || vision) {
 			await dispatch(fetchAllAds({offset: ads.offset})).then((res) => {
 				lastOffset = `${parseInt(res.payload.blockOffset)}|${parseInt(res.payload.commercialOffset)}|${parseInt(res.payload.vipOffset)}`
 			})
@@ -30,7 +30,8 @@ const Layout = () => {
 	const observer = new IntersectionObserver(
 		async ([entry]) => {
 			if (entry.isIntersecting) {
-				await handleObserver(entry.isIntersecting)
+				let timer = setTimeout(async () => await handleObserver(entry.isIntersecting), 1000)
+				return () => clearTimeout(timer)
 			}
 		},
 		{threshold: 0.001}
@@ -39,7 +40,6 @@ const Layout = () => {
 	useEffect(() => {
 		if (location.pathname === '/' && !loading) {
 			const interval = setInterval(async () => {
-				console.log(lastOffset)
 				await dispatch(fetchAllAds({offset: lastOffset})).then((res) => {
 					lastOffset = `${parseInt(res.payload.blockOffset)}|${parseInt(res.payload.commercialOffset)}|${parseInt(res.payload.vipOffset)}`
 				})

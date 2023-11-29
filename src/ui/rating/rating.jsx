@@ -4,9 +4,12 @@ import StarComponent from "./starComponent";
 import ModalMain from "../../components/modal/modalMain";
 import writeReview from "../../components/modal/writeReview";
 import WriteReview from "../../components/modal/writeReview";
+import {useSelector} from "react-redux";
+import {NavLink} from "react-router-dom";
 
 
 const Rating = ({data = [], type='user', userId, setDataRating}) => {
+	const {isAuth} = useSelector(state => state.user)
 	const [activeModal, setActiveModal] = useState(false)
 
     let average
@@ -34,8 +37,8 @@ const Rating = ({data = [], type='user', userId, setDataRating}) => {
 					</div>
 
 					<div className='flex'>
-
-							<button className='rating_btn' onClick={() => setActiveModal(true)}>Написать отзыв</button>
+						{isAuth ? <button className='rating_btn' onClick={() => setActiveModal(true)}>Написать отзыв</button>
+							: <NavLink style={{textAlign: 'center'}} className='rating_btn' to={'/signin'}>Войти</NavLink>}
 					</div>
 					<ModalMain activeModal={activeModal} setActiveModal={setActiveModal}
 										 children={<WriteReview userId={userId} setActiveModal={setActiveModal} setDataRating={setDataRating}/>}/>

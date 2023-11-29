@@ -30,10 +30,7 @@ const Board = () => {
 	useEffect(() => {
 		if (ads.status === 'loaded') {
 			setNewDataReceived(true);
-			const missingValues = ads.items.filter(value => !newData.includes(value))
-			if (missingValues.length > 0) {
-				setNewData([...missingValues])
-			}
+			setNewData(ads.items)
 		}
 	}, [ads.status, ads.items])
 
@@ -96,6 +93,7 @@ const Board = () => {
 			<Ad/>
 			{(blockData.length > 0 || commercialData.length > 0) ?
 				<UnionBoard blockData={blockData} commercialData={commercialData}/> : null}
+			{loading ? <p>Загрузка...</p> : null}
 		</>
 	);
 };

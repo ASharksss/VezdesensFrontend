@@ -3,6 +3,8 @@ import SmallBlocks from "./SmallBlocks";
 import CommercialBlocksLss from "./CommercialBlocksLSS";
 
 const UnionBoard = ({blockData, commercialData}) => {
+	if (blockData === undefined) blockData = []
+	if (commercialData === undefined) commercialData = []
 	const handleGetData = () => {
 		const combinedData = [];
 		const smallBlocksCount = 3;
@@ -14,22 +16,17 @@ const UnionBoard = ({blockData, commercialData}) => {
 				combinedData.push(
 					<SmallBlocks key={`blocks-${i}`} items={blockData[i]} />
 				);
-				if (blockData[i].length < 5) {
-					combinedData.push(
-						<CommercialBlocksLss key={`commercial-${i}`} items={commercialData[commercialIndex-1]} />
-					);
-				}
 			} else {
 				if (commercialIndex < commercialData.length) {
 					combinedData.push(
 						<CommercialBlocksLss key={`commercial-${i}`} items={commercialData[commercialIndex]} />
 					);
 				}
-				if (blockData[i].length > 0 && (i % 3 === 0 && i % 4 === 0)) {
-					combinedData.push(
-						<SmallBlocks key={`blocks-${i}`} items={blockData[i]} />
-					);
-				}
+			}
+			if (i % 4 === 0 || i % 3 === 0) {
+				combinedData.push(
+					<SmallBlocks key={`blocks-${i}-${Math.floor(Math.random(1, 990) * 100)}`} items={blockData[i]} />
+				);
 			}
 		}
 		return combinedData;
