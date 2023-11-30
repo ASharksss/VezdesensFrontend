@@ -1,0 +1,28 @@
+
+.booking {
+    margin-top: 70px;
+}
+
+.booking_startDate {
+    margin-right: 45px;
+}
+
+.booking_input {
+    width: 237px;
+    height: 47px;
+    padding: 15px;
+    background-color: #ECECEC;
+    color: #B5B7BD;
+    border-radius: 10px;
+}
+
+.booking_label {
+    font-size: 18px;
+    margin-bottom: 10px;
+    font-family: OpenSansBold;
+}
+
+.booking_info-title {
+    font-family: OpenSansBold;
+}
+

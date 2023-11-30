@@ -1,7 +1,7 @@
 import React, {useEffect, useRef, useState} from 'react';
 import {useDropzone} from 'react-dropzone';
 import AvatarEditor from 'react-avatar-editor';
-import photoStandartPlus from "../../asserts/icons/photoStandartPlus.svg";
+import photoStandartPlus from "../../asserts/icons/upload_standartPlus.svg";
 
 const UploadPhotoStandartPlus = ({setSaveImages, imageTrigger}) => {
 	const [images, setImages] = useState([]);

@@ -1,6 +1,6 @@
 import React, {useEffect, useMemo, useState} from 'react';
 import CategoryBtn from "./categoryBtn";
-import {useSearchParams} from "react-router-dom";
+import {NavLink, useSearchParams} from "react-router-dom";
 import SubCategory from "./subCategory";
 
 const CategoryModal = ({data}) => {
@@ -43,27 +43,19 @@ const CategoryModal = ({data}) => {
 	}, [subCategoryData]);
 	return (
 		<div className={'flex'}>
+
 			<div className="categoryModal-categories">
 				{data.map((item, index) => (
 					<CategoryBtn item={item} setCategory={setCategory} key={`categories-${index}`}/>
 				))}
+				<NavLink to='/service'><span>Работа</span></NavLink>
 			</div>
 
 			<div className="categoryModal_subcategory">
 				<h1 className='modal_subcategory-title'>{data.length > 0 ? data.find(item => item.id === category).name : null}</h1>
 				{chunkedSubCategories}
 			</div>
-		{/*	<div className="categoryModal-categories">
-				{subCategoryData.map((item, index) => (
-					<CategoryBtn item={item} type={'subCategory'} setCategory={setSubCategory} key={`categories-${index}`}
-											 active={parseInt(item.id) === subCategory}/>
-				))}
-			</div>
-			<div className="categoryModal-categories">
-				{objectsData.map((item, index) => (
-					<CategoryBtn item={item} type={'objects'} key={`categories-${index}`} category={category}/>
-				))}
-			</div>*/}
+
 
 		</div>
 	);
