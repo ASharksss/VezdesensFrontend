@@ -54,6 +54,7 @@ const UserSlice = createSlice({
             state.isAuth = true
             state.user.errorMsg = ''
             state.user.items = action.payload.profile
+						axios.defaults.headers.common['Authorization'] = `Bearer ${action.payload.token}`
             const date = new Date()
             document.cookie = `session=${action.payload.token}; path=/; expires=${date.setDate(date.getDate() + 365)}`
             document.cookie = `username=${action.payload.username}; path=/; expires=${date.setDate(date.getDate() + 365)}`

@@ -14,7 +14,7 @@ const UnionBoard = ({blockData, commercialData}) => {
 			const commercialIndex = i - smallBlocksCount;
 			if ((i % (smallBlocksCount + commercialBlocksCount) < smallBlocksCount)) {
 				combinedData.push(
-					<SmallBlocks key={`blocks-${i}`} items={blockData[i]} />
+					<SmallBlocks key={`small-user-${i}`} items={blockData[i]} />
 				);
 			} else {
 				if (commercialIndex < commercialData.length) {
@@ -25,7 +25,7 @@ const UnionBoard = ({blockData, commercialData}) => {
 			}
 			if (i % 4 === 0 || i % 3 === 0) {
 				combinedData.push(
-					<SmallBlocks key={`blocks-${i}-${Math.floor(Math.random(1, 990) * 100)}`} items={blockData[i]} />
+					<SmallBlocks key={`small-user-${i}-${Math.floor(Math.random(1, 990) * 100)}`} items={blockData[i]} />
 				);
 			} else {
 				combinedData.push(
