@@ -10,6 +10,14 @@ export const fetchOneAd =
     }
   )
 
+export const fetchBookingInfo =
+  createAsyncThunk('bookingInfo',
+    async(name) => {
+    const {data} = await axios.get(`api/ad/bookingInfo?name=${name}`)
+      return data
+    }
+  )
+
 export const fetchCharacterObjects =
   createAsyncThunk('getCharacteristicObject',
     async (objectId) => {
@@ -24,6 +32,10 @@ const initialState = {
     status: 'loading'
   },
   character: {
+    items: [],
+    status: 'loading'
+  },
+  bookingInfo: {
     items: [],
     status: 'loading'
   }
@@ -47,6 +59,7 @@ const AdSlice = createSlice({
       state.ad.items = []
       state.ad.status = 'error'
     },
+
     [fetchCharacterObjects.pending]: (state) => {
       state.character.items = []
       state.character.status = 'loading'
@@ -58,6 +71,19 @@ const AdSlice = createSlice({
     [fetchCharacterObjects.rejected]: (state) => {
       state.character.items = []
       state.character.status = 'error'
+    },
+
+    [fetchBookingInfo.pending]: (state) => {
+      state.bookingInfo.items = []
+      state.bookingInfo.status = 'loading'
+    },
+    [fetchBookingInfo.fulfilled]: (state, action) => {
+      state.bookingInfo.items = action.payload
+      state.bookingInfo.status = 'loaded'
+    },
+    [fetchBookingInfo.rejected]: (state) => {
+      state.bookingInfo.items = []
+      state.bookingInfo.status = 'error'
     }
   }
 })

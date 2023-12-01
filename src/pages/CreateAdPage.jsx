@@ -8,7 +8,7 @@ import UploadPhotoPremium from "../components/uploadPhoto/uploadPhotoPremium";
 import UploadPhotoVip from "../components/uploadPhoto/uploadPhotoVip";
 import UploadPhotoStandartPlus from "../components/uploadPhoto/uploadPhotoStandartPlus";
 import UploadPhotoStandart from "../components/uploadPhoto/uploadPhotoStandart";
-import {fetchCharacterObjects} from "../redux/slices/adSlice";
+import {fetchBookingInfo, fetchCharacterObjects} from "../redux/slices/adSlice";
 import EnterInput from "../ui/characteristicInputs/enterInput";
 import SelectInput from "../ui/characteristicInputs/selectInput";
 import CheckboxInput from "../ui/characteristicInputs/checkboxInputs";
@@ -17,6 +17,7 @@ import {DataURIToBlob, numberWithSpaces} from "../utils";
 import LoadGIF from '../asserts/load.gif'
 import './pages.css'
 import BookingCalc from "../components/bookingCalc/bookingCalc";
+import {type} from "@testing-library/user-event/dist/type";
 
 const CreateAdPage = () => {
 
@@ -40,6 +41,7 @@ const CreateAdPage = () => {
 
   const {categories} = useSelector(state => state.categories)
   const {character} = useSelector(state => state.ad)
+  const {bookingInfo} = useSelector(state => state.ad)
 
   const handleSubmit = async () => {
     // setLoading(true)
@@ -110,9 +112,16 @@ const CreateAdPage = () => {
     dispatch(fetchCategory())
   }, [])
 
+  useEffect(() => {
+    dispatch(fetchBookingInfo(typeAd))
+
+  }, [typeAd])
+
   if (loading) {
     return <p>Loading...</p>
   }
+
+
 
   return (
     <div>
@@ -202,7 +211,7 @@ const CreateAdPage = () => {
               <CreateAdItem setTypeAd={setTypeAd} typeAd={typeAd} premium={categories.premium} categories={categories}/>
             </div>
 
-            <BookingCalc/>
+            <BookingCalc typeAd={typeAd}/>
 
             {typeAd !== '' &&
               <div className="upload_photo">

@@ -22,7 +22,24 @@
     font-family: OpenSansBold;
 }
 
+.booking_info {
+    margin-top: 45px;
+}
+
 .booking_info-title {
     font-family: OpenSansBold;
+}
+
+.booking_info-title + .booking_info-title {
+    margin-top: 33px;
+}
+
+.booking_info-name {
+    text-align: left;
+}
+
+.booking_info-text {
+    margin-left: 45px;
+    font-size: 24px;
 }
 
