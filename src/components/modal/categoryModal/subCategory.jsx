@@ -1,5 +1,5 @@
 import React from 'react';
-import {NavLink, useNavigate} from "react-router-dom";
+import {useNavigate} from "react-router-dom";
 import arrow_category from '../../../asserts/icons/arrow_category.svg'
 import '../modal.css'
 
@@ -19,6 +19,18 @@ const SubCategory = ({item, objects, category}) => {
 					search: `?object=${id}&subCategory=${parseInt(item.id)}&category=${parseInt(category)}`,
 				})
 				break
+			case 'service':
+				navigate({
+					pathname: '/service',
+					search: `?subCategory=${parseInt(item.id)}&category=${parseInt(category)}`,
+				})
+				break
+			case 'serviceObject':
+				navigate({
+					pathname: '/service',
+					search: `?object=${id}&subCategory=${parseInt(item.id)}&category=${parseInt(category)}`,
+				})
+				break
 			default:
 				break
 		}
@@ -28,7 +40,7 @@ const SubCategory = ({item, objects, category}) => {
 			<div className="objects_list flex ">
 				<span className='modal_subcategory-subtitle'
 							style={{cursor: 'pointer'}}
-							onClick={() => handleShowCategory()}>{item.name}</span>
+							onClick={() => handleShowCategory(category !== 3 ? null : 'service')}>{item.name}</span>
 				<img src={arrow_category} className='modal_subcategory-icon'/>
 			</div>
 			<div>
@@ -42,7 +54,7 @@ const SubCategory = ({item, objects, category}) => {
 								return (
 									<span
 										style={{cursor: 'pointer'}}
-										onClick={() => handleShowCategory(itemObj.id, 'object')}
+										onClick={() => handleShowCategory(itemObj.id, category !== 3 ? 'object' : 'serviceObject')}
 										className='modal_subcategory-link'
 										key={`objects-${index}-${item.name}-${itemObj.id}`}
 									>
@@ -51,7 +63,7 @@ const SubCategory = ({item, objects, category}) => {
 								);
 							}
 							return <span className='modal_subcategory-link' style={{cursor: 'pointer'}}
-															onClick={() => handleShowCategory()}>
+															onClick={() => handleShowCategory(category !== 3 ? null : 'service')}>
 								<span style={{fontWeight: 'bold'}}
 											className='flex items-center modal_subcategory-object'>Показать ещё</span>
 							</span>

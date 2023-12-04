@@ -5,8 +5,7 @@ import Button from "../../ui/buttons/button";
 import phone_icon from "../../asserts/icons/phone.svg";
 import message_icon from "../../asserts/icons/message.svg";
 
-const CardService = ({data}) => {
-	console.log(data)
+const CardService = ({type}) => {
 	return (
 		<div className='card_service'>
 			<img src={imgService} alt="" className='card_service-img'/>
@@ -21,7 +20,7 @@ const CardService = ({data}) => {
 				</p>
 			</div>
 			<div className="card_service-btns">
-				<Button classname={'phone'} icon={phone_icon}/>
+				{type === 'vacancy' ? <Button classname={'phone'} icon={phone_icon}/> : null}
 				<Button classname={'message'} icon={message_icon}/>
 			</div>
 
