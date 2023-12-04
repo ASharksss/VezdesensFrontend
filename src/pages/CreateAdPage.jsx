@@ -36,6 +36,8 @@ const CreateAdPage = () => {
   const [price, setPrice] = useState('')
   const [enterValue, setEnterValue] = useState([])
   const [selectValue, setSelectValue] = useState([])
+  const [bookingStartDate, setBookingStartDate] = useState(null)
+  const [bookingEndDate, setBookingEndDate] = useState(null)
 
   const dispatch = useDispatch()
 
@@ -90,8 +92,8 @@ const CreateAdPage = () => {
       formData.append('price', price.replace(/\s+/g, ''))
       formData.append('typeAd', typeAd)
       formData.append('objectId', objectId)
-      formData.append('bookingDateStart', date.toString())
-      formData.append('bookingDateEnd', new Date(date.setDate(date.getDate() + 30)).toString())
+      formData.append('bookingDateStart', bookingStartDate.toString())
+      formData.append('bookingDateEnd', bookingEndDate.toString())
       formData.append('characteristicsInput', JSON.stringify(enterValue))
       formData.append('characteristicsSelect', JSON.stringify(selectValue))
       saveImages.map((item) => {
@@ -211,7 +213,10 @@ const CreateAdPage = () => {
               <CreateAdItem setTypeAd={setTypeAd} typeAd={typeAd} premium={categories.premium} categories={categories}/>
             </div>
 
-            <BookingCalc typeAd={typeAd}/>
+            <BookingCalc typeAd={typeAd} setBookingEndDate={setBookingEndDate}
+                         setBookingStartDate={setBookingStartDate}
+                        bookingDateStart={bookingStartDate} bookingDateEnd={bookingEndDate}
+            />
 
             {typeAd !== '' &&
               <div className="upload_photo">
