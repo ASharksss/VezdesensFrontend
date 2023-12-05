@@ -20,7 +20,7 @@ const CardImgBlock = ({ad_address, images, id}) => {
 			<div className="smallImg flex">
 				<div className="flex column">
 					{images.length > 0 ? images.map((item, index) =>
-						<SmallImg key={`smallimg-${index}-${item.id}`} img={`${STATIC_HOST}/${item.name}`} title={'Наушник Промакс'}/>
+						<SmallImg key={`smallimg-${index}-${item.id}`} img={`${STATIC_HOST}/${item.name}`} title={item.name}/>
 					) : <SmallImg img={smallImg} title={'Наушник Промакс'}/>}
 				</div>
 				<div className='relative main_card_img-container'>

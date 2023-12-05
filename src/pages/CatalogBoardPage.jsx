@@ -9,6 +9,8 @@ import {useSearchParams} from "react-router-dom";
 import Card from "../components/cards/Card";
 import {STATIC_HOST, encryptArrayWithKey} from "../utils";
 import ad_image from "../asserts/ad_image_small.png";
+import EnterFilter from "../components/filters/enterFilter";
+import ChoiceFilter from "../components/filters/choiceFilter";
 
 const chunkArray = (myArray, chunkSize) => {
 	const results = [];
@@ -120,6 +122,12 @@ const CatalogBoardPage = () => {
 															 setSearchParams={setSearchParams}
 															 handleCategoryClick={handleCategoryClick}
 															 selectedCategory={selectedCategory}/> : null}
+
+					<div className="filters">
+
+						<EnterFilter/>
+						<ChoiceFilter/>
+					</div>
 				</div>
 				<div className="catalogBoardPage_cards" style={{minWidth: '900px'}}>
 					{

@@ -1,0 +1,85 @@
+.filter_item + .filter_item {
+    margin-top: 42px;
+}
+
+
+.filter_label {
+    display: block;
+    margin-bottom: 10px;
+    font-size: 18px;
+    font-family: OpenSansBold;
+
+}
+
+.filter_input {
+    background-color: #ECECEC;
+    border-radius: 10px;
+    padding: 15px;
+    width: 116px;
+    height: 47px;
+}
+
+.filter_input + .filter_input {
+    margin-left: 5px;
+}
+
+
+
+
+
+.filter_select {
+    position: relative;
+    width: 237px;
+}
+.filter_select-header {
+     background-color: #ECECEC;
+     padding: 15px;
+     border-radius: 10px;
+     width: 237px;
+     height: 47px;
+     cursor: pointer;
+ }
+
+.filter_select-header:focus-visible{
+    border: 1px solid black;
+}
+
+.filter_select-body-none {
+    display: none;
+    padding: 5px;
+    margin-top: 5px;
+    border-radius: 10px;
+    left: 0;
+    position: absolute;
+    top: 100%;
+    right: 0;
+    box-shadow: 0px 6px 40px 0px #2626261A;
+}
+
+.filter_select-body {
+    padding: 5px;
+    margin-top: 5px;
+    border-radius: 10px;
+    left: 0;
+    position: absolute;
+    top: 100%;
+    right: 0;
+    box-shadow: 0px 6px 40px 0px #2626261A;
+}
+
+.select-item {
+    width: 227px;
+    height: 47px;
+    border-radius: 10px;
+    cursor: pointer;
+    padding: 15px 20px;
+}
+
+.select-item:hover {
+    background-color: #F6F6F6;
+}
+
+.checkbox_filter {
+    margin-right: 10px;
+}
+

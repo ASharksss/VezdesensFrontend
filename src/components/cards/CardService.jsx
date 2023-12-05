@@ -5,7 +5,9 @@ import Button from "../../ui/buttons/button";
 import phone_icon from "../../asserts/icons/phone.svg";
 import message_icon from "../../asserts/icons/message.svg";
 
-const CardService = ({type}) => {
+const CardService = ({type, item}) => {
+
+
 	return (
 		<div className='card_service'>
 			<img src={imgService} alt="" className='card_service-img'/>

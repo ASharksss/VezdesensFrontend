@@ -4,6 +4,7 @@ import CategoryAccordion from "../components/categoryAccordion/categoryAccordion
 import {useSearchParams} from "react-router-dom";
 import {useDispatch, useSelector} from "react-redux";
 import {fetchCategoryList} from "../redux/slices/categorySlice";
+import {fetchAllAds} from "../redux/slices/boardSlice";
 
 
 const ServicePage = () => {
@@ -37,9 +38,15 @@ const ServicePage = () => {
     }
   }, [isLoading])
 
+	useEffect(() => {
+		dispatch(fetchAllAds())
+	}, [])
+
 	const handleCategoryClick = (category) => {
 		setSelectedCategory(category);
 	};
+
+
 
   return (
     <div className='container'>
@@ -58,6 +65,7 @@ const ServicePage = () => {
                                 selectedCategory={selectedCategory}/> : null}
                                 </div>
 				<div className="catalogBoardPage_cards" style={{minWidth: '900px'}}>
+
           {([...Array(5)]).map(() => <CardService type={parseInt(paramsSubCategory) === 9 ? 'vacancy' : null}/>)}
         </div>    
       </div>

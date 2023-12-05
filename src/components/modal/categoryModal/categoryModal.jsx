@@ -48,7 +48,7 @@ const CategoryModal = ({data}) => {
 				{data.map((item, index) => (
 					<CategoryBtn item={item} setCategory={setCategory} key={`categories-${index}`}/>
 				))}
-				<NavLink to='/service'><span>Работа</span></NavLink>
+
 			</div>
 
 			<div className="categoryModal_subcategory">

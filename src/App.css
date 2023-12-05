@@ -78,6 +78,10 @@ body {
   display: grid;
 }
 
+.block {
+  display: block;
+}
+
 .flex {
   display: flex;
 }
