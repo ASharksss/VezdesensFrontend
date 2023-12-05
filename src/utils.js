@@ -1,5 +1,5 @@
-export const STATIC_HOST = 'http://localhost:5000/static'
-//export const STATIC_HOST = 'https://backend.vezdesens.ru/static'
+// export const STATIC_HOST = 'http://localhost:5000/static'
+export const STATIC_HOST = 'https://backend.vezdesens.ru/static'
 
 export const group = (array) => {
 	const blockArray = array.filter(item => item.typeAdId === 1)

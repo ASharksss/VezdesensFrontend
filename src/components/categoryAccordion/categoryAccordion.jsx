@@ -5,6 +5,16 @@ const CategoryAccordion = ({
                              category, selectedCategory, handleCategoryClick, paramsSubCategory,
                              setObjectId, objectId, paramsCategory, paramsObjectId, setSearchParams
                            }) => {
+  // category: [{ id: int, name: str, subCategories: [{
+  //              id: int, name: str, categoryId: int, objects: [{
+  //              id: int, name: str, subCategoryId: int }]}]}]
+  // selectedCategory: [category] родительский стейт, чтобы открывался аккордион и отображать данные 
+  // handleCategoryClick родительская функция, чтоб получить новые данные
+  // paramsSubCategory: int || str параметр подкатегории, чтобы выстроить аккордион и выделить текущую подкатегорию
+  // paramsCategory: int || str параметр категории, чтобы выстроить аккордион
+  // setObjectId выбор объекта, для получения данных
+  // objectId: int || str параметр подкатегории, чтобы выстроить аккордион и выделить текущую подкатегорию
+  // setSearchParams родительский аргумент, чтобы передать новые параметры для урла на фронте
   const [checked, setChecked] = useState(null)
 
   useEffect(() => {

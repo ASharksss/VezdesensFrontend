@@ -17,7 +17,6 @@ import {DataURIToBlob, numberWithSpaces} from "../utils";
 import LoadGIF from '../asserts/load.gif'
 import './pages.css'
 import BookingCalc from "../components/bookingCalc/bookingCalc";
-import {type} from "@testing-library/user-event/dist/type";
 
 const CreateAdPage = () => {
 
@@ -92,8 +91,8 @@ const CreateAdPage = () => {
       formData.append('price', price.replace(/\s+/g, ''))
       formData.append('typeAd', typeAd)
       formData.append('objectId', objectId)
-      formData.append('bookingDateStart', bookingStartDate.toString())
-      formData.append('bookingDateEnd', bookingEndDate.toString())
+      formData.append('bookingDateStart', new Date(bookingStartDate).toString())
+      formData.append('bookingDateEnd', new Date(bookingEndDate).toString())
       formData.append('characteristicsInput', JSON.stringify(enterValue))
       formData.append('characteristicsSelect', JSON.stringify(selectValue))
       saveImages.map((item) => {

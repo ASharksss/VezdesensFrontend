@@ -1,6 +1,8 @@
 import React, {useEffect, useState} from 'react';
 
-const SelectInput = ({data, setSelectValue, id}) => {
+const SelectInput = ({data, setSelectValue, id}) => { // data: [{id: int, name: str}]
+													  // setCheckboxValue: [] родительский стейт
+													  // id: int родительский id, чтобы понимать для кого изменения
 	const [value, setValue] = useState('')
 	useEffect(() => {
 		if (value !== '') {

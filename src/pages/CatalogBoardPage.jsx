@@ -28,6 +28,9 @@ const CatalogBoardPage = () => {
 	const paramsCategory = searchParams.get('category') || 1
 	const paramsSubCategory = searchParams.get('subCategory') || 1
 	const [selectedCategory, setSelectedCategory] = useState([]);
+	const [choiceFilter, setChoiceFilter] = useState([]);
+	const [enterFilter, setEnterFilter] = useState([]);
+	const [showAds, setShowAds] = useState(false)
 	const [ignoreIds, setIgnoreIds] = useState([])
 	const [offset, setOffset] = useState(0)
 	const [lastOffset, setLastOffset] = useState(0)
@@ -41,7 +44,7 @@ const CatalogBoardPage = () => {
 		if (paramsCategory) {
 			dispatch(fetchCategoryList(parseInt(paramsCategory)))
 		}
-	}, [paramsObjectId, paramsCategory, paramsSubCategory])
+	}, [paramsObjectId, paramsCategory, paramsSubCategory]) // самый первый запрос при загрузке страницы
 
 	const getData = async () => {
 		const lastPath = localStorage.getItem('last_path')
@@ -59,6 +62,8 @@ const CatalogBoardPage = () => {
 		// eslint-disable-next-line no-restricted-globals
 		if (lastPath !== location.pathname + location.search) {
 			setData([])
+			setChoiceFilter([])
+			setEnterFilter([])
 			setIgnoreIds([])
 			// eslint-disable-next-line no-restricted-globals
 			localStorage.setItem('last_path', location.pathname + location.search)
@@ -67,9 +72,9 @@ const CatalogBoardPage = () => {
 			getData()
 		}
 		// eslint-disable-next-line no-restricted-globals
-	}, [location.search, paramsObjectId, paramsCategory, paramsSubCategory])
+	}, [location.search, paramsObjectId, paramsCategory, paramsSubCategory]) //отслеживаем изменения по запросу урла, чтобы получить данные
 
-	useEffect(() => {
+	useEffect(() => { //если пришли новые данные, записываем их id для уникальности
 		const ids = data.map(item => item.id)
 		setIgnoreIds(ids)
 	}, [data])
@@ -78,31 +83,48 @@ const CatalogBoardPage = () => {
 		setSelectedCategory(category);
 	};
 
-	const forChunkData = [...data]
-	const chunkedData = chunkArray(forChunkData, 4);
+	const forChunkData = [...data] // временная константа, чтобы основной стейт не перезаписывать
+	const chunkedData = chunkArray(forChunkData, 4); // получаем сгруппированные данные по 4 штуки в ряд
 
-	const handleObserver = async (vision=false) => {
+	const handleObserver = async (vision=false) => { // функция чтобы при прокрутке получить новые данные
 		if (vision && offset !== lastOffset) {
 			const keyHash = encryptArrayWithKey(ignoreIds)
 			const {data} = await axios.get(`api/board/getAll?objectId=${paramsObjectId}&offset=${offset}&key=${keyHash}`)
-			setData(prevState => [...prevState, ...data.ads])
-			setOffset(parseInt(data.blockOffset))
-			setLastOffset(parseInt(data.blockOffset))
+			setData(prevState => [...prevState, ...data.ads]) // добавляем нашей data, то что пришло из сервера
+			setOffset(parseInt(data.blockOffset)) // записываем последний оффсет, чтобы в дальнейшем приходило ещё больше данных
+			setLastOffset(parseInt(data.blockOffset)) // локальный оффсет, чтобы бесконечно не зацикливать
 		}
 	}
-	const observer = new IntersectionObserver(
+	const observer = new IntersectionObserver( // отслеживания прокрутки
 		async ([entry]) => {
-			if (entry.isIntersecting) {
+			if (entry.isIntersecting) { // если достигли дивки, вызвать функцию
 				await handleObserver(entry.isIntersecting)
 			}
 		}, {threshold: 0.001})
 
 	useEffect(() => {
-		observer.observe(triggerDivRef.current);
+		observer.observe(triggerDivRef.current); // триггер прокрутки на нижней дивке, чтобы вызывать функцию
 		return () => {
 			observer.disconnect();
 		};
 	}, [data]);
+
+	const handleShowAdsByParams = async() => { // Показать объявления по параметрам
+		setIgnoreIds([])
+		const array = []
+		array.push(choiceFilter)
+		array.push(enterFilter)
+		const queryHash = encryptArrayWithKey(array)
+		const {data} = await axios.get(`api/board/getAll?query=${queryHash}`)
+		setData(data.ads)
+		setOffset(parseInt(data.blockOffset))
+		setLastOffset(0)
+	}
+
+	useEffect(() => {
+		if(choiceFilter.length > 0)
+			setShowAds(true)
+	}, [choiceFilter]) // чтоб кнопка стала активной и отправить новый запрос на бэк по параметрам
 
 	return (
 		<div className='container'>
@@ -124,10 +146,17 @@ const CatalogBoardPage = () => {
 															 selectedCategory={selectedCategory}/> : null}
 
 					<div className="filters">
-
-						<EnterFilter/>
-						<ChoiceFilter/>
+						<EnterFilter setEnterFilter={setEnterFilter}/>
+						{!isLoading ? categoriesList.items[1].map((item, index) => 
+						item.typeCharacteristic === 'enter' ? 
+						<EnterFilter name={item.name} key={`enterFilter-${index}=${item.name}`}
+							id={item.id} setEnterFilter={setEnterFilter}/>: // внутри компонентов расписано
+						<ChoiceFilter name={item.name} data={item.characteristicValues} id={item.id}
+							key={`choiceFilter-${index}=${item.name}`} setChoiceFilter={setChoiceFilter}/>) : null}
 					</div>
+					<button style={showAds ? {marginTop: '20px', border: '1px solid orange'} : {marginTop: '20px'}} // тут временно сделал, можешь удалять стили
+					onClick={showAds ? handleShowAdsByParams : null}
+					>{showAds ? 'Показать' : 'Очистить'}</button>
 				</div>
 				<div className="catalogBoardPage_cards" style={{minWidth: '900px'}}>
 					{

@@ -1,7 +1,9 @@
 import React, {useEffect, useState} from 'react';
 import './characteristicInputs.css'
 
-const EnterInput = ({data, setEnterValue, id}) => {
+const EnterInput = ({data, setEnterValue, id}) => { // data: [{id: int, name: str}]
+													// setCheckboxValue: [] родительский стейт
+													// id: int родительский id, чтобы понимать для кого изменения
 	const [value, setValue] = useState('')
 	useEffect(() => {
 		if (value !== '') {
