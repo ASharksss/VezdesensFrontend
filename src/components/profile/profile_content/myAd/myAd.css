@@ -1,8 +1,20 @@
 
 .myAd {
-    margin-top: 80px;
+    margin-top: 50px;
     margin-bottom: 80px;
+    position: relative;
+    z-index: 1;
+}
 
+.myAd_grey {
+    position: absolute;
+    top: -40px;
+    left:-30px;
+    width: 1065px;
+    height: 413px;
+    background-color: rgba(7, 12, 32, 0.09);
+    border-radius: 20px;
+    z-index: 2;
 }
 
 .myAd + .myAd::before {
@@ -134,4 +146,8 @@
 .favorite_filter {
     margin-top: 77px;
     margin-bottom: 50px;
+}
+
+.myAd_grey-red {
+    color: rgba(252, 55, 42, 1);
 }

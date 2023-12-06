@@ -9,52 +9,60 @@ import MyAdActionsFavorite from "./MyAdActionsFavorite";
 import {numberWithSpaces, STATIC_HOST} from "../../../../utils";
 import Fancybox from "../../../fancybox";
 
-const MyAd = ({classname, typeAd, item, setDataAds}) => {
-	if (item) {
-		return (
-			<>
-				<div key={'myAd' + item.id} className={'myAd ' + classname}>
-					<div className=" myAd_container flex">
-
-              {
-                typeAd === 'activeAd' ? <MyAdActionsActive dataUser={item} setDataAds={setDataAds}/> :
-                  typeAd === 'archiveAd' ? <MyAdActionsArchive dataUser={item} setDataAds={setDataAds}/> :
-                    typeAd === 'favoriteAd' ? <MyAdActionsFavorite dataUser={item} setDataAds={setDataAds}/> :
-                      'ничего не передано'
-              }
+const MyAd = ({statusAd, typeAd, item, setDataAds}) => {
+  if (item) {
+    return (
+      <>
 
 
-							<Fancybox
-								options={{
-									Carousel: {
-										infinite: false,
-									},
-								}}>
-								<div className="myAd_img">
-									<img data-fancybox="gallery" src={item.imageAds.length > 0 ? `${STATIC_HOST}/${item.imageAds[0].name}` : ad_img} alt="НАЗВАНИЕ ТОВАРА" className='myAd_img-image'/>
-								</div>
-							</Fancybox>
-              <div className="myAd_description">
-                <h1 className='myAd_title bold'>{item.title}</h1>
-                <h2 className='myAd_price bold'>{numberWithSpaces(item.price)} ₽</h2>
-                <p className='myAd_ad_description'>{item.description}</p>
-                <div className="myAd_open_description">
-                    <NavLink to={`/card/${item.id}`}>
-                        <Button classname={'stroke'} children={'Показать всё'}/>
-                    </NavLink>
-                </div>
-                {
-                    typeAd === 'activeAd' || typeAd === 'archiveAd' ?
-                      <p className='myAd_type absolute'>{item.typeAd.name}</p>
-                      : null
-                }
+        <div key={'myAd' + item.id} className={'myAd '}>
+          <div className=" myAd_container flex">
+            {
+              statusAd === 'myAd_grey' ? <div className='myAd_grey'></div> : ''
+            }
+            {
+              typeAd === 'activeAd' ? <MyAdActionsActive dataUser={item} setDataAds={setDataAds}/> :
+                typeAd === 'archiveAd' ? <MyAdActionsArchive dataUser={item} setDataAds={setDataAds}/> :
+                  typeAd === 'favoriteAd' ? <MyAdActionsFavorite statusAd={statusAd} dataUser={item} setDataAds={setDataAds}/> :
+                    'ничего не передано'
+            }
+
+
+            <Fancybox
+              options={{
+                Carousel: {
+                  infinite: false,
+                },
+              }}>
+              <div className="myAd_img">
+
+                <img data-fancybox="gallery"
+                     src={item.imageAds.length > 0 ? `${STATIC_HOST}/${item.imageAds[0].name}` : ad_img}
+                     alt="НАЗВАНИЕ ТОВАРА"
+                     className={statusAd === 'myAd_grey' ? 'myAd_img-image opacity-50' : 'myAd_img-image'}/>
               </div>
+            </Fancybox>
+            <div className="myAd_description">
+              <h1 className='myAd_title bold'>{item.title}</h1>
+              <h2 className='myAd_price bold'>{numberWithSpaces(item.price)} ₽</h2>
+              <p className='myAd_ad_description'>{item.description}</p>
+              <div className="myAd_open_description">
+                <NavLink to={`/card/${item.id}`}>
+                  <Button classname={'stroke'} children={'Показать всё'}/>
+                </NavLink>
+              </div>
+              {
+                typeAd === 'activeAd' || typeAd === 'archiveAd' ?
+                  <p className='myAd_type absolute'>{item.typeAd.name}</p>
+                  : null
+              }
+            </div>
 
-					</div>
-				</div>
-			</>
-		);
-	}
+          </div>
+        </div>
+      </>
+    );
+  }
 };
 
 export default MyAd;
