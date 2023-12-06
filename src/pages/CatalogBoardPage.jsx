@@ -122,9 +122,9 @@ const CatalogBoardPage = () => {
 	}
 
 	useEffect(() => {
-		if(choiceFilter.length > 0)
+		if(choiceFilter.length > 0 || enterFilter.length > 0)
 			setShowAds(true)
-	}, [choiceFilter]) // чтоб кнопка стала активной и отправить новый запрос на бэк по параметрам
+	}, [choiceFilter, enterFilter]) // чтоб кнопка стала активной и отправить новый запрос на бэк по параметрам
 
 	return (
 		<div className='container'>
