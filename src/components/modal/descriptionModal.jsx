@@ -8,12 +8,12 @@ const DescriptionModal = ({adCharacteristicSelects, adCharacteristicInputs}) => 
 		<div className='description_modal'>
 			<h1 className='description_modal-title'>характеристики</h1>
 			<p className='description_modal-text'>
-				{adCharacteristicInputs.map((item, index) => (
+				{adCharacteristicInputs.length > 0 ?adCharacteristicInputs.map((item, index) => (
 					<p key={`adCharacteristicInputs=${index}-${item.id}`}>{item.characteristic.name} - {item.value}</p>
-				))}
-				{adCharacteristicSelects.map((item, index) => (
+				)) : null}
+				{adCharacteristicSelects.length > 0 ? adCharacteristicSelects.map((item, index) => (
 					<p key={`adCharacteristicSelects=${index}-${item.id}`}>{item.characteristic.name} - {item.characteristicValue.name}</p>
-				))}
+				)) : null}
 			</p>
 		</div>
 	);
