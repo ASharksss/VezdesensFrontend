@@ -1,5 +1,6 @@
 import React, {useState, useEffect} from 'react';
 import './filters.css'
+import { numberWithSpaces } from '../../utils';
 
 const EnterFilter = ({name='цена', setEnterFilter, id}) => {// name: str = передается имя, по умолчанию "цена"
                                         // data: [{id: int, name: str}]
@@ -23,15 +24,46 @@ const EnterFilter = ({name='цена', setEnterFilter, id}) => {// name: str = �
 				}
 			})
 		}
+    if(value === '') {
+      if(name === 'цена')
+        id = 'цена'
+      const removeById = (arr) => {
+        const updatedArr = arr.filter(item => item.id !== id);
+        return updatedArr; 
+      };
+      setEnterFilter((prevState) => removeById(prevState))
+    }
 	}, [id, value]);
+
+  const handleValue1= (val) => {
+    if (parseInt(val.replace(/\s+/g, '')) > 1500000000) {
+      alert('Значение превышает норму')
+    } else {
+      const thousandPrice = numberWithSpaces(val.replace(/\s+/g, ''))
+      setValue1(thousandPrice)
+    }
+  }
+
+  const handleValue2= (val) => {
+    if (parseInt(val.replace(/\s+/g, '')) > 1500000000) {
+      alert('Значение превышает норму')
+    } else {
+      const thousandPrice = numberWithSpaces(val.replace(/\s+/g, ''))
+      setValue2(thousandPrice)
+    }
+  }
 
   useEffect(() => {
     if(value1 === '' && value2 !== ''){
-      setValue(`0-${value2}`)
+      setValue(`0-${value2.replace(/\s+/g, '')}`)
     } else if(value2 === '' && value1 !== ''){
-      setValue(`${value1}-1500000000`)
-    } else {
-      setValue(`${value1}-${value2}`)
+      setValue(`${value1.replace(/\s+/g, '')}-1500000000`)
+    } else if (value1 !== '' && value2 !== ''){
+      setValue(`${value1.replace(/\s+/g, '')}-${value2.replace(/\s+/g, '')}`)
+    }
+    if(value !== '') {
+      if(value1 === '' && value2 === '')
+        setValue('')
     }
   }, [value1, value2])
 
@@ -41,9 +73,9 @@ const EnterFilter = ({name='цена', setEnterFilter, id}) => {// name: str = �
        <span className='filter_label'>{name}</span>}
       <div className="flex">
         <input type="text" className='filter_input' placeholder='от' 
-          onChange={event => setValue1(event.target.value)} value={value1}/>
+          onChange={event => handleValue1(event.target.value)} value={value1}/>
         <input type="text" className='filter_input' placeholder='до'
-          onChange={event => setValue2(event.target.value)} value={value2}/>
+          onChange={event => handleValue2(event.target.value)} value={value2}/>
       </div>
     </div>
   );

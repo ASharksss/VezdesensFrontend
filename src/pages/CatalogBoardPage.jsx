@@ -119,11 +119,14 @@ const CatalogBoardPage = () => {
 		setData(data.ads)
 		setOffset(parseInt(data.blockOffset))
 		setLastOffset(0)
+		setShowAds(false)
 	}
 
 	useEffect(() => {
-		if(choiceFilter.length > 0 || enterFilter.length > 0)
+		if(choiceFilter.length > 0 || enterFilter.length > 0) {
+			setIgnoreIds([])
 			setShowAds(true)
+		}
 	}, [choiceFilter, enterFilter]) // чтоб кнопка стала активной и отправить новый запрос на бэк по параметрам
 
 	return (
@@ -155,8 +158,8 @@ const CatalogBoardPage = () => {
 							key={`choiceFilter-${index}=${item.name}`} setChoiceFilter={setChoiceFilter}/>) : null}
 					</div>
 					<button style={showAds ? {marginTop: '20px', border: '1px solid orange'} : {marginTop: '20px'}} // тут временно сделал, можешь удалять стили
-					onClick={showAds ? handleShowAdsByParams : null}
-					>{showAds ? 'Показать' : 'Очистить'}</button>
+					onClick={showAds ? handleShowAdsByParams : null} disabled={!showAds}
+					>Показать</button>
 				</div>
 				<div className="catalogBoardPage_cards" style={{minWidth: '900px'}}>
 					{

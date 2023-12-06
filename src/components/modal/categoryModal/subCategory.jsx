@@ -4,6 +4,9 @@ import arrow_category from '../../../asserts/icons/arrow_category.svg'
 import '../modal.css'
 
 const SubCategory = ({item, objects, category}) => {
+	// item: {id: int, name: str, categoryId: int, objects: [{id: int, name: str, subCategoryId: int}]}
+	// objects: [{subCategory: int, objects: [{id: int, name: str, subCategoryId: int}]}]
+	// category: int
 	const navigate = useNavigate()
 	const handleShowCategory = (id=null, type = 'subCategory') => {
 		switch (type) {
@@ -40,7 +43,7 @@ const SubCategory = ({item, objects, category}) => {
 			<div className="objects_list flex ">
 				<span className='modal_subcategory-subtitle'
 							style={{cursor: 'pointer'}}
-							onClick={() => handleShowCategory(category !== 3 ? null : 'service')}>{item.name}</span>
+							onClick={() => handleShowCategory(null, category === 3 ? 'service' : null)}>{item.name}</span>
 				<img src={arrow_category} className='modal_subcategory-icon'/>
 			</div>
 			<div>
@@ -63,7 +66,7 @@ const SubCategory = ({item, objects, category}) => {
 								);
 							}
 							return <span className='modal_subcategory-link' style={{cursor: 'pointer'}}
-															onClick={() => handleShowCategory(category !== 3 ? null : 'service')}>
+															onClick={() => handleShowCategory(null, category === 3 ? 'service' : null)}>
 								<span style={{fontWeight: 'bold'}}
 											className='flex items-center modal_subcategory-object'>Показать ещё</span>
 							</span>

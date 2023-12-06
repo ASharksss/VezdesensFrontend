@@ -1,26 +1,50 @@
 import React, {useEffect, useState} from 'react';
+import {useSearchParams, useLocation} from "react-router-dom";
+import {useDispatch, useSelector} from "react-redux";
+import axios from 'axios';
 import CardService from "../components/cards/CardService";
 import CategoryAccordion from "../components/categoryAccordion/categoryAccordion";
-import {useSearchParams} from "react-router-dom";
-import {useDispatch, useSelector} from "react-redux";
 import {fetchCategoryList} from "../redux/slices/categorySlice";
 import {fetchAllAds} from "../redux/slices/boardSlice";
 
 
 const ServicePage = () => {
-
+  const location = useLocation()
 	const [searchParams, setSearchParams] = useSearchParams()
-	const paramsObjectId = searchParams.get('object') || 1
+	const paramsObjectId = searchParams.get('object') || null
 	const paramsCategory = searchParams.get('category') || 1
 	const paramsSubCategory = searchParams.get('subCategory') || 1
 	const [selectedCategory, setSelectedCategory] = useState([]);
   const [title, setTitle] = useState('')
 	const [ignoreIds, setIgnoreIds] = useState([])
+	const [data, setData] = useState([])
 	const [offset, setOffset] = useState(0)
 	const [lastOffset, setLastOffset] = useState(0)
 	const [objectId, setObjectId] = useState(parseInt(paramsObjectId))
 	const dispatch = useDispatch()
 	const {categoriesList} = useSelector(state => state.categories)
+
+	const getData = async () => {
+		const lastPath = localStorage.getItem('last_path')
+		// eslint-disable-next-line no-restricted-globals
+		const responseOffset = lastPath !== location.pathname + location.search ? offset : 0
+    let response
+    if (paramsObjectId !== null) {
+      response = await axios.get(`api/board/getAll?objectId=${paramsObjectId}&offset=${responseOffset}`)
+    } else {
+      response = await axios.get(`api/board/getAll?subCategoryId=${paramsSubCategory}&offset=${responseOffset}`)
+    }
+		setData(prevState => [...prevState, ...response.data.ads])
+		setOffset(parseInt(response.data.blockOffset))
+		setLastOffset(0)
+	}
+
+
+	useEffect(() => {
+		if (paramsCategory) {
+      getData()
+		}
+	}, [paramsObjectId, paramsCategory, paramsSubCategory])
 
 	const isLoading = categoriesList.status === 'loading'
 	useEffect(() => {
@@ -28,6 +52,20 @@ const ServicePage = () => {
 			dispatch(fetchCategoryList(parseInt(paramsCategory)))
 		}
 	}, [paramsObjectId, paramsCategory, paramsSubCategory])
+
+	useEffect(() => {
+		const lastPath = localStorage.getItem('last_path')
+    if(paramsObjectId !== null)
+		  setObjectId(parseInt(paramsObjectId))
+		if (lastPath !== location.pathname + location.search) {
+			setData([])
+			setIgnoreIds([])
+			localStorage.setItem('last_path', location.pathname + location.search)
+			getData()
+		} else {
+			getData()
+		}
+	}, [location.search, paramsObjectId, paramsCategory, paramsSubCategory])
 
   useEffect(() => {
     if(!isLoading) {
@@ -46,8 +84,6 @@ const ServicePage = () => {
 		setSelectedCategory(category);
 	};
 
-
-
   return (
     <div className='container'>
       <h1 className='catalogBoardPage-title'>{!isLoading ? title : null}</h1>
@@ -65,8 +101,8 @@ const ServicePage = () => {
                                 selectedCategory={selectedCategory}/> : null}
                                 </div>
 				<div className="catalogBoardPage_cards" style={{minWidth: '900px'}}>
-
-          {([...Array(5)]).map(() => <CardService type={parseInt(paramsSubCategory) === 9 ? 'vacancy' : null}/>)}
+          {data.length > 0 ? data.map(item => <CardService type={parseInt(paramsSubCategory) === 9 ? 'vacancy' : null}/>) : 
+          <p>Нет данных</p>}
         </div>    
       </div>
     </div>

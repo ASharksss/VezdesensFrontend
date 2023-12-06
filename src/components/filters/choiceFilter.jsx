@@ -34,6 +34,13 @@ const ChoiceFilter = ({name, data, id, setChoiceFilter}) => {// name: str = пе
 				}
 			})
 		}
+    if (value.length === 0) {
+      const removeById = (arr) => {
+        const updatedArr = arr.filter(item => item.id !== id);
+        return updatedArr; 
+      };
+      setChoiceFilter((prevState) => removeById(prevState))
+    }
 	}, [id, value]); // триггеры по родительскому id и значению из временного хранилища
   
   return (
