@@ -8,7 +8,7 @@
     margin-bottom: 10px;
     font-size: 18px;
     font-family: OpenSansBold;
-
+    z-index: 0;
 }
 
 .filter_input {
@@ -38,6 +38,7 @@
      width: 237px;
      height: 47px;
      cursor: pointer;
+    z-index: 0;
  }
 
 .filter_select-header:focus-visible{
@@ -45,6 +46,7 @@
 }
 
 .filter_select-body-none {
+    z-index: 1;
     display: none;
     padding: 5px;
     margin-top: 5px;
@@ -53,10 +55,13 @@
     position: absolute;
     top: 100%;
     right: 0;
+    background-color: white;
     box-shadow: 0px 6px 40px 0px #2626261A;
 }
 
 .filter_select-body {
+    background-color: white;
+    z-index: 1;
     padding: 5px;
     margin-top: 5px;
     border-radius: 10px;
