@@ -17,6 +17,7 @@ import {DataURIToBlob, numberWithSpaces} from "../utils";
 import LoadGIF from '../asserts/load.gif'
 import './pages.css'
 import BookingCalc from "../components/bookingCalc/bookingCalc";
+import ImageEditor from '../components/uploadPhoto/imageEditor';
 
 const CreateAdPage = () => {
 
@@ -164,6 +165,7 @@ const CreateAdPage = () => {
               </select>
             </div>
 
+            <ImageEditor />
 
             {!isLoadingCharacter &&
               <div className="create_ad-character">
