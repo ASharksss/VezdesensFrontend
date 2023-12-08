@@ -10,6 +10,7 @@ import {fetchAuth} from "./redux/slices/userSlice";
 import {privateRoutes, publicRoutes} from "./routes";
 import SignIn from "./pages/SignIn";
 import SignUp from "./pages/SignUp.";
+import Characteristic from "./pages/admin/Characteristic";
 
 
 axios.defaults.baseURL = 'http://localhost:5000/';
@@ -46,6 +47,7 @@ function App() {
       <Routes>
         <Route path="/signin" element={<SignIn/>}/>
         <Route path="/signup" element={<SignUp/>}/>
+        <Route path="/characteristic" element={<Characteristic/>}/>
         <Route path="/" element={<Layout/>}>
           {publicRoutes.map(({key, path, Component}) => (
             <Route key={`public-${key}`} path={path} element={<Component/>}/>
