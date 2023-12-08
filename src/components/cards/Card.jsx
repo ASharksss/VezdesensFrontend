@@ -10,7 +10,17 @@ import Favorite from "../../ui/buttons/favorite";
 import {STATIC_HOST} from "../../utils";
 
 
-const Card = ({classname, ad_image, title, address, date, price, id, favorite}) => {
+const Card = ({classname, ad_image, title, address, date, price, id, favorite, type='also'}) => {
+  if (type === 'newAd') {
+    return (
+      <div className={'card ' + classname} style={{height: 'auto'}}>
+        <div className="card_content">
+            <img src={ad_image} className='card_content-img'/>
+            <CardContentS title={title} address={address} price={price} date={date}/>
+        </div>
+      </div>
+    );
+  }
   return (
     <div className={'card ' + classname}>
       <div className="card_content">

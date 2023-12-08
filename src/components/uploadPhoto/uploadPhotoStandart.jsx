@@ -1,80 +1,98 @@
-import React, {useEffect, useRef, useState} from 'react';
-import {useDropzone} from 'react-dropzone';
-import AvatarEditor from 'react-avatar-editor';
+import React, {useRef, useState} from 'react';
+import { useDropzone } from 'react-dropzone';
+import { Cropper } from 'react-cropper';
+import 'cropperjs/dist/cropper.css'
 import photoStandart from "../../asserts/icons/upload_stanrat.svg";
+import Card from '../cards/Card';
+import ModalMain from '../modal/modalMain';
 
-const UploadPhotoStandart = ({setSaveImages, imageTrigger}) => {
-	const [images, setImages] = useState([]);
-	const [editedImages, setEditedImages] = useState([]);
-	const editorRefs = useRef([]);
+const UploadPhotoStandart = ({editedImage, setEditedImage}) => {
+														  // родительская измененная картинка
+														  // editedImage: null
+	const [image, setImage] = useState(null);			  // первоначальная картинка
+	const [croppedData, setCroppedData] = useState(null)  // изменяемая картинка
+	const [activeModal, setActiveModal] = useState(false) // модальное окно
+	const cropperRef = useRef(null)
 
-
-	const onDrop = (acceptedFiles) => {
-		console.log(acceptedFiles)
-		setImages((prevImages) => [...prevImages, ...acceptedFiles]);
+	const onCrop = () => {
+		// Отслеживания изменений через хук Ref
+		// перевод в base64 и запись во временный стейт 
+		const cropper = cropperRef.current?.cropper
+		const croppedCanvas = cropper.getCroppedCanvas()
+		const croppedDataUrl = croppedCanvas.toDataURL('image/jpeg')
+		setCroppedData(croppedDataUrl)
 	};
 
-	useEffect(() => {
-		const edited = editedImages.map((image, index) => {
-			const canvas = editorRefs.current[index].getImageScaledToCanvas();
-			return canvas.toDataURL();
-		});
-		setSaveImages((prev) => [...prev, ...edited])
-		// Здесь вы можете обработать сохраненные изображения, например, отправить на сервер или сохранить локально
-		console.log('Отредактированные изображения:', edited);
-	}, [imageTrigger]);
+	const handleSaveImage = () => {
+		// Сохранения измененного изображения 
+		// в модальном окне
+		setEditedImage(croppedData)
+		setActiveModal(false)
+	}
+
+	const onDrop = (acceptedFiles) => {
+		// Загрузка изображения перевод его в base64
+		// и запись в стейт
+		const file = acceptedFiles[0]
+		const reader = new FileReader()
+		reader.onloadend = () => {
+			setImage(reader.result)
+			setEditedImage(reader.result)
+		}
+		reader.readAsDataURL(file)
+	};
 
 	const {getInputProps} = useDropzone({onDrop});
-	const removeImage = (index) => {
-		const updatedItems = [...images];
-		console.log(index, updatedItems)
-		updatedItems.splice(index, 1);
-		setImages(updatedItems);
+	const removeImage = () => {
+		setImage(null);
 	};
 
 	return (
 		<div className='upload_standart upload_block'>
-			<span className='upload_block-title'>Фото "Стандарт"</span>
-			<div className='flex mt-20'>
-				<label htmlFor="standart_input" className='upload_file_input upload_standart-label'>
-					<img src={photoStandart} alt=""/>
-				</label>
-				<input {...getInputProps()} id='standart_input' className='upload-input' accept="image/png, image/jpeg"/>
-				<div className="upload_info">
-					<p className='upload_info-premium-text'>Загрузите 1 фото</p>
-					<p className='upload_info-premium-format'>Формат JPG, JPEG, PNG</p>
-					<div>
-						{images.length > 0 ? images.map((item, index) => (
-							<div key={index} style={{position: 'relative'}}>
-								<button onClick={() => removeImage(index)}
-												style={{
-													position: 'absolute',
-													color: 'red',
-													fontWeight: 'bold',
-													fontSize: '1.5rem',
-													right: 10
-												}}>X
-								</button>
-								<AvatarEditor
-									ref={(editor) => (editorRefs.current[index] = editor)}
-									image={item}
-									width={188}
-									height={250}
-									borderRadius={10}
-									color={[255, 255, 255, 0.1]}
-									scale={1.2}
-									onImageChange={(editedImage) => {
-										const edited = [...editedImages];
-										edited[index] = editedImage;
-										setEditedImages(edited);
-									}}
-								/>
-							</div>
-						)) : null}
+			<div className="flex row">
+				<div className="column mr-20">
+					<span className='upload_block-title'>Фото "Стандарт"</span>
+					<div className='flex mt-20'>
+						<label htmlFor="standart_input" className='upload_file_input upload_standart-label'>
+							<img src={photoStandart} alt=""/>
+						</label>
+						<input {...getInputProps()} id='standart_input' className='upload-input' disabled={image !== null} accept="image/png, image/jpeg"/>
+						<div className="upload_info">
+							<p className='upload_info-premium-text'>Загрузите 1 фото</p>
+							<p className='upload_info-premium-format'>Формат JPG, JPEG, PNG</p>
+						</div>
 					</div>
 				</div>
+				{image !== null ?
+					<div style={{position: 'relative'}}>
+						<button onClick={() => removeImage()}
+										style={{position: 'absolute', zIndex: 1, color: 'red', cursor: 'pointer',
+										right: 20, top: 15, fontSize: 20, padding: 10}}>
+						X</button>
+						{/* отрисовка на карточке, важный параметр type: str = 'newAd' */}
+						<div className='images-flex_column' onClick={() => setActiveModal(true)}>
+							<Card ad_image={editedImage} address={''} title={''}
+									price={''} date={''} type='newAd' classname={'xs'}/>
+						</div>
+					</div> : null}
 			</div>
-
+			{(image || activeModal) && (
+				<ModalMain activeModal={activeModal} setActiveModal={setActiveModal} children={
+				<>
+					{/* изменение картинки */}
+					<Cropper
+						ref={cropperRef}
+						src={image}
+						style={{ height: 400, width: '100vh' }}
+						guides={false}
+						viewMode={1}
+						zoomable={false}
+						dragMode='crop'
+						crop={onCrop}
+					/>
+					{/* кнопка сохранения */}
+					<button onClick={() => handleSaveImage()}>Save</button>
+				</>} /> )}
 		</div>
 	);
 };

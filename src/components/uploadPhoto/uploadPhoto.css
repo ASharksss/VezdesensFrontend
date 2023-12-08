@@ -62,3 +62,18 @@
 .upload_info {
     margin-left: 35px;
 }
+
+.images-flex {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+.images-flex_row {
+    display: flex;
+    flex-direction: row;
+}
+
+.images-flex_column {
+    flex: 1;
+}

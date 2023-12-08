@@ -170,7 +170,7 @@ const CatalogBoardPage = () => {
 									{chunk.map((item, itemIndex) => (
 										<Card
 											classname={'xs'}
-											ad_image={item.imageAds.length > 0 ? `${STATIC_HOST}/${item.imageAds[0].name}` : ad_image}
+											ad_image={item.previewImageAds.length > 0 ? `${STATIC_HOST}/${item.previewImageAds[0].name}` : ad_image}
 											title={item.title}
 											address={item.address}
 											price={item.price}

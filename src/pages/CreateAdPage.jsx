@@ -17,14 +17,13 @@ import {DataURIToBlob, numberWithSpaces} from "../utils";
 import LoadGIF from '../asserts/load.gif'
 import './pages.css'
 import BookingCalc from "../components/bookingCalc/bookingCalc";
-import ImageEditor from '../components/uploadPhoto/imageEditor';
+import UploadImages from '../components/uploadPhoto/UploadImages';
 
 const CreateAdPage = () => {
 
   let formData = new FormData()
   const navigate = useNavigate()
-  const [images, setImages] = useState([])
-  const [imageTrigger, setImageTrigger] = useState(false)
+  const [previewImage, setPreviewImage] = useState(null)
   const [saveImages, setSaveImages] = useState([])
   const [loading, setLoading] = useState(false)
   const [typeAd, setTypeAd] = useState('standart')
@@ -43,35 +42,48 @@ const CreateAdPage = () => {
 
   const {categories} = useSelector(state => state.categories)
   const {character} = useSelector(state => state.ad)
-  const {bookingInfo} = useSelector(state => state.ad)
 
   const handleSubmit = async () => {
-    // setLoading(true)
-    setImageTrigger(true)
-  }
-
-  const createAd = async () => {
+    setLoading(true)
+    const date = new Date()
+    formData.append('title', title)
+    formData.append('description', description)
+    formData.append('address', geolocation)
+    formData.append('price', price.replace(/\s+/g, ''))
+    formData.append('typeAd', typeAd)
+    formData.append('objectId', objectId)
+    formData.append('bookingDateStart', new Date(bookingStartDate).toString())
+    formData.append('bookingDateEnd', new Date(bookingEndDate).toString())
+    formData.append('characteristicsInput', JSON.stringify(enterValue))
+    formData.append('characteristicsSelect', JSON.stringify(selectValue))
+    let preview = DataURIToBlob(previewImage)
+    formData.append('previewImage', preview)
+    saveImages.map((item) => {
+      let image = DataURIToBlob(item.value)
+      formData.append('images', image)
+    })
+    for (const value of formData.values()) {
+      console.log(value);
+    }
     await axios({
       method: 'post',
       url: 'api/ad/createAd',
       data: formData,
       headers: {"Content-Type": "multipart/form-data"}
-    })
-      .then((res) => {
-        console.log(res.data)
-        if (res.data.status === 403) {
-          window.alert(res.data.message)
-        } else {
-          setLoading(false)
-          navigate(`/card/${res.data.ad.id}`)
-        }
-      })
-      .catch(err => {
-        window.alert('Ooops')
-        console.log(err)
+    }).then((res) => {
+      console.log(res.data)
+      if (res.data.status === 403) {
+        window.alert(res.data.message)
+      } else {
         setLoading(false)
-      })
-    setImageTrigger(false)
+        navigate(`/card/${res.data.ad.id}`)
+      }
+    })
+    .catch(err => {
+      window.alert('Ooops')
+      console.log(err)
+    })
+    setLoading(false)
   }
 
   const handlePrice = (value) => {
@@ -83,31 +95,6 @@ const CreateAdPage = () => {
     }
   }
 
-  useEffect(() => {
-    if (saveImages.length > 0 && imageTrigger) {
-      const date = new Date()
-      formData.append('title', title)
-      formData.append('description', description)
-      formData.append('address', geolocation)
-      formData.append('price', price.replace(/\s+/g, ''))
-      formData.append('typeAd', typeAd)
-      formData.append('objectId', objectId)
-      formData.append('bookingDateStart', new Date(bookingStartDate).toString())
-      formData.append('bookingDateEnd', new Date(bookingEndDate).toString())
-      formData.append('characteristicsInput', JSON.stringify(enterValue))
-      formData.append('characteristicsSelect', JSON.stringify(selectValue))
-      saveImages.map((item) => {
-        let image = DataURIToBlob(item)
-        formData.append('images', image)
-      })
-      createAd()
-    }
-  }, [imageTrigger, saveImages])
-
-  useEffect(() => {
-    setImages([])
-  }, [typeAd])
-
   const isLoadingCharacter = character.status === 'loading'
 
   useEffect(() => {
@@ -116,14 +103,8 @@ const CreateAdPage = () => {
 
   useEffect(() => {
     dispatch(fetchBookingInfo(typeAd))
-
+    setPreviewImage(null)
   }, [typeAd])
-
-  if (loading) {
-    return <p>Loading...</p>
-  }
-
-
 
   return (
     <div>
@@ -164,8 +145,6 @@ const CreateAdPage = () => {
                 }
               </select>
             </div>
-
-            <ImageEditor />
 
             {!isLoadingCharacter &&
               <div className="create_ad-character">
@@ -214,28 +193,24 @@ const CreateAdPage = () => {
               <CreateAdItem setTypeAd={setTypeAd} typeAd={typeAd} premium={categories.premium} categories={categories}/>
             </div>
 
-            <BookingCalc typeAd={typeAd} setBookingEndDate={setBookingEndDate}
+            {typeAd !== 'standart' ? <BookingCalc typeAd={typeAd} setBookingEndDate={setBookingEndDate}
                          setBookingStartDate={setBookingStartDate}
-                        bookingDateStart={bookingStartDate} bookingDateEnd={bookingEndDate}
-            />
-
+                        bookingDateStart={bookingStartDate} bookingDateEnd={bookingEndDate}/> : null}
+            
             {typeAd !== '' &&
               <div className="upload_photo">
                 <h1 className='upload_photo-h1'>Загрузка фото</h1>
+					      {/* внутри стандартного расписаны производимые действия */}
+					      {/* previewImage: null */}
                 {
-                  typeAd === 'premium' ? <UploadPhotoPremium setSaveImages={setSaveImages}
-                                                             imageTrigger={imageTrigger}/> :
-                    typeAd === 'vip' ? <UploadPhotoVip setSaveImages={setSaveImages}
-                                                       imageTrigger={imageTrigger}/> :
-                      typeAd === 'standartPlus' ? <UploadPhotoStandartPlus setSaveImages={setSaveImages}
-                                                                           imageTrigger={imageTrigger}/> :
-                        typeAd === 'standart' ? <UploadPhotoStandart setSaveImages={setSaveImages}
-                                                                     imageTrigger={imageTrigger}/> : ''
+                  typeAd === 'premium' ? <UploadPhotoPremium editedImage={previewImage} setEditedImage={setPreviewImage}/> :
+                    typeAd === 'vip' ? <UploadPhotoVip editedImage={previewImage} setEditedImage={setPreviewImage}/> :
+                      typeAd === 'standartPlus' ? <UploadPhotoStandartPlus editedImage={previewImage} setEditedImage={setPreviewImage}/> :
+                        typeAd === 'standart' ? <UploadPhotoStandart editedImage={previewImage} setEditedImage={setPreviewImage}/> : null
                 }
               </div>}
 
-
-
+            <UploadImages cropData={saveImages} setCropData={setSaveImages}/>
 
             <div className="create_ad-descr">
               <h1 className='create_ad-descr-title'>Местоположение</h1>
@@ -274,8 +249,8 @@ const CreateAdPage = () => {
 
             </div>
             <div className="create_ad_btns">
-              <button className='create_ad_btn' onClick={() => handleSubmit()} disabled={imageTrigger}>
-                {imageTrigger ? <><img src={LoadGIF} width={32} alt={"Отправка"}/> Отправка...</> : 'Разместить'}
+              <button className='create_ad_btn' onClick={() => handleSubmit()} disabled={loading}>
+                {loading ? <><img src={LoadGIF} width={32} alt={"Отправка"}/> Отправка...</> : 'Разместить'}
               </button>
             </div>
 

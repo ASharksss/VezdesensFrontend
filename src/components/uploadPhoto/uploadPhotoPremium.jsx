@@ -1,81 +1,87 @@
-import React, {useEffect, useRef, useState} from 'react';
+import React, {useRef, useState} from 'react';
 import {useDropzone} from 'react-dropzone';
-import AvatarEditor from 'react-avatar-editor';
+import { Cropper } from 'react-cropper';
+import 'cropperjs/dist/cropper.css'
 import './uploadPhoto.css'
 import photoPremium from "../../asserts/icons/upload_premium.svg"
+import Card from '../cards/Card';
+import ModalMain from '../modal/modalMain';
 
-const UploadPhotoPremium = ({setSaveImages, imageTrigger}) => {
-	const [images, setImages] = useState([]);
-	const [editedImages, setEditedImages] = useState([]);
-	const editorRefs = useRef([]);
+const UploadPhotoPremium = ({editedImage, setEditedImage}) => {
+														  // родительская измененная картинка
+														  // editedImage: null
+	const [image, setImage] = useState(null);			  // первоначальная картинка
+	const [croppedData, setCroppedData] = useState(null)  // изменяемая картинка
+	const [activeModal, setActiveModal] = useState(false) // модальное окно
+	const cropperRef = useRef(null)
 
+	const onCrop = () => {
+		const cropper = cropperRef.current?.cropper
+		const croppedCanvas = cropper.getCroppedCanvas()
+		const croppedDataUrl = croppedCanvas.toDataURL('image/jpeg')
+		setCroppedData(croppedDataUrl)
+	};
+
+	const handleSaveImage = () => {
+		setEditedImage(croppedData)
+		setActiveModal(false)
+	}
 
 	const onDrop = (acceptedFiles) => {
-		console.log(acceptedFiles)
-		setImages((prevImages) => [...prevImages, ...acceptedFiles]);
+		const file = acceptedFiles[0]
+		const reader = new FileReader()
+		reader.onloadend = () => {
+			setImage(reader.result)
+			setEditedImage(reader.result)
+		}
+		reader.readAsDataURL(file)
 	};
-
-	useEffect(() => {
-		const edited = editedImages.map((image, index) => {
-			const canvas = editorRefs.current[index].getImageScaledToCanvas();
-			return canvas.toDataURL();
-		});
-		setSaveImages((prev) => [...prev, ...edited])
-		// Здесь вы можете обработать сохраненные изображения, например, отправить на сервер или сохранить локально
-		console.log('Отредактированные изображения:', edited);
-	}, [imageTrigger]);
 
 	const {getInputProps} = useDropzone({onDrop});
-	const removeImage = (index) => {
-		const updatedItems = [...images];
-		console.log(index, updatedItems)
-		updatedItems.splice(index, 1);
-		setImages(updatedItems);
+	const removeImage = () => {
+		setImage(null);
 	};
+
 	return (
-		<>
-			<div className='upload_premium upload_block'>
-				<span className='upload_block-title mb-20'>Фото для баннера "Premium"</span>
-					<label htmlFor="premium_input" className='upload_file_input upload_premium-label'>
-						<img src={photoPremium} alt=""/>
-					</label>
+		<div className='upload_premium upload_block'>
+			<span className='upload_block-title mb-20'>Фото для баннера "Premium"</span>
+			<div className='flex mt-20 mb-20'>
+				<label htmlFor="premium_input" className='upload_file_input upload_premium-label'>
+					<img src={photoPremium} alt=""/>
+				</label>
 				<input {...getInputProps()} id='premium_input' className='upload-input' accept="image/png, image/jpeg"/>
-				<div className="upload_info-premium">
+				<div className="upload_info-premium ml-20">
 					<p className='upload_info-premium-text'>Загрузите 1 фото</p>
 					<p className='upload_info-premium-format'>Формат JPG, JPEG, PNG</p>
-					<div>
-						{images.length > 0 ? images.map((item, index) => (
-							<div key={index} style={{position: 'relative'}}>
-								<button onClick={() => removeImage(index)}
-												style={{
-													position: 'absolute',
-													color: 'red',
-													fontWeight: 'bold',
-													fontSize: '1.5rem',
-													right: 10
-												}}>X
-								</button>
-								<AvatarEditor
-									ref={(editor) => (editorRefs.current[index] = editor)}
-									image={item}
-									width={1009}
-									height={309}
-									borderRadius={10}
-									color={[255, 255, 255, 0.1]}
-									scale={1.2}
-									onImageChange={(editedImage) => {
-										const edited = [...editedImages];
-										edited[index] = editedImage;
-										setEditedImages(edited);
-									}}
-								/>
-							</div>
-						)) : null}
-					</div>
 				</div>
 			</div>
-		</>
-
+			{image !== null ?
+				<div style={{position: 'relative', width: '77%'}}>
+					<button onClick={() => removeImage()}
+									style={{position: 'absolute', zIndex: 1, color: 'red', cursor: 'pointer',
+									right: 20, top: 15, fontSize: 20, padding: 10}}>
+					X</button>
+					<div className='images-flex_column' onClick={() => setActiveModal(true)}>
+						<Card ad_image={editedImage} address={''} title={''}
+								price={''} date={''} type='newAd' classname={'xl'}/>
+					</div>
+				</div> : null}
+			{(image || activeModal) && (
+				<ModalMain activeModal={activeModal} setActiveModal={setActiveModal} children={
+				<>
+					<Cropper
+						ref={cropperRef}
+						src={image}
+						style={{ height: 400, width: '100vh' }}
+						guides={false}
+						viewMode={1}
+						zoomable={false}
+						dragMode='crop'
+						crop={onCrop}
+					/>
+					<button onClick={() => handleSaveImage()}>Save</button>
+				</>} /> )}
+		</div>
 	);
 };
 

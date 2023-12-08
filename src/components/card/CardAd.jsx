@@ -54,7 +54,7 @@ const CardAd = () => {
 				<Fancybox
 					options={{
 						Carousel: {
-							infinite: false,
+							infinite: true,
 						},
 					}}>
 					<CardImgBlock ad_address={data.ad.address} images={data.ad.imageAds.length > 0 ? data.ad.imageAds : []}

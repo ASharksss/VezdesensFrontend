@@ -1,27 +1,26 @@
 import React, {useEffect, useState} from 'react';
-import './bookingCalc.css'
 import {useSelector} from "react-redux";
+import './bookingCalc.css'
 
-const BookingCalc = ({typeAd, bookingDateStart, bookingDateEnd, setBookingStartDate, setBookingEndDate}) => {
+const BookingCalc = ({bookingDateStart, bookingDateEnd, setBookingStartDate, setBookingEndDate}) => {
 
-	const currentDate = new Date()
+	const {items} = useSelector(state => state.ad.bookingInfo)
 
-	const {bookingInfo} = useSelector(state => state.ad)
-	const start = new Date(bookingDateStart)
-	const end = new Date(bookingDateEnd)
-	const [days, setDays] = useState(null)
+	const start = bookingDateStart !== null ? new Date(bookingDateStart) : null
+	const end = bookingDateEnd !== null ? new Date(bookingDateEnd) : null
+	const [days, setDays] = useState(0)
 
 	const getDays = () => {
 		//Переводим в милисекунды
 		const diff = end.getTime() - start.getTime();
 		// Переводим в дни
-		setDays(diff / (1000 * 60 * 60 * 24))
+		setDays(diff / (1000 * 60 * 60 * 24) + 1)
 	}
 
 	useEffect(() => {
-		getDays()
+		if(end !== null)
+			getDays()
 	}, [end])
-
 
 	return (
 		<div className='booking'>
@@ -29,10 +28,7 @@ const BookingCalc = ({typeAd, bookingDateStart, bookingDateEnd, setBookingStartD
 				<div className="booking_startDate flex column">
 					<label htmlFor="startDate" className='booking_label'>Дата начала</label>
 					<input type="date" id='startDate' className='booking_input'
-								 onChange={(e) => {
-									 setBookingStartDate(e.target.value)
-								 }
-								 }/>
+						onChange={(e) => setBookingStartDate(e.target.value)}/>
 
 					<div className='mt-50'>
 						<div className='flex items-center booking_info-title'><span
@@ -48,22 +44,13 @@ const BookingCalc = ({typeAd, bookingDateStart, bookingDateEnd, setBookingStartD
 				<div className="booking_endDate flex column">
 					<label htmlFor="startDate" className='booking_label'>Дата конца</label>
 					<input type="date" id='startDate' className='booking_input'
-								 onChange={(e) => {
-									 setBookingEndDate(e.target.value)
-
-								 }}/>
+						onChange={(e) => setBookingEndDate(e.target.value)}/>
 					<div className='mt-50'>
-						<span className='booking_info-text'>{bookingDateEnd == null ? '' : <span>{days}</span>}</span>
-						{bookingInfo.items.map((item) => {
-							return <span className='booking_info-text'>{item.price + ' р'}</span>
-						})}
-						{
-							bookingInfo.items.map((item) => {
-								return <span className='booking_info-text'>{
-									bookingDateEnd == null ? '' : <span>{item.price * days + ' р'}</span>
-								}</span>
-							})
-						}
+						<span className='booking_info-text'>{bookingDateEnd === null ? 0 :
+							<span>{days}</span>}</span>
+						<span className='booking_info-text'>{items.length > 0 ? items[0].price : 0 + ' р'}</span>
+						<span className='booking_info-text'>{(bookingDateEnd === null && items.length === 0) ? null :
+							<span>{items[0].price * days + ' р'}</span>}</span>
 					</div>
 
 				</div>
