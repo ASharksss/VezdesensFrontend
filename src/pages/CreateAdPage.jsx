@@ -43,7 +43,22 @@ const CreateAdPage = () => {
   const {categories} = useSelector(state => state.categories)
   const {character} = useSelector(state => state.ad)
 
+  const checkCorrectImage = () => {
+    saveImages.map(item => {
+      if(!item.change) {
+        return false
+      }
+    })
+    return previewImage.change
+  }
+
   const handleSubmit = async () => {
+    if(saveImages.length === 0 || previewImage === null)
+      return window.alert('Прикрепите все нужные фотографии')
+    const checkImages = checkCorrectImage()
+    if (!checkImages) {
+      return window.alert('Не все фотографии нужного размера')
+    }
     setLoading(true)
     const date = new Date()
     formData.append('title', title)
@@ -56,7 +71,7 @@ const CreateAdPage = () => {
     formData.append('bookingDateEnd', new Date(bookingEndDate).toString())
     formData.append('characteristicsInput', JSON.stringify(enterValue))
     formData.append('characteristicsSelect', JSON.stringify(selectValue))
-    let preview = DataURIToBlob(previewImage)
+    let preview = DataURIToBlob(previewImage.value)
     formData.append('previewImage', preview)
     saveImages.map((item) => {
       let image = DataURIToBlob(item.value)

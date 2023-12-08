@@ -23,16 +23,23 @@ const UploadPhotoPremium = ({editedImage, setEditedImage}) => {
 	};
 
 	const handleSaveImage = () => {
-		setEditedImage(croppedData)
+		setEditedImage({value: croppedData, change: true})
 		setActiveModal(false)
 	}
 
 	const onDrop = (acceptedFiles) => {
 		const file = acceptedFiles[0]
+		if(file.type !== 'image/jpeg' && file.type !== 'image/png' && file.type !== 'jpg')
+			return window.alert('Вы выбрали не правильный тип файла')
 		const reader = new FileReader()
+		const img = new Image();
 		reader.onloadend = () => {
-			setImage(reader.result)
-			setEditedImage(reader.result)
+			img.onload = function() {
+				const imageSizeCheck = this.width === 824 && this.height === 333
+				setImage(reader.result)
+				setEditedImage({value: reader.result, change: imageSizeCheck})
+			}
+			img.src = reader.result
 		}
 		reader.readAsDataURL(file)
 	};
@@ -62,7 +69,7 @@ const UploadPhotoPremium = ({editedImage, setEditedImage}) => {
 									right: 20, top: 15, fontSize: 20, padding: 10}}>
 					X</button>
 					<div className='images-flex_column' onClick={() => setActiveModal(true)}>
-						<Card ad_image={editedImage} address={''} title={''}
+						<Card ad_image={editedImage.value} address={''} title={''}
 								price={''} date={''} type='newAd' classname={'xl'}/>
 					</div>
 				</div> : null}
@@ -74,6 +81,8 @@ const UploadPhotoPremium = ({editedImage, setEditedImage}) => {
 						src={image}
 						style={{ height: 400, width: '100vh' }}
 						guides={false}
+						aspectRatio={824 / 333}
+						cropBoxResizable={false}
 						viewMode={1}
 						zoomable={false}
 						dragMode='crop'

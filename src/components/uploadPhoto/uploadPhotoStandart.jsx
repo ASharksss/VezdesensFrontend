@@ -26,7 +26,7 @@ const UploadPhotoStandart = ({editedImage, setEditedImage}) => {
 	const handleSaveImage = () => {
 		// Сохранения измененного изображения 
 		// в модальном окне
-		setEditedImage(croppedData)
+		setEditedImage({value: croppedData, change: true})
 		setActiveModal(false)
 	}
 
@@ -34,10 +34,17 @@ const UploadPhotoStandart = ({editedImage, setEditedImage}) => {
 		// Загрузка изображения перевод его в base64
 		// и запись в стейт
 		const file = acceptedFiles[0]
+		if(file.type !== 'image/jpeg' && file.type !== 'image/png' && file.type !== 'jpg')
+			return window.alert('Вы выбрали не правильный тип файла')
 		const reader = new FileReader()
+		const img = new Image();
 		reader.onloadend = () => {
-			setImage(reader.result)
-			setEditedImage(reader.result)
+			img.onload = function() {
+				const imageSizeCheck = this.width === 248 && this.height === 333
+				setImage(reader.result)
+				setEditedImage({value: reader.result, change: imageSizeCheck})
+			}
+			img.src = reader.result
 		}
 		reader.readAsDataURL(file)
 	};
@@ -71,7 +78,7 @@ const UploadPhotoStandart = ({editedImage, setEditedImage}) => {
 						X</button>
 						{/* отрисовка на карточке, важный параметр type: str = 'newAd' */}
 						<div className='images-flex_column' onClick={() => setActiveModal(true)}>
-							<Card ad_image={editedImage} address={''} title={''}
+							<Card ad_image={editedImage.value} address={''} title={''}
 									price={''} date={''} type='newAd' classname={'xs'}/>
 						</div>
 					</div> : null}
@@ -86,6 +93,8 @@ const UploadPhotoStandart = ({editedImage, setEditedImage}) => {
 						style={{ height: 400, width: '100vh' }}
 						guides={false}
 						viewMode={1}
+						aspectRatio={248 / 333}
+						cropBoxResizable={false}
 						zoomable={false}
 						dragMode='crop'
 						crop={onCrop}

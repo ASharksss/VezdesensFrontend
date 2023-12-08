@@ -34,7 +34,7 @@ const UploadImages = ({cropData, setCropData}) => {      // родительск
    const handleSaveImage = () => {
       const timeArray = [...cropData]
       const updatedTimeArray = timeArray.filter(item => item.key !== key)
-      setCropData([...updatedTimeArray, {key: key, value: croppedData}])
+      setCropData([...updatedTimeArray, {key: key, value: croppedData, change: true}])
       setChangeImage(null)
       setKey(null)
       setCroppedData(null)
@@ -52,11 +52,19 @@ const UploadImages = ({cropData, setCropData}) => {      // родительск
       }
       if(acceptedFiles.length > 0) {
          acceptedFiles.map(item => {
+            if(item.type !== 'image/jpeg' && item.type !== 'image/png' && item.type !== 'jpg'){
+               return window.alert('Вы выбрали не правильный тип файла')
+            }
             const reader = new FileReader()
+            const img = new Image();
             reader.onloadend = () => {
                const v4Key = uuidv4()
-               setSrcData(prev => [...prev, {key: v4Key, value: reader.result}])
-               setCropData(prev => [...prev, {key: v4Key, value: reader.result}])
+               img.onload = function() {
+                  const imageSizeCheck = this.width === 248 && this.height === 333
+                  setSrcData(prev => [...prev, {key: v4Key, value: reader.result}])
+                  setCropData(prev => [...prev, {key: v4Key, value: reader.result, change: imageSizeCheck}])
+               }
+               img.src = reader.result
             }
             reader.readAsDataURL(item)
          })
@@ -97,6 +105,8 @@ const UploadImages = ({cropData, setCropData}) => {      // родительск
                      src={changeImage}
                      style={{ height: 400, width: '100vh' }}
                      guides={false}
+                     aspectRatio={248 / 333}
+                     cropBoxResizable={false}
                      viewMode={1}
                      dragMode='crop'
                      crop={onCrop}
