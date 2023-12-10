@@ -65,9 +65,13 @@ const SubCategory = ({item, objects, category}) => {
 									</span>
 								);
 							}
-							return <span className='modal_subcategory-link' style={{cursor: 'pointer'}}
+							if (count > 5) {
+								return
+							}
+							count++;
+							return <span className='modal_subcategory-link' style={{cursor: 'pointer'}} key={`objects-${index}-${item.name}-${itemObj.id}`}
 															onClick={() => handleShowCategory(null, category === 3 ? 'service' : null)}>
-								<span style={{fontWeight: 'bold'}}
+								<span style={{fontWeight: 'bold'}} key={`objects-${index}-${item.name}-${itemObj.id}`}
 											className='flex items-center modal_subcategory-object'>Показать ещё</span>
 							</span>
 						})

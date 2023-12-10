@@ -1,5 +1,6 @@
 import React from 'react';
 import {NavLink} from 'react-router-dom'
+import { useSelector } from 'react-redux';
 import './cards.css'
 import CardContentXS from "./card_content/card_content_XS";
 import CardContentS from "./card_content/card_content_S";
@@ -11,6 +12,7 @@ import {STATIC_HOST} from "../../utils";
 
 
 const Card = ({classname, ad_image, title, address, date, price, id, favorite, type='also'}) => {
+  const {isAuth} = useSelector(state => state.user)
   if (type === 'newAd') {
     return (
       <div className={'card ' + classname} style={{height: 'auto'}}>
@@ -24,7 +26,7 @@ const Card = ({classname, ad_image, title, address, date, price, id, favorite, t
   return (
     <div className={'card ' + classname}>
       <div className="card_content">
-        <Favorite classname={'in_card'} id={id} favorite={favorite}/>
+        {isAuth ? <Favorite classname={'in_card'} id={id} favorite={favorite}/> : null}
         <NavLink to={`/card/${id}`} className='black'>
           {/*<CardCarousel images={ad_image} />*/}
           <img src={ad_image[0].name !== undefined ? `${STATIC_HOST}/${ad_image[0].name}` : ad_image} alt={title} className='card_content-img'/>

@@ -1,18 +1,20 @@
 import React from 'react';
+import {NavLink} from "react-router-dom";
+import { useSelector } from 'react-redux';
 import './card.css'
 import Favorite from "../../ui/buttons/favorite";
 import Button from "../../ui/buttons/button";
 import message from "../../asserts/icons/message.svg"
 import Rating from "../../ui/rating/rating";
-import {NavLink} from "react-router-dom";
 import {formatDate, numberWithSpaces} from "../../utils";
 
 const CardInfo = ({userId, price, sellerName, sellerCreated, address, setActiveModal, setTypeModal, id, favorite, rating}) => {
+	const {isAuth, user} = useSelector(state => state.user)
 	return (
 		<div className='card_info'>
 			<div className="flex items-center space-between">
 				<p className='card_info-price'>{numberWithSpaces(price)} ₽</p>
-				<Favorite id={id} favorite={favorite}/>
+				{isAuth ? userId !== user.items.id ? <Favorite id={id} favorite={favorite}/> : null : null}
 			</div>
 			<div className="flex card_info-btn">
 				<div onClick={() => {

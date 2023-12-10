@@ -1,7 +1,8 @@
 import React, {useEffect, useState} from 'react';
 
-const CheckboxInput = ({data, setCheckboxValue, id}) => { // data: [{id: int, name: str}]
+const CheckboxInput = ({data, setCheckboxValue, id, isReuqired=false}) => { // data: [{id: int, name: str}]
 														  // setCheckboxValue: [] родительский стейт
+														  // isRequired: bool default false, обязательное поле
 														  // id: int родительский id, чтобы понимать для кого изменения
 	const [value, setValue] = useState([]) // для хранения временных id
 	const handleChangeCheckbox = (event) => {

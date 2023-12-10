@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react';
 
-const SelectInput = ({data, setSelectValue, id}) => { // data: [{id: int, name: str}]
+const SelectInput = ({data, setSelectValue, id, isRequired=false}) => { // data: [{id: int, name: str}]
 													  // setCheckboxValue: [] родительский стейт
 													  // id: int родительский id, чтобы понимать для кого изменения
 	const [value, setValue] = useState('')
@@ -21,7 +21,7 @@ const SelectInput = ({data, setSelectValue, id}) => { // data: [{id: int, name: 
 	return (
 		<div>
 			<h1 className='enter_input-title'>{data.name}</h1>
-			<select className='select_input' onChange={event => setValue(event.target.value)}>
+			<select className='select_input' onChange={event => setValue(event.target.value)} required={isRequired}>
 				<option hidden>Выберите значение</option>
 				{data['characteristicValues'].map((item, index) => (
 					<option key={'characteristicValues' + index} value={item.id}>{item.name}</option>

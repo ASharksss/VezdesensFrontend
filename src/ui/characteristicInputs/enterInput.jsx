@@ -1,8 +1,9 @@
 import React, {useEffect, useState} from 'react';
 import './characteristicInputs.css'
 
-const EnterInput = ({data, setEnterValue, id}) => { // data: [{id: int, name: str}]
+const EnterInput = ({data, setEnterValue, id, isRequired=false}) => { // data: [{id: int, name: str}]
 													// setCheckboxValue: [] родительский стейт
+													// isRequired: bool default false, обязательное поле
 													// id: int родительский id, чтобы понимать для кого изменения
 	const [value, setValue] = useState('')
 	useEffect(() => {
@@ -23,7 +24,7 @@ const EnterInput = ({data, setEnterValue, id}) => { // data: [{id: int, name: st
 		<div className='flex column'>
 			<label htmlFor="" className='enter_input-title'>{data.name}</label>
 			<input value={value} onChange={event => setValue(event.target.value)}
-						 type="text" className='enter_input-input'/>
+						 type="text" className='enter_input-input' required={isRequired}/>
 		</div>
 	);
 };

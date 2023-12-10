@@ -9,7 +9,7 @@ import {NavLink} from "react-router-dom";
 
 
 const Rating = ({data = [], type='user', userId, setDataRating}) => {
-	const {isAuth} = useSelector(state => state.user)
+	const {isAuth, user} = useSelector(state => state.user)
 	const [activeModal, setActiveModal] = useState(false)
 
     let average
@@ -37,7 +37,8 @@ const Rating = ({data = [], type='user', userId, setDataRating}) => {
 					</div>
 
 					<div className='flex'>
-						{isAuth ? <button className='rating_btn' onClick={() => setActiveModal(true)}>Написать отзыв</button>
+						{isAuth ? user.items.id !== userId ? 
+							<button className='rating_btn' onClick={() => setActiveModal(true)}>Написать отзыв</button> : null
 							: <NavLink style={{textAlign: 'center'}} className='rating_btn' to={'/signin'}>Войти</NavLink>}
 					</div>
 					<ModalMain activeModal={activeModal} setActiveModal={setActiveModal}

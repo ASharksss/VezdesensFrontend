@@ -1,5 +1,4 @@
 import React from 'react';
-import cardImg from '../../asserts/cardImg.png';
 import Rating from "../../ui/rating/rating";
 import StarComponent from "../../ui/rating/starComponent";
 import ReviewPerson from "./reviewPerson";
@@ -88,17 +87,6 @@ const RatingModal = ({data, userId, setActiveModal, setDataRating}) => {
 
 						</div>
 				</div>
-
-				{/*<div style={{display: 'flex', marginTop: '20px'}}>
-					<p>{data.length} отзывов</p>
-				</div>
-				<div>
-					{data.map((item, index) =>
-						<div key={`card-${index}=${item.id}`}>
-							<p>{item.text}</p>
-						</div>
-					)}
-				</div>*/}
 			</div>
 		</div>
 	);

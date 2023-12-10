@@ -111,7 +111,7 @@ const UploadImages = ({cropData, setCropData}) => {      // родительск
                      dragMode='crop'
                      crop={onCrop}
                   />
-                  <button onClick={() => handleSaveImage()}>Save</button>
+                  <button type='button' onClick={() => handleSaveImage()}>Save</button>
                </>} />
          )}
          <div className="images-flex">

@@ -52,7 +52,8 @@ const CreateAdPage = () => {
     return previewImage.change
   }
 
-  const handleSubmit = async () => {
+  const handleSubmit = async (event) => {
+    event.preventDefault()
     if(saveImages.length === 0 || previewImage === null)
       return window.alert('Прикрепите все нужные фотографии')
     const checkImages = checkCorrectImage()
@@ -60,7 +61,6 @@ const CreateAdPage = () => {
       return window.alert('Не все фотографии нужного размера')
     }
     setLoading(true)
-    const date = new Date()
     formData.append('title', title)
     formData.append('description', description)
     formData.append('address', geolocation)
@@ -95,8 +95,8 @@ const CreateAdPage = () => {
       }
     })
     .catch(err => {
-      window.alert('Ooops')
       console.log(err)
+      window.alert(err.response.data.message)
     })
     setLoading(false)
   }
@@ -126,11 +126,11 @@ const CreateAdPage = () => {
       <div className="container">
         <div className="create_ad">
           <h1 className='create_ad-title'>Подать объявление</h1>
-          <div className="create_ad_wrapper">
+          <form className="create_ad_wrapper" onSubmit={handleSubmit}>
             <div className="create_ad-category">
               <h2 className='create_ad-category-title'>Категория</h2>
 
-              <select className='create_ad-select' onChange={event => dispatch(fetchSubCategories(event.target.value))}>
+              <select className='create_ad-select' onChange={event => dispatch(fetchSubCategories(event.target.value))} required>
                 <option hidden>Выберите категорию</option>
                 {
                   categories.items.map((item, index) => (
@@ -139,7 +139,7 @@ const CreateAdPage = () => {
                 }
               </select>
               <select className='create_ad-select' disabled={categories.subCategories.status === 'loading'}
-                      onChange={event => dispatch(fetchObjects(event.target.value))}>
+                      onChange={event => dispatch(fetchObjects(event.target.value))} required>
                 <option hidden>Выберите подкатегорию</option>
                 {
                   categories.subCategories.items.map((item, index) => (
@@ -151,7 +151,7 @@ const CreateAdPage = () => {
                       onChange={event => {
                         setObjectId(parseInt(event.target.value))
                         dispatch(fetchCharacterObjects(event.target.value))
-                      }}>
+                      }} required>
                 <option hidden>Выберите значение</option>
                 {
                   categories.subCategories.objects.items.map((item, index) => (
@@ -168,24 +168,24 @@ const CreateAdPage = () => {
                 <div className='flex column'>
                   <label className='enter_input-title'>Заголовок</label>
                   <input value={title} onChange={event => setTitle(event.target.value)}
-                         type="text" className='enter_input-input'/>
+                         type="text" className='enter_input-input' required/>
                 </div>
                 <div className='flex column'>
                   <label className='enter_input-title'>Цена</label>
                   <input value={price} onChange={event => handlePrice(event.target.value)}
-                         type="text" className='enter_input-input'/>
+                         type="text" className='enter_input-input' required/>
                 </div>
                 {character.items.length > 0 &&
                   character.items.map((item, index) => (
                     <>
                       {item['characteristic']['typeCharacteristic']['name'] === 'enter' &&
                         <EnterInput setEnterValue={setEnterValue} key={'enter' + index} data={item['characteristic']}
-                                    id={item['characteristicId']}/>}
+                                    id={item['characteristicId']} isRequired={true}/>}
                       {item['characteristic']['typeCharacteristic']['name'] === 'select' &&
-                        <SelectInput setSelectValue={setSelectValue} key={'select' + index}
+                        <SelectInput setSelectValue={setSelectValue} key={'select' + index} isRequired={true}
                                      data={item['characteristic']} id={item['characteristicId']}/>}
                       {item['characteristic']['typeCharacteristic']['name'] === 'checkbox' &&
-                        <CheckboxInput setCheckboxValue={setSelectValue} key={'checkbox' + index}
+                        <CheckboxInput setCheckboxValue={setSelectValue} key={'checkbox' + index} isRequired={true}
                                        data={item['characteristic']} id={item['characteristicId']}/>}
                     </>
                   ))
@@ -199,7 +199,7 @@ const CreateAdPage = () => {
             <div className="create_ad-descr">
               <h1 className='create_ad-descr-title'>Описание</h1>
               <textarea onChange={event => setDescription(event.target.value)}
-                        className='create_ad_descr-text' placeholder='Опишите подробнее товар'></textarea>
+                        className='create_ad_descr-text' placeholder='Опишите подробнее товар' required></textarea>
             </div>
 
 
@@ -230,7 +230,7 @@ const CreateAdPage = () => {
             <div className="create_ad-descr">
               <h1 className='create_ad-descr-title'>Местоположение</h1>
               <input type="text" onChange={event => setGeolocation(event.target.value)}
-                     placeholder='Введите адрес' className='create_ad_address'/>
+                     placeholder='Введите адрес' className='create_ad_address' required/>
             </div>
 
 
@@ -264,12 +264,12 @@ const CreateAdPage = () => {
 
             </div>
             <div className="create_ad_btns">
-              <button className='create_ad_btn' onClick={() => handleSubmit()} disabled={loading}>
+              <button className='create_ad_btn' type='submit' onClick={handleSubmit} disabled={loading}>
                 {loading ? <><img src={LoadGIF} width={32} alt={"Отправка"}/> Отправка...</> : 'Разместить'}
               </button>
             </div>
 
-          </div>
+          </form>
         </div>
       </div>
     </div>
