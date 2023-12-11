@@ -14,6 +14,7 @@ const Characteristic = () => {
   const [charName, setCharName] = useState()
   const [characteristicValue, setCharacteristicValue] = useState()
   const [objectId, setObjectId] = useState(1)
+  const [isRequired, setIsRequired] = useState(false)
   const [characteristicValueAll, setCharacteristicValueAll] = useState([])
 
 
@@ -31,10 +32,12 @@ const Characteristic = () => {
       objectId: objectId,
       typeId: typeId,
       charName:charName,
-      charValueAll: characteristicValueAll
+      charValueAll: characteristicValueAll,
+      required: isRequired
     }
     await axios.post('api/characteristic/createAll', data).then((res) => {
       alert('Всё чики-пики')
+      window.location.reload()
     })
   }
 
@@ -88,6 +91,11 @@ const Characteristic = () => {
           <label className='char-label'>Название характеристики</label>
           <input type="text" placeholder='Название характеристики' className='char-input'
                  onChange={(e) => setCharName(e.target.value)}/>
+          <div>
+            <input id='required-label' type="checkbox" placeholder='Название характеристики' className='char-input'
+                  onChange={() => setIsRequired(!isRequired)} style={{marginRight: 5}}/>
+            <label className='char-label' htmlFor='required-label'>Обязательное поле</label>
+          </div>
 
 
         {
