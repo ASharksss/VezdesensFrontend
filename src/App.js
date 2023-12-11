@@ -11,10 +11,14 @@ import {privateRoutes, publicRoutes} from "./routes";
 import SignIn from "./pages/SignIn";
 import SignUp from "./pages/SignUp.";
 import Characteristic from "./pages/admin/Characteristic";
+import AddPage from "./pages/admin/AddPage";
+import AddCategory from "./pages/admin/addCategory";
+import AddSubCategory from "./pages/admin/addSubCategory";
+import AddObject from "./pages/admin/addObject";
 
 
-// axios.defaults.baseURL = 'http://localhost:5000/';
-axios.defaults.baseURL = 'https://backend.vezdesens.ru/';
+axios.defaults.baseURL = 'http://localhost:5000/';
+//axios.defaults.baseURL = 'https://backend.vezdesens.ru/';
 axios.defaults.withCredentials = true
 
 function App() {
@@ -46,7 +50,11 @@ function App() {
       <Routes>
         <Route path="/signin" element={<SignIn/>}/>
         <Route path="/signup" element={<SignUp/>}/>
+        <Route path="/addPage" element={<AddPage/>}/>
+        <Route path="/addSubCategory" element={<AddSubCategory/>}/>
+        <Route path="/addObject" element={<AddObject/>}/>
         <Route path="/characteristic" element={<Characteristic/>}/>
+        <Route path="/addCategory" element={<AddCategory/>}/>
         <Route path="/" element={<Layout/>}>
           {publicRoutes.map(({key, path, Component}) => (
             <Route key={`public-${key}`} path={path} element={<Component/>}/>

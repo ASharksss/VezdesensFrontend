@@ -38,14 +38,9 @@ const Characteristic = () => {
     })
   }
 
-
   console.log(objectId)
 
-
-
   return (
-
-
     <div className='container'>
       <div className="char_center">
 

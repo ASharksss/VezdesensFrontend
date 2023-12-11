@@ -88,3 +88,11 @@
     margin-right: 10px;
 }
 
+.addPage_btn {
+    width: 250px;
+    height: 50px;
+    margin-bottom: 20px;
+    background-color: #ECECEC;
+    border-radius: 10px;
+}
+
