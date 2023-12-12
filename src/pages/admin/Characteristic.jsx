@@ -31,7 +31,7 @@ const Characteristic = () => {
     const data = {
       objectId: objectId,
       typeId: typeId,
-      charName:charName,
+      charName: charName,
       charValueAll: characteristicValueAll,
       required: isRequired
     }
@@ -42,6 +42,11 @@ const Characteristic = () => {
   }
 
   console.log(objectId)
+
+  const handleRemoveCharacteristic = (itemIndex) => {
+    const filteredArray = characteristicValueAll.filter((item, index) => index !== itemIndex)
+    setCharacteristicValueAll(filteredArray)
+  }
 
   return (
     <div className='container'>
@@ -88,14 +93,14 @@ const Characteristic = () => {
         </select>
 
 
-          <label className='char-label'>Название характеристики</label>
-          <input type="text" placeholder='Название характеристики' className='char-input'
-                 onChange={(e) => setCharName(e.target.value)}/>
-          <div>
-            <input id='required-label' type="checkbox" placeholder='Название характеристики' className='char-input'
-                  onChange={() => setIsRequired(!isRequired)} style={{marginRight: 5}}/>
-            <label className='char-label' htmlFor='required-label'>Обязательное поле</label>
-          </div>
+        <label className='char-label'>Название характеристики</label>
+        <input type="text" placeholder='Название характеристики' className='char-input'
+               onChange={(e) => setCharName(e.target.value)}/>
+        <div>
+          <input id='required-label' type="checkbox" placeholder='Название характеристики' className='char-input'
+                 onChange={() => setIsRequired(!isRequired)} style={{marginRight: 5}}/>
+          <label className='char-label' htmlFor='required-label'>Обязательное поле</label>
+        </div>
 
 
         {
@@ -111,17 +116,22 @@ const Characteristic = () => {
             </div>
             : ''
         }
+        <div className='character-list'>
+          <ol>
+            {
+              characteristicValueAll.map((item, index) => (
 
-        <ol>
-          {
-            characteristicValueAll.map((item) => (
 
-              <li>{item}</li>
-            ))
-          }
-        </ol>
+                  <li className='flex'>{item} <button className='red' onClick={() => handleRemoveCharacteristic(index)}> X </button></li>
 
-        <button type={'submit'} className='char_submit' onClick={() => handleSubmit()}> Отправить </button>
+
+              ))
+            }
+          </ol>
+        </div>
+
+
+        <button type={'submit'} className='char_submit' onClick={() => handleSubmit()}> Отправить</button>
 
       </div>
 
