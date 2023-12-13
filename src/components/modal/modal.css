@@ -56,6 +56,7 @@
 .modalCat.activeModalCat {
     opacity: 1;
     pointer-events: all;
+    z-index: 2;
 }
 
 .modalCat_content {
@@ -67,7 +68,7 @@
     text-align: center;
     border-bottom-left-radius: 50px;
     border-bottom-right-radius: 50px;
-    padding: 25px 124px 53px 19px;
+    padding: 25px 0 53px 19px;
     background-color: white;
     z-index: 3;
     transform: scale(0.5);
@@ -111,18 +112,32 @@
 }
 
 .categoryModal-categories {
-    width: 278px;
     margin-right: 10px;
+    overflow: auto;
 }
 
 .category_link {
+    width: 278px;
     display: flex;
     justify-content: space-between;
+    align-items: center;
     padding: 15px;
-
+    text-align: left;
     border-radius: 10px;
     cursor: pointer;
     transition: .25s;
+}
+
+.category_link-text {
+    width: 213px;
+    margin-right: 10px;
+    margin-right: 10px;
+    font-size: 16px;
+}
+
+.category_link-icon {
+    width: 5px;
+    height: 10px;
 }
 
 .category_link:hover {
@@ -285,7 +300,10 @@
 }
 
 .categoryModal_subcategory {
+    overflow: auto;
     margin-left: 60px;
+    width: 900px;
+    height: 600px;
 }
 
 .modal_subcategory-icon {
@@ -306,9 +324,14 @@
 }
 
 .modal_subcategory-object {
+    text-align: left;
     font-size: 14px;
     color: #161616;
     margin-bottom: 5px;
+}
+
+.modal_subcategory-object:hover {
+    opacity: 0.5;
 }
 
 .categoryModal-row + .categoryModal-row {

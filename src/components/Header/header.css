@@ -8,7 +8,7 @@
     position: relative;
     width: 1518px;
     height: 160px;
-
+    z-index: 3;
     background-color: white;
     margin-bottom: 50px;
     padding: 30px 60px;

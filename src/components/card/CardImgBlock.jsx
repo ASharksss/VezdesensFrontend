@@ -16,7 +16,7 @@ const CardImgBlock = ({ad_address, images, id}) => {
 
 	return (
 		<div>
-			<p className='card_ad_address'>{ad_address}</p>
+
 			<div className="smallImg flex">
 				<div className="flex column">
 					{images.length > 0 ? images.map((item, index) => index !== 0 &&

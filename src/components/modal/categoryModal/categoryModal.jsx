@@ -42,7 +42,7 @@ const CategoryModal = ({data}) => {
 		));
 	}, [subCategoryData]);
 	return (
-		<div className={'flex'}>
+		<div className='flex'>
 
 			<div className="categoryModal-categories">
 				{data.map((item, index) => (

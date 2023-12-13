@@ -1,14 +1,27 @@
+
+.card_ad-title {
+    width: 1300px;
+    justify-content: space-between;
+}
+
+.card_ad_wrapper {
+    margin-bottom: 105px;
+}
+
+.card_ad_address {
+    margin-left: 20px;
+    justify-content: center;
+}
+
 .card_ad_name {
     font-family: OpenSansBold;
-    font-size: 40px;
-    margin-bottom: 50px;
+    font-size: 32px;
+    margin-bottom: 30px;
 }
 
 .card_ad_address {
     font-size: 14px;
     color:#B5B7BD;
-    margin-left: 119px;
-    margin-bottom: 10px;
 }
 
 .main_card_img-container:hover .like_ads {
