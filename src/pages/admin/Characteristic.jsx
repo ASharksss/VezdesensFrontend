@@ -12,7 +12,7 @@ const Characteristic = () => {
   const dispatch = useDispatch()
   const [typeId, setTypeId] = useState()
   const [charName, setCharName] = useState()
-  const [characteristicValue, setCharacteristicValue] = useState()
+  const [characteristicValue, setCharacteristicValue] = useState('')
   const [objectId, setObjectId] = useState(1)
   const [isRequired, setIsRequired] = useState(false)
   const [characteristicValueAll, setCharacteristicValueAll] = useState([])
@@ -41,7 +41,32 @@ const Characteristic = () => {
     })
   }
 
-  console.log(objectId)
+  const showCharacterictics = () => {
+    if(characteristicValue !== ''){
+      setCharacteristicValueAll([])
+      if(characteristicValue.indexOf(';') > 0) {
+        const filtered = characteristicValue.split(';')
+        const timeArray = []
+        filtered.map(item => {
+          if(item.trim() !== '')
+            timeArray.push(item.trim())
+        })
+        setCharacteristicValueAll(timeArray)
+      } else if (characteristicValue.indexOf('\n') > 0) {
+        const filtered = characteristicValue.split('\n')
+        const timeArray = []
+        filtered.map(item => {
+          if(item.trim() !== '')
+            timeArray.push(item.trim())
+        })
+        setCharacteristicValueAll(timeArray)
+      }
+    }
+ }
+
+ useEffect(() => {
+   showCharacterictics()
+ }, [characteristicValue])
 
   const handleRemoveCharacteristic = (itemIndex) => {
     const filteredArray = characteristicValueAll.filter((item, index) => index !== itemIndex)
@@ -102,35 +127,27 @@ const Characteristic = () => {
           <label className='char-label' htmlFor='required-label'>Обязательное поле</label>
         </div>
 
-
-        {
-          typeId == 2 || typeId == 3 ?
-            <div className='flex column'>
-              <label className='char-label'>Введите варианты значений</label>
-              <input type="text" placeholder='Вариант' className='char-input'
-                     onChange={(e) => setCharacteristicValue(e.target.value)}/>
-              <button
-                onClick={() => setCharacteristicValueAll([...characteristicValueAll, characteristicValue])}>
-                Добавить вариант
-              </button>
-            </div>
-            : ''
-        }
-        <div className='character-list'>
-          <ol>
-            {
-              characteristicValueAll.map((item, index) => (
-
-
-                  <li className='flex'>{item} <button className='red' onClick={() => handleRemoveCharacteristic(index)}> X </button></li>
-
-
-              ))
-            }
-          </ol>
+        <div className="flex">
+          {
+            typeId == 2 || typeId == 3 ?
+              <div className='flex column'>
+                <label className='char-label'>Введите варианты значений (с новой строки или через "<code>;</code>")</label>
+                <textarea style={{border: '1px solid rgba(0,0,0,0.5)'}} onChange={(e) => setCharacteristicValue(e.target.value)} cols="30" rows="10"></textarea>
+                <button onClick={() => showCharacterictics()}>Показать</button>
+              </div>
+              : null
+          }
+          <div className='character-list'>
+            <ol>
+              { characteristicValueAll.length > 0 ?
+                characteristicValueAll.map((item, index) => (
+                    <li className='flex'>{item} <button className='red' onClick={() => handleRemoveCharacteristic(index)}> X </button></li>
+                )) : null
+              }
+            </ol>
+          </div>
         </div>
-
-
+        
         <button type={'submit'} className='char_submit' onClick={() => handleSubmit()}> Отправить</button>
 
       </div>

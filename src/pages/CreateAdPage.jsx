@@ -28,7 +28,8 @@ const CreateAdPage = () => {
   const [loading, setLoading] = useState(false)
   const [typeAd, setTypeAd] = useState('standart')
   const [description, setDescription] = useState('')
-  const [geolocation, setGeolocation] = useState('')
+  const [address, setAddress] = useState('')
+  const [addressData, setAddressData] = useState([])
   const [title, setTitle] = useState('')
   const [objectId, setObjectId] = useState(1)
   const [phone, setPhone] = useState('')
@@ -52,6 +53,16 @@ const CreateAdPage = () => {
     return previewImage.change
   }
 
+  const handleAddress = async (event) => {
+    setAddress(event.target.value)
+    if(event.target.value !== '') {
+      const {data} = await axios.post('api/position/search', {query: event.target.value})
+      setAddressData(data)
+    } else {
+      setAddressData([])
+    }
+  }
+
   const handleSubmit = async (event) => {
     event.preventDefault()
     if(saveImages.length === 0 || previewImage === null)
@@ -63,7 +74,7 @@ const CreateAdPage = () => {
     setLoading(true)
     formData.append('title', title)
     formData.append('description', description)
-    formData.append('address', geolocation)
+    formData.append('address', address)
     formData.append('price', price.replace(/\s+/g, ''))
     formData.append('typeAd', typeAd)
     formData.append('objectId', objectId)
@@ -227,10 +238,19 @@ const CreateAdPage = () => {
 
             <UploadImages cropData={saveImages} setCropData={setSaveImages}/>
 
-            <div className="create_ad-descr">
-              <h1 className='create_ad-descr-title'>Местоположение</h1>
-              <input type="text" onChange={event => setGeolocation(event.target.value)}
-                     placeholder='Введите адрес' className='create_ad_address' required/>
+            <div>
+              <div className="create_ad-descr address">
+                <h1 className='create_ad-descr-title'>Местоположение</h1>
+                <input type="text" onChange={handleAddress} value={address}
+                      placeholder='Введите адрес' className='create_ad_address' required/>   
+              </div>
+              <div>
+                {(addressData.length > 0 && address !== '')? addressData.map(item => (
+                  item.positionStreets ? item.positionStreets.map(itemStreet => (
+                    <p onClick={() => setAddress(`${item.name}, ${itemStreet.name}`)}>{item.name}, {itemStreet.name}</p>
+                  )) : <p onClick={() => setAddress(item.name + ', ')}>{item.name}</p>
+                )) : null}
+              </div>
             </div>
 
 
