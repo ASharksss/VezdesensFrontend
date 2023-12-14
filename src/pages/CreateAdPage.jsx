@@ -187,7 +187,7 @@ const CreateAdPage = () => {
                          type="text" className='enter_input-input' required/>
                 </div>
                 {character.items.length > 0 &&
-                  character.items.map((item, index) => (
+                  character.items.map((item, index) => ( item['characteristic']['required'] ?
                     <>
                       {item['characteristic']['typeCharacteristic']['name'] === 'enter' &&
                         <EnterInput setEnterValue={setEnterValue} key={'enter' + index} data={item['characteristic']}
@@ -198,11 +198,26 @@ const CreateAdPage = () => {
                       {item['characteristic']['typeCharacteristic']['name'] === 'checkbox' &&
                         <CheckboxInput setCheckboxValue={setSelectValue} key={'checkbox' + index} isRequired={true}
                                        data={item['characteristic']} id={item['characteristicId']}/>}
-                    </>
+                    </> : null
                   ))
                 }
 
                 <h1 className='character-title'>Дополнительные характеристики</h1>
+                {character.items.length > 0 &&
+                  character.items.map((item, index) => ( !item['characteristic']['required'] ?
+                    <>
+                      {item['characteristic']['typeCharacteristic']['name'] === 'enter' &&
+                        <EnterInput setEnterValue={setEnterValue} key={'enter' + index} data={item['characteristic']}
+                                    id={item['characteristicId']} isRequired={true}/>}
+                      {item['characteristic']['typeCharacteristic']['name'] === 'select' &&
+                        <SelectInput setSelectValue={setSelectValue} key={'select' + index} isRequired={true}
+                                     data={item['characteristic']} id={item['characteristicId']}/>}
+                      {item['characteristic']['typeCharacteristic']['name'] === 'checkbox' &&
+                        <CheckboxInput setCheckboxValue={setSelectValue} key={'checkbox' + index} isRequired={true}
+                                       data={item['characteristic']} id={item['characteristicId']}/>}
+                    </> : null
+                  ))
+                }
 
 
               </div>}
