@@ -27,7 +27,7 @@ const Characteristic = () => {
   }, [])
 
   const handleSubmit = async (event) => {
-
+    event.preventDefault()
     const data = {
       objectId: objectId,
       typeId: typeId,
@@ -37,8 +37,10 @@ const Characteristic = () => {
     }
     await axios.post('api/characteristic/createAll', data).then((res) => {
       alert('Всё чики-пики')
-      window.location.reload()
     })
+    setCharacteristicValue('')
+    setCharacteristicValueAll('')
+    setCharName('')
   }
 
   const showCharacterictics = () => {
@@ -119,7 +121,7 @@ const Characteristic = () => {
 
 
         <label className='char-label'>Название характеристики</label>
-        <input type="text" placeholder='Название характеристики' className='char-input'
+        <input value={charName} type="text" placeholder='Название характеристики' className='char-input'
                onChange={(e) => setCharName(e.target.value)}/>
         <div>
           <input id='required-label' type="checkbox" placeholder='Название характеристики' className='char-input'
@@ -132,7 +134,7 @@ const Characteristic = () => {
             typeId == 2 || typeId == 3 ?
               <div className='flex column'>
                 <label className='char-label'>Введите варианты значений (с новой строки или через "<code>;</code>")</label>
-                <textarea style={{border: '1px solid rgba(0,0,0,0.5)'}} onChange={(e) => setCharacteristicValue(e.target.value)} cols="30" rows="10"></textarea>
+                <textarea value={characteristicValue} style={{border: '1px solid rgba(0,0,0,0.5)'}} onChange={(e) => setCharacteristicValue(e.target.value)} cols="30" rows="10"></textarea>
                 <button onClick={() => showCharacterictics()}>Показать</button>
               </div>
               : null
@@ -147,8 +149,8 @@ const Characteristic = () => {
             </ol>
           </div>
         </div>
-        
-        <button type={'submit'} className='char_submit' onClick={() => handleSubmit()}> Отправить</button>
+
+        <button type='submit' className='char_submit' onClick={handleSubmit}> Отправить</button>
 
       </div>
 
