@@ -65,7 +65,7 @@ const CreateAdPage = () => {
 
   const handleSubmit = async (event) => {
     event.preventDefault()
-    if(saveImages.length === 0 || previewImage === null)
+    if(saveImages.length === 0 || (previewImage === null && typeAd !== 'standart'))
       return window.alert('Прикрепите все нужные фотографии')
     const checkImages = checkCorrectImage()
     if (!checkImages) {
@@ -82,8 +82,10 @@ const CreateAdPage = () => {
     formData.append('bookingDateEnd', new Date(bookingEndDate).toString())
     formData.append('characteristicsInput', JSON.stringify(enterValue))
     formData.append('characteristicsSelect', JSON.stringify(selectValue))
-    let preview = DataURIToBlob(previewImage.value)
-    formData.append('previewImage', preview)
+		if (typeAd !== 'standart') {
+			let preview = DataURIToBlob(previewImage.value)
+			formData.append('previewImage', preview)
+		}
     saveImages.map((item) => {
       let image = DataURIToBlob(item.value)
       formData.append('images', image)
@@ -246,8 +248,7 @@ const CreateAdPage = () => {
                 {
                   typeAd === 'premium' ? <UploadPhotoPremium editedImage={previewImage} setEditedImage={setPreviewImage}/> :
                     typeAd === 'vip' ? <UploadPhotoVip editedImage={previewImage} setEditedImage={setPreviewImage}/> :
-                      typeAd === 'standartPlus' ? <UploadPhotoStandartPlus editedImage={previewImage} setEditedImage={setPreviewImage}/> :
-                        typeAd === 'standart' ? <UploadPhotoStandart editedImage={previewImage} setEditedImage={setPreviewImage}/> : null
+                      typeAd === 'standartPlus' ? <UploadPhotoStandartPlus editedImage={previewImage} setEditedImage={setPreviewImage}/> : null
                 }
               </div>}
 

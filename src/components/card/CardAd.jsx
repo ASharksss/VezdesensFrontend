@@ -11,7 +11,7 @@ import DescriptionModal from "../modal/descriptionModal";
 import PhoneModal from "../modal/phoneModal";
 import RatingModal from "../modal/ratingModal";
 import Fancybox from "../fancybox";
-import {formatDate} from "../../utils";
+import {relativeDate, formatDate, pluralRusVariant} from "../../utils";
 
 const CardAd = () => {
 
@@ -53,8 +53,9 @@ const CardAd = () => {
       <h1 className='card_ad_name'>{data.ad.title}</h1>
       <div className='flex card_ad-title'>
         <p className='card_ad_address'>{data.ad.address}</p>
-        <p className='number_time_views'>{'№ ' + data.ad.id + ' · ' + formatDate(data.ad.createdAt) + ' · ' + data.ad.views + ' просмотров'}</p>
-        <p>+2 (сегодня)</p>
+        <p className='number_time_views' title={formatDate(data.ad.createdAt)}>{'№ ' + data.ad.id + ' · ' + relativeDate(new Date(data.ad.createdAt)) + ' · ' +
+					data.ad.views + ` ${["просмотр", "просмотра", "просмотров"][pluralRusVariant(parseInt(data.ad.views))]}`}</p>
+        <p>{parseInt(data.ad.viewsToday) > 0 ? `+${data.ad.viewsToday} (сегодня)`  : 'За сегодня нет просмотров'}</p>
       </div>
       <div className="flex">
         <Fancybox

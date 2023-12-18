@@ -2,7 +2,7 @@ import React, {useEffect, useState} from "react";
 import './App.css';
 import './reset.css'
 import axios from "axios";
-import {BrowserRouter, Route, Routes, Navigate} from "react-router-dom";
+import {BrowserRouter, Route, Routes} from "react-router-dom";
 import Layout from "./Layout";
 import {useDispatch, useSelector} from "react-redux";
 import {getCookie} from "./utils";
@@ -18,7 +18,7 @@ import AddObject from "./pages/admin/addObject";
 
 
 axios.defaults.baseURL = 'http://localhost:5000/';
-axios.defaults.baseURL = 'https://backend.vezdesens.ru/';
+// axios.defaults.baseURL = 'https://backend.vezdesens.ru/';
 axios.defaults.withCredentials = true
 
 function App() {
