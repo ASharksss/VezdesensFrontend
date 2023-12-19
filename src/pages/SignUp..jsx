@@ -16,6 +16,7 @@ const SignUp = () => {
 	const [phone, setPhone] = useState('')
 	const [email, setEmail] = useState('')
 	const [password, setPassword] = useState('')
+	const [error, setError] = useState('')
 
 	const handleShowPassword = (event) => {
 		setShowPassword(!showPassword)
@@ -23,11 +24,15 @@ const SignUp = () => {
 
 	const handleSubmit = async (event) => {
 		event.preventDefault()
+		setError('')
 		const data = {
 			login, name, phone, email, password
 		}
 		dispatch(fetchRegistration(data))
 			.then((res) => {
+				if (res.error) {
+					setError(res.error.message)
+				}
 				if (res.error === undefined) {
 					const pathname = localStorage.getItem('last_path') || '/'
 					navigate(pathname)
@@ -58,6 +63,7 @@ const SignUp = () => {
 						<img src={!showPassword ? eyeClose : eyeOpen} onClick={handleShowPassword}
 								 className='auth_form-eye'/>
 					</div>
+					{error !== '' ? <p style={{color: 'red'}}>{error}</p> : null}
 
 					<NavLink to='/signin' className='auth_link'>
 						<span className='miss_password'>Уже есть аккаунт?</span>

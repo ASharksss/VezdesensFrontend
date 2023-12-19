@@ -247,3 +247,11 @@
     margin-top: 70px;
 }
 
+.cropper-bg {
+    background-color: white;
+    background-image: none;
+}
+
+.cropper-modal {
+    background-color: gray;
+}

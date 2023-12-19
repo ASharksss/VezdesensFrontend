@@ -1,5 +1,6 @@
 import React, {useEffect, useState} from 'react';
-import {useParams} from "react-router-dom";
+import {NavLink, useParams} from "react-router-dom";
+import {useSelector} from "react-redux";
 import axios from "axios";
 import './card.css'
 import '../modal/modal.css'
@@ -14,7 +15,7 @@ import Fancybox from "../fancybox";
 import {relativeDate, formatDate, pluralRusVariant} from "../../utils";
 
 const CardAd = () => {
-
+	const {items} = useSelector(state => state.user.user)
   const [data, setData] = useState()
   const [dataRating, setDataRating] = useState()
   const [isLoading, setIsLoading] = useState()
@@ -36,6 +37,7 @@ const CardAd = () => {
 
   useEffect(() => {
     axios.get(`api/ad/getOneAd/${id}`).then(res => {
+			document.title = 'Картиочка № ' + res.data.ad.id + ' · ' + res.data.ad.title +  ' · ' + relativeDate(new Date(res.data.ad.createdAt))
       setData(res.data)
       setIsLoading(true)
     }).catch(err => {
@@ -50,7 +52,10 @@ const CardAd = () => {
 
   return (
     <div className='card_ad_wrapper'>
-      <h1 className='card_ad_name'>{data.ad.title}</h1>
+			<div className="flex">
+				<h1 className='card_ad_name'>{data.ad.title}</h1>
+				{items.id === data.ad.userId ? <NavLink to={`/card/${id}/edit`}>Редактировать</NavLink> : null}
+			</div>
       <div className='flex card_ad-title'>
         <p className='card_ad_address'>{data.ad.address}</p>
         <p className='number_time_views' title={formatDate(data.ad.createdAt)}>{'№ ' + data.ad.id + ' · ' + relativeDate(new Date(data.ad.createdAt)) + ' · ' +

@@ -25,6 +25,7 @@ const ProfilePage = () => {
     const getUserInfo = async () => {
       setIsLoadingUser(true)
       await axios.get(`api/user/getOneUser/${id}`).then(res => {
+				document.title = `Профиль ${res.data.name}`
         setDataUser(res.data)
 				setDataAds(res.data.ads)
         setIsLoadingUser(false)

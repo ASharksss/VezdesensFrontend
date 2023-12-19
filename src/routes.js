@@ -7,6 +7,7 @@ import LikeAdsPage from "./pages/LikeAdsPage";
 import SimilarPage from "./pages/SimilarPage";
 import SearchPage from "./pages/SearchPage";
 import ServicePage from "./pages/ServicePage";
+import CardEditPage from "./pages/CardEditPage";
 
 export const publicRoutes = [
     {
@@ -41,5 +42,9 @@ export const privateRoutes = [
     {
         path: '/profile/:id',
         Component: ProfilePage
-    }
+    },
+		{
+			path: '/card/:id/edit',
+			Component: CardEditPage
+		}
 ]

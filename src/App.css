@@ -103,6 +103,10 @@ body {
   flex-direction: column;
 }
 
+.row {
+  flex-direction: row;
+}
+
 .jy-center {
   justify-content: center;
 }

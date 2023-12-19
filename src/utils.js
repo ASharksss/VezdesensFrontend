@@ -1,5 +1,5 @@
-// export const STATIC_HOST = 'http://localhost:5000/static'
-export const STATIC_HOST = 'https://backend.vezdesens.ru/static'
+export const STATIC_HOST = 'http://localhost:5000/static'
+// export const STATIC_HOST = 'https://backend.vezdesens.ru/static'
 
 export const group = (array) => {
 	const blockArray = array.filter(item => item.typeAdId === 1)
@@ -113,18 +113,14 @@ export function relativeDate(date) {
 	let minutes = Math.floor(seconds / 60);
 	let hours = Math.floor(minutes / 60);
 	let days = Math.floor(hours / 24);
-	let months = Math.floor(days / 30);
-	console.log(months)
 
 	if (seconds < 60) {
-		console.log(seconds, 'seconds')
 		return "Только что";
 	} else if (minutes < 60) {
 		return formatMinutes(minutes)
 	} else if (hours < 24) {
 		return formatHours(hours)
 	} else if (days < 2) {
-		console.log(days, 'days')
 		today.setUTCHours(0,0,0,0);
 		timeDate.setUTCHours(0,0,0,0)
 		if (today.getTime() === timeDate.getTime()) {
@@ -137,7 +133,6 @@ export function relativeDate(date) {
 	} else if (days < 31) {
 		return days + " дней назад";
 	} else {
-		console.log(date)
 		return formatDateToRelative(date);
 	}
 }

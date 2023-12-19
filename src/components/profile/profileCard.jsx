@@ -31,7 +31,7 @@ const ProfileCard = ({avatar, dataUser}) => {
 				</div>
 				<div className="profile_card-info">
 					<h1 className='profile_card-name bold'>{dataUser.name}</h1>
-					<p className='profile_card-number'>{dataUser.phone}</p>
+					{isAuth ? <p className='profile_card-number'>{dataUser.phone}</p> : null}
 				</div>
 			</div>
 			<div className="flex rating_info" style={{cursor: 'pointer'}} onClick={() => setModalShow(true)}>

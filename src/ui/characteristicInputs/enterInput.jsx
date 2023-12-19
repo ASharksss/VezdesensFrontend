@@ -1,11 +1,11 @@
 import React, {useEffect, useState} from 'react';
 import './characteristicInputs.css'
 
-const EnterInput = ({data, setEnterValue, id, isRequired=false}) => { // data: [{id: int, name: str}]
+const EnterInput = ({data, setEnterValue, id, isRequired=false, mainValue=''}) => { // data: [{id: int, name: str}]
 													// setCheckboxValue: [] родительский стейт
 													// isRequired: bool default false, обязательное поле
 													// id: int родительский id, чтобы понимать для кого изменения
-	const [value, setValue] = useState('')
+	const [value, setValue] = useState(mainValue)
 	useEffect(() => {
 		if (value !== '') {
 			setEnterValue((prevState) => {

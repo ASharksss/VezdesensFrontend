@@ -82,7 +82,7 @@ const UploadPhotoPremium = ({editedImage, setEditedImage}) => {
 						style={{ height: 400, width: '100vh' }}
 						guides={false}
 						aspectRatio={824 / 333}
-						cropBoxResizable={false}
+						cropBoxResizable={true}
 						viewMode={1}
 						zoomable={false}
 						dragMode='crop'

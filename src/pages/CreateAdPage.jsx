@@ -7,7 +7,6 @@ import CreateAdItem from "../components/createAdItem/createAdItem";
 import UploadPhotoPremium from "../components/uploadPhoto/uploadPhotoPremium";
 import UploadPhotoVip from "../components/uploadPhoto/uploadPhotoVip";
 import UploadPhotoStandartPlus from "../components/uploadPhoto/uploadPhotoStandartPlus";
-import UploadPhotoStandart from "../components/uploadPhoto/uploadPhotoStandart";
 import {fetchBookingInfo, fetchCharacterObjects} from "../redux/slices/adSlice";
 import EnterInput from "../ui/characteristicInputs/enterInput";
 import SelectInput from "../ui/characteristicInputs/selectInput";
@@ -50,7 +49,11 @@ const CreateAdPage = () => {
         return false
       }
     })
-    return previewImage.change
+		if (typeAd !== 'standart') {
+			return previewImage.change
+		} else {
+			return true
+		}
   }
 
   const handleAddress = async (event) => {
@@ -127,6 +130,7 @@ const CreateAdPage = () => {
 
   useEffect(() => {
     dispatch(fetchCategory())
+		document.title = 'Создание объявления'
   }, [])
 
   useEffect(() => {

@@ -84,7 +84,7 @@ const UploadPhotoStandartPlus = ({editedImage, setEditedImage}) => {
 						style={{ height: 400, width: '100vh' }}
 						guides={false}
 						aspectRatio={315 / 417}
-						cropBoxResizable={false}
+						cropBoxResizable={true}
 						viewMode={1}
 						zoomable={false}
 						dragMode='crop'

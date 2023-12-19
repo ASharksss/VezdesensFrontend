@@ -106,7 +106,7 @@ const UploadImages = ({cropData, setCropData}) => {      // родительск
               style={{height: 400, width: '100vh'}}
               guides={false}
               aspectRatio={248 / 333}
-              cropBoxResizable={false}
+              cropBoxResizable={true}
               viewMode={1}
               dragMode='crop'
               crop={onCrop}

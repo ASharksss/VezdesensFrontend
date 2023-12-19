@@ -1,12 +1,14 @@
 import React, {useEffect, useState} from 'react';
-import Button from "../../../../ui/buttons/button";
-import edit from "../../../../asserts/icons/edit.svg";
 import {useSelector} from "react-redux";
 import axios from "axios";
+import {useNavigate} from "react-router-dom";
+import Button from "../../../../ui/buttons/button";
+import edit from "../../../../asserts/icons/edit.svg";
 import ModalMain from "../../../modal/modalMain";
 import HideAd from "../../../modal/hideAd";
 
 const MyAdActionsActive = ({dataUser, setDataAds}) => {
+	const navigate = useNavigate()
 	const {user, isAuth} = useSelector(state => state.user)
 	const [active, setActive] = useState(false)
 	const [check, setCheck] = useState(false)
@@ -24,6 +26,9 @@ const MyAdActionsActive = ({dataUser, setDataAds}) => {
 	}, [check])
 	const handleArchive = async () => {
 		setActive(true)
+	}
+	const handleClick = (idCart) => {
+	  navigate(`/card/${idCart}/edit`)
 	}
 	return (
 		<div className="myAd_actions">
@@ -44,12 +49,12 @@ const MyAdActionsActive = ({dataUser, setDataAds}) => {
 			<div className="actions_row flex space-between semi_bold"><p className='myAd_actions-title'>Просмотров</p><p
 				className='myAd_actions-value'>{dataUser.views}</p></div>
 			<div className="myAd_btn-edit">
-				{isAuth ? user.items.id === dataUser.userId ? <Button classname={'edit'} icon={edit}/> : null : null}
+				{isAuth ? user.items.id === dataUser.userId ? <Button handleClick={() => handleClick(dataUser.id)} classname={'edit'} icon={edit}/> : null : null}
 			</div>
 			<br/>
 			{isAuth ? user.items.id === dataUser.userId ?
 				<Button classname={'stroke'} children={'Снять с публикации'} handleClick={handleArchive}/> : null : null}
-			<ModalMain activeModal={active} setActiveModal={setActive} children={<HideAd setCheck={setCheck}/>}/>
+			<ModalMain activeModal={active} setActiveModal={setActive} children={<HideAd setCheck={setCheck} setActive={setActive}/>}/>
 		</div>
 	);
 };
