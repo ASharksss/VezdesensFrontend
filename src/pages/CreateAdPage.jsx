@@ -93,9 +93,6 @@ const CreateAdPage = () => {
       let image = DataURIToBlob(item.value)
       formData.append('images', image)
     })
-    for (const value of formData.values()) {
-      console.log(value);
-    }
     await axios({
       method: 'post',
       url: 'api/ad/createAd',

@@ -44,7 +44,7 @@ const EnterFilter = ({name='цена', setEnterFilter, id}) => {// name: str = �
     }
   }
 
-  const handleValue2= (val) => {
+  const handleValue2 = (val) => {
     if (parseInt(val.replace(/\s+/g, '')) > 1500000000) {
       alert('Значение превышает норму')
     } else {

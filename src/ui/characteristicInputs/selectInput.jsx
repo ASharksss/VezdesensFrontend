@@ -17,6 +17,13 @@ const SelectInput = ({data, setSelectValue, id, isRequired=false, mainValue=''})
 				}
 			})
 		}
+		if (value.length === 0) {
+			const removeById = (arr) => {
+				const updatedArr = arr.filter(item => item.id !== id);
+				return updatedArr;
+			};
+			setSelectValue((prevState) => removeById(prevState))
+		}
 	}, [id, value]);
 	return (
 		<div>

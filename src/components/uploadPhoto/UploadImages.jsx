@@ -8,7 +8,7 @@ import Card from '../cards/Card';
 import photoStandart from "../../asserts/icons/upload_stanrat.svg";
 
 
-const UploadImages = ({cropData, setCropData}) => {      // родительское хранилище, куда записываются изменения
+const UploadImages = ({cropData, setCropData, mainSrcData=[]}) => {      // родительское хранилище, куда записываются изменения
   // cropData: []
   const cropperRef = useRef(null)
   const [srcData, setSrcData] = useState([])            // первоначальные файлы
@@ -17,6 +17,12 @@ const UploadImages = ({cropData, setCropData}) => {      // родительск
   const [croppedData, setCroppedData] = useState(null)  // изменяемая картинка
   const [activeModal, setActiveModal] = useState(false) // модальное окно
   const [key, setKey] = useState(null)                  // uuid картинки для изменения
+
+	useEffect(() => {
+		if (mainSrcData.length > 0) {
+			setSrcData(mainSrcData)
+		}
+	}, [mainSrcData])
 
   const onCrop = () => {
     const cropper = cropperRef.current?.cropper
@@ -90,6 +96,7 @@ const UploadImages = ({cropData, setCropData}) => {      // родительск
         <label htmlFor="standart_input" className='upload_file_input upload_standart-label'>
           <img src={photoStandart} alt=""/>
         </label>
+				<p>Максимальный лимит фотографий 15: {srcData.length} / 15</p>
         <input {...getInputProps()} disabled={imageLimit} className='upload-input'/>
         {
           isDragActive ?

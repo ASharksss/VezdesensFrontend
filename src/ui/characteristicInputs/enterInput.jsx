@@ -19,6 +19,13 @@ const EnterInput = ({data, setEnterValue, id, isRequired=false, mainValue=''}) =
 				}
 			})
 		}
+		if(value === '') {
+			const removeById = (arr) => {
+				const updatedArr = arr.filter(item => item.id !== id);
+				return updatedArr;
+			};
+			setEnterValue((prevState) => removeById(prevState))
+		}
 	}, [id, value]);
 	return (
 		<div className='flex column'>

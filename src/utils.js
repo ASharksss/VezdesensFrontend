@@ -103,7 +103,7 @@ function formatMinutes(minutes) {
 
 export function relativeDate(date) {
 	let today = new Date();
-	let timeDate = date;
+	let timeDate = new Date(date);
 
 	let yesterday = new Date();
 	yesterday.setUTCDate(yesterday.getUTCDate() - 1);
@@ -124,9 +124,9 @@ export function relativeDate(date) {
 		today.setUTCHours(0,0,0,0);
 		timeDate.setUTCHours(0,0,0,0)
 		if (today.getTime() === timeDate.getTime()) {
-			return "Сегодня в " + formatDate(date).split(",")[1];
+			return "Сегодня в " + formatDateToRelative(date).split("в ")[1];
 		} else if (yesterday.getTime() === timeDate.getTime()) {
-			return "Вчера в " + formatDate(date).split(",")[1];
+			return "Вчера в " + formatDateToRelative(date).split("в ")[1];
 		} else {
 			return formatDateToRelative(date);
 		}

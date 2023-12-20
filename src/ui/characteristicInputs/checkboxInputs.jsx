@@ -29,6 +29,13 @@ const CheckboxInput = ({data, setCheckboxValue, id, isRequired=false, mainValue=
 				}
 			})
 		}
+		if (value.length === 0) {
+			const removeById = (arr) => {
+				const updatedArr = arr.filter(item => item.id !== id);
+				return updatedArr;
+			};
+			setCheckboxValue((prevState) => removeById(prevState))
+		}
 	}, [id, value]); // триггеры по родительскому id и значению из временного хранилища
 	return (
 		<div>
