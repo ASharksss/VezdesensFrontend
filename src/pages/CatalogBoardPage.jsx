@@ -109,6 +109,11 @@ const CatalogBoardPage = () => {
 		};
 	}, [data]);
 
+	useEffect(() => {
+		if (categoriesList.items.length > 0)
+			document.title = `Поиск ${categoriesList.items[0].name}`
+	}, [categoriesList])
+
 	const handleShowAdsByParams = async() => { // Показать объявления по параметрам
 		setIgnoreIds([])
 		const array = []
@@ -121,6 +126,17 @@ const CatalogBoardPage = () => {
 		setLastOffset(0)
 		setShowAds(false)
 	}
+
+	const pagination = useMemo(() => {
+		if (!isLoading && selectedCategory.length > 0) {
+			const mainName = categoriesList.items[0].name
+			const subName = categoriesList.items[0].subCategories.filter(item => item.id === parseInt(paramsSubCategory))[0].name
+			const name = categoriesList.items[0].subCategories.filter(item => item.id === parseInt(paramsSubCategory))[0].objects.filter(item => item.id === parseInt(paramsObjectId))[0].name
+			return <h1 className='catalogBoardPage-subtitle'>
+				<span className={'main'}>{mainName}</span> / <span className={'main'}>{subName}</span> / <span className={'active'}>{name}</span>
+			</h1>
+		}
+	}, [categoriesList, selectedCategory])
 
 	useEffect(() => {
 		if(choiceFilter.length > 0 || enterFilter.length > 0) {
@@ -135,6 +151,7 @@ const CatalogBoardPage = () => {
 
 			{/*<BreadCrumbs/>*/}
 			<h1 className='catalogBoardPage-title'>{!isLoading ? categoriesList.items[0].name : null}</h1>
+			{pagination}
 			<div className="catalogBoardPage">
 				<div className="catalogBoardPage_categories">
 					{!isLoading ?

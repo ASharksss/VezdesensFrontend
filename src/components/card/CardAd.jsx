@@ -11,92 +11,85 @@ import ModalMain from "../modal/modalMain";
 import DescriptionModal from "../modal/descriptionModal";
 import PhoneModal from "../modal/phoneModal";
 import RatingModal from "../modal/ratingModal";
-import Fancybox from "../fancybox";
 import {relativeDate, formatDate, pluralRusVariant} from "../../utils";
 
 const CardAd = () => {
 	const {items} = useSelector(state => state.user.user)
-  const [data, setData] = useState()
-  const [dataRating, setDataRating] = useState()
-  const [isLoading, setIsLoading] = useState()
-  const [activeModal, setActiveModal] = useState(false)
-  const [typeModal, setTypeModal] = useState()
-  const {id} = useParams()
+	const [data, setData] = useState()
+	const [dataRating, setDataRating] = useState()
+	const [isLoading, setIsLoading] = useState()
+	const [activeModal, setActiveModal] = useState(false)
+	const [typeModal, setTypeModal] = useState()
+	const {id} = useParams()
 
-  useEffect(() => {
-    if (typeModal === 'rating' && activeModal === true) {
-      axios.get(`api/user/review/${data.ad.user.id}`)
-        .then(res => {
-          setDataRating(res.data)
-        }).catch(err => {
-        console.log(err)
-        window.alert('Ошибка получения рейтинга')
-      })
-    }
-  }, [typeModal, activeModal])
+	useEffect(() => {
+		if (typeModal === 'rating' && activeModal === true) {
+			axios.get(`api/user/review/${data.ad.user.id}`)
+				.then(res => {
+					setDataRating(res.data)
+				}).catch(err => {
+				console.log(err)
+				window.alert('Ошибка получения рейтинга')
+			})
+		}
+	}, [typeModal, activeModal])
 
-  useEffect(() => {
-    axios.get(`api/ad/getOneAd/${id}`).then(res => {
-			document.title = 'Картиочка № ' + res.data.ad.id + ' · ' + res.data.ad.title +  ' · ' + relativeDate(new Date(res.data.ad.createdAt))
-      setData(res.data)
-      setIsLoading(true)
-    }).catch(err => {
-      console.warn(err)
-      alert('Ошибка получения объявления')
-    })
-  }, [])
+	useEffect(() => {
+		axios.get(`api/ad/getOneAd/${id}`).then(res => {
+			document.title = 'Картиочка № ' + res.data.ad.id + ' · ' + res.data.ad.title + ' · ' + relativeDate(new Date(res.data.ad.createdAt))
+			setData(res.data)
+			setIsLoading(true)
+		}).catch(err => {
+			console.warn(err)
+			alert('Ошибка получения объявления')
+		})
+	}, [])
 
-  if (!isLoading) {
-    return <div>Loading...</div>
-  }
+	if (!isLoading) {
+		return <div>Loading...</div>
+	}
 
-  return (
-    <div className='card_ad_wrapper'>
+	return (
+		<div className='card_ad_wrapper'>
 			<div className="flex">
 				<h1 className='card_ad_name'>{data.ad.title}</h1>
 				{items.id === data.ad.userId ? <NavLink to={`/card/${id}/edit`}>Редактировать</NavLink> : null}
 			</div>
-      <div className='flex card_ad-title'>
-        <p className='card_ad_address'>{data.ad.address}</p>
-        <p className='number_time_views' title={formatDate(data.ad.createdAt)}>{'№ ' + data.ad.id + ' · ' + relativeDate(new Date(data.ad.createdAt)) + ' · ' +
+			<div className='flex card_ad-title'>
+				<p className='card_ad_address'>{data.ad.address}</p>
+				<p className='number_time_views'
+					 title={formatDate(data.ad.createdAt)}>{'№ ' + data.ad.id + ' · ' + relativeDate(new Date(data.ad.createdAt)) + ' · ' +
 					data.ad.views + ` ${["просмотр", "просмотра", "просмотров"][pluralRusVariant(parseInt(data.ad.views))]}`}</p>
-        <p>{parseInt(data.ad.viewsToday) > 0 ? `+${data.ad.viewsToday} (сегодня)`  : 'За сегодня нет просмотров'}</p>
-      </div>
-      <div className="flex">
-        <Fancybox
-          options={{
-            Carousel: {
-              infinite: true,
-            },
-          }}>
-          <CardImgBlock ad_address={data.ad.address} images={data.ad.imageAds.length > 0 ? data.ad.imageAds : []}
-                        id={data.ad.objectId}/>
-        </Fancybox>
-        <CardDescription card_number={`№ ${data.ad.id}`} card_time={data.ad.createdAt}
-                         card_views={data.ad.views} desription={data.ad.description}
-                         setActiveModal={setActiveModal} setTypeModal={setTypeModal}/>
-        <CardInfo price={data.ad.price} address={data.ad.address} id={data.ad.id} favorite={data.ad.favorites}
-                  sellerCreated={data.ad.user.createdAt} userId={data.ad.user.id} rating={data.ad.user.ratings}
-                  sellerName={data.ad.user.name} setActiveModal={setActiveModal} setTypeModal={setTypeModal}/>
-      </div>
+				<p>{parseInt(data.ad.viewsToday) > 0 ? `+${data.ad.viewsToday} (сегодня)` : 'За сегодня нет просмотров'}</p>
+			</div>
+			<div className="flex">
+				<CardImgBlock ad_address={data.ad.address} images={data.ad.imageAds.length > 0 ? data.ad.imageAds : []}
+											id={data.ad.objectId}/>
+				<CardDescription card_number={`№ ${data.ad.id}`} card_time={data.ad.createdAt}
+												 card_views={data.ad.views} desription={data.ad.description}
+												 setActiveModal={setActiveModal} setTypeModal={setTypeModal}/>
+				<CardInfo price={data.ad.price} address={data.ad.address} id={data.ad.id} favorite={data.ad.favorites}
+									sellerCreated={data.ad.user.createdAt} userId={data.ad.user.id} rating={data.ad.user.ratings}
+									sellerName={data.ad.user.name} setActiveModal={setActiveModal} setTypeModal={setTypeModal}/>
+			</div>
 
-      {
-        typeModal === 'description' ?
-          <ModalMain activeModal={activeModal} setActiveModal={setActiveModal}
-                     children={<DescriptionModal adCharacteristicInputs={data.ad.adCharacteristicInputs}
-                                                 adCharacteristicSelects={data.ad.adCharacteristicSelects}/>}/> :
-          typeModal === 'phone' ?
-            <ModalMain activeModal={activeModal} setActiveModal={setActiveModal}
-                       children={<PhoneModal phone={data.ad.user.phone}/>}/> :
-            typeModal === 'rating' ?
-              <ModalMain activeModal={activeModal} setActiveModal={setActiveModal}
-                         children={<RatingModal data={dataRating} userId={data.ad.user.id}
-                                                setActiveModal={setActiveModal} setDataRating={setDataRating}/>}/> : ''
-      }
+			{
+				typeModal === 'description' ?
+					<ModalMain activeModal={activeModal} setActiveModal={setActiveModal}
+										 children={<DescriptionModal adCharacteristicInputs={data.ad.adCharacteristicInputs}
+																								 adCharacteristicSelects={data.ad.adCharacteristicSelects}/>}/> :
+					typeModal === 'phone' ?
+						<ModalMain activeModal={activeModal} setActiveModal={setActiveModal}
+											 children={<PhoneModal phone={data.ad.user.phone}/>}/> :
+						typeModal === 'rating' ?
+							<ModalMain activeModal={activeModal} setActiveModal={setActiveModal}
+												 children={<RatingModal data={dataRating} userId={data.ad.user.id}
+																								setActiveModal={setActiveModal} setDataRating={setDataRating}/>}/> : ''
+			}
 
 
-    </div>
-  );
+		</div>
+	);
 };
 
 export default CardAd;

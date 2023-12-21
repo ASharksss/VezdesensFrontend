@@ -17,6 +17,7 @@ const UploadImages = ({cropData, setCropData, mainSrcData=[]}) => {      // ро
   const [croppedData, setCroppedData] = useState(null)  // изменяемая картинка
   const [activeModal, setActiveModal] = useState(false) // модальное окно
   const [key, setKey] = useState(null)                  // uuid картинки для изменения
+  const [lastKey, setLastKey] = useState(null)
 
 	useEffect(() => {
 		if (mainSrcData.length > 0) {
@@ -39,13 +40,46 @@ const UploadImages = ({cropData, setCropData, mainSrcData=[]}) => {      // ро
   }
 
   const handleSaveImage = () => {
-    const timeArray = [...cropData]
-    const updatedTimeArray = timeArray.filter(item => item.key !== key)
-    setCropData([...updatedTimeArray, {key: key, value: croppedData, change: true}])
+		const updatedTimeArray = cropData.map(item => {
+			if (item.key === key) {
+				return { key: key, value: croppedData, change: true };
+			}
+			return item;
+		});
+		setCropData(updatedTimeArray);
     setChangeImage(null)
     setKey(null)
     setCroppedData(null)
     setActiveModal(false)
+  }
+
+	function getNextByKey() {
+		for (let i = 0; i < cropData.length; i++) {
+			if (cropData[i].key === key && !cropData[i].change) {
+				return cropData[(i - 1 + cropData.length) % cropData.length];
+			}
+		}
+		return null;
+	}
+
+  const handleNextImage = () => {
+		const nextImage = getNextByKey();
+		const updatedTimeArray = cropData.map(item => {
+			if (item.key === key) {
+				return { key: key, value: croppedData, change: true };
+			}
+			return item;
+		});
+		setCropData(updatedTimeArray);
+		if(nextImage['key'] === lastKey) {
+			console.log(1)
+			return setActiveModal(false)
+		}
+		if (nextImage !== null) {
+			return handleSetImage(nextImage['key'])
+		} else {
+			setActiveModal(false)
+		}
   }
 
   useEffect(() => {
@@ -67,6 +101,9 @@ const UploadImages = ({cropData, setCropData, mainSrcData=[]}) => {      // ро
         reader.onloadend = () => {
           const v4Key = uuidv4()
           img.onload = function () {
+						if (lastKey === null){
+							setLastKey(v4Key)
+						}
             const imageSizeCheck = this.width === 248 && this.height === 333
             setSrcData(prev => [...prev, {key: v4Key, value: reader.result}])
             setCropData(prev => [...prev, {key: v4Key, value: reader.result, change: imageSizeCheck}])
@@ -77,6 +114,24 @@ const UploadImages = ({cropData, setCropData, mainSrcData=[]}) => {      // ро
       })
     }
   };
+
+	useEffect(() => {
+		if (lastKey !== null) {
+			handleSetImage(lastKey)
+		}
+	}, [lastKey])
+
+	useEffect(() => {
+		if (activeModal === false) {
+			if (lastKey !== null) {
+				setLastKey(null)
+			}
+			setChangeImage(null)
+			setKey(null)
+			setCroppedData(null)
+			setActiveModal(false)
+		}
+	}, [activeModal])
 
   const handleRemoveImage = (itemKey) => {
     const timeArraySrc = [...srcData], timeArrayCrop = [...cropData]
@@ -119,6 +174,7 @@ const UploadImages = ({cropData, setCropData, mainSrcData=[]}) => {      // ро
               crop={onCrop}
             />
             <button type='button' onClick={() => handleSaveImage()}>Save</button>
+						<button type='button' onClick={() => handleNextImage()}>Next</button>
           </>}/>
       )}
       <div className="images-flex">

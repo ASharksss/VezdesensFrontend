@@ -1,10 +1,11 @@
 import React, {useEffect, useState} from 'react';
+import {useSelector} from "react-redux";
+import axios from "axios";
 import Rating from "../../ui/rating/rating";
 import Button from "../../ui/buttons/button";
 import ModalMain from "../modal/modalMain";
 import RatingModal from "../modal/ratingModal";
-import {useSelector} from "react-redux";
-import axios from "axios";
+import edit from "../../asserts/icons/edit.svg";
 
 const ProfileCard = ({avatar, dataUser}) => {
 	const [modalShow, setModalShow] = useState(false)
@@ -30,7 +31,10 @@ const ProfileCard = ({avatar, dataUser}) => {
 					<img src={avatar} alt="аватар" className="profile_card-img"/>
 				</div>
 				<div className="profile_card-info">
-					<h1 className='profile_card-name bold'>{dataUser.name}</h1>
+					<div className={'flex'}>
+						<h1 className='profile_card-name bold'>{dataUser.name}</h1>
+						<Button handleClick={() => {}} classname={'edit'} icon={edit}/>
+					</div>
 					{isAuth ? <p className='profile_card-number'>{dataUser.phone}</p> : null}
 				</div>
 			</div>

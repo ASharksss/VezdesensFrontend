@@ -48,7 +48,7 @@ const MyFavorite = () => {
 			<div className="ads">
 				{data.length > 0 ? filteredFavoriteData.map((item, index) => (
 						<MyAd key={'active' + index} typeAd={'favoriteAd'} item={item.ad} setDataAds={setData}
-									statusAd={'myAd_grey'}/>)) :
+									statusAd={item.ad.statusAd.name !== 'Активно' ? 'myAd_grey' : null}/>)) :
 					<p>Нет данных</p>}
 			</div>
 		</div>

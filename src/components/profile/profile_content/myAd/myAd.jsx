@@ -17,9 +17,7 @@ const MyAd = ({statusAd, typeAd, item, setDataAds}) => {
 
         <div key={'myAd' + item.id} className={'myAd '}>
           <div className=" myAd_container flex">
-            {
-              statusAd === 'myAd_grey' ? <div className='myAd_grey'></div> : ''
-            }
+            {statusAd === 'myAd_grey' ? <div className='myAd_grey'></div> : ''}
             {
               typeAd === 'activeAd' ? <MyAdActionsActive dataUser={item} setDataAds={setDataAds}/> :
                 typeAd === 'archiveAd' ? <MyAdActionsArchive dataUser={item} setDataAds={setDataAds}/> :

@@ -10,6 +10,21 @@
     align-self: end;
 }
 
+.catalogBoardPage-subtitle {
+    width: 1180px;
+    font-family: OpenSans;
+    font-size: 20px;
+    margin-bottom: 20px;
+    align-self: end;
+}
+.catalogBoardPage-subtitle .main {
+    text-decoration: underline;
+}
+.catalogBoardPage-subtitle .active {
+    font-family: OpenSansBold;
+    text-decoration: none;
+    font-size: 18px;
+}
 /* AUTH */
 
 .auth {

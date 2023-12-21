@@ -20,13 +20,13 @@ const CategoryAccordion = ({
   useEffect(() => {
     if (paramsObjectId !== null || true) {
       category[0].subCategories.map((item, index) => {
-        if (item.id === paramsSubCategory) {
+        if (item.id === parseInt(paramsSubCategory)) {
           handleCategoryClick(item.objects)
           setChecked(index)
         }
       })
     }
-  }, [])
+  }, [paramsObjectId])
   const handleCheckedCategory = (index, item) => {
     setChecked(index)
     handleCategoryClick(item.objects)
@@ -44,7 +44,7 @@ const CategoryAccordion = ({
         {category[0].subCategories.map((item, index) => (
           <div key={`div-${index}`}>
             <input
-              checked={(checked !== null && checked === index)}
+              checked={checked !== null && checked === index}
               type="checkbox" name="category" id={`cat_${index}`} className='cat_accordion-radio'/>
             <label className='cat_accordion-title' htmlFor={`cat_${index}`}
                    onClick={() => handleCheckedCategory(index, item)}>

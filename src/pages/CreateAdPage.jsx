@@ -32,6 +32,7 @@ const CreateAdPage = () => {
   const [title, setTitle] = useState('')
   const [objectId, setObjectId] = useState(1)
   const [phone, setPhone] = useState('')
+  const [phoneShow, setPhoneShow] = useState(1)
   const [price, setPrice] = useState('')
   const [enterValue, setEnterValue] = useState([])
   const [selectValue, setSelectValue] = useState([])
@@ -280,15 +281,18 @@ const CreateAdPage = () => {
                              placeholder='Введите номер' className='create_ad_phone' value={phone}/>
                   <form className="flex column created_ad-contact">
                     <div className='flex created_ad-radio' >
-                      <input type="radio" id='only_messages' name='only_messages'/>
+                      <input type="radio" id='only_messages' name='only_messages' value={1} checked={phoneShow === 1}
+														 onChange={event => setPhoneShow(parseInt(event.target.value))}/>
                       <label htmlFor="only_messages" className='create_ad-contact'>Только сообщения</label>
                     </div>
                     <div className="flex created_ad-radio">
-                      <input type="radio" id='only_calls' name='only_calls'/>
+                      <input type="radio" id='only_calls' name='only_calls' value={2} checked={phoneShow === 2}
+														 onChange={event => setPhoneShow(parseInt(event.target.value))}/>
                       <label htmlFor="only_calls" className='create_ad-contact'>Только звонки</label>
                     </div>
                     <div className="flex created_ad-radio">
-                      <input type="radio" id='messages_and_calls' name='messages_and_calls'/>
+                      <input type="radio" id='messages_and_calls' name='messages_and_calls' value={3} checked={phoneShow === 3}
+														 onChange={event => setPhoneShow(parseInt(event.target.value))}/>
                       <label htmlFor="messages_and_calls" className='create_ad-contact'>Звонки и сообщения</label>
                     </div>
                   </form>

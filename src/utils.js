@@ -131,7 +131,7 @@ export function relativeDate(date) {
 			return formatDateToRelative(date);
 		}
 	} else if (days < 31) {
-		return days + " дней назад";
+		return `${days} ${["день", "дня", "дней"][pluralRusVariant(days)]} назад`;
 	} else {
 		return formatDateToRelative(date);
 	}

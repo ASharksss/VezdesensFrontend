@@ -6,6 +6,7 @@ import Button from "../../../../ui/buttons/button";
 import edit from "../../../../asserts/icons/edit.svg";
 import ModalMain from "../../../modal/modalMain";
 import HideAd from "../../../modal/hideAd";
+import {pluralRusVariant} from "../../../../utils";
 
 const MyAdActionsActive = ({dataUser, setDataAds}) => {
 	const navigate = useNavigate()
@@ -36,7 +37,7 @@ const MyAdActionsActive = ({dataUser, setDataAds}) => {
 				<>
 					<div className="actions_row-first flex space-between semi_bold">
 						<p className='myAd_actions-title'>Осталось</p>
-						<p className='myAd_actions-value'>{new Date(new Date(dataUser.dateEndActive) - new Date()).getDate()} дня</p>
+						<p className='myAd_actions-value'>{new Date(new Date(dataUser.dateEndActive) - new Date()).getDate()} {["день", "дня", "дней"][pluralRusVariant(new Date(new Date(dataUser.dateEndActive) - new Date()).getDate())]}</p>
 					</div>
 					<div className="actions_row flex space-between semi_bold">
 						<p className='myAd_actions-title'>Избранное</p>
