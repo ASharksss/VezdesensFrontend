@@ -24,15 +24,15 @@ const Messages = () => {
 
       <div className="messages_list">
 				<p>Пока нет сообщений</p>
-        {/*<NavLink to='/myProfile/messages'>*/}
-        {/*  <MessageItem/>*/}
-        {/*</NavLink>*/}
-        {/*<NavLink to='/myProfile/messages'>*/}
-        {/*  <MessageItem/>*/}
-        {/*</NavLink>*/}
-        {/*<NavLink to='/myProfile/messages'>*/}
-        {/*  <MessageItem/>*/}
-        {/*</NavLink>*/}
+        <NavLink to='/myProfile/messages'>
+          <MessageItem/>
+        </NavLink>
+        <NavLink to='/myProfile/messages'>
+          <MessageItem/>
+        </NavLink>
+        <NavLink to='/myProfile/messages'>
+          <MessageItem/>
+        </NavLink>
       </div>
 
       {/*<SelectedMessages/>*/}

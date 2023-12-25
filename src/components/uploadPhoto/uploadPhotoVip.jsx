@@ -1,4 +1,4 @@
-import React, {useRef, useState} from 'react';
+import React, {useEffect, useRef, useState} from 'react';
 import {useDropzone} from 'react-dropzone';
 import { Cropper } from 'react-cropper';
 import 'cropperjs/dist/cropper.css'
@@ -25,6 +25,12 @@ const UploadPhotoVip = ({editedImage, setEditedImage}) => {
 		setEditedImage({value: croppedData, change: true})
 		setActiveModal(false)
 	}
+
+	useEffect(() => {
+		if (image !== null) {
+			setActiveModal(true)
+		}
+	}, [image])
 
 	const onDrop = (acceptedFiles) => {
 		const file = acceptedFiles[0]

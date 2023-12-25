@@ -12,8 +12,8 @@ const Button = ({children, classname, icon, handleClick}) => {
                 classname === 'like_ads' ? <p>{children}</p> :
                   classname === 'phone' || classname === 'message'
                   || classname === 'edit' || classname === 'trashBlack'
-                  || classname === 'phoneTall' ?
-                    <img src={icon} alt="иконка"/> : 'нишо'
+                  || classname === 'phoneTall' || classname === 'editProfile' ?
+                    <img src={icon} alt="иконка"/> : null
         }
       </button>
     </div>

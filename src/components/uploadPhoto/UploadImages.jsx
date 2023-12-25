@@ -8,7 +8,7 @@ import Card from '../cards/Card';
 import photoStandart from "../../asserts/icons/upload_stanrat.svg";
 
 
-const UploadImages = ({cropData, setCropData, mainSrcData=[]}) => {      // родительское хранилище, куда записываются изменения
+const UploadImages = ({cropData, setCropData, mainSrcData=[], mainImage, setMainImage}) => {      // родительское хранилище, куда записываются изменения
   // cropData: []
   const cropperRef = useRef(null)
   const [srcData, setSrcData] = useState([])            // первоначальные файлы
@@ -72,7 +72,6 @@ const UploadImages = ({cropData, setCropData, mainSrcData=[]}) => {      // ро
 		});
 		setCropData(updatedTimeArray);
 		if(nextImage['key'] === lastKey) {
-			console.log(1)
 			return setActiveModal(false)
 		}
 		if (nextImage !== null) {
@@ -195,6 +194,15 @@ const UploadImages = ({cropData, setCropData, mainSrcData=[]}) => {      // ро
                 }}
                         onClick={() => handleRemoveImage(item.key)}>X
                 </button>
+								{mainImage !== null ?
+									<div>
+										<input type="radio" id={`selected-${item.key}`} checked={item.key === mainImage} style={{
+											position: 'absolute', zIndex: 1, cursor: 'pointer', top: 15, left: 20, padding: 10
+										}} onChange={() => setMainImage(item.key)} hidden/>
+										<label style={{position: 'absolute', zIndex: 1, border: '1px solid',
+											top: 10, borderRadius: 10, padding: 5, left: 10}}
+													 htmlFor={`selected-${item.key}`}>Выбрать</label>
+									</div> : null}
                 <div className='images-flex_column' onClick={() => handleSetImage(item.key)}>
                   <Card ad_image={item.value} address={''} title={''}
                         price={''} date={''} type='newAd' classname={'xs'}/>

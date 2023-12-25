@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect, useRef, useState} from 'react';
 import InputMask from 'react-input-mask';
 import {useDispatch, useSelector} from "react-redux";
 import axios from "axios";
@@ -20,6 +20,7 @@ import UploadImages from '../components/uploadPhoto/UploadImages';
 
 const CreateAdPage = () => {
 
+	const imagesRef = useRef(null)
   let formData = new FormData()
   const navigate = useNavigate()
   const [previewImage, setPreviewImage] = useState(null)
@@ -38,6 +39,7 @@ const CreateAdPage = () => {
   const [selectValue, setSelectValue] = useState([])
   const [bookingStartDate, setBookingStartDate] = useState(null)
   const [bookingEndDate, setBookingEndDate] = useState(null)
+	const [mainImage, setMainImage] = useState('')
 
   const dispatch = useDispatch()
 
@@ -75,6 +77,10 @@ const CreateAdPage = () => {
     if (!checkImages) {
       return window.alert('Не все фотографии нужного размера')
     }
+		if (typeAd === 'standart' && mainImage === '') {
+			imagesRef.current.scrollIntoView({ behavior: 'smooth' })
+			return window.alert('Выберите основную фотографию')
+		}
     setLoading(true)
     formData.append('title', title)
     formData.append('description', description)
@@ -254,7 +260,10 @@ const CreateAdPage = () => {
                 }
               </div>}
 
-            <UploadImages cropData={saveImages} setCropData={setSaveImages}/>
+						<div ref={imagesRef}>
+							<UploadImages cropData={saveImages} setCropData={setSaveImages} mainImage={typeAd === 'standart' ? mainImage : null}
+														setMainImage={typeAd === 'standart' ? setMainImage : null}/>
+						</div>
 
             <div>
               <div className="create_ad-descr address">
