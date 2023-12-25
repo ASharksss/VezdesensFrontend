@@ -178,8 +178,6 @@ const CreateAdPage = () => {
 
             {!isLoadingCharacter &&
               <div className="create_ad-character">
-
-                <h1 className='character-title'>Обязательные характеристики</h1>
                 <div className='flex column'>
                   <label className='enter_input-title'>Заголовок</label>
                   <input value={title} onChange={event => setTitle(event.target.value)}
@@ -190,6 +188,8 @@ const CreateAdPage = () => {
                   <input value={price} onChange={event => handlePrice(event.target.value)}
                          type="text" className='enter_input-input' required/>
                 </div>
+                <h1 className='character-title'>Обязательные характеристики</h1>
+
                 {character.items.length > 0 &&
                   character.items.map((item, index) => ( item['characteristic']['required'] ?
                     <>

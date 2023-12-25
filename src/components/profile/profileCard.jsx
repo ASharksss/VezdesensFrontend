@@ -6,9 +6,11 @@ import Button from "../../ui/buttons/button";
 import ModalMain from "../modal/modalMain";
 import RatingModal from "../modal/ratingModal";
 import edit from "../../asserts/icons/edit.svg";
+import EditModal from "../modal/editModal";
 
 const ProfileCard = ({avatar, dataUser}) => {
 	const [modalShow, setModalShow] = useState(false)
+	const [editModal, setEditModel] = useState(false)
 	const [dataRating, setDataRating] = useState()
 	const {isAuth, user} = useSelector(state => state.user)
 
@@ -33,7 +35,6 @@ const ProfileCard = ({avatar, dataUser}) => {
 				<div className="profile_card-info">
 					<div className={'flex'}>
 						<h1 className='profile_card-name bold'>{dataUser.name}</h1>
-						<Button handleClick={() => {}} classname={'edit'} icon={edit}/>
 					</div>
 					{isAuth ? <p className='profile_card-number'>{dataUser.phone}</p> : null}
 				</div>
@@ -41,16 +42,27 @@ const ProfileCard = ({avatar, dataUser}) => {
 			<div className="flex rating_info" style={{cursor: 'pointer'}} onClick={() => setModalShow(true)}>
 				<Rating data={dataUser.ratings} type='user'/>
 			</div>
-			{isAuth ? user.items.id === dataUser.userId ?
+			{/*{isAuth ? user.items.id === dataUser.userId ?
 				<div className='mt-20'>
 					<Button classname={'stroke'} children={'Редактировать'}/>
-				</div> : null : null}
+				</div> : null : null}*/}
+
+			<div>
+				<Button classname={'stroke'} children={'Редактировать'} handleClick={() => {setEditModel(true)}}/>
+			</div>
 			{
 				modalShow ?
 					<ModalMain activeModal={modalShow} setActiveModal={setModalShow}
 										 children={<RatingModal data={dataRating} userId={dataUser.id} setDataRating={setDataRating}
 																						setActiveModal={setModalShow}/>}/> : null
 			}
+			{
+				editModal ?
+					<ModalMain activeModal={modalShow} setActiveModal={setModalShow}
+										 children={<EditModal data={dataRating} userId={dataUser.id} setDataRating={setDataRating}
+																						setActiveModal={setModalShow}/>}/> : null
+			}
+
 		</div>
 
 	);

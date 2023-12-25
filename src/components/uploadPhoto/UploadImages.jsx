@@ -156,7 +156,8 @@ const UploadImages = ({cropData, setCropData, mainSrcData=[]}) => {      // ро
         {
           isDragActive ?
             <p>Отпустите файл(ы)...</p> :
-            <p style={{cursor: 'pointer'}}>Перетащите файл(ы) в эту зону или нажмите чтобы выбрать файл(ы)</p>
+            /*<p style={{cursor: 'pointer'}}>Перетащите файл(ы) в эту зону или нажмите чтобы выбрать файл(ы)</p>*/
+          <input {...getInputProps()} disabled={imageLimit} className='upload-input'/>
         }
       </div>
       {(changeImage || activeModal) && (

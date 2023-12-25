@@ -155,3 +155,7 @@ body {
 .opacity-50 {
   opacity: 50%;
 }
+
+.character_grid {
+  grid-template-columns: repeat(3, 1fr);
+}
