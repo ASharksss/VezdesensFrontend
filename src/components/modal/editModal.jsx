@@ -4,7 +4,7 @@ import axios from "axios";
 import AvatarEditor from 'react-avatar-editor'
 import avatar from '../../asserts/profile/default_avatar.svg'
 import loadGif from '../../asserts/load.gif'
-import {AVATAR_HOST} from "../../utils";
+import {AVATAR_HOST, DataURIToBlob} from "../../utils";
 
 const EditModal = ({data}) => {
 	const formData = new FormData();
@@ -25,19 +25,27 @@ const EditModal = ({data}) => {
 			setRotate(0)
 	}, [rotate])
 
-	const getImage = async () => {
-		const {data} = await axios.get(`${AVATAR_HOST}/${data.userAvatars.name}`)
-		if (data) {
-			console.log(data)
-		}
-	}
+	const toDataURL = name => fetch(`${AVATAR_HOST}/${name}`)
+		.then(response => response.blob())
+		.then(blob => new Promise((resolve, reject) => {
+			const reader = new FileReader()
+			reader.onloadend = () => resolve(reader.result)
+			reader.onerror = reject
+			reader.readAsDataURL(blob)
+		}))
 
 	useEffect(() => {
-		if (data.userAvatars.length > 0) {
-			getImage()
-		}
+		try {
+			if (data.userAvatars.length > 0) {
+				toDataURL(data.userAvatars[0].name).then(dataUrl => {
+					setImage(dataUrl)
+					setSaveImage(dataUrl)
+				})
+			}
+		} catch (e) {
 
-	}, [])
+		}
+	}, [data])
 
 	const handleSaveImage = () => {
 		if(editImageRef.current !== null) {
@@ -59,7 +67,8 @@ const EditModal = ({data}) => {
 		formData.append('name', `${name.trim()} ${surname.trim()}`)
 		formData.append('email', email)
 		formData.append('phone', phone)
-		formData.append('avatar', saveImage)
+		const postImage = DataURIToBlob(saveImage)
+		formData.append('avatar', postImage)
 		await axios({
 			method: 'post',
 			url: 'api/user/edit',
@@ -102,7 +111,7 @@ const EditModal = ({data}) => {
 	if (editImageShow) {
 		return (
 			<div className={'flex column'}>
-				{(data.userAvatars.length > 0 || image !== null) ?
+				{image !== null ?
 				<div style={{position: 'relative', backgroundColor: 'rgba(0,0,0,0.7)', display: 'inline-block', padding: 20}}>
 					<AvatarEditor
 						ref={(editor) => (editImageRef.current = editor)}
@@ -139,7 +148,7 @@ const EditModal = ({data}) => {
 				<img style={{position: 'relative', top: 'calc(100% / 2)'}} src={loadGif} width={'60px'} alt="Загрузка"/>
 			</div> : null}
 			<div className={'flex column'} style={{alignItems: 'center'}}>
-				<img src={data.userAvatars.length > 0 ? `${AVATAR_HOST}/${data.userAvatars.name}` : saveImage !== null ? saveImage : avatar}
+				<img src={saveImage !== null ? saveImage : avatar}
 						 alt="аватар" className="profile_card-img"/>
 				<button className={'mt-20'} onClick={() => setEditImageShow(true)}>Изменить фото</button>
 			</div>

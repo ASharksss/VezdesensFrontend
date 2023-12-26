@@ -10,6 +10,7 @@ import MyFavorite from "../components/profile/profile_content/myAd/myFavorite";
 import {useParams} from "react-router-dom";
 import axios from "axios";
 import {useSelector} from "react-redux";
+import {AVATAR_HOST} from "../utils";
 
 const ProfilePage = () => {
 
@@ -51,7 +52,7 @@ const ProfilePage = () => {
           <Ad/>
           <div className="flex profile_container">
             <div className="column">
-              <ProfileCard avatar={avatar} dataUser={dataUser}/>
+              <ProfileCard avatar={dataUser.userAvatars.length > 0 ? `${AVATAR_HOST}/${dataUser.userAvatars[0].name}` : avatar} dataUser={dataUser}/>
               <div className='news_banner'>
                 <img src={news} alt="новостной баннер"/>
               </div>
