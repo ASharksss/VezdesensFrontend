@@ -1,6 +1,6 @@
 .message_item {
     margin-left: -30px;
-    width: 1095px;
+    width: calc(100% + 30px);
     height: 156px;
     transition: .25s;
     padding: 20px 30px;

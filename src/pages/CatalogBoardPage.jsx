@@ -129,11 +129,10 @@ const CatalogBoardPage = () => {
 
 	const pagination = useMemo(() => {
 		if (!isLoading && selectedCategory.length > 0) {
-			const mainName = categoriesList.items[0].name
 			const subName = categoriesList.items[0].subCategories.filter(item => item.id === parseInt(paramsSubCategory))[0].name
 			const name = categoriesList.items[0].subCategories.filter(item => item.id === parseInt(paramsSubCategory))[0].objects.filter(item => item.id === parseInt(paramsObjectId))[0].name
 			return <h1 className='catalogBoardPage-subtitle'>
-				<span className={'main'}>{mainName}</span> / <span className={'main'}>{subName}</span> / <span className={'active'}>{name}</span>
+				<span className={'main'}>{subName}</span> / <span className={'active'}>{name}</span>
 			</h1>
 		}
 	}, [categoriesList, selectedCategory])

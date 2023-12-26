@@ -1,4 +1,7 @@
 import React, {useEffect, useState} from 'react';
+import {useParams, useLocation, useNavigate} from "react-router-dom";
+import axios from "axios";
+import {useSelector} from "react-redux";
 import '../components/profile/profile.css'
 import ProfileCard from "../components/profile/profileCard";
 import avatar from "../asserts/profile/profile_avatar.png"
@@ -7,10 +10,8 @@ import Ad from "../components/cards/Ad";
 import ProfileContentAd from "../components/profile/profile_content/myAd/profile_content_ad";
 import Messages from "../components/profile/profile_content/messages/messages";
 import MyFavorite from "../components/profile/profile_content/myAd/myFavorite";
-import {useParams} from "react-router-dom";
-import axios from "axios";
-import {useSelector} from "react-redux";
 import {AVATAR_HOST} from "../utils";
+import Dialog from "../components/profile/profile_content/messages/Dialog";
 
 const ProfilePage = () => {
 
@@ -19,10 +20,13 @@ const ProfilePage = () => {
   const [dataAds, setDataAds] = useState([])
   const [isLoadingUser, setIsLoadingUser] = useState(false)
   const {user} = useSelector(state => state.user)
+	const { hash } = useLocation();
+	const navigate = useNavigate();
 
   const {id} = useParams()
 
   useEffect(() => {
+		setChoice('ads')
     const getUserInfo = async () => {
       setIsLoadingUser(true)
       await axios.get(`api/user/getOneUser/${id}`).then(res => {
@@ -38,6 +42,22 @@ const ProfilePage = () => {
     }
     getUserInfo()
   }, [id])
+
+
+	useEffect(() => {
+		if (hash && user.items.id === parseInt(id)) {
+			setChoice(hash.slice(1))
+			if (hash.slice(1, 5) === 'chat')
+				setChoice('chat')
+		}
+	}, [hash])
+
+	const handleChange = (choice) => {
+	  navigate({
+			pathname: `/profile/${id}`,
+			hash: choice
+		})
+	}
 
   const MyElements = [{name: "Мои объявления", choice: 'ads'}, {name: "Сообщения", choice: "dialogs"},
     {name: "Избранное", choice: "favorites"}, {name: "Помощь", choice: "help"}]
@@ -62,9 +82,7 @@ const ProfilePage = () => {
                 {user.items.id === parseInt(id) ? MyElements.map((item, index) => (
                   <button key={index}
                           className={choice === item.choice ? 'profile_link semi_bold active' : 'profile_link semi_bold'}
-                          onClick={() => {
-                            setChoice(item.choice)
-                          }}>
+                          onClick={() => handleChange(item.choice)}>
                     {item.name}
                   </button>
                 )) : OtherElements.map((item, index) => (
@@ -83,8 +101,9 @@ const ProfilePage = () => {
                 {
                   choice === 'ads' ? <ProfileContentAd dataUser={dataAds} setDataAds={setDataAds}/> :
                     choice === 'dialogs' ? <Messages dataUser={dataUser}/> :
-                      choice === 'favorites' ? <MyFavorite dataUser={dataUser}/> :
-                        choice === 'help' ? 'help' : 'ничего не выбрано'
+											choice === 'chat' ? <Dialog/> :
+												choice === 'favorites' ? <MyFavorite dataUser={dataUser}/> :
+													choice === 'help' ? 'help' : 'ничего не выбрано'
                 }
               </div>
             </div>

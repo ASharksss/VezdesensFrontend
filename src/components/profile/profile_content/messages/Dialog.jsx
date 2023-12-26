@@ -1,5 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import {useDispatch} from "react-redux";
+import {NavLink} from "react-router-dom";
 import {addMessage} from "../../../../redux/slices/chatSlice";
 import axios from "axios";
 import MessageItem from "./message-item";
@@ -13,6 +14,7 @@ const Dialog = () => {
 
   return (
     <div className='dialog'>
+			<NavLink to={'#dialogs'}>Назад</NavLink>
 
       <div className="messages">
 
