@@ -67,8 +67,12 @@ const EditModal = ({data}) => {
 		formData.append('name', `${name.trim()} ${surname.trim()}`)
 		formData.append('email', email)
 		formData.append('phone', phone)
-		const postImage = DataURIToBlob(saveImage)
-		formData.append('avatar', postImage)
+		if (saveImage !== null) {
+			const postImage = DataURIToBlob(saveImage)
+			formData.append('avatar', postImage)
+		} else {
+			formData.append('avatar', saveImage)
+		}
 		await axios({
 			method: 'post',
 			url: 'api/user/edit',
