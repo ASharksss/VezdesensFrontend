@@ -5,7 +5,6 @@ import Rating from "../../ui/rating/rating";
 import Button from "../../ui/buttons/button";
 import ModalMain from "../modal/modalMain";
 import RatingModal from "../modal/ratingModal";
-import edit from "../../asserts/icons/edit.svg";
 import EditModal from "../modal/editModal";
 
 const ProfileCard = ({avatar, dataUser}) => {
@@ -58,9 +57,8 @@ const ProfileCard = ({avatar, dataUser}) => {
 			}
 			{
 				editModal ?
-					<ModalMain activeModal={modalShow} setActiveModal={setModalShow}
-										 children={<EditModal data={dataRating} userId={dataUser.id} setDataRating={setDataRating}
-																						setActiveModal={setModalShow}/>}/> : null
+					<ModalMain activeModal={editModal} setActiveModal={setEditModel}
+										 children={<EditModal data={dataUser}/>}/> : null
 			}
 
 		</div>
