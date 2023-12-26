@@ -409,6 +409,12 @@
     font-size: 1.1rem
 }
 
+.editProfile-changeAvatar {
+    margin-top: 15px;
+    font-weight: bold;
+    color: rgba(131, 134, 144, 1);
+}
+
 .editModalImage-btn:hover {
     box-shadow: 1px 1px 12px 0;
 }
@@ -420,7 +426,7 @@
 
 .editProfile-input {
     background-color: #ECECEC;
-    width: 295px;
+    width: 237px;
     height: 47px;
     border-radius: 10px;
     padding: 15px;
@@ -439,4 +445,31 @@
     left: 0;
     z-index: 2;
     border-radius: 20px;
+}
+
+.editProfile-btns {
+    margin-top: 38px;
+}
+
+.editProfile-save {
+    width: 192px;
+    height: 54px;
+    background-color: rgba(22, 22, 22, 1);
+    color: white;
+    font-weight: bold;
+    border-radius: 10px;
+}
+
+.editProfile-cancel {
+    background-color: transparent;
+    border: 1px solid rgba(236, 236, 236, 1);
+    border-radius: 10px;
+    width: 192px;
+    height: 54px;
+}
+
+.profileEdit-img {
+    width: 116px;
+    height: 116px;
+    border-radius: 50%;
 }

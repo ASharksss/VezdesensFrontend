@@ -151,10 +151,10 @@ const EditModal = ({data}) => {
 			{loadingPostData ? <div className={'editProfile-loading'}>
 				<img style={{position: 'relative', top: 'calc(100% / 2)'}} src={loadGif} width={'60px'} alt="Загрузка"/>
 			</div> : null}
-			<div className={'flex column'} style={{alignItems: 'center'}}>
+			<div className={'flex column items-center center'} >
 				<img src={saveImage !== null ? saveImage : avatar}
-						 alt="аватар" className="profile_card-img"/>
-				<button className={'mt-20'} onClick={() => setEditImageShow(true)}>Изменить фото</button>
+						 alt="аватар" className="profileEdit-img"/>
+				<button className={'editProfile-changeAvatar'} onClick={() => setEditImageShow(true)}>Изменить фото</button>
 			</div>
 			<div className={'flex row mt-20'} style={{textAlign: 'left'}}>
 				<div className={'flex column mr-20'}>
@@ -174,9 +174,9 @@ const EditModal = ({data}) => {
 										 mask="+7(999)999-99-99" id={'phone'} className='editProfile-input' required/>
 				</div>
 			</div>
-			<div className={'flex mt-20'} style={{justifyContent: 'space-evenly'}}>
-				<button type={'submit'}>Сохранить</button>
-				<button type={'button'}>Отменить</button>
+			<div className={'flex editProfile-btns'} style={{justifyContent: 'space-evenly'}}>
+				<button type={'submit'} className='editProfile-save'>Сохранить</button>
+				<button type={'button'} className='editProfile-cancel'>Отменить</button>
 			</div>
     </form>
   );
