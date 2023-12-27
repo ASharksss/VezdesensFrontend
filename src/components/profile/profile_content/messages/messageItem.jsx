@@ -2,7 +2,7 @@ import React from 'react';
 import {NavLink} from "react-router-dom";
 import Checkbox from "../../../../ui/checkbox";
 import img from '../../../../asserts/messages/messageImg.png'
-import {numberWithSpaces, relativeDate, STATIC_HOST} from '../../../../utils'
+import {formatDateToRelative, numberWithSpaces, relativeDate, STATIC_HOST} from '../../../../utils'
 
 const MessageItem = ({data, seller, status, image}) => {
   return (
@@ -16,7 +16,7 @@ const MessageItem = ({data, seller, status, image}) => {
         <p className='message_info-text'><NavLink to={`/profile/${seller.id}`}>{seller.name}</NavLink> • {numberWithSpaces(data.price)} ₽</p>
         <p className='ad_status semi_bold message_item-active'>{status}</p>
       </div>
-      <p className='message_info-date'>{relativeDate(new Date(data.lastMessage))}</p>
+      <p className='message_info-date' title={formatDateToRelative(new Date(data.lastMessage))}>{relativeDate(new Date(data.lastMessage))}</p>
     </div>
   );
 };

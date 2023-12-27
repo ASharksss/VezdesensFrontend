@@ -66,7 +66,7 @@ export const encryptArrayWithKey = (array) => {
 	return encryptedString;
 }
 
-function formatDateToRelative(date) {
+export function formatDateToRelative(date) {
 	let options = {year: 'numeric', month: 'long', day: 'numeric', hour: '2-digit', minute: '2-digit' };
 	return date.toLocaleDateString("ru-RU", options);
 }

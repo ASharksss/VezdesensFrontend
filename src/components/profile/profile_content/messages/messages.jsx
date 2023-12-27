@@ -77,7 +77,7 @@ const Messages = () => {
 
 			<div className="messages_list">
 				{data.length > 0 ? data.map((item, index) => (
-					<NavLink to={`?adId=${item[0].id}&sellerId=${item[0].user.id}&receiverId=${item[1].id}#chat-${uuidV4()}`}>
+					<NavLink to={`?adId=${item[0].id}&senderId=${items.id === item[1].id ? item[1].id : item[0].user.id}&receiverId=${items.id !== item[0].user.id ? item[0].user.id : item[1].id}#chat-${uuidV4()}`}>
 						<MessageItem data={item[0]} seller={item[0].user}
 												 status={item[0].statusAd.name} image={item[0].previewImageAds[0]?.name}/>
 					</NavLink>

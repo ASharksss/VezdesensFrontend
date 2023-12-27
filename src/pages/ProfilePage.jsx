@@ -50,7 +50,7 @@ const ProfilePage = () => {
 			if (hash.slice(1, 5) === 'chat')
 				setChoice('chat')
 		}
-	}, [hash])
+	}, [hash, user.status])
 
 	const handleChange = (choice) => {
 	  navigate({

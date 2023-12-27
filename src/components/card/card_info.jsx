@@ -1,6 +1,7 @@
 import React from 'react';
 import {NavLink} from "react-router-dom";
 import { useSelector } from 'react-redux';
+import {v4 as uuidV4} from 'uuid';
 import './card.css'
 import Favorite from "../../ui/buttons/favorite";
 import Button from "../../ui/buttons/button";
@@ -23,7 +24,10 @@ const CardInfo = ({userId, price, sellerName, sellerCreated, address, setActiveM
 				}}>
 					<Button classname={'show_phone'} children={'Показать телефон'}/>
 				</div>
-				<Button classname={'message'} icon={message}/>
+				{isAuth ? userId !== user.items.id ?
+					<NavLink to={`/profile/${user.items.id}?adId=${id}&senderId=${user.items.id === userId ? userId : user.items.id}&receiverId=${user.items.id !== userId && userId}#chat-${uuidV4()}`}>
+						<Button classname={'message'} icon={message}/>
+					</NavLink> : null : null}
 			</div>
 			<div>
 				<div className='seller_info'>
