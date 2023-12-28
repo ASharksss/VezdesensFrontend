@@ -18,12 +18,23 @@ const ProfilePage = () => {
   const [choice, setChoice] = useState('ads');
   const [dataUser, setDataUser] = useState([])
   const [dataAds, setDataAds] = useState([])
+  const [newMessage, setNewMessage] = useState("0")
   const [isLoadingUser, setIsLoadingUser] = useState(false)
   const {user} = useSelector(state => state.user)
 	const { hash } = useLocation();
 	const navigate = useNavigate();
 
   const {id} = useParams()
+
+	const handleCheckNewMessages = async () => {
+	  await axios.get('api/chat/check')
+			.then(res => {
+				if (res.data.count > 99)
+					setNewMessage('99+')
+				else
+					setNewMessage(`${res.data.count}`)
+			})
+	}
 
   useEffect(() => {
 		setChoice('ads')
@@ -49,6 +60,17 @@ const ProfilePage = () => {
 			setChoice(hash.slice(1))
 			if (hash.slice(1, 5) === 'chat')
 				setChoice('chat')
+		}
+		if (user.items.id === parseInt(id)) {
+			handleCheckNewMessages()
+			const intervalCheckMessageId = setInterval(() => {
+				handleCheckNewMessages();
+			}, 30000);
+			// Функция, которая будет вызываться при размонтировании компонента
+			return () => {
+				// Очищаем интервал при размонтировании компонента
+				clearInterval(intervalCheckMessageId);
+			};
 		}
 	}, [hash, user.status])
 
@@ -80,14 +102,15 @@ const ProfilePage = () => {
             <div className='profile_wrapper'>
               <div className="profile_links">
                 {user.items.id === parseInt(id) ? MyElements.map((item, index) => (
-                  <button key={index}
-                          className={choice === item.choice ? 'profile_link semi_bold active' : 'profile_link semi_bold'}
-                          onClick={() => handleChange(item.choice)}>
-                    {item.name}
-                  </button>
+									<button key={index}
+													className={`profile_link semi_bold${choice === item.choice ? ' active' : ''}`}
+													onClick={() => handleChange(item.choice)}>
+										{item.name}
+										{(item.choice === 'dialogs' && newMessage !== '0') ? <span className={'noticeBadge'}>{newMessage}</span> : null}
+									</button>
                 )) : OtherElements.map((item, index) => (
                   <button key={index}
-                          className={choice === item.choice ? 'profile_link semi_bold active' : 'profile_link semi_bold'}
+                          className={`profile_link semi_bold${choice === item.choice ? ' active' : ''}`}
                           onClick={() => {
                             setChoice(item.choice)
                           }}>

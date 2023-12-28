@@ -27,28 +27,6 @@ const Messages = () => {
 			})
 	}
 
-	const handleMessagesShow = useMemo(() => {
-		const content = {'my': [], 'receiver': []}
-		if (data.length > 0) {
-			data.map((item, index) => {
-				if (item[1].id === items.id)
-					content['my'].push(
-						<NavLink to='/myProfile/messages'>
-						<MessageItem data={item[0]} seller={item[0].user}
-												 status={item[0].statusAd.name} image={item[0].previewImageAds[0]?.name}/>
-					</NavLink>)
-				else
-					content['receiver'].push(
-						<NavLink to='/myProfile/messages'>
-							<MessageItem data={item[0]} seller={item[0].user}
-													 status={item[0].statusAd.name} image={item[0].previewImageAds[0]?.name}/>
-						</NavLink>)
-			})
-			return content
-		}
-		return <p>Пока нет сообщений</p>
-	}, [data])
-
 	useEffect(() => {
 		handleGetMessages()
 	}, [])

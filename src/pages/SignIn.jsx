@@ -56,20 +56,20 @@ const SignIn = () => {
 
     return (
         <div className='auth'>
-            <div className="auth_form">
+            <form className="auth_form" onSubmit={handleSubmit}>
 								<NavLink to='/'>
-									<button className='auth_btn signup' style={{border: 'none'}}>← На главную</button>
+									<button type={'button'} className='auth_btn signup' style={{border: 'none'}}>← На главную</button>
 								</NavLink>
                 <h1 className='auth_form-title'>Вход</h1>
-                <div className="auth_form-inputs" onSubmit={handleSubmit}>
-                    <label className='auth_form-label'>Логин</label>
+                <div className="auth_form-inputs">
+                    <label className='auth_form-label' htmlFor={'username'}>Логин</label>
                     <input onChange={handleSetUsername} type="text" placeholder='Введите логин или почту'
-                           className='auth_form-input'/>
+                           className='auth_form-input' id={'username'}/>
                     {(errorSubmit && login === '') && <span style={{color: 'red'}}>Поле не заполнено</span>}
-                    <label className='auth_form-label'>Пароль</label>
+                    <label className='auth_form-label' htmlFor={'password'}>Пароль</label>
                     <div className="auth_form-input">
                         <input onChange={handleSetPassword} type={!showPassword ? "password" : "text"}
-                               placeholder='Введите пароль'/>
+                               placeholder='Введите пароль' id={'password'}/>
                         <img src={!showPassword ? eyeClose : eyeOpen} onClick={handleShowPassword}
                              className='auth_form-eye'/>
                     </div>
@@ -80,11 +80,10 @@ const SignIn = () => {
                 <div className="auth_form-btns">
                     <button type={'submit'} className='auth_btn signin' onClick={handleSubmit}>Войти</button>
                     <NavLink to='/signup'>
-                        <button className='auth_btn signup'>Зарегистрироваться</button>
+                        <button type={'button'} className='auth_btn signup'>Зарегистрироваться</button>
                     </NavLink>
                 </div>
-
-            </div>
+            </form>
         </div>
     );
 };

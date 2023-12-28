@@ -59,6 +59,117 @@
     margin-top: 20px;
 }
 
+.messages_container {
+    position: relative;
+    background-size: cover;
+    background-position: center;
+    margin: 20px auto;
+    height: 60vh;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+}
+
+.messages_list {
+    display: flex;
+    justify-content: space-between;
+    flex-direction: column;
+    max-height: calc(100% - 35px);
+    overflow-x: auto;
+}
+
+.dialogs-receiver {
+    flex: 1;
+    width: 60%;
+    margin-right: auto;
+    padding: 20px;
+    margin-bottom: 20px;
+    background-color: #fff;
+    border-radius: 0 5px 5px 0;
+    box-shadow: 2px 2px 6px rgba(0, 0, 0, 0.5);
+}
+
+.dialogs-sender {
+    flex: 1;
+    width: 60%;
+    margin-left: auto;
+    padding: 20px;
+    margin-bottom: 20px;
+    background-color: #fff;
+    border-radius: 5px 0 0 5px;
+    box-shadow: -2px 2px 6px rgba(0, 0, 0, 0.5);
+}
+
+.dialogs-form {
+    display: flex;
+    position: absolute;
+    margin: 15px;
+    width: calc(100% - 30px);
+    bottom: 0;
+    max-height: 75px;
+    left: 0;
+}
+
+.dialogs-form .dialogs-input {
+    padding: 5px 10px;
+    background-color: #ECECEC;
+    border: 1px solid #161616;
+    border-radius: 10px 0 0 10px;
+    font-size: 1.2rem;
+    max-height: 70px;
+    width: 100%;
+    resize: none;
+    overflow: hidden;
+}
+
+.dialogs-form .dialogs-input:focus{
+    border: none;
+    border: 1px solid #161616;
+    outline: none;
+}
+
+.dialogs-form .dialogs-sendBtn {
+    display: flex;
+    width: 100px;
+    border: 1px solid #161616;
+    border-radius: 0 10px 10px 0;
+    background-color: #161616;
+    justify-content: center;
+    align-items: center;
+}
+
+.dialogs-form .dialogs-sendBtn.blocked {
+    opacity: 0.5;
+}
+
+.dialogs-form .dialogs-sendBtn:hover {
+    cursor: pointer;
+    box-shadow: 3px 1px 10px 0 rgba(0, 0, 0, 0.5);
+}
+
+.dialogs-text {
+    display: flex;
+    flex-direction: column;
+}
+
+.dialogs-text .dialogs-time{
+    font-size: 0.75rem;
+    display: flex;
+    justify-content: flex-end;
+}
+
+.dialogs-backBtn {
+    color: #070C20;
+    text-decoration: none;
+    font-weight: 600;
+}
+
+.dialogs-backBtn:before {
+    content: '<';
+    margin-right: 5px;
+}
+
+
 .message_item-active {
     color: rgba(16, 201, 90, 1);
 }

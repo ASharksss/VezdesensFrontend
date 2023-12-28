@@ -1,12 +1,12 @@
 import React from 'react';
+import {formatDateToRelative, relativeDate} from "../../../../utils";
 
-const DialogItem = ({text, sender='me'}) => {
+const DialogItem = ({text, sender='me', date}) => {
   return (
-    <div className='message-item' style={sender === 'me' ?
-			{width: '60%', marginLeft: 'auto', border:'1px solid', padding: 10, borderRadius: '10px 0 0 10px', marginTop: 15} :
-			{width: '60%', marginRight: 'auto', border:'1px solid', padding: 10, borderRadius: '0 10px 10px 0', marginTop: 15}}>
-      <p className='text'>
+    <div className={sender === 'me' ? 'dialogs-sender' : 'dialogs-receiver'} >
+      <p className='dialogs-text'>
 				{text}
+				<span className={'dialogs-time'} title={formatDateToRelative(new Date(date))}>{relativeDate(new Date(date))}</span>
       </p>
     </div>
   );
