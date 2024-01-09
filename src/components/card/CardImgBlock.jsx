@@ -6,6 +6,8 @@ import Button from "../../ui/buttons/button";
 import {STATIC_HOST} from "../../utils";
 import {useNavigate} from "react-router-dom";
 import Fancybox from "../fancybox";
+import './card.css'
+
 
 const CardImgBlock = ({ad_address, images, id}) => {
 	const navigate = useNavigate()
@@ -18,7 +20,7 @@ const CardImgBlock = ({ad_address, images, id}) => {
 	return (
 		<div>
 			<div className="smallImg flex">
-				<div className="flex column">
+				<div className="flex column card_img_block">
 					{images.length > 0 ? images.map((item, index) =>
 						<SmallImg setCheckedIndex={setCheckedIndex} checkedIndex={checkedIndex} index={index}
 											key={`smallimg-${index}-${item.id}`} img={`${STATIC_HOST}/${item.name}`} title={item.name}/>

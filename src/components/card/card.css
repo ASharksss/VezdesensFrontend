@@ -38,6 +38,22 @@
     border-radius: 20px;
 }
 
+::-webkit-scrollbar-button:vertical:start:decrement {
+    background: linear-gradient(120deg, #02141a 40%, rgba(0, 0, 0, 0) 41%),
+    linear-gradient(240deg, #02141a 40%, rgba(0, 0, 0, 0) 41%),
+    linear-gradient(0deg, #02141a 30%, rgba(0, 0, 0, 0) 31%);
+    background-color: #f6f8f4;
+}
+
+.card_img_block {
+    position: relative;
+    width: 150px;
+    height: 525px;
+    overflow-y: auto;
+    scrollbar-width: thin;
+    scrollbar-color: #10c95a #f6f6f6;
+}
+
 
 .small_img_card {
     cursor: pointer;

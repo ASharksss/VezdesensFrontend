@@ -53,7 +53,6 @@ const CardAd = () => {
 		<div className='card_ad_wrapper'>
 			<div className="flex">
 				<h1 className='card_ad_name'>{data.ad.title}</h1>
-				{items.id === data.ad.userId ? <NavLink to={`/card/${id}/edit`}>Редактировать</NavLink> : null}
 			</div>
 			<div className='flex card_ad-title'>
 				<p className='card_ad_address'>{data.ad.address}</p>

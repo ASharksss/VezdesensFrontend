@@ -21,7 +21,7 @@ const Dialog = () => {
 	const {user} = useSelector(state => state.user)
 
 	function connect() {
-		setSocket(io(`http://192.168.1.115:5001/?senderId=${paramsSenderId}&receiverId=${paramsReceiverId}&adId=${paramsAdId}`));
+		setSocket(io(`http://localhost:5001/?senderId=${paramsSenderId}&receiverId=${paramsReceiverId}&adId=${paramsAdId}`));
 	}
 
 	useEffect(() => {
