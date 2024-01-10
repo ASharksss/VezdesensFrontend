@@ -28,6 +28,10 @@
   margin-top: 50px;
 }
 
+.mr-10 {
+  margin-right: 10px;
+}
+
 .mr-20 {
   margin-right: 20px;
 }
@@ -50,6 +54,10 @@
 
 .ml-20 {
   margin-left: 20px;
+}
+
+.ml-10 {
+  margin-left: 10px;
 }
 
 .bold {

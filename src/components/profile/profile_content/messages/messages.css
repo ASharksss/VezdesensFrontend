@@ -1,6 +1,9 @@
+.dialog {
+    margin-top: 29px;
+}
+
 .message_item {
-    margin-left: -30px;
-    width: calc(100% + 30px);
+
     height: 156px;
     transition: .25s;
     padding: 20px 30px;
@@ -34,15 +37,18 @@
 .message_info {
     height: 116px;
     margin-left: 30px;
+    color: black;
 }
 
 .message_info-title {
     font-size: 24px;
+    color: black;
 }
 
 .message_info-text {
     margin-top: 5px;
     font-size: 18px;
+    color: black;
 }
 
 .message_info-date {
@@ -52,6 +58,11 @@
     height: 116px;
     font-size: 14px;
     color: rgba(181, 183, 189, 1);
+}
+
+.message_item-img {
+    width: 87px;
+    height: 116px;
 }
 
 .ad_status {
@@ -65,9 +76,7 @@
     background-position: center;
     margin: 20px auto;
     height: 60vh;
-    padding: 20px;
     border-radius: 5px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
 }
 
 .messages_list {
@@ -76,28 +85,30 @@
     flex-direction: column;
     max-height: calc(100% - 35px);
     overflow-x: auto;
+    padding-top: 30px;
 }
 
 .dialogs-receiver {
     flex: 1;
-    width: 60%;
+    width: 449px;
     margin-right: auto;
+    margin-left: 20px;
     padding: 20px;
-    margin-bottom: 20px;
-    background-color: #fff;
+    margin-bottom: 50px;
     border-radius: 0 5px 5px 0;
-    box-shadow: 2px 2px 6px rgba(0, 0, 0, 0.5);
+    box-shadow: 0px 6px 40px 0px rgba(38, 38, 38, 0.1);
 }
 
 .dialogs-sender {
     flex: 1;
-    width: 60%;
+    width: 449px;
     margin-left: auto;
+    margin-right: 20px;
+    box-shadow: 0px 6px 40px 0px rgba(38, 38, 38, 0.1);
+    margin-bottom: 55px;
     padding: 20px;
-    margin-bottom: 20px;
-    background-color: #fff;
-    border-radius: 5px 0 0 5px;
-    box-shadow: -2px 2px 6px rgba(0, 0, 0, 0.5);
+    border-radius:10px 0 0 10px;
+
 }
 
 .dialogs-form {
@@ -111,20 +122,20 @@
 }
 
 .dialogs-form .dialogs-input {
-    padding: 5px 10px;
     background-color: #ECECEC;
-    border: 1px solid #161616;
+    border: 1px solid transparent;
     border-radius: 10px 0 0 10px;
-    font-size: 1.2rem;
+    padding: 16px 30px;
+    font-size:16px;
     max-height: 70px;
-    width: 100%;
+    width: 941px;
+    height: 54px;
     resize: none;
     overflow: hidden;
 }
 
 .dialogs-form .dialogs-input:focus{
-    border: none;
-    border: 1px solid #161616;
+    border: 1px solid rgba(181, 183, 189, 1);
     outline: none;
 }
 
@@ -133,18 +144,18 @@
     width: 100px;
     border: 1px solid #161616;
     border-radius: 0 10px 10px 0;
-    background-color: #161616;
+    background-color: rgba(22, 22, 22, 1);
     justify-content: center;
     align-items: center;
 }
 
 .dialogs-form .dialogs-sendBtn.blocked {
-    opacity: 0.5;
+
 }
 
 .dialogs-form .dialogs-sendBtn:hover {
     cursor: pointer;
-    box-shadow: 3px 1px 10px 0 rgba(0, 0, 0, 0.5);
+    background-color: rgba(64, 64, 64, 1);
 }
 
 .dialogs-text {
@@ -152,10 +163,10 @@
     flex-direction: column;
 }
 
-.dialogs-text .dialogs-time{
-    font-size: 0.75rem;
-    display: flex;
-    justify-content: flex-end;
+ .dialogs-time{
+    font-size: 14px;
+    color: rgba(181, 183, 189, 1);
+
 }
 
 .dialogs-backBtn {
@@ -191,4 +202,17 @@
 
 .selectedMessages-text {
     font-size: 24px;
+}
+
+.dialogs-name {
+    position: absolute;
+    top: -30px;
+
+}
+
+.dialogs-name-text {
+    font-size: 16px;
+    font-family: OpenSansBold;
+    margin-right: 20px;
+    margin-left: -20px;
 }

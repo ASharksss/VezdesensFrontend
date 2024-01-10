@@ -4,6 +4,7 @@ import {NavLink, useSearchParams} from "react-router-dom";
 import {useSelector} from "react-redux";
 import DialogItem from "./dialogItem";
 import sendSVG from '../../../../asserts/icons/send.svg'
+import './messages.css'
 
 
 const Dialog = () => {
@@ -111,15 +112,17 @@ const Dialog = () => {
 			<div className="messages_container">
 				<div className="messages_list" ref={chatContainerRef}>
 					{messages.length > 0 ? messages.map((item, index) => (
-							<DialogItem text={item.text} date={item.createdAt} sender={item.senderId === user.items.id ? 'me' : 'client'}/>)) :
+							<DialogItem name={'Имя'} text={item.text} date={item.createdAt} sender={item.senderId === user.items.id ? 'me' : 'client'}/>)) :
 						<p>Нет сообщений</p>}
 				</div>
 				<form className="dialogs-form" onSubmit={handleSubmit}>
 				<textarea rows="1" value={value} className="dialogs-input"
-									placeholder={'Ctrl + Enter для отправки сообщения'}
+									placeholder={'Ваше сообщение...'}
 									ref={textareaRef}
 									onKeyDown={handleKeyDownForSend}
-									onChange={handleChangeValue}></textarea>
+									onChange={handleChangeValue}>
+
+				</textarea>
 					<button disabled={isLoading} type="submit" className={`dialogs-sendBtn${isLoading ? ' blocked' : ''}`}>
 						<img src={sendSVG} alt="Отправить"/>
 					</button>

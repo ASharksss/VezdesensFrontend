@@ -7,13 +7,15 @@ import {formatDateToRelative, numberWithSpaces, relativeDate, STATIC_HOST} from 
 const MessageItem = ({data, seller, status, image}) => {
   return (
     <div className='flex items-center message_item'>
-      <div className="message_item-checkbox">
+    {/*  <div className="message_item-checkbox">
         <Checkbox/>
-      </div>
-      <img src={image ? `${STATIC_HOST}/${image}` : img} width={116} style={{borderRadius: 10}} alt="Название товара"/>
+      </div>*/}
+      <img src={image ? `${STATIC_HOST}/${image}` : img} width={116} className='message_item-img' alt="Название товара"/>
       <div className="message_info">
-				<h1 className="message_info-title bold"><NavLink to={`/card/${data.id}`}>{data.title}</NavLink></h1>
-        <p className='message_info-text'><NavLink to={`/profile/${seller.id}`}>{seller.name}</NavLink> • {numberWithSpaces(data.price)} ₽</p>
+        <NavLink to={`/card/${data.id}`}>
+          <h1 className="message_info-title bold">{data.title}</h1>
+        </NavLink>
+        <NavLink to={`/profile/${seller.id}`}><p className='message_info-text'><span className='mr-10'>{seller.name}</span>•<span className='ml-10'>{numberWithSpaces(data.price)} ₽</span> </p></NavLink>
         <p className='ad_status semi_bold message_item-active'>{status}</p>
       </div>
 			<div className={'flex column'} style={{marginLeft: 'auto', marginRight: 15}}>
