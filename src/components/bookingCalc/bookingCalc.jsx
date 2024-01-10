@@ -24,9 +24,10 @@ const BookingCalc = ({bookingDateStart, bookingDateEnd, setBookingStartDate, set
 
 	return (
 		<div className='booking'>
+			<h1 className='booking-title'>Бронирование рекламного баннера</h1>
 			<div className="flex">
 				<div className="booking_startDate flex column">
-					<label htmlFor="startDate" className='booking_label'>Дата начала</label>
+					<label htmlFor="startDate" className='booking_label'>Дата начала показов</label>
 					<input type="date" id='startDate' className='booking_input'
 						onChange={(e) => setBookingStartDate(e.target.value)}/>
 
@@ -42,7 +43,7 @@ const BookingCalc = ({bookingDateStart, bookingDateEnd, setBookingStartDate, set
 
 				</div>
 				<div className="booking_endDate flex column">
-					<label htmlFor="startDate" className='booking_label'>Дата конца</label>
+					<label htmlFor="startDate" className='booking_label'>Дата конца показов</label>
 					<input type="date" id='startDate' className='booking_input'
 						onChange={(e) => setBookingEndDate(e.target.value)}/>
 					<div className='mt-50'>
@@ -55,8 +56,7 @@ const BookingCalc = ({bookingDateStart, bookingDateEnd, setBookingStartDate, set
 
 				</div>
 			</div>
-			<div className="booking_info flex column">
-			</div>
+
 		</div>
 	);
 };

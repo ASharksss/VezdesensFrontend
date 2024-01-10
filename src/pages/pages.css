@@ -172,7 +172,7 @@
 }
 
 .upload_photo {
-    margin-bottom: 120px;
+    margin-bottom: 60px;
 }
 
 .upload_photo-h1 {
@@ -269,4 +269,60 @@
 
 .cropper-modal {
     background-color: gray;
+}
+
+.grid_character {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+}
+
+.imgVip {
+    width: 368px;
+    height: 222px;
+    border-radius: 20px;
+    cursor: pointer;
+}
+
+
+.editedImage {
+    width: 168px;
+    height: 222px;
+    border-radius: 20px;
+    cursor: pointer;
+}
+
+.deleteImg_btn {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+}
+
+.deleteImg_Vipbtn {
+    position: absolute;
+    top: 15px;
+    left:340px;
+}
+
+.deleteImg_stBtn {
+    position: absolute;
+    top: 10px;
+    left: 110px;
+}
+
+.upload_photo-img {
+    width: 132px;
+    height: 178px;
+    border-radius: 10px;
+}
+
+.images-flex_column + .images-flex_column {
+    margin-left: 15px;
+}
+
+.img_block {
+    position: relative;
+}
+
+.img_block + .img_block {
+    margin-left: 15px;
 }

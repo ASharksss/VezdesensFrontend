@@ -20,7 +20,7 @@ import UploadImages from '../components/uploadPhoto/UploadImages';
 
 const CreateAdPage = () => {
 
-	const imagesRef = useRef(null)
+  const imagesRef = useRef(null)
   let formData = new FormData()
   const navigate = useNavigate()
   const [previewImage, setPreviewImage] = useState(null)
@@ -39,7 +39,7 @@ const CreateAdPage = () => {
   const [selectValue, setSelectValue] = useState([])
   const [bookingStartDate, setBookingStartDate] = useState(null)
   const [bookingEndDate, setBookingEndDate] = useState(null)
-	const [mainImage, setMainImage] = useState('')
+  const [mainImage, setMainImage] = useState('')
 
   const dispatch = useDispatch()
 
@@ -48,20 +48,20 @@ const CreateAdPage = () => {
 
   const checkCorrectImage = () => {
     saveImages.map(item => {
-      if(!item.change) {
+      if (!item.change) {
         return false
       }
     })
-		if (typeAd !== 'standart') {
-			return previewImage.change
-		} else {
-			return true
-		}
+    if (typeAd !== 'standart') {
+      return previewImage.change
+    } else {
+      return true
+    }
   }
 
   const handleAddress = async (event) => {
     setAddress(event.target.value)
-    if(event.target.value !== '') {
+    if (event.target.value !== '') {
       const {data} = await axios.post('api/position/search', {query: event.target.value})
       setAddressData(data)
     } else {
@@ -71,16 +71,16 @@ const CreateAdPage = () => {
 
   const handleSubmit = async (event) => {
     event.preventDefault()
-    if(saveImages.length === 0 || (previewImage === null && typeAd !== 'standart'))
+    if (saveImages.length === 0 || (previewImage === null && typeAd !== 'standart'))
       return window.alert('Прикрепите все нужные фотографии')
     const checkImages = checkCorrectImage()
     if (!checkImages) {
       return window.alert('Не все фотографии нужного размера')
     }
-		if (typeAd === 'standart' && mainImage === '') {
-			imagesRef.current.scrollIntoView({ behavior: 'smooth' })
-			return window.alert('Выберите основную фотографию')
-		}
+    if (typeAd === 'standart' && mainImage === '') {
+      imagesRef.current.scrollIntoView({behavior: 'smooth'})
+      return window.alert('Выберите основную фотографию')
+    }
     setLoading(true)
     formData.append('title', title)
     formData.append('description', description)
@@ -92,10 +92,10 @@ const CreateAdPage = () => {
     formData.append('bookingDateEnd', new Date(bookingEndDate).toString())
     formData.append('characteristicsInput', JSON.stringify(enterValue))
     formData.append('characteristicsSelect', JSON.stringify(selectValue))
-		if (typeAd !== 'standart') {
-			let preview = DataURIToBlob(previewImage.value)
-			formData.append('previewImage', preview)
-		}
+    if (typeAd !== 'standart') {
+      let preview = DataURIToBlob(previewImage.value)
+      formData.append('previewImage', preview)
+    }
     saveImages.map((item) => {
       let image = DataURIToBlob(item.value)
       formData.append('images', image)
@@ -114,10 +114,10 @@ const CreateAdPage = () => {
         navigate(`/card/${res.data.ad.id}`)
       }
     })
-    .catch(err => {
-      console.log(err)
-      window.alert(err.response.data.message)
-    })
+      .catch(err => {
+        console.log(err)
+        window.alert(err.response.data.message)
+      })
     setLoading(false)
   }
 
@@ -134,7 +134,7 @@ const CreateAdPage = () => {
 
   useEffect(() => {
     dispatch(fetchCategory())
-		document.title = 'Создание объявления'
+    document.title = 'Создание объявления'
   }, [])
 
   useEffect(() => {
@@ -151,7 +151,8 @@ const CreateAdPage = () => {
             <div className="create_ad-category">
               <h2 className='create_ad-category-title'>Категория</h2>
 
-              <select className='create_ad-select' onChange={event => dispatch(fetchSubCategories(event.target.value))} required>
+              <select className='create_ad-select' onChange={event => dispatch(fetchSubCategories(event.target.value))}
+                      required>
                 <option hidden>Выберите категорию</option>
                 {
                   categories.items.map((item, index) => (
@@ -196,38 +197,44 @@ const CreateAdPage = () => {
                 </div>
                 <h1 className='character-title'>Обязательные характеристики</h1>
 
-                {character.items.length > 0 &&
-                  character.items.map((item, index) => ( item['characteristic']['required'] ?
-                    <>
-                      {item['characteristic']['typeCharacteristic']['name'] === 'enter' &&
-                        <EnterInput setEnterValue={setEnterValue} key={'enter' + index} data={item['characteristic']}
-                                    id={item['characteristicId']} isRequired={true}/>}
-                      {item['characteristic']['typeCharacteristic']['name'] === 'select' &&
-                        <SelectInput setSelectValue={setSelectValue} key={'select' + index} isRequired={true}
-                                     data={item['characteristic']} id={item['characteristicId']}/>}
-                      {item['characteristic']['typeCharacteristic']['name'] === 'checkbox' &&
-                        <CheckboxInput setCheckboxValue={setSelectValue} key={'checkbox' + index} isRequired={true}
-                                       data={item['characteristic']} id={item['characteristicId']}/>}
-                    </> : null
-                  ))
-                }
+                <div className='grid_character'>
+                  {character.items.length > 0 &&
+                    character.items.map((item, index) => (item['characteristic']['required'] ?
+                        <>
+                          {item['characteristic']['typeCharacteristic']['name'] === 'enter' &&
+                            <EnterInput setEnterValue={setEnterValue} key={'enter' + index} data={item['characteristic']}
+                                        id={item['characteristicId']} isRequired={true}/>}
+                          {item['characteristic']['typeCharacteristic']['name'] === 'select' &&
+                            <SelectInput setSelectValue={setSelectValue} key={'select' + index} isRequired={true}
+                                         data={item['characteristic']} id={item['characteristicId']}/>}
+                          {item['characteristic']['typeCharacteristic']['name'] === 'checkbox' &&
+                            <CheckboxInput setCheckboxValue={setSelectValue} key={'checkbox' + index} isRequired={true}
+                                           data={item['characteristic']} id={item['characteristicId']}/>}
+                        </> : null
+                    ))
+                  }
+                </div>
+
 
                 <h1 className='character-title'>Дополнительные характеристики</h1>
-                {character.items.length > 0 &&
-                  character.items.map((item, index) => ( !item['characteristic']['required'] ?
-                    <>
-                      {item['characteristic']['typeCharacteristic']['name'] === 'enter' &&
-                        <EnterInput setEnterValue={setEnterValue} key={'enter' + index} data={item['characteristic']}
-                                    id={item['characteristicId']} isRequired={true}/>}
-                      {item['characteristic']['typeCharacteristic']['name'] === 'select' &&
-                        <SelectInput setSelectValue={setSelectValue} key={'select' + index} isRequired={true}
-                                     data={item['characteristic']} id={item['characteristicId']}/>}
-                      {item['characteristic']['typeCharacteristic']['name'] === 'checkbox' &&
-                        <CheckboxInput setCheckboxValue={setSelectValue} key={'checkbox' + index} isRequired={true}
-                                       data={item['characteristic']} id={item['characteristicId']}/>}
-                    </> : null
-                  ))
-                }
+                <div className='grid_character'>
+                  {character.items.length > 0 &&
+                    character.items.map((item, index) => (!item['characteristic']['required'] ?
+                        <>
+                          {item['characteristic']['typeCharacteristic']['name'] === 'enter' &&
+                            <EnterInput setEnterValue={setEnterValue} key={'enter' + index} data={item['characteristic']}
+                                        id={item['characteristicId']} isRequired={true}/>}
+                          {item['characteristic']['typeCharacteristic']['name'] === 'select' &&
+                            <SelectInput setSelectValue={setSelectValue} key={'select' + index} isRequired={true}
+                                         data={item['characteristic']} id={item['characteristicId']}/>}
+                          {item['characteristic']['typeCharacteristic']['name'] === 'checkbox' &&
+                            <CheckboxInput setCheckboxValue={setSelectValue} key={'checkbox' + index} isRequired={true}
+                                           data={item['characteristic']} id={item['characteristicId']}/>}
+                        </> : null
+                    ))
+                  }
+                </div>
+
 
 
               </div>}
@@ -245,34 +252,38 @@ const CreateAdPage = () => {
             </div>
 
             {typeAd !== 'standart' ? <BookingCalc typeAd={typeAd} setBookingEndDate={setBookingEndDate}
-                         setBookingStartDate={setBookingStartDate}
-                        bookingDateStart={bookingStartDate} bookingDateEnd={bookingEndDate}/> : null}
-            
+                                                  setBookingStartDate={setBookingStartDate}
+                                                  bookingDateStart={bookingStartDate}
+                                                  bookingDateEnd={bookingEndDate}/> : null}
+
             {typeAd !== '' &&
               <div className="upload_photo">
                 <h1 className='upload_photo-h1'>Загрузка фото</h1>
-					      {/* внутри стандартного расписаны производимые действия */}
-					      {/* previewImage: null */}
+                {/* внутри стандартного расписаны производимые действия */}
+                {/* previewImage: null */}
                 {
-                  typeAd === 'premium' ? <UploadPhotoPremium editedImage={previewImage} setEditedImage={setPreviewImage}/> :
+                  typeAd === 'premium' ?
+                    <UploadPhotoPremium editedImage={previewImage} setEditedImage={setPreviewImage}/> :
                     typeAd === 'vip' ? <UploadPhotoVip editedImage={previewImage} setEditedImage={setPreviewImage}/> :
-                      typeAd === 'standartPlus' ? <UploadPhotoStandartPlus editedImage={previewImage} setEditedImage={setPreviewImage}/> : null
+                      typeAd === 'standartPlus' ?
+                        <UploadPhotoStandartPlus editedImage={previewImage} setEditedImage={setPreviewImage}/> : null
                 }
               </div>}
-
-						<div ref={imagesRef}>
-							<UploadImages cropData={saveImages} setCropData={setSaveImages} mainImage={typeAd === 'standart' ? mainImage : null}
-														setMainImage={typeAd === 'standart' ? setMainImage : null}/>
-						</div>
+            <span className='upload_photo-title'>Фото для карточки объявления </span>
+            <div ref={imagesRef}>
+              <UploadImages cropData={saveImages} setCropData={setSaveImages}
+                            mainImage={typeAd === 'standart' ? mainImage : null}
+                            setMainImage={typeAd === 'standart' ? setMainImage : null}/>
+            </div>
 
             <div>
               <div className="create_ad-descr address">
                 <h1 className='create_ad-descr-title'>Местоположение</h1>
                 <input type="text" onChange={handleAddress} value={address}
-                      placeholder='Введите адрес' className='create_ad_address' required/>   
+                       placeholder='Введите адрес' className='create_ad_address' required/>
               </div>
               <div>
-                {(addressData.length > 0 && address !== '')? addressData.map(item => (
+                {(addressData.length > 0 && address !== '') ? addressData.map(item => (
                   item.positionStreets ? item.positionStreets.map(itemStreet => (
                     <p onClick={() => setAddress(`${item.name}, ${itemStreet.name}`)}>{item.name}, {itemStreet.name}</p>
                   )) : <p onClick={() => setAddress(item.name + ', ')}>{item.name}</p>
@@ -289,19 +300,20 @@ const CreateAdPage = () => {
                   <InputMask mask="+7(999)999-99-99" type="text" onChange={event => setPhone(event.target.value)}
                              placeholder='Введите номер' className='create_ad_phone' value={phone}/>
                   <form className="flex column created_ad-contact">
-                    <div className='flex created_ad-radio' >
+                    <div className='flex created_ad-radio'>
                       <input type="radio" id='only_messages' name='only_messages' value={1} checked={phoneShow === 1}
-														 onChange={event => setPhoneShow(parseInt(event.target.value))}/>
+                             onChange={event => setPhoneShow(parseInt(event.target.value))}/>
                       <label htmlFor="only_messages" className='create_ad-contact'>Только сообщения</label>
                     </div>
                     <div className="flex created_ad-radio">
                       <input type="radio" id='only_calls' name='only_calls' value={2} checked={phoneShow === 2}
-														 onChange={event => setPhoneShow(parseInt(event.target.value))}/>
+                             onChange={event => setPhoneShow(parseInt(event.target.value))}/>
                       <label htmlFor="only_calls" className='create_ad-contact'>Только звонки</label>
                     </div>
                     <div className="flex created_ad-radio">
-                      <input type="radio" id='messages_and_calls' name='messages_and_calls' value={3} checked={phoneShow === 3}
-														 onChange={event => setPhoneShow(parseInt(event.target.value))}/>
+                      <input type="radio" id='messages_and_calls' name='messages_and_calls' value={3}
+                             checked={phoneShow === 3}
+                             onChange={event => setPhoneShow(parseInt(event.target.value))}/>
                       <label htmlFor="messages_and_calls" className='create_ad-contact'>Звонки и сообщения</label>
                     </div>
                   </form>

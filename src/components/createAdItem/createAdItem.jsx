@@ -61,7 +61,7 @@ const CreateAdItem = ({setTypeAd, typeAd, premium, categories}) => {
 						/>
 						<div className="create_ad_size-item-description">
 							<div className='flex items-center'>
-								<label htmlFor="vip" className='create_ad_size-item-title'>VIP</label>
+								<label htmlFor="vip" className='create_ad_size-item-title'>ВИП</label>
 								<span className='create_ad_size-item-cost'>1000</span>
 							</div>
 							<p className='create_ad_size-item-text'>Формат изображения , размер изображения такой то такой то,
@@ -83,7 +83,7 @@ const CreateAdItem = ({setTypeAd, typeAd, premium, categories}) => {
 							/>
 							<div className="create_ad_size-item-description">
 								<div className='flex items-center'>
-									<label htmlFor="premium" className='create_ad_size-item-title'>Premium</label>
+									<label htmlFor="premium" className='create_ad_size-item-title'>Премиум</label>
 									<span className='create_ad_size-item-cost'>3000</span>
 								</div>
 								<p className='create_ad_size-item-text'>Формат изображения , размер изображения такой то такой то,

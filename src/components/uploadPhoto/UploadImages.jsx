@@ -6,6 +6,7 @@ import Cropper from 'react-cropper'
 import 'cropperjs/dist/cropper.css'
 import Card from '../cards/Card';
 import photoStandart from "../../asserts/icons/upload_stanrat.svg";
+import deleteImg from "../../asserts/icons/deleteImg.svg";
 
 
 const UploadImages = ({cropData, setCropData, mainSrcData=[], mainImage, setMainImage}) => {      // родительское хранилище, куда записываются изменения
@@ -146,19 +147,49 @@ const UploadImages = ({cropData, setCropData, mainSrcData=[], mainImage, setMain
 
   return (
     <div>
-      <div {...getRootProps()} >
+      <div {...getRootProps()} className='flex'>
+        <div className="images-flex">
+          {cropData.length > 0 ? cropData.reduce((rows, item, index) => {
+            if (index % 4 === 0) {
+              rows.push([]);
+            }
+            rows[rows.length - 1].push(item);
+            return rows;
+          }, []).map((row, index) => (
+            <div key={`row-${index}`} className="images-flex_row">
+              {row.map((item) => (
+                <div key={`img-${item.key}`} className='img_block'>
+                  <button onClick={() => handleRemoveImage(item.key)} className='deleteImg_stBtn'><img src={deleteImg} alt=""/></button>
+                  {mainImage !== null ?
+                    <div>
+                      <input type="radio" id={`selected-${item.key}`} checked={item.key === mainImage} style={{
+                        position: 'absolute', zIndex: 1, cursor: 'pointer', top: 15, left: 20, padding: 10
+                      }} onChange={() => setMainImage(item.key)} hidden/>
+                      <label style={{position: 'absolute', zIndex: 1, border: '1px solid',
+                        top: 10, borderRadius: 10, padding: 5, left: 10}}
+                             htmlFor={`selected-${item.key}`}>Выбрать</label>
+                    </div> : null}
+                  <div className='images-flex_column' onClick={() => handleSetImage(item.key)}>
+                    <img src={item.value} alt="" className='upload_photo-img'/>
+                  </div>
+                </div>
+              ))}
+            </div>
+          )) : null}
+        </div>
         <label htmlFor="standart_input" className='upload_file_input upload_standart-label'>
           <img src={photoStandart} alt=""/>
         </label>
-				<p>Максимальный лимит фотографий 15: {srcData.length} / 15</p>
-        <input {...getInputProps()} disabled={imageLimit} className='upload-input'/>
-        {
-          isDragActive ?
-            <p>Отпустите файл(ы)...</p> :
-            /*<p style={{cursor: 'pointer'}}>Перетащите файл(ы) в эту зону или нажмите чтобы выбрать файл(ы)</p>*/
-          <input {...getInputProps()} disabled={imageLimit} className='upload-input'/>
-        }
+
       </div>
+      <p>Максимальный лимит фотографий 15: {srcData.length} / 15</p>
+      <input {...getInputProps()} disabled={imageLimit} className='upload-input'/>
+      {
+        isDragActive ?
+          <p>Отпустите файл(ы)...</p> :
+          /*<p style={{cursor: 'pointer'}}>Перетащите файл(ы) в эту зону или нажмите чтобы выбрать файл(ы)</p>*/
+          <input {...getInputProps()} disabled={imageLimit} className='upload-input'/>
+      }
       {(changeImage || activeModal) && (
         <ModalMain activeModal={activeModal} setActiveModal={setActiveModal} children={
           <>
@@ -177,42 +208,6 @@ const UploadImages = ({cropData, setCropData, mainSrcData=[], mainImage, setMain
 						<button type='button' onClick={() => handleNextImage()}>Next</button>
           </>}/>
       )}
-      <div className="images-flex">
-        {cropData.length > 0 ? cropData.reduce((rows, item, index) => {
-          if (index % 4 === 0) {
-            rows.push([]);
-          }
-          rows[rows.length - 1].push(item);
-          return rows;
-        }, []).map((row, index) => (
-          <div key={`row-${index}`} className="images-flex_row">
-            {row.map((item) => (
-              <div key={`img-${item.key}`} style={{position: 'relative'}}>
-                <button style={{
-                  position: 'absolute', zIndex: 1, color: 'red', cursor: 'pointer',
-                  right: 20, top: 15, fontSize: 20, padding: 10
-                }}
-                        onClick={() => handleRemoveImage(item.key)}>X
-                </button>
-								{mainImage !== null ?
-									<div>
-										<input type="radio" id={`selected-${item.key}`} checked={item.key === mainImage} style={{
-											position: 'absolute', zIndex: 1, cursor: 'pointer', top: 15, left: 20, padding: 10
-										}} onChange={() => setMainImage(item.key)} hidden/>
-										<label style={{position: 'absolute', zIndex: 1, border: '1px solid',
-											top: 10, borderRadius: 10, padding: 5, left: 10}}
-													 htmlFor={`selected-${item.key}`}>Выбрать</label>
-									</div> : null}
-                <div className='images-flex_column' onClick={() => handleSetImage(item.key)}>
-                  <Card ad_image={item.value} address={''} title={''}
-                        price={''} date={''} type='newAd' classname={'xs'}/>
-                </div>
-              </div>
-            ))}
-          </div>
-        )) : null}
-      </div>
-
     </div>
   );
 };
