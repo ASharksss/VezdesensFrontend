@@ -147,17 +147,9 @@ const UploadImages = ({cropData, setCropData, mainSrcData=[], mainImage, setMain
 
   return (
     <div>
-      <div {...getRootProps()} className='flex'>
+      <div>
         <div className="images-flex">
-          {cropData.length > 0 ? cropData.reduce((rows, item, index) => {
-            if (index % 4 === 0) {
-              rows.push([]);
-            }
-            rows[rows.length - 1].push(item);
-            return rows;
-          }, []).map((row, index) => (
-            <div key={`row-${index}`} className="images-flex_row">
-              {row.map((item) => (
+          {cropData.length > 0 ? cropData.map((item, index) => (
                 <div key={`img-${item.key}`} className='img_block'>
                   <button onClick={() => handleRemoveImage(item.key)} className='deleteImg_stBtn'><img src={deleteImg} alt=""/></button>
                   {mainImage !== null ?
@@ -173,13 +165,15 @@ const UploadImages = ({cropData, setCropData, mainSrcData=[], mainImage, setMain
                     <img src={item.value} alt="" className='upload_photo-img'/>
                   </div>
                 </div>
-              ))}
-            </div>
           )) : null}
+          {cropData.length < 15 ?
+            <div {...getRootProps()}>
+              <label htmlFor="standart_input" className='upload_file_input upload_standart-label'>
+                <img  src={photoStandart} alt=""/>
+              </label>
+            </div> : null}
         </div>
-        <label htmlFor="standart_input" className='upload_file_input upload_standart-label'>
-          <img src={photoStandart} alt=""/>
-        </label>
+
 
       </div>
       <p>Максимальный лимит фотографий 15: {srcData.length} / 15</p>
