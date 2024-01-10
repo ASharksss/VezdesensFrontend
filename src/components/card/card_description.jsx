@@ -1,5 +1,6 @@
 import React from 'react';
 import Button from "../../ui/buttons/button";
+import './card.css'
 import {formatDate} from "../../utils";
 
 const CardDescription = ({card_number, card_time, card_views, desription, setActiveModal, setTypeModal}) => {
@@ -10,13 +11,7 @@ const CardDescription = ({card_number, card_time, card_views, desription, setAct
             <p className='card_description-text'>
               {desription}
             </p>
-            <div className="flex jy-end" onClick={() => {
-              setActiveModal(true)
-              setTypeModal('description')
-            }}>
-            <Button classname={'stroke'} children={'Показать еще'}/>
 
-            </div>
 
         </div>
     );

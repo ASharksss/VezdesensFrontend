@@ -3,7 +3,7 @@
     margin-top: 50px;
     margin-bottom: 80px;
     position: relative;
-    z-index: 1;
+    z-index: 0;
 }
 
 .myAd_grey {
@@ -37,6 +37,10 @@
 
 .actions_row-first {
     margin-bottom: 25px;
+}
+
+.actions_row {
+    width: 153px;
 }
 
 .actions_row + .actions_row {
@@ -85,6 +89,7 @@
 }
 
 .myAd_title {
+    width: 400px;
     font-size: 24px;
     color: rgba(7, 12, 32, 1);
     margin-bottom: 30px;
@@ -99,6 +104,7 @@
 .myAd_ad_description {
     width: 405px;
     height: 142px;
+    overflow: hidden;
     color: rgba(131, 134, 144, 1);
     line-height: 20.68px;
 }
@@ -151,3 +157,78 @@
 .myAd_grey-red {
     color: rgba(252, 55, 42, 1);
 }
+
+.profile_contend-search {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 242px;
+    height: 47px;
+    background-color: rgba(236, 236, 236, 1);
+    border-radius: 10px;
+    padding-left: 30px;
+    padding-right: 14px;
+}
+
+.ads_filter_select {
+    position: relative;
+    width: 237px;
+}
+
+.ads_filter-header {
+    font-size: 16px;
+    padding: 15px;
+    box-shadow: 0px 5px 35px 0px rgba(38, 38, 38, 0.1);
+    border-radius: 10px;
+    width: 237px;
+    height: 47px;
+    cursor: pointer;
+    z-index: 0;
+}
+
+.ads_filter-header:focus {
+    border: 1px solid black;
+}
+
+.filter_select-body-none {
+    z-index: 1;
+    display: none;
+    padding: 5px;
+    margin-top: 5px;
+    border-radius: 10px;
+    left: 0;
+    position: absolute;
+    top: 100%;
+    right: 0;
+    background-color: white;
+    box-shadow: 0px 6px 40px 0px #2626261A;
+}
+
+.ads_filter_select-body {
+    background-color: white;
+    z-index: 1;
+    padding: 5px;
+    margin-top: 5px;
+    border-radius: 10px;
+    left: 0;
+    position: absolute;
+    top: 100%;
+    right: 0;
+    box-shadow: 0px 6px 40px 0px #2626261A;
+}
+
+.filter_select-item {
+    font-size: 14px;
+    width: 227px;
+    height: 47px;
+    border-radius: 10px;
+    cursor: pointer;
+    padding: 15px 20px;
+    z-index: 3;
+}
+
+.content_ads_filter {
+    margin-right: 30px;
+}
+
+

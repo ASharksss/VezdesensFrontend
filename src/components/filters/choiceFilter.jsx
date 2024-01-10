@@ -47,7 +47,7 @@ const ChoiceFilter = ({name, data, id, setChoiceFilter}) => {// name: str = пе
     <div className='filter_item'>
       <div className="filter_select">
         <div className="filter_label">{name ? name : null}</div>
-        <div className="filter_select-header" onClick={() => setOpen(!open)}>Параметры</div>
+        <div className="filter_select-header" onClick={() => setOpen(!open)}>Выберите...</div>
 
         <div className={open ? 'block filter_select-body' : 'filter_select-body-none'}>
           {data.length > 0 ?

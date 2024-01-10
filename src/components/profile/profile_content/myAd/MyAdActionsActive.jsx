@@ -39,15 +39,16 @@ const MyAdActionsActive = ({dataUser, setDataAds}) => {
 						<p className='myAd_actions-title'>Осталось</p>
 						<p className='myAd_actions-value'>{new Date(new Date(dataUser.dateEndActive) - new Date()).getDate()} {["день", "дня", "дней"][pluralRusVariant(new Date(new Date(dataUser.dateEndActive) - new Date()).getDate())]}</p>
 					</div>
-					<div className="actions_row flex space-between semi_bold">
-						<p className='myAd_actions-title'>Избранное</p>
-						<p className='myAd_actions-value'>{dataUser.favoritesCount}</p></div>
-					<div className="actions_row flex space-between semi_bold">
-						<p className='myAd_actions-title'>Сообщения</p>
+					<div className="actions_row flex space-between ">
+						<p className='myAd_actions-title semi_bold'>Избранное</p>
+						<p className='myAd_actions-value'>{dataUser.favoritesCount}</p>
+					</div>
+					<div className="actions_row flex space-between ">
+						<p className='myAd_actions-title semi_bold'>Сообщения</p>
 						<p className='myAd_actions-value'>0</p>
 					</div>
 				</> : null : null}
-			<div className="actions_row flex space-between semi_bold"><p className='myAd_actions-title'>Просмотров</p><p
+			<div className="actions_row flex space-between "><p className='myAd_actions-title semi_bold'>Просмотров</p><p
 				className='myAd_actions-value'>{dataUser.views}</p></div>
 			<div className="myAd_btn-edit">
 				{isAuth ? user.items.id === dataUser.userId ? <Button handleClick={() => handleClick(dataUser.id)} classname={'edit'} icon={edit}/> : null : null}

@@ -106,7 +106,11 @@
 }
 
 .phone_modal {
-    width: 250px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 327px;
     height: 80px;
     text-align: left;
 }

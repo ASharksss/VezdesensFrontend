@@ -1,12 +1,16 @@
 import React, {useState} from 'react';
 import './myAd.css'
+import '../../../categoryAccordion/categoryAccordion.css'
 import ActiveAds from "./ActiveAds";
 import ArchiveAd from "./ArchiveAd";
+import search_icon from '../../../../asserts/icons/myads_search_icon.svg'
+import arrow_icon from '../../../../asserts/icons/arrow_down.svg'
 
 const ProfileContentAd = ({dataUser, setDataAds}) => {
 
 	const [search, setSearch] = useState('')
 	const [typeAd, setTypeAd] = useState('activeAd')
+	const [open, setOpen] = useState(false)
 
 	const dataSearch = {
 		...dataUser,
@@ -34,11 +38,30 @@ const ProfileContentAd = ({dataUser, setDataAds}) => {
 									onClick={() => setTypeAd('archiveAd')}>Архив
 					</button>
 				</div>
-				<div className="filter">
-					фильтр
+				<div className='flex'>
+					<div className="content_ads_filter">
+						<div className="filter">
+							<div className="ads_filter_select">
+								<div className="flex items-center space-between ads_filter-header" onClick={() => setOpen(!open)}>
+									Сначала новые
+									<img src={arrow_icon} alt=""/>
+								</div>
+								<div className={ open ? 'block ads_filter_select-body' : 'filter_select-body-none'}>
+									<div className='filter_select-item' onClick={() => setOpen(!open)}>Сначала новые</div>
+									<div className='filter_select-item' onClick={() => setOpen(!open)}>Сначала старые</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div className="profile_contend-search">
+						<input type="text" onChange={e => setSearch(e.target.value)}
+									 style={{width: '150px'}}
+									 placeholder='Поиск'/>
+						<img src={search_icon} alt="" className='block'/>
+					</div>
 				</div>
-				<input type="text" onChange={e => setSearch(e.target.value)} className="profile_contend-search"
-							 placeholder='Поиск'/>
+
+
 			</div>
 			{
 				typeAd === 'archiveAd' ? <ArchiveAd dataUser={dataSearch} setDataAds={setDataAds}/> :
