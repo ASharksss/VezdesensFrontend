@@ -129,3 +129,18 @@
 .header_profile span {
     margin-left: 12px;
 }
+
+.subMenu_wrapper {
+    position: relative;;
+}
+
+.subMenu {
+    position: absolute;
+    top: 0px;
+    left: -20px;
+    width: 277px;
+    height: 252px;
+    background-color: white;
+    box-shadow: 0px 6px 40px 0px rgba(38, 38, 38, 0.1);
+    border-radius: 20px;
+}

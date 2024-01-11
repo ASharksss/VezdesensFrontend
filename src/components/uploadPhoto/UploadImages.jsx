@@ -148,6 +148,7 @@ const UploadImages = ({cropData, setCropData, mainSrcData=[], mainImage, setMain
   return (
     <div>
       <div>
+        <p className='mb-20'>Количество загруженных фото: {srcData.length} / 15</p>
         <div className="images-flex">
           {cropData.length > 0 ? cropData.map((item, index) => (
                 <div key={`img-${item.key}`} className='img_block'>
@@ -176,7 +177,7 @@ const UploadImages = ({cropData, setCropData, mainSrcData=[], mainImage, setMain
 
 
       </div>
-      <p>Максимальный лимит фотографий 15: {srcData.length} / 15</p>
+
       <input {...getInputProps()} disabled={imageLimit} className='upload-input'/>
       {
         isDragActive ?

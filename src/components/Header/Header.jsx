@@ -10,6 +10,7 @@ import {NavLink, useLocation, useNavigate} from "react-router-dom";
 import CategoryModalTemplate from "../modal/categoryModal/categoryModalTemplate";
 import CategoryModal from "../modal/categoryModal/categoryModal";
 import axios from "axios";
+import SubMenu from "./SubMenu";
 
 const Header = () => {
   const location = useLocation()
@@ -18,6 +19,7 @@ const Header = () => {
   const [activeModalCat, setActiveModalCat] = useState(false)
   const [search, setSearch] = useState('')
   const [categoriesData, setCategoriesData] = useState([])
+  const [openSubMenu, setOpenSubMenu] = useState(false)
 
   useEffect(() => {
     const getCategories = async () => {
@@ -92,9 +94,15 @@ const Header = () => {
         <div className="flex column header_profile">
           <div className='flex'>
             <img src={profile} alt="Профиль"/>
-            {isAuth ? <NavLink to={`/profile/${user.items.id}`}><span>Профиль</span></NavLink> :
+            {isAuth ? <>
+               {/* <NavLink to={`/profile/${user.items.id}`}>*/}
+                 <span onClick={() => setOpenSubMenu(!openSubMenu)}>Профиль</span>
+                {/*</NavLink>*/}
+
+              </> :
               <NavLink to='/signin'><span>Войти</span></NavLink>}
           </div>
+          <SubMenu/>
           {isAuth ? <button onClick={handleExit}>Выйти</button> : null}
         </div>
       </div>
