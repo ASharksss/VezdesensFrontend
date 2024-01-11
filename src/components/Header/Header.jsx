@@ -74,7 +74,7 @@ const Header = () => {
             <div className="header_content-ads">
               <button onClick={() => alert('Функция временно не доступна')}>Продать как компания</button>
               {isAuth ?
-                <button onClick={() => navigate(`/profile/${user.items.id}`)}><span>Мои объявления</span></button> :
+                <button onClick={() => navigate({pathname: `/profile/${user.items.id}`, hash: '#ads'})}><span>Мои объявления</span></button> :
                 <button onClick={() => navigate(`/signin`)}><span>Мои объявления</span></button>}
               <NavLink to={isAuth ? '/createAd' : '/signin'} className='create_ad-btn'>Подать объявление</NavLink>
             </div>

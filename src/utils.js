@@ -1,5 +1,5 @@
-/*export const STATIC_HOST = 'http://localhost:5000/static'
-export const AVATAR_HOST = 'http://localhost:5000/static/avatar'*/
+// export const STATIC_HOST = 'http://localhost:5000/static'
+// export const AVATAR_HOST = 'http://localhost:5000/static/avatar'
 export const AVATAR_HOST = 'https://backend.vezdesens.ru/static/avatar'
 export const STATIC_HOST = 'https://backend.vezdesens.ru/static'
 

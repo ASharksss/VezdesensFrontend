@@ -88,7 +88,7 @@ const CardAd = () => {
 				typeModal === 'description' ?
 					<ModalMain activeModal={activeModal} setActiveModal={setActiveModal}
 										 children={<DescriptionModal adCharacteristicInputs={data.ad.adCharacteristicInputs}
-																								 adCharacteristicSelects={data.ad.adCharacteristicSelects}/>}/> :
+																	 description={data.ad.description} adCharacteristicSelects={data.ad.adCharacteristicSelects}/>}/> :
 					typeModal === 'phone' ?
 						<ModalMain activeModal={activeModal} setActiveModal={setActiveModal}
 											 children={<PhoneModal phone={data.ad.user.phone}/>}/> :

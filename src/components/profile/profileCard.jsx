@@ -41,14 +41,9 @@ const ProfileCard = ({avatar, dataUser}) => {
 			<div className="flex rating_info" style={{cursor: 'pointer'}} onClick={() => setModalShow(true)}>
 				<Rating data={dataUser.ratings} type='user'/>
 			</div>
-			{/*{isAuth ? user.items.id === dataUser.userId ?
-				<div className='mt-20'>
-					<Button classname={'stroke'} children={'Редактировать'}/>
-				</div> : null : null}*/}
-
-			<div>
+			{isAuth ? user.items.id === dataUser.id ?<div>
 				<Button classname={'stroke'} children={'Редактировать'} handleClick={() => {setEditModel(true)}}/>
-			</div>
+			</div> : null : null}
 			{
 				modalShow ?
 					<ModalMain activeModal={modalShow} setActiveModal={setModalShow}

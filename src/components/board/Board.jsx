@@ -72,13 +72,13 @@ const Board = () => {
 		<>
 			{premium.items[0] !== undefined ?
 				<Card classname={'xxl'}
-							ad_image={premium.items[0].imageAds.length > 0 ? premium.items[0].imageAds : ad_image_xxl}
+							ad_image={premium.items[0].previewImageAds.length > 0 ? premium.items[0].previewImageAds : ad_image_xxl}
 							title={premium.items[0].title} address={premium.items[0].address} price={premium.items[0].price}
 							favorite={premium.items[0].favorites} date={premium.items[0].date} id={premium.items[0].id}/> : null}
 			<Ad/>
 			{premium.items[1] !== undefined ?
 				<Card classname={'xxl'}
-							ad_image={premium.items[1].imageAds.length > 0 ? premium.items[1].imageAds : ad_image_xxl}
+							ad_image={premium.items[1].previewImageAds.length > 0 ? premium.items[1].previewImageAds : ad_image_xxl}
 							title={premium.items[1].title} address={premium.items[1].address} price={premium.items[1].price}
 							favorite={premium.items[1].favorites} date={premium.items[1].date} id={premium.items[1].id}/> : null}
 			<Ad/>
