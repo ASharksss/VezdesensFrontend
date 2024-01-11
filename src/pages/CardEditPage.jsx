@@ -233,7 +233,9 @@ const CardEditPage = () => {
                       value={description} className='create_ad_descr-text' placeholder='Опишите подробнее товар'
                       required></textarea>
           </div>
+          <div className='mt-50'>
 
+          </div>
           <UploadImages cropData={saveImages} setCropData={setSaveImages} mainSrcData={saveImages}/>
           <div className="create_ad_btns">
             <button className='create_ad_btn' type='submit' onClick={() => {
