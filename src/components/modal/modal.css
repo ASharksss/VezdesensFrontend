@@ -32,6 +32,7 @@
 
 .modal_content.activeModal {
     transform: scale(1);
+    width: 800px;
 }
 
 
@@ -93,7 +94,7 @@
 }
 
 .description_modal {
-    width: 486px;
+    width: 700px;
     height: 682px;
     text-align: left;
     overflow-y: auto;
@@ -400,14 +401,17 @@
     top: 60px;
     font-size: 1.1rem
 }
+
 .editModalScalePlus {
     top: 100px;
     font-size: 1.5rem
 }
+
 .editModalScaleMinus {
     top: 140px;
     font-size: 1.4rem
 }
+
 .editModalRotate {
     top: 180px;
     font-size: 1.1rem
