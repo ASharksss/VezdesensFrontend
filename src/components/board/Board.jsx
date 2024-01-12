@@ -2,12 +2,13 @@ import React, {useEffect, useState} from 'react';
 import _ from 'lodash'
 import './board.css'
 import {useDispatch, useSelector} from "react-redux";
+import {useLocation} from "react-router-dom";
 import Card from "../cards/Card";
 import Ad from "../cards/Ad";
 import ad_image_xxl from '../../asserts/ad_image_xxl.png'
+import ad_banner from '../../asserts/ad_banner.png'
 import {fetchPremium} from "../../redux/slices/boardSlice";
 import {group} from "../../utils";
-import {useLocation} from "react-router-dom";
 import UnionBoard from "./BoardBlocks/UnionBoard";
 
 const Board = () => {
@@ -75,7 +76,7 @@ const Board = () => {
 							ad_image={premium.items[0].previewImageAds.length > 0 ? premium.items[0].previewImageAds : ad_image_xxl}
 							title={premium.items[0].title} address={premium.items[0].address} price={premium.items[0].price}
 							favorite={premium.items[0].favorites} date={premium.items[0].date} id={premium.items[0].id}/> : null}
-			<Ad/>
+			<Ad image={ad_banner}/>
 			{premium.items[1] !== undefined ?
 				<Card classname={'xxl'}
 							ad_image={premium.items[1].previewImageAds.length > 0 ? premium.items[1].previewImageAds : ad_image_xxl}
