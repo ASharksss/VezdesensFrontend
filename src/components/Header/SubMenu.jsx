@@ -36,7 +36,7 @@ const SubMenu = () => {
             <div className='subMenu_info'>
               {
                 !isLoading ?
-                  <NavLink to={`/profile/${user.items.id}`}>
+                  <NavLink to={`/profile/${user.items.id}#ads`}>
                     <p className='subMenu_info-title'>{user.items.name}</p>
                   </NavLink> : null
               }
