@@ -38,18 +38,7 @@ const Header = () => {
     })
   }
 
-  const handleExit = () => {
-    let cookies = document.cookie.split(";");
-    for (let i = 0; i < cookies.length; i++) {
-      let cookie = cookies[i];
-      let eqPos = cookie.indexOf("=");
-      let name = eqPos > -1 ? cookie.substr(0, eqPos) : cookie;
-      document.cookie = name + "=;expires=Thu, 01 Jan 1970 00:00:00 GMT;";
-      document.cookie = name + '=; path=/; expires=Thu, 01 Jan 1970 00:00:01 GMT;';
-			navigate('/')
-    }
-    window.location.reload()
-  }
+
 
   useEffect(() => {
     setActiveModalCat(false)
@@ -95,15 +84,16 @@ const Header = () => {
           <div className='flex'>
             <img src={profile} alt="Профиль"/>
             {isAuth ? <>
-               {/* <NavLink to={`/profile/${user.items.id}`}>*/}
-                 <span onClick={() => setOpenSubMenu(!openSubMenu)}>Профиль</span>
-                {/*</NavLink>*/}
+               {/*<NavLink to={`/profile/${user.items.id}`}>*/}
+                 <span className='header_profile-text' onClick={() => setOpenSubMenu(!openSubMenu)}>Профиль</span>
+             {/*   </NavLink>*/}
 
               </> :
-              <NavLink to='/signin'><span>Войти</span></NavLink>}
+              <NavLink to='/signin'><span className='subMenu_list-item'>Войти</span></NavLink>}
           </div>
-          <SubMenu/>
-          {isAuth ? <button onClick={handleExit}>Выйти</button> : null}
+          {
+            openSubMenu ?  <SubMenu/> : ''
+          }
         </div>
       </div>
       <div>
