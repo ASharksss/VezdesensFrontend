@@ -181,12 +181,12 @@ const CatalogBoardPage = () => {
 					{
 						data.length === 0 ?
 							<p>Список пуст!</p> :
-							chunkedData.map((chunk, index) => (
+							chunkedData.length > 0 && chunkedData.map((chunk, index) => (
 								<div className='flex small_ads align-items' key={`chunk-${index}`}>
 									{chunk.map((item, itemIndex) => (
 										<Card
 											classname={'xs'}
-											ad_image={item.previewImageAds.length > 0 ? `${STATIC_HOST}/${item.previewImageAds[0].name}` : ad_image}
+											ad_image={`${STATIC_HOST}/${item.previewImageAds[0]?.name}`}
 											title={item.title}
 											address={item.address}
 											price={item.price}

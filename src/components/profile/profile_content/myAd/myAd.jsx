@@ -35,7 +35,7 @@ const MyAd = ({statusAd, typeAd, item, setDataAds}) => {
               <div className="myAd_img">
 
                 <img data-fancybox="gallery"
-                     src={item.imageAds.length > 0 ? `${STATIC_HOST}/${item.imageAds[0].name}` : ad_img}
+                     src={`${STATIC_HOST}/${item.imageAds[0]?.name}`}
                      alt="НАЗВАНИЕ ТОВАРА"
                      className={statusAd === 'myAd_grey' ? 'myAd_img-image opacity-50' : 'myAd_img-image'}/>
               </div>

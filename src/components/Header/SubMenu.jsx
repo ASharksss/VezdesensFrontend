@@ -1,17 +1,28 @@
-import React from 'react';
+import React, {useEffect, useRef} from 'react';
+import {NavLink, useNavigate} from "react-router-dom";
+import {useSelector} from "react-redux";
 import messages from '../../asserts/icons/messages_icon.svg'
 import favorite from '../../asserts/icons/favorite_icon.svg'
 import support from '../../asserts/icons/support_icon.svg'
-import {NavLink, useNavigate} from "react-router-dom";
 import profile_avatar from "../../asserts/profile/profile_avatar61.svg"
-import {useSelector} from "react-redux";
 
-const SubMenu = () => {
+const SubMenu = ({setOpenSubMenu}) => {
+  const wrapperRef = useRef(null)
   const navigate = useNavigate()
 
-  const {isAuth, user} = useSelector(state => state.user)
+  const {user} = useSelector(state => state.user)
 
   const isLoading = user.status === 'loading'
+  
+  const handleClickOutside = (event) => {
+    if (wrapperRef.current && !wrapperRef.current.contains(event.target))
+      setOpenSubMenu(false)
+  }
+  
+  useEffect(() => {
+    document.addEventListener('mousedown', handleClickOutside)
+    return () => document.removeEventListener('mousedown', handleClickOutside)
+  }, [])
 
   const handleExit = () => {
     let cookies = document.cookie.split(";");
@@ -27,7 +38,7 @@ const SubMenu = () => {
   }
 
   return (
-    <div className='subMenu_wrapper'>
+    <div className='subMenu_wrapper' ref={wrapperRef}>
       <div className='subMenu'>
         <div className="subMenu_avatar">
           <img src="" alt="" className='subMenu-img'/>

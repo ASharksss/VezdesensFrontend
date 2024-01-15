@@ -7,11 +7,11 @@ import CreateAdItem from "../components/createAdItem/createAdItem";
 import UploadPhotoPremium from "../components/uploadPhoto/uploadPhotoPremium";
 import UploadPhotoVip from "../components/uploadPhoto/uploadPhotoVip";
 import UploadPhotoStandartPlus from "../components/uploadPhoto/uploadPhotoStandartPlus";
-import {fetchBookingInfo, fetchCharacterObjects} from "../redux/slices/adSlice";
+import {fetchBookingInfo, fetchCategoryForCharacter, fetchCharacterObjects} from "../redux/slices/adSlice";
 import EnterInput from "../ui/characteristicInputs/enterInput";
 import SelectInput from "../ui/characteristicInputs/selectInput";
 import CheckboxInput from "../ui/characteristicInputs/checkboxInputs";
-import {fetchCategory, fetchObjects, fetchSubCategories} from "../redux/slices/categorySlice";
+import {fetchCategory, fetchObjects, fetchSubCategories, newFetchCategory} from "../redux/slices/categorySlice";
 import {DataURIToBlob, numberWithSpaces} from "../utils";
 import LoadGIF from '../asserts/load.gif'
 import './pages.css'
@@ -151,7 +151,11 @@ const CreateAdPage = () => {
             <div className="create_ad-category">
               <h2 className='create_ad-category-title'>Категория</h2>
 
-              <select className='create_ad-select' onChange={event => dispatch(fetchSubCategories(event.target.value))}
+              <select className='create_ad-select' onChange={event => {
+                dispatch(newFetchCategory())
+                dispatch(fetchCategoryForCharacter())
+                dispatch(fetchSubCategories(event.target.value))
+              }}
                       required>
                 <option hidden>Выберите категорию</option>
                 {
@@ -161,7 +165,10 @@ const CreateAdPage = () => {
                 }
               </select>
               <select className='create_ad-select' disabled={categories.subCategories.status === 'loading'}
-                      onChange={event => dispatch(fetchObjects(event.target.value))} required>
+                      onChange={event => {
+                        dispatch(fetchCategoryForCharacter())
+                        dispatch(fetchObjects(event.target.value))
+                      }} required>
                 <option hidden>Выберите подкатегорию</option>
                 {
                   categories.subCategories.items.map((item, index) => (
@@ -183,7 +190,6 @@ const CreateAdPage = () => {
               </select>
             </div>
 
-            {!isLoadingCharacter &&
               <div className="create_ad-character">
                 <div className='flex column'>
                   <label className='enter_input-title'>Заголовок</label>
@@ -195,29 +201,30 @@ const CreateAdPage = () => {
                   <input value={price} onChange={event => handlePrice(event.target.value)}
                          type="text" className='enter_input-input' required/>
                 </div>
-                <h1 className='character-title'>Обязательные характеристики</h1>
 
-                <div className='grid_character'>
-                  {character.items.length > 0 &&
-                    character.items.map((item, index) => (item['characteristic']['required'] ?
-                        <>
-                          {item['characteristic']['typeCharacteristic']['name'] === 'enter' &&
-                            <EnterInput setEnterValue={setEnterValue} key={'enter' + index} data={item['characteristic']}
-                                        id={item['characteristicId']} isRequired={true}/>}
-                          {item['characteristic']['typeCharacteristic']['name'] === 'select' &&
-                            <SelectInput setSelectValue={setSelectValue} key={'select' + index} isRequired={true}
-                                         data={item['characteristic']} id={item['characteristicId']}/>}
-                          {item['characteristic']['typeCharacteristic']['name'] === 'checkbox' &&
-                            <CheckboxInput setCheckboxValue={setSelectValue} key={'checkbox' + index} isRequired={true}
+                {!isLoadingCharacter && <>
+                  <h1 className='character-title'>Обязательные характеристики</h1>
+                  <div className='grid_character'>
+                    {character.items.length > 0 &&
+                      character.items.map((item, index) => (item['characteristic']['required'] ?
+                          <>
+                            {item['characteristic']['typeCharacteristic']['name'] === 'enter' &&
+                              <EnterInput setEnterValue={setEnterValue} key={'enter' + index} data={item['characteristic']}
+                                          id={item['characteristicId']} isRequired={true}/>}
+                            {item['characteristic']['typeCharacteristic']['name'] === 'select' &&
+                              <SelectInput setSelectValue={setSelectValue} key={'select' + index} isRequired={true}
                                            data={item['characteristic']} id={item['characteristicId']}/>}
-                        </> : null
-                    ))
-                  }
-                </div>
+                            {item['characteristic']['typeCharacteristic']['name'] === 'checkbox' &&
+                              <CheckboxInput setCheckboxValue={setSelectValue} key={'checkbox' + index} isRequired={true}
+                                             data={item['characteristic']} id={item['characteristicId']}/>}
+                          </> : null
+                      ))
+                    }
+                  </div>
 
 
-                <h1 className='character-title'>Дополнительные характеристики</h1>
-                <div className='grid_character'>
+                  <h1 className='character-title'>Дополнительные характеристики</h1>
+                  <div className='grid_character'>
                   {character.items.length > 0 &&
                     character.items.map((item, index) => (!item['characteristic']['required'] ?
                         <>
@@ -233,11 +240,9 @@ const CreateAdPage = () => {
                         </> : null
                     ))
                   }
-                </div>
+                </div></>}
 
-
-
-              </div>}
+              </div>
 
             <div className="create_ad-descr">
               <h1 className='create_ad-descr-title'>Описание</h1>

@@ -1,16 +1,11 @@
 import React from 'react';
 import {NavLink} from "react-router-dom";
-import Checkbox from "../../../../ui/checkbox";
-import img from '../../../../asserts/messages/messageImg.png'
 import {formatDateToRelative, numberWithSpaces, relativeDate, STATIC_HOST} from '../../../../utils'
 
 const MessageItem = ({data, seller, status, image}) => {
   return (
     <div className='flex items-center message_item'>
-    {/*  <div className="message_item-checkbox">
-        <Checkbox/>
-      </div>*/}
-      <img src={image ? `${STATIC_HOST}/${image}` : img} width={116} className='message_item-img' alt="Название товара"/>
+      <img src={`${STATIC_HOST}/${image}`} width={116} className='message_item-img' alt="Название товара" style={{borderRadius: 15}}/>
       <div className="message_info">
         <NavLink to={`/card/${data.id}`}>
           <h1 className="message_info-title bold">{data.title}</h1>

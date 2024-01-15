@@ -42,6 +42,7 @@ const Header = () => {
 
   useEffect(() => {
     setActiveModalCat(false)
+    setOpenSubMenu(false)
   }, [location.pathname, location.search])
 
   return (
@@ -92,7 +93,7 @@ const Header = () => {
               <NavLink to='/signin'><span className='subMenu_list-item'>Войти</span></NavLink>}
           </div>
           {
-            openSubMenu ?  <SubMenu/> : ''
+            openSubMenu ?  <SubMenu setOpenSubMenu={setOpenSubMenu}/> : ''
           }
         </div>
       </div>

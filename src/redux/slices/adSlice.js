@@ -45,7 +45,12 @@ const initialState = {
 const AdSlice = createSlice({
   name: 'ad',
   initialState,
-  reducers: {},
+  reducers: {
+    fetchCategoryForCharacter: state => {
+      state.character.items = []
+      state.character.status = 'loading'
+    }
+  },
   extraReducers: {
     [fetchOneAd.pending]: (state) => {
       state.ad.items = []
@@ -90,3 +95,4 @@ const AdSlice = createSlice({
 
 
 export const AdReducer = AdSlice.reducer
+export const {fetchCategoryForCharacter} = AdSlice.actions

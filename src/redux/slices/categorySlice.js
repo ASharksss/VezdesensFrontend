@@ -41,7 +41,7 @@ export const fetchObjects =
 
 const initialState = {
     categories: {
-				premium: true,
+        premium: true,
         items: [],
         status: 'loading',
         subCategories: {
@@ -62,7 +62,14 @@ const initialState = {
 const CategoriesSlice = createSlice({
     name: 'categories',
     initialState,
-    reducers: {},
+    reducers: {
+        newFetchCategory: state => {
+            state.categories.subCategories.items = []
+            state.categories.subCategories.status = 'loading'
+            state.categories.subCategories.objects.items = []
+            state.categories.subCategories.objects.status = 'loading'
+        }
+    },
     extraReducers: {
         [fetchCategory.pending]: (state) => {
             state.categories.items = []
@@ -70,7 +77,7 @@ const CategoriesSlice = createSlice({
         },
         [fetchCategory.fulfilled]: (state, action) => {
             state.categories.items = action.payload.categories
-						state.categories.premium = action.payload.premium
+            state.categories.premium = action.payload.premium
             state.categories.status = 'loaded'
         },
         [fetchCategory.rejected]: (state) => {
@@ -117,3 +124,4 @@ const CategoriesSlice = createSlice({
 })
 
 export const CategoriesReducer = CategoriesSlice.reducer
+export const {newFetchCategory} = CategoriesSlice.actions
