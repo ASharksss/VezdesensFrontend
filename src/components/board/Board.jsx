@@ -7,7 +7,6 @@ import Card from "../cards/Card";
 import Ad from "../cards/Ad";
 import ad_image_xxl from '../../asserts/ad_image_xxl.png'
 import ad_banner from '../../asserts/ad_banner.png'
-import ad_bannerVlaga from '../../asserts/adVlaga.png'
 import {fetchPremium} from "../../redux/slices/boardSlice";
 import {group} from "../../utils";
 import UnionBoard from "./BoardBlocks/UnionBoard";
@@ -69,7 +68,8 @@ const Board = () => {
 				});
 			}
 		}
-	}, [newData, loading, newDataReceived]);
+	// }, [newData, loading, newDataReceived]);
+	}, []);
 	return (
 		<>
 			{premium.items[0] !== undefined ?

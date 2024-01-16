@@ -155,12 +155,10 @@ const UploadImages = ({cropData, setCropData, mainSrcData=[], mainImage, setMain
                   <button onClick={() => handleRemoveImage(item.key)} className='deleteImg_stBtn'><img src={deleteImg} alt=""/></button>
                   {mainImage !== null ?
                     <div>
-                      <input type="radio" id={`selected-${item.key}`} checked={item.key === mainImage} style={{
-                        position: 'absolute', zIndex: 1, cursor: 'pointer', top: 15, left: 20, padding: 10
-                      }} onChange={() => setMainImage(item.key)} hidden/>
-                      <label style={{position: 'absolute', zIndex: 1, border: '1px solid',
-                        top: 10, borderRadius: 10, padding: 5, left: 10}}
-                             htmlFor={`selected-${item.key}`}>Выбрать</label>
+                      <input type="radio" id={`selected-${item.key}`} checked={item.key === mainImage}
+                             className={`checkedImg_btn`} onChange={() => setMainImage(item.key)} hidden/>
+                      <label className={`checkedImg_label${item.key === mainImage ? ' active' : null}`}
+                             htmlFor={`selected-${item.key}`}>{item.key === mainImage ? 'Выбрано' : 'Выбрать'}</label>
                     </div> : null}
                   <div className='images-flex_column' onClick={() => handleSetImage(item.key)}>
                     <img src={item.value} alt="" className='upload_photo-img'/>
@@ -186,7 +184,7 @@ const UploadImages = ({cropData, setCropData, mainSrcData=[], mainImage, setMain
           <input {...getInputProps()} disabled={imageLimit} className='upload-input'/>
       }
       {(changeImage || activeModal) && (
-        <ModalMain activeModal={activeModal} setActiveModal={setActiveModal} children={
+        <ModalMain touched={false} activeModal={activeModal} setActiveModal={setActiveModal} children={
           <>
             <Cropper
               ref={cropperRef}

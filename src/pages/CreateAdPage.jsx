@@ -95,6 +95,9 @@ const CreateAdPage = () => {
     if (typeAd !== 'standart') {
       let preview = DataURIToBlob(previewImage.value)
       formData.append('previewImage', preview)
+    } else {
+      let preview = DataURIToBlob(saveImages.filter(item => item.key === mainImage)[0]['value'])
+      formData.append('previewImage', preview)
     }
     saveImages.map((item) => {
       let image = DataURIToBlob(item.value)

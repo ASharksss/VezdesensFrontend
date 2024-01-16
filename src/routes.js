@@ -8,11 +8,15 @@ import SimilarPage from "./pages/SimilarPage";
 import SearchPage from "./pages/SearchPage";
 import ServicePage from "./pages/ServicePage";
 import CardEditPage from "./pages/CardEditPage";
+import HomePage from "./pages/HomePage";
 
 export const publicRoutes = [
     {
         path: '/',
         Component: MainPage
+    }, {
+        path: '/home',
+        Component: HomePage
     }, {
         path: '/card/:id',
         Component: CardPage
