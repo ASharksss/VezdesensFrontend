@@ -293,20 +293,43 @@
 
 .deleteImg_btn {
     position: absolute;
-    top: 10px;
-    right: 10px;
+    top: 2px;
+    right: 2px;
+    padding: 10px;
+    background: #fff;
+    display: flex;
+    border-radius: 50%;
 }
 
 .deleteImg_Vipbtn {
+    background: #fff;
+    display: flex;
+    border-radius: 50%;
     position: absolute;
-    top: 15px;
-    left:340px;
+    top: 5px;
+    left: 330px;
+    padding: 10px;
 }
 
 .deleteImg_stBtn {
     position: absolute;
-    top: 10px;
-    left: 110px;
+    top: 2px;
+    right: 5px;
+    padding: 10px;
+    background: #fff;
+    display: flex;
+    border-radius: 50%;
+}
+
+.deleteImg_premiumBtn {
+    z-index: 1;
+    background: #fff;
+    display: flex;
+    border-radius: 50%;
+    position: absolute;
+    top: 25px;
+    right: 10px;
+    padding: 10px;
 }
 
 .checkedImg_btn {
@@ -321,7 +344,8 @@
 .checkedImg_label {
     position: absolute;
     z-index: 1;
-    border: 1px solid;
+    color: black;
+    background-color: white;
     top: 10px;
     border-radius: 10px;
     padding: 5px;

@@ -52,6 +52,7 @@ const UploadPhotoStandartPlus = ({editedImage, setEditedImage}) => {
 
   const {getInputProps} = useDropzone({onDrop});
   const removeImage = () => {
+    setEditedImage(null)
     setImage(null);
   };
 
@@ -61,7 +62,7 @@ const UploadPhotoStandartPlus = ({editedImage, setEditedImage}) => {
         <div className="column mr-20">
           <span className='upload_block-title'>Фото для баннера "Стандарт+" </span>
           <div className='flex mt-20'>
-            {image !== null ?
+            {(editedImage?.value || image !== null) ?
               <div style={{position: 'relative'}}>
                 <button onClick={() => removeImage()} className='deleteImg_btn'><img src={deleteImg} alt=""/></button>
                 <div className='images-flex_column' onClick={() => setActiveModal(true)}>
@@ -83,7 +84,7 @@ const UploadPhotoStandartPlus = ({editedImage, setEditedImage}) => {
         </div>
       </div>
       {(image || activeModal) && (
-        <ModalMain activeModal={activeModal} setActiveModal={setActiveModal} children={
+        <ModalMain activeModal={activeModal} setActiveModal={setActiveModal} touched={false} children={
           <>
             <Cropper
               ref={cropperRef}

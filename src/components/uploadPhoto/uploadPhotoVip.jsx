@@ -52,13 +52,14 @@ const UploadPhotoVip = ({editedImage, setEditedImage}) => {
 
   const {getInputProps} = useDropzone({onDrop});
   const removeImage = () => {
+    setEditedImage(null)
     setImage(null);
   };
   return (
     <div className='upload_vip upload_block'>
       <span className='upload_block-title'>Фото для баннера "VIP" </span>
 
-      {image !== null ?
+      {(editedImage?.value || image !== null) ?
         <div className='relative mt-20 mb-20'>
           <button onClick={() => removeImage()} className='deleteImg_Vipbtn'><img src={deleteImg} alt=""/></button>
           <div className='images-flex_column' onClick={() => setActiveModal(true)}>
@@ -78,7 +79,7 @@ const UploadPhotoVip = ({editedImage, setEditedImage}) => {
 
       }
       {(image || activeModal) && (
-        <ModalMain activeModal={activeModal} setActiveModal={setActiveModal} children={
+        <ModalMain activeModal={activeModal} setActiveModal={setActiveModal} touched={false} children={
           <>
             <Cropper
               ref={cropperRef}

@@ -11,6 +11,7 @@ import ModalMain from "../modal/modalMain";
 import DescriptionModal from "../modal/descriptionModal";
 import PhoneModal from "../modal/phoneModal";
 import RatingModal from "../modal/ratingModal";
+import EditSVG from '../../asserts/icons/edit.svg'
 import {relativeDate, formatDate, pluralRusVariant} from "../../utils";
 import Button from "../../ui/buttons/button";
 
@@ -54,6 +55,7 @@ const CardAd = () => {
 		<div className='card_ad_wrapper'>
 			<div className="flex">
 				<h1 className='card_ad_name'>{data.ad.title}</h1>
+				{items.id === data.ad.user.id ? <NavLink to={`/card/${data.ad.id}/edit`}><img src={EditSVG} alt="Измемнить"/></NavLink> : null}
 			</div>
 			<div className='flex card_ad-title'>
 				<p className='card_ad_address'>{data.ad.address}</p>

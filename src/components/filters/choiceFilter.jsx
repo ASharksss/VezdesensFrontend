@@ -42,7 +42,7 @@ const ChoiceFilter = ({name, data, id, setChoiceFilter}) => {// name: str = пе
       setChoiceFilter((prevState) => removeById(prevState))
     }
 	}, [id, value]); // триггеры по родительскому id и значению из временного хранилища
-  
+
   return (
     <div className='filter_item'>
       <div className="filter_select">
@@ -51,17 +51,18 @@ const ChoiceFilter = ({name, data, id, setChoiceFilter}) => {// name: str = пе
 
         <div className={open ? 'block filter_select-body' : 'filter_select-body-none'}>
           {data.length > 0 ?
-          data.map((item, index) => 
-            <div className="select-item" key={`choiceFilter-${index}=${item.id}`}>
-              <input type="checkbox" id={`filter_checkbox=${index}-${item.id}`} className='checkbox_filter'
-              value={item.id} onClick={handleChecked}/>
-              <label htmlFor={`filter_checkbox=${index}-${item.id}`} >{item.name}</label>
-            </div>
-          ) : 
-            <div className="select-item" key={`choiceFilter-another=${Math.random(1, 100) * 100}`}>
-              <input type="checkbox" id={`filter_checkbox=another`} className='checkbox_filter' />
-              <label htmlFor={`filter_checkbox=another`} >Ничего нет</label>
-            </div>}
+			  data.map((item, index) =>
+				<div className="select-item" key={`choiceFilter-${index}=${item.id}`}>
+				  <input type="checkbox" id={`filter_checkbox=${index}-${item.id}`} className='checkbox_filter'
+				  value={item.id} onClick={handleChecked}/>
+				  <label htmlFor={`filter_checkbox=${index}-${item.id}`} >{item.name}</label>
+				</div>
+			  ) :
+				<div className="select-item" key={`choiceFilter-another=${Math.random(1, 100) * 100}`}>
+				  <input type="checkbox" id={`filter_checkbox=another`} className='checkbox_filter' />
+				  <label htmlFor={`filter_checkbox=another`} >Ничего нет</label>
+				</div>
+		  }
         </div>
       </div>
     </div>

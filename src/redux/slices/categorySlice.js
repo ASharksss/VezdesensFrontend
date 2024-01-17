@@ -12,9 +12,9 @@ export const fetchCategory =
 
 export const fetchCategoryList =
     createAsyncThunk('getCategoriesList',
-        async (subCategoryId) => {
-					if (subCategoryId) {
-						const {data} = await axios.get(`api/categories/getCategoriesList?categoryId=${subCategoryId}`)
+        async (item) => {
+					if (item) {
+						const {data} = await axios.get(`api/categories/getCategoriesList?categoryId=${item.paramsCategory}&object=${item.objectId}`)
 						return data
 					}
             const {data} = await axios.get(`api/categories/getCategoriesList`)

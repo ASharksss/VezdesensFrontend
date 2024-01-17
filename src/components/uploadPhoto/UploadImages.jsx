@@ -157,7 +157,7 @@ const UploadImages = ({cropData, setCropData, mainSrcData=[], mainImage, setMain
                     <div>
                       <input type="radio" id={`selected-${item.key}`} checked={item.key === mainImage}
                              className={`checkedImg_btn`} onChange={() => setMainImage(item.key)} hidden/>
-                      <label className={`checkedImg_label${item.key === mainImage ? ' active' : null}`}
+                      <label className={`checkedImg_label${item.key === mainImage ? ' active' : ''}`}
                              htmlFor={`selected-${item.key}`}>{item.key === mainImage ? 'Выбрано' : 'Выбрать'}</label>
                     </div> : null}
                   <div className='images-flex_column' onClick={() => handleSetImage(item.key)}>

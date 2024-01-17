@@ -6,6 +6,7 @@ import './uploadPhoto.css'
 import photoPremium from "../../asserts/icons/upload_premium.svg"
 import Card from '../cards/Card';
 import ModalMain from '../modal/modalMain';
+import deleteImg from "../../asserts/icons/deleteImg.svg";
 
 const UploadPhotoPremium = ({editedImage, setEditedImage}) => {
 														  // родительская измененная картинка
@@ -52,6 +53,7 @@ const UploadPhotoPremium = ({editedImage, setEditedImage}) => {
 
 	const {getInputProps} = useDropzone({onDrop});
 	const removeImage = () => {
+		setEditedImage(null)
 		setImage(null);
 	};
 
@@ -68,19 +70,16 @@ const UploadPhotoPremium = ({editedImage, setEditedImage}) => {
 					<p className='upload_info-premium-format'>Формат JPG, JPEG, PNG</p>
 				</div>
 			</div>
-			{image !== null ?
+			{(editedImage?.value || image !== null) ?
 				<div style={{position: 'relative', width: '77%'}}>
-					<button onClick={() => removeImage()}
-									style={{position: 'absolute', zIndex: 1, color: 'red', cursor: 'pointer',
-									right: 20, top: 15, fontSize: 20, padding: 10}}>
-					X</button>
+					<button onClick={() => removeImage()} className='deleteImg_premiumBtn'><img src={deleteImg} alt=""/></button>
 					<div className='images-flex_column' onClick={() => setActiveModal(true)}>
 						<Card ad_image={editedImage.value} address={''} title={''}
 								price={''} date={''} type='newAd' classname={'xl'}/>
 					</div>
 				</div> : null}
 			{(image || activeModal) && (
-				<ModalMain activeModal={activeModal} setActiveModal={setActiveModal} children={
+				<ModalMain activeModal={activeModal} setActiveModal={setActiveModal} touched={false} children={
 				<>
 					<Cropper
 						ref={cropperRef}

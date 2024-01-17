@@ -24,9 +24,9 @@ const CatalogBoardPage = () => {
 	const triggerDivRef = useRef()
 	// const history = useHistory();
 	const [searchParams, setSearchParams] = useSearchParams()
-	const paramsObjectId = searchParams.get('object') || 1
-	const paramsCategory = searchParams.get('category') || 1
-	const paramsSubCategory = searchParams.get('subCategory') || 1
+	const paramsObjectId = parseInt(searchParams.get('object')) || 1
+	const paramsCategory = parseInt(searchParams.get('category')) || 1
+	const paramsSubCategory = parseInt(searchParams.get('subCategory')) || 1
 	const [selectedCategory, setSelectedCategory] = useState([]);
 	const [choiceFilter, setChoiceFilter] = useState([]);
 	const [enterFilter, setEnterFilter] = useState([]);
@@ -42,7 +42,7 @@ const CatalogBoardPage = () => {
 	const isLoading = categoriesList.status === 'loading'
 	useEffect(() => {
 		if (paramsCategory) {
-			dispatch(fetchCategoryList(parseInt(paramsCategory)))
+			dispatch(fetchCategoryList({paramsCategory, objectId}))
 		}
 	}, [paramsObjectId, paramsCategory, paramsSubCategory]) // самый первый запрос при загрузке страницы
 
@@ -166,11 +166,11 @@ const CatalogBoardPage = () => {
 
 					<div className="filters">
 						<EnterFilter setEnterFilter={setEnterFilter}/>
-						{!isLoading ? categoriesList.items[1].map((item, index) => 
-						item.typeCharacteristic === 'enter' ? 
+						{!isLoading ? categoriesList.items[1].map((item, index) =>
+						item.typeCharacteristic === 'enter' ?
 						<EnterFilter name={item.name} key={`enterFilter-${index}=${item.name}`}
 							id={item.id} setEnterFilter={setEnterFilter}/>: // внутри компонентов расписано
-						<ChoiceFilter name={item.name} data={item.characteristicValues} id={item.id}
+						<ChoiceFilter name={item.characteristic.name} data={item.characteristic.characteristicValues} id={item.id}
 							key={`choiceFilter-${index}=${item.name}`} setChoiceFilter={setChoiceFilter}/>) : null}
 					</div>
 					<button style={showAds ? {marginTop: '20px', border: '1px solid orange'} : {marginTop: '20px'}} // тут временно сделал, можешь удалять стили

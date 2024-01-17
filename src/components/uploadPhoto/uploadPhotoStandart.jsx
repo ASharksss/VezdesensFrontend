@@ -5,6 +5,7 @@ import 'cropperjs/dist/cropper.css'
 import photoStandart from "../../asserts/icons/upload_stanrat.svg";
 import Card from '../cards/Card';
 import ModalMain from '../modal/modalMain';
+import deleteImg from "../../asserts/icons/deleteImg.svg";
 
 const UploadPhotoStandart = ({editedImage, setEditedImage}) => {
 														  // родительская измененная картинка
@@ -51,6 +52,7 @@ const UploadPhotoStandart = ({editedImage, setEditedImage}) => {
 
 	const {getInputProps} = useDropzone({onDrop});
 	const removeImage = () => {
+		setEditedImage(null)
 		setImage(null);
 	};
 
@@ -72,10 +74,7 @@ const UploadPhotoStandart = ({editedImage, setEditedImage}) => {
 				</div>
 				{image !== null ?
 					<div style={{position: 'relative'}}>
-						<button onClick={() => removeImage()}
-										style={{position: 'absolute', zIndex: 1, color: 'red', cursor: 'pointer',
-										right: 20, top: 15, fontSize: 20, padding: 10}}>
-						X</button>
+						<button onClick={() => removeImage()} className='deleteImg_Vipbtn'><img src={deleteImg} alt=""/></button>
 						{/* отрисовка на карточке, важный параметр type: str = 'newAd' */}
 						<div className='images-flex_column' onClick={() => setActiveModal(true)}>
 							<Card ad_image={editedImage.value} address={''} title={''}
@@ -84,7 +83,7 @@ const UploadPhotoStandart = ({editedImage, setEditedImage}) => {
 					</div> : null}
 			</div>
 			{(image || activeModal) && (
-				<ModalMain activeModal={activeModal} setActiveModal={setActiveModal} children={
+				<ModalMain activeModal={activeModal} setActiveModal={setActiveModal} touched={false} children={
 				<>
 					{/* изменение картинки */}
 					<Cropper

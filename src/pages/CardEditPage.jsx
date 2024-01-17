@@ -8,12 +8,17 @@ import CheckboxInput from "../ui/characteristicInputs/checkboxInputs";
 import UploadImages from "../components/uploadPhoto/UploadImages";
 import {DataURIToBlob, numberWithSpaces, STATIC_HOST} from "../utils";
 import LoadGIF from "../asserts/load.gif";
+import UploadPhotoPremium from "../components/uploadPhoto/uploadPhotoPremium";
+import UploadPhotoVip from "../components/uploadPhoto/uploadPhotoVip";
+import UploadPhotoStandartPlus from "../components/uploadPhoto/uploadPhotoStandartPlus";
 
 const CardEditPage = () => {
   const navigate = useNavigate()
   let formData = new FormData()
   const [cardData, setCardData] = useState({})
   const [saveImages, setSaveImages] = useState([])
+  const [previewImage, setPreviewImage] = useState('')
+  const [mainImage, setMainImage] = useState(null)
   const [exception, setException] = useState(false)
   const [loading, setLoading] = useState(false)
   const [loadingPage, setLoadingPage] = useState(false)
@@ -91,13 +96,33 @@ const CardEditPage = () => {
       setCharacteristicData(timeArray)
       setLoadingPage(false)
       cardData.imageAds.map(item => {
-        const v4Key = uuidv4()
-        toDataURL(item.name).then(dataUrl => {
-          setSaveImages([...saveImages, {key: v4Key, value: dataUrl}])
+        toDataURL(item.name).then(async dataUrl => {
+          const v4Key = uuidv4()
+          setSaveImages(prevState => [...prevState, {key: v4Key, value: dataUrl}])
         })
       })
+      if (cardData.typeAdId !== 1)
+        cardData.previewImageAds.length > 0 && cardData.previewImageAds.map(item => {
+          toDataURL(item.name).then(dataUrl => {
+            setPreviewImage({change:false, value: dataUrl})
+          })
+        })
     }
   }, [adCharacteristic])
+
+  useEffect(() => {
+    if (saveImages.length > 0) {
+      if (cardData.typeAdId === 1) {
+        let imageValue = undefined
+        cardData.previewImageAds.length > 0 && cardData.previewImageAds.map(item => {
+          toDataURL(item.name).then(dataUrl => {
+            imageValue = dataUrl
+          })
+        })
+        console.log(imageValue)
+      }
+    }
+  }, [saveImages])
 
   useEffect(() => {
     document.title = `Редактирование`
@@ -112,6 +137,13 @@ const CardEditPage = () => {
     formData.append('price', price.replace(/\s+/g, ''))
     formData.append('characteristicsInput', JSON.stringify(enterValue))
     formData.append('characteristicsSelect', JSON.stringify(selectValue))
+    if (cardData.typeAdId !== 1) {
+      let preview = DataURIToBlob(previewImage.value)
+      formData.append('previewImage', preview)
+    } else {
+      let preview = DataURIToBlob(saveImages.filter(item => item.key === mainImage)[0]['value'])
+      formData.append('previewImage', preview)
+    }
     saveImages.map((item) => {
       let image = DataURIToBlob(item.value)
       formData.append('images', image)
@@ -122,12 +154,12 @@ const CardEditPage = () => {
       data: formData,
       headers: {"Content-Type": "multipart/form-data"}
     }).then((res) => {
-      console.log(res.data)
       if (res.data.status === 403) {
         window.alert(res.data.message)
       } else {
         setLoading(false)
         navigate(`/card/${id}`)
+        window.location.reload()
       }
     })
       .catch(err => {
@@ -175,7 +207,7 @@ const CardEditPage = () => {
                 </div>
                 {characteristicData.length > 0 &&
                   characteristicData.map((item, index) => (item['characteristic']['required'] ?
-                      <>
+                      <React.Fragment key={`main-${index}`}>
                         {item['characteristic']['typeCharacteristic']['name'] === 'enter' &&
                           <EnterInput setEnterValue={setEnterValue} key={'enter' + item['characteristicId'] + index}
                                       data={item['characteristic']}
@@ -191,7 +223,7 @@ const CardEditPage = () => {
                                          isRequired={true}
                                          data={item['characteristic']} id={item['characteristicId']}
                                          mainValue={item['value']}/>}
-                      </> : null
+                      </React.Fragment> : null
                   ))
                 }
               </div>
@@ -203,7 +235,7 @@ const CardEditPage = () => {
               <div className="grid character_grid">
                 {characteristicData.length > 0 &&
                   characteristicData.map((item, index) => (!item['characteristic']['required'] ?
-                      <>
+                      <React.Fragment key={`additionally-${index}`}>
                         {item['characteristic']['typeCharacteristic']['name'] === 'enter' &&
                           <EnterInput setEnterValue={setEnterValue} key={'enter' + item['characteristicId'] + index}
                                       data={item['characteristic']}
@@ -219,7 +251,7 @@ const CardEditPage = () => {
                                          isRequired={false}
                                          data={item['characteristic']} id={item['characteristicId']}
                                          mainValue={item['value']}/>}
-                      </> : null
+                      </React.Fragment> : null
                   ))
                 }
               </div>
@@ -234,9 +266,14 @@ const CardEditPage = () => {
                       required></textarea>
           </div>
           <div className='mt-50'>
-
+            {
+              cardData.typeAdId === 4 ? <UploadPhotoPremium editedImage={previewImage} setEditedImage={setPreviewImage}/> :
+                  cardData.typeAdId === 3 ? <UploadPhotoVip editedImage={previewImage} setEditedImage={setPreviewImage}/> :
+                      cardData.typeAdId === 2 ? <UploadPhotoStandartPlus editedImage={previewImage} setEditedImage={setPreviewImage}/> : null
+            }
           </div>
-          <UploadImages cropData={saveImages} setCropData={setSaveImages} mainSrcData={saveImages}/>
+          <UploadImages cropData={saveImages} setCropData={setSaveImages} mainSrcData={saveImages}
+                        mainImage={mainImage} setMainImage={setMainImage}/>
           <div className="create_ad_btns">
             <button className='create_ad_btn' type='submit' onClick={() => {
             }} disabled={loading}>
