@@ -7,7 +7,7 @@ const BorderComponent = ({allData, lastElementRef}) => {
     const [lastDataLength, setLastDataLength] = useState(0)
 
     useEffect(() => {
-        if (allData.length > 0){
+        if (allData.length > 0) {
             setData(prevState => [...prevState, allData.slice(lastDataLength, allData.length + 1)])
             setLastDataLength(allData.length)
         }
@@ -60,10 +60,10 @@ const BorderComponent = ({allData, lastElementRef}) => {
         <div>
             {data.map((datas, indexDatas) => (
                 <div className={'grid'} ref={indexDatas === data.length - 1 ? lastElementRef : null} key={`grid-${indexDatas}`}
-                     style={{gridTemplateColumns: 'repeat(5, 1fr)', gap: 10}}>
+                     style={{gridTemplateColumns: 'repeat(5, 1fr)'}}>
                     {datas.map((item, itemIndex) => (
                         <Card key={`card-${itemIndex}`}
-                            classname={item.typeAdId === 2 ? 's' : item.typeAdId === 3 ? 'l' : 's'}
+                            classname={item.typeAdId === 1 && 'xs' || itemIndex.typeAdId === 2 && 's' || itemIndex.typeAdId === 2 && 'l' }
                             ad_image={`${STATIC_HOST}/${item.previewImageAds[0]?.name}`}
                             title={item.title}
                             address={item.address}
@@ -75,11 +75,6 @@ const BorderComponent = ({allData, lastElementRef}) => {
                     ))}
                 </div>
             ))}
-            {/*{createTable.map((item, index) => (*/}
-            {/*    <div className="grid" key={`grid-${index}`} style={{gridTemplateColumns: `repeat(${((index + 1) % 5 === 0 || (index + 1) % 4 === 0) ? '3' : '5'}, 1fr)`, gap: 10}}>*/}
-            {/*        {item}*/}
-            {/*    </div>*/}
-            {/*))}*/}
         </div>
     );
 };

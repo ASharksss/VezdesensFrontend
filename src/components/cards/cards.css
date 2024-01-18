@@ -96,6 +96,10 @@
     font-size: 24px;
     font-weight: bold;
     margin-bottom: 10px;
+    height: 40px;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
 }
 
 .l .card_content-date {
@@ -129,6 +133,10 @@
     font-size: 32px;
     font-weight: bold;
     margin-bottom: 10px;
+    height: 40px;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
 }
 
 .xxl .card_content-date {
@@ -165,6 +173,10 @@
     font-size: 24px;
     font-weight: bold;
     margin-bottom: 10px;
+    height: 40px;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
 }
 
 .xl .card_content-date {
@@ -198,6 +210,10 @@
     font-size: 18px;
     font-weight: bold;
     margin-bottom: 10px;
+    height: 40px;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
 }
 
 .xs .card_content-date {
