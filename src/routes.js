@@ -3,7 +3,6 @@ import CreateAdPage from "./pages/CreateAdPage";
 import ProfilePage from "./pages/ProfilePage";
 import CardPage from "./pages/CardPage";
 import CatalogBoardPage from "./pages/CatalogBoardPage";
-import LikeAdsPage from "./pages/LikeAdsPage";
 import SimilarPage from "./pages/SimilarPage";
 import SearchPage from "./pages/SearchPage";
 import ServicePage from "./pages/ServicePage";
@@ -13,7 +12,7 @@ import HomePage from "./pages/HomePage";
 export const publicRoutes = [
     {
         path: '/',
-        Component: MainPage
+        Component: HomePage
     }, {
         path: '/home',
         Component: HomePage
@@ -23,9 +22,6 @@ export const publicRoutes = [
     }, {
         path: '/category',
         Component: CatalogBoardPage
-    },{
-        path: '/test',
-        Component: LikeAdsPage
     },{
         path: '/similar',
         Component: SimilarPage

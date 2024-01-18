@@ -1,42 +1,70 @@
-import React, {useRef} from 'react';
+import React, {useRef, useEffect, useState} from 'react';
+import arrowSVG from '../../asserts/icons/arrow.svg'
 
 const SmoothScroll = ({children}) => {
-	const ref = useRef(null);
+    const smoothRef = useRef(null);
+    const [isVisible, setIsVisible] = useState(false);
 
-	const scrollToTop = () => {
-		const element = ref.current;
-		const to = 0;
-		const duration = 1000;
-		const start = element.scrollTop;
-		const change = to - start;
-		let currentTime = 0;
-		const increment = 20;
+    useEffect(() => {
+        const handleScroll = () => {
+            const scrollTopValue = smoothRef.current.scrollTop;
+            if (scrollTopValue > 600 && !isVisible) {
+                setIsVisible(true);
+            } else if (scrollTopValue <= 600 && isVisible) {
+                setIsVisible(false);
+            }
+        }
+        smoothRef.current.addEventListener('scroll', handleScroll);
+        return () => {
+            smoothRef.current.removeEventListener('scroll', handleScroll);
+        };
+    }, [isVisible]);
 
-		const animateScroll = () => {
-			currentTime += increment;
-			element.scrollTop = Math.easeInOutQuad(currentTime, start, change, duration);
-			if (currentTime < duration) {
-				requestAnimationFrame(animateScroll);
-			}
-		};
+    const scrollToTop = () => {
+        const element = smoothRef.current;
+        const to = 0;
+        const duration = 1000;
+        const start = element.scrollTop;
+        const change = to - start;
+        let currentTime = 0;
+        const increment = 20;
 
-		animateScroll();
-	};
+        const animateScroll = () => {
+            currentTime += increment;
+            element.scrollTop = Math.easeInOutQuad(currentTime, start, change, duration);
+            if (currentTime < duration) {
+                requestAnimationFrame(animateScroll);
+            }
+        };
 
-	return (
-		<div ref={ref} style={{height: '100vh', overflow: 'auto'}}>
-			{children}
-			<button onClick={scrollToTop}>Прокрутить наверх</button>
-		</div>
-	);
+        animateScroll();
+    };
+
+    return (
+        <div ref={smoothRef} style={{height: '100vh', overflow: 'auto'}}>
+            {children}
+            {isVisible && <button onClick={scrollToTop} id={'buttonUp'} style={{
+                position: 'absolute',
+                right: 20,
+                bottom: 10,
+                display: 'flex',
+                alignItems: 'center',
+                border: '1px solid',
+                padding: 5,
+                borderRadius: 15
+            }}>
+                Наверх <img src={arrowSVG} alt="Прокрутить наверх" width={32} style={{marginLeft: '5px'}}/>
+            </button>}
+        </div>
+    );
 };
 
 // Функция для плавной анимации скроллинга
 Math.easeInOutQuad = function (t, b, c, d) {
-	t /= d / 2;
-	if (t < 1) return (c / 2) * t * t + b;
-	t--;
-	return (-c / 2) * (t * (t - 2) - 1) + b;
+    t /= d / 2;
+    if (t < 1) return (c / 2) * t * t + b;
+    t--;
+    return (-c / 2) * (t * (t - 2) - 1) + b;
 };
 
 export default SmoothScroll;

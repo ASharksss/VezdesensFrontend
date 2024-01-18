@@ -24,7 +24,7 @@ const Card = ({classname, ad_image, title, address, date, price, id, favorite, t
     );
   }
   return (
-    <div className={'card ' + classname}>
+    <div className={'card ' + classname} title={title}>
       <div className="card_content">
         {isAuth ? <Favorite classname={'in_card'} id={id} favorite={favorite}/> : null}
         <NavLink to={`/card/${id}`} className='black'>

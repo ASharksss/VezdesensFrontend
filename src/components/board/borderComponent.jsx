@@ -1,8 +1,18 @@
-import React, {useMemo} from 'react';
+import React, {useEffect, useMemo, useState} from 'react';
 import Card from "../cards/Card";
 import {STATIC_HOST} from "../../utils";
 
 const BorderComponent = ({allData, lastElementRef}) => {
+    const [data, setData] = useState([])
+    const [lastDataLength, setLastDataLength] = useState(0)
+
+    useEffect(() => {
+        if (allData.length > 0){
+            setData(prevState => [...prevState, allData.slice(lastDataLength, allData.length + 1)])
+            setLastDataLength(allData.length)
+        }
+    }, [allData])
+
     const createTable = useMemo(() => {
         const combined = [];
         let timeCombined = [];
@@ -48,11 +58,28 @@ const BorderComponent = ({allData, lastElementRef}) => {
 
     return (
         <div>
-            {createTable.map((item, index) => (
-                <div className="grid" key={`grid-${index}`} style={{gridTemplateColumns: `repeat(${((index + 1) % 5 === 0 || (index + 1) % 4 === 0) ? '3' : '5'}, 1fr)`, gap: 10}}>
-                    {item}
+            {data.map((datas, indexDatas) => (
+                <div className={'grid'} ref={indexDatas === data.length - 1 ? lastElementRef : null} key={`grid-${indexDatas}`}
+                     style={{gridTemplateColumns: 'repeat(5, 1fr)', gap: 10}}>
+                    {datas.map((item, itemIndex) => (
+                        <Card key={`card-${itemIndex}`}
+                            classname={item.typeAdId === 2 ? 's' : item.typeAdId === 3 ? 'l' : 's'}
+                            ad_image={`${STATIC_HOST}/${item.previewImageAds[0]?.name}`}
+                            title={item.title}
+                            address={item.address}
+                            price={item.price}
+                            favorite={item.favorites}
+                            date={item.date}
+                            id={item.id}
+                        />
+                    ))}
                 </div>
             ))}
+            {/*{createTable.map((item, index) => (*/}
+            {/*    <div className="grid" key={`grid-${index}`} style={{gridTemplateColumns: `repeat(${((index + 1) % 5 === 0 || (index + 1) % 4 === 0) ? '3' : '5'}, 1fr)`, gap: 10}}>*/}
+            {/*        {item}*/}
+            {/*    </div>*/}
+            {/*))}*/}
         </div>
     );
 };

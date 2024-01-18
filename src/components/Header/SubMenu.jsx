@@ -4,7 +4,6 @@ import {useSelector} from "react-redux";
 import messages from '../../asserts/icons/messages_icon.svg'
 import favorite from '../../asserts/icons/favorite_icon.svg'
 import support from '../../asserts/icons/support_icon.svg'
-import profile_avatar from "../../asserts/profile/profile_avatar61.svg"
 import {AVATAR_HOST} from "../../utils";
 
 const SubMenu = ({setOpenSubMenu}) => {
@@ -44,7 +43,7 @@ const SubMenu = ({setOpenSubMenu}) => {
         <div className="subMenu_avatar">
           <img src="" alt="" className='subMenu-img'/>
           <div className="subMenu_avatar-info">
-            <img src={`${AVATAR_HOST}/${user.items['userAvatars.name']}`} width={61} alt="Аватар профиля"/>
+            <img style={{borderRadius: '50%'}} src={`${AVATAR_HOST}/${user.items['userAvatars.name']}`} width={61} alt="Аватар профиля"/>
             <div className='subMenu_info'>
               {
                 !isLoading ?

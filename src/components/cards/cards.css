@@ -56,7 +56,11 @@
 }
 
 .s .card_content-title {
-    font-size: 24px;
+    font-size: 20px;
+    height: 40px;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
     font-weight: bold;
     margin-bottom: 10px;
 }
