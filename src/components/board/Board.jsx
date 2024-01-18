@@ -7,6 +7,7 @@ import Card from "../cards/Card";
 import Ad from "../cards/Ad";
 import ad_image_xxl from '../../asserts/ad_image_xxl.png'
 import ad_banner from '../../asserts/ad_banner.png'
+import ad_banner_2 from '../../asserts/adVlaga.png'
 import {fetchPremium} from "../../redux/slices/boardSlice";
 import {group} from "../../utils";
 import UnionBoard from "./BoardBlocks/UnionBoard";
@@ -83,7 +84,7 @@ const Board = () => {
 							ad_image={premium.items[1].previewImageAds.length > 0 ? premium.items[1].previewImageAds : ad_image_xxl}
 							title={premium.items[1].title} address={premium.items[1].address} price={premium.items[1].price}
 							favorite={premium.items[1].favorites} date={premium.items[1].date} id={premium.items[1].id}/> : null}
-			<Ad />
+			<Ad image={ad_banner_2}/>
 			{(blockData.length > 0 || commercialData.length > 0) ?
 				<UnionBoard blockData={blockData} commercialData={commercialData}/> : null}
 			{loading ? <p>Загрузка...</p> : null}

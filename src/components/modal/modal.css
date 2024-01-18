@@ -32,7 +32,6 @@
 
 .modal_content.activeModal {
     transform: scale(1);
-    width: 800px;
 }
 
 
