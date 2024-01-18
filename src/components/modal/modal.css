@@ -105,6 +105,11 @@
     margin-bottom: 30px;
 }
 
+.description_modal-text {
+    font-family: OpenSansRegular;
+    white-space: pre-line
+}
+
 .phone_modal {
     display: flex;
     flex-direction: column;

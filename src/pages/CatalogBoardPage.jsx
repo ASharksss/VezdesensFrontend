@@ -177,6 +177,7 @@ const CatalogBoardPage = () => {
 					onClick={showAds ? handleShowAdsByParams : null} disabled={!showAds}
 					>Показать</button>
 				</div>
+
 				<div className="catalogBoardPage_cards" style={{minWidth: '900px'}}>
 					{
 						data.length === 0 ?

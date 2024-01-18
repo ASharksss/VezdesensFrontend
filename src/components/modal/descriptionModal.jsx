@@ -58,8 +58,8 @@ const DescriptionModal = ({adCharacteristicSelects, adCharacteristicInputs, desc
   return (
     <div className='description_modal'>
       <h1 className='description_modal-title'>Описание</h1>
-      <p className='description_modal-text'>
-        {description}
+      <p>
+        <pre className='description_modal-text'>{description}</pre>
       </p>
       <br/>
       <h1 className='description_modal-title'>Характеристики</h1>

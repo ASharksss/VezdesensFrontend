@@ -32,7 +32,7 @@
     position: relative;
     width: 389px;
     height: 521px;
-    margin-left: 20px;
+    margin-left: -20px;
     transition: .25s;
     cursor: pointer;
     border-radius: 20px;
@@ -70,7 +70,7 @@
 .card_description {
     width: 432px;
     height: 315px;
-    margin-left: 45px;
+    margin-left: 10px;
     overflow: hidden;
 }
 
@@ -96,6 +96,12 @@
     color: #838690;
     font-size: 14px;
     line-height: 20.68px;
+    white-space: pre-line
+}
+
+.card_description-pre {
+    white-space: pre-line;
+    font-family: OpenSansRegular;
 }
 
 .card_info {
