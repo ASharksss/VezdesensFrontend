@@ -175,7 +175,7 @@ const CreateAdPage = () => {
                 <option hidden>Выберите подкатегорию</option>
                 {
                   categories.subCategories.items.map((item, index) => (
-                    <option key={'subCategory' + index} value={item.id}>{item.name}</option>
+                    <option key={'subCategory' + index} value={item.id}>{item.name.indexOf('/') > 0 ? item.name.split('/')[1] : item.name}</option>
                   ))
                 }
               </select>

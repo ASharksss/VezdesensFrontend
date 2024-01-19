@@ -9,13 +9,15 @@ const StarComponent = ({average, type, handleClick}) => {
 	const emptyStars = 5 - fullStars - (halfStars ? 1 : 0);
 	if (type === 'write') {
 		return (
-			<div >
+			<div style={{cursor: 'pointer'}}>
 				{[...Array(fullStars)].map((_, index) => (
-					<img key={`full-${index}`} src={fullStarSVG} onClick={() => handleClick(index, 'full')} alt="Full Star" width='26'/>
+					<img key={`full-${index}`} src={fullStarSVG} id={`full-${index}`}
+						 onClick={() => handleClick(index, 'full')} alt="Full Star" width='26'/>
 				))}
 				{halfStars && <img src={halfStarSVG} alt="Half Star" width='26'/>}
 				{[...Array(emptyStars)].map((_, index) => (
-					<img key={`empty-${index}`} src={emptyStarSVG} onClick={() => handleClick(index, 'empty')} alt="Empty Star" width='26'/>
+					<img key={`empty-${index}`} src={emptyStarSVG} id={`empty-${index}`}
+						 onClick={() => handleClick(index, 'empty')} alt="Empty Star" width='26'/>
 				))}
 			</div>
 		);

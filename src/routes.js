@@ -32,9 +32,9 @@ export const publicRoutes = [
         path: '/service',
         Component: ServicePage
     },{
-			path: '/profile/:id',
-			Component: ProfilePage
-		}
+        path: '/profile/:id',
+        Component: ProfilePage
+    }
 ]
 
 export const privateRoutes = [

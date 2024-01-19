@@ -15,7 +15,7 @@ const MessageItem = ({data, seller, status, image}) => {
       </div>
 			<div className={'flex column'} style={{marginLeft: 'auto', marginRight: 15}}>
 				<p className='message_info-date' title={formatDateToRelative(new Date(data.lastMessage))}>{relativeDate(new Date(data.lastMessage))}</p>
-				{data.unreadCount !== 0 ?
+				{data.unreadCount !== '0' ?
 				<span style={{backgroundColor:'red', color: 'white', padding: 5, borderRadius: '50%', width: 32, textAlign: 'center'}}>{data.unreadCount}</span> : null}
 			</div>
     </div>

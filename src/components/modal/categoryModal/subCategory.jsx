@@ -43,7 +43,7 @@ const SubCategory = ({item, objects, category}) => {
 			<div className="objects_list flex ">
 				<span className='modal_subcategory-subtitle'
 							style={{cursor: 'pointer'}}
-							onClick={() => handleShowCategory(null, category === 3 ? 'service' : null)}>{item.name}</span>
+							onClick={() => handleShowCategory(null, category === 3 ? 'service' : null)}>{item.name.indexOf('/') > 1 ? item.name.split('/')[0] : item.name}</span>
 				<img src={arrow_category} className='modal_subcategory-icon'/>
 			</div>
 			<div>

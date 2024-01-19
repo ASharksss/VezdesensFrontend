@@ -48,7 +48,7 @@ const CategoryAccordion = ({
               type="checkbox" name="category" id={`cat_${index}`} className='cat_accordion-radio'/>
             <label className='cat_accordion-title' htmlFor={`cat_${index}`}
                    onClick={() => handleCheckedCategory(index, item)}>
-              {item.name}
+              {item.name.indexOf('/') > 1 ? item.name.split('/')[0] : item.name}
             </label>
             {selectedCategory.length > 0 ? (
               <div className="cat_accordion-objects">

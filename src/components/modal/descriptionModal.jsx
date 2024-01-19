@@ -31,8 +31,8 @@ const DescriptionModal = ({adCharacteristicSelects, adCharacteristicInputs, desc
     return (
       <>
         {Object.keys(groupedInputs).map((key, index) => (
-          <div key={`adCharacteristicInputs-group=${index}`} className={'flex'}>
-            <p>{key}:</p>
+          <div key={`adCharacteristicInputs-group=${index}`} className={'grid'} style={{gridTemplateColumns: 'repeat(2, 1fr)', marginBottom: 10}}>
+            <p className={'flex items-center'}>{key.trim()}:</p>
             <ul>
               {groupedInputs[key].map((value, i) => (
                 <li key={`adCharacteristicInputs-item=${i}`}>{value}</li>
@@ -41,9 +41,9 @@ const DescriptionModal = ({adCharacteristicSelects, adCharacteristicInputs, desc
           </div>
         ))}
         {Object.keys(groupedSelects).map((key, index) => (
-          <div key={`adCharacteristicSelects-group=${index}`} className={'flex'}>
-            <p>{key}:</p>
-            <ul className={'ml-10'}>
+          <div key={`adCharacteristicSelects-group=${index}`} className={'grid'} style={{gridTemplateColumns: 'repeat(2, 1fr)', marginBottom: 10}}>
+            <p className={'flex items-center'}>{key.trim()}:</p>
+            <ul style={{marginBottom: 5}}>
               {groupedSelects[key].map((value, i) => (
                 <li key={`adCharacteristicSelects-item=${i}`}>{value}</li>
               ))}

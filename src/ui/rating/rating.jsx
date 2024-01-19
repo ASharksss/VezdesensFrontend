@@ -6,6 +6,7 @@ import writeReview from "../../components/modal/writeReview";
 import WriteReview from "../../components/modal/writeReview";
 import {useSelector} from "react-redux";
 import {NavLink} from "react-router-dom";
+import {pluralRusVariant} from "../../utils";
 
 
 const Rating = ({data = [], type='user', userId, setDataRating}) => {
@@ -25,7 +26,7 @@ const Rating = ({data = [], type='user', userId, setDataRating}) => {
 					<div className='flex' style={{alignItems: 'center', justifyContent: 'space-evenly'}}>
 							<span className='rating-text'>{average}</span>
 							<StarComponent average={average}/>
-							<p className='count_grade'> {data.length} отзыв</p>
+							<p className='count_grade'> {data.length} {["отзыв", "отзыва", "отзывов"][pluralRusVariant(parseInt(data.length))]}</p>
 					</div>
 			);
 		else
@@ -41,7 +42,7 @@ const Rating = ({data = [], type='user', userId, setDataRating}) => {
 							<button className='rating_btn' onClick={() => setActiveModal(true)}>Написать отзыв</button> : null
 							: <NavLink style={{textAlign: 'center'}} className='rating_btn' to={'/signin'}>Войти</NavLink>}
 					</div>
-					<ModalMain activeModal={activeModal} setActiveModal={setActiveModal}
+					<ModalMain touched={false} activeModal={activeModal} setActiveModal={setActiveModal}
 										 children={<WriteReview userId={userId} setActiveModal={setActiveModal} setDataRating={setDataRating}/>}/>
 				</div>
 			);
