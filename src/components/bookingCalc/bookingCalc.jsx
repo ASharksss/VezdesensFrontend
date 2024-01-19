@@ -14,7 +14,7 @@ const BookingCalc = ({bookingDateStart, bookingDateEnd, setBookingStartDate, set
 		//Переводим в милисекунды
 		const diff = end.getTime() - start.getTime();
 		// Переводим в дни
-		setDays(diff / (1000 * 60 * 60 * 24) + 1)
+		setDays(diff / (1000 * 60 * 60 * 24))
 	}
 
 	useEffect(() => {

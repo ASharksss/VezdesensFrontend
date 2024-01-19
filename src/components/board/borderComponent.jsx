@@ -1,6 +1,8 @@
 import React, {useEffect, useMemo, useState} from 'react';
 import Card from "../cards/Card";
 import {STATIC_HOST} from "../../utils";
+import SmallBlocks from "./BoardBlocks/SmallBlocks";
+import CommercialBlocksLss from "./BoardBlocks/CommercialBlocksLSS";
 
 const BorderComponent = ({allData, lastElementRef}) => {
     const [data, setData] = useState([])
@@ -59,20 +61,9 @@ const BorderComponent = ({allData, lastElementRef}) => {
     return (
         <div>
             {data.map((datas, indexDatas) => (
-                <div className={'grid'} ref={indexDatas === data.length - 1 ? lastElementRef : null} key={`grid-${indexDatas}`}
-                     style={{gridTemplateColumns: 'repeat(5, 1fr)'}}>
-                    {datas.map((item, itemIndex) => (
-                        <Card key={`card-${itemIndex}`}
-                            classname={item.typeAdId === 1 && 'xs' || itemIndex.typeAdId === 2 && 's' || itemIndex.typeAdId === 2 && 'l' }
-                            ad_image={`${STATIC_HOST}/${item.previewImageAds[0]?.name}`}
-                            title={item.title}
-                            address={item.address}
-                            price={item.price}
-                            favorite={item.favorites}
-                            date={item.date}
-                            id={item.id}
-                        />
-                    ))}
+                <div ref={indexDatas === data.length - 1 ? lastElementRef : null} key={`grid-${indexDatas}`}>
+                    <SmallBlocks items={datas} />
+                    <CommercialBlocksLss items={datas}/>
                 </div>
             ))}
         </div>
