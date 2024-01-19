@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState, useEffect, useRef} from 'react';
 import './filters.css'
 
 const ChoiceFilter = ({name, data, id, setChoiceFilter}) => {// name: str = передается имя, по умолчанию не отображается
@@ -9,6 +9,7 @@ const ChoiceFilter = ({name, data, id, setChoiceFilter}) => {// name: str = пе
   const [open, setOpen] = useState(false)
   const [value, setValue] = useState([]) // временное хранилище для компонента, чтобы записывать id объектов
                                          // value: [List(int)] = [1,4,11]
+	const wrapperRef = useRef(null)
 
   const handleChecked = (event) => {
     const element = parseInt(event.target.value)
@@ -43,8 +44,19 @@ const ChoiceFilter = ({name, data, id, setChoiceFilter}) => {// name: str = пе
     }
 	}, [id, value]); // триггеры по родительскому id и значению из временного хранилища
 
+
+	const handleClickOutside = (event) => {
+		if (wrapperRef.current && !wrapperRef.current.contains(event.target))
+			setOpen(false)
+	}
+
+	useEffect(() => {
+		document.addEventListener('mousedown', handleClickOutside)
+		return () => document.removeEventListener('mousedown', handleClickOutside)
+	}, [])
+
   return (
-    <div className='filter_item'>
+    <div className='filter_item' ref={wrapperRef}>
       <div className="filter_select">
         <div className="filter_label">{name ? name : null}</div>
         <div className="filter_select-header" onClick={() => setOpen(!open)}>Выберите...</div>

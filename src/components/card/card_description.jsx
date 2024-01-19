@@ -9,7 +9,7 @@ const CardDescription = ({card_number, card_time, card_views, desription, setAct
 
             <h1 className='card_description-title'>Описание</h1>
             <p className='card_description-text'>
-              {desription}
+              <pre className='card_description-pre'>{desription}</pre>
             </p>
 
 

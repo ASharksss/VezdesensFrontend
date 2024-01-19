@@ -1,5 +1,12 @@
 .catalogBoardPage {
     display: flex;
+    width: 1398px;
+    align-items: flex-start;
+}
+
+.catalogBoardPage_categories {
+
+    margin-right: 15px;
 }
 
 .catalogBoardPage-title {
