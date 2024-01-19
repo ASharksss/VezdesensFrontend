@@ -46,7 +46,7 @@ const ProfileCard = ({avatar, dataUser}) => {
 			</div> : null : null}
 			{
 				modalShow ?
-					<ModalMain activeModal={modalShow} setActiveModal={setModalShow}
+					<ModalMain touched={false} activeModal={modalShow} setActiveModal={setModalShow}
 										 children={<RatingModal data={dataRating} userId={dataUser.id} setDataRating={setDataRating}
 																						setActiveModal={setModalShow}/>}/> : null
 			}

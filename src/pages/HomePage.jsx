@@ -5,11 +5,11 @@ import {useLocation} from "react-router-dom";
 import useLoadingCard from "../redux/hooks/useLoadingCard";
 import BorderComponent from "../components/board/borderComponent";
 import Card from "../components/cards/Card";
-import ad_image_xxl from "../asserts/ad_image_xxl.png";
 import Ad from "../components/cards/Ad";
 import ad_banner from "../asserts/ad_banner.png";
 import ad_banner_2 from '../asserts/adVlaga.png'
 import {fetchPremium} from "../redux/slices/boardSlice";
+import {STATIC_HOST} from "../utils";
 
 const HomePage = () => {
     const location = useLocation();
@@ -61,13 +61,13 @@ const HomePage = () => {
         <>
             {premium.items[0] !== undefined ?
                 <Card classname={'xxl'}
-                      ad_image={premium.items[0].previewImageAds.length > 0 ? premium.items[0].previewImageAds : ad_image_xxl}
+                      ad_image={`${STATIC_HOST}/${premium.items[0].previewImageAds[0]?.name}`}
                       title={premium.items[0].title} address={premium.items[0].address} price={premium.items[0].price}
                       favorite={premium.items[0].favorites} date={premium.items[0].date} id={premium.items[0].id}/> : null}
             <Ad image={ad_banner}/>
             {premium.items[1] !== undefined ?
                 <Card classname={'xxl'}
-                      ad_image={premium.items[1].previewImageAds.length > 0 ? premium.items[1].previewImageAds : ad_image_xxl}
+                      ad_image={`${STATIC_HOST}/${premium.items[1].previewImageAds[0]?.name}`}
                       title={premium.items[1].title} address={premium.items[1].address} price={premium.items[1].price}
                       favorite={premium.items[1].favorites} date={premium.items[1].date} id={premium.items[1].id}/> : null}
             <Ad image={ad_banner_2}/>

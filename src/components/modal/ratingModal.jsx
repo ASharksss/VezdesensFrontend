@@ -46,7 +46,10 @@ const RatingModal = ({data, userId, setActiveModal, setDataRating}) => {
 	};
 	return (
 		<div className='rating_modal'>
-			<h1 className='rating_modal-title'>Отзывы о пользователе</h1>
+			<div className={'flex'} style={{justifyContent: 'space-between', alignItems: 'flex-start'}}>
+				<h1 className='rating_modal-title'>Отзывы о пользователе</h1>
+				<button onClick={() => setActiveModal(false)} style={{fontSize: '20px', padding: 5}}>X</button>
+			</div>
 			<div className='rating_modal-text'>
 				<Rating type='ratings' data={data} userId={userId} setActiveModal={setActiveModal} setDataRating={setDataRating}/>
 				<div style={{marginTop: '10px'}}>

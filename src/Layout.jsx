@@ -7,13 +7,14 @@ const Layout = () => {
 	const location = useLocation();
 
 	useEffect(() => {
-		localStorage.setItem('last_path', location.pathname + location.search)
+		if (location.pathname !== '/signin' && location.pathname !== '/signup')
+			localStorage.setItem('last_path', location.pathname + location.search)
 	}, [location.pathname]);
 
 	return (
 		<SmoothScroll>
 			<div className='container'>
-				<Header/>
+				{(location.pathname !== '/signin' && location.pathname !== '/signup') && <Header/> }
 				<Outlet/>
 			</div>
 		</SmoothScroll>

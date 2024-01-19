@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useState} from 'react';
 import './modal.css'
 import back_btn from '../../asserts/icons/back_btn.svg'
 import StarComponent from "../../ui/rating/starComponent";
@@ -36,7 +36,8 @@ const WriteReview = ({userId, setActiveModal, setDataRating}) => {
 				setAverage(index + 1)
 				break
 			case 'empty':
-				setAverage(index + 2)
+				if (index === 0) setAverage(average + 1)
+				else setAverage(index + 2)
 				break
 			default:
 				break

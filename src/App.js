@@ -48,8 +48,10 @@ function App() {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/signin" element={<SignIn/>}/>
-        <Route path="/signup" element={<SignUp/>}/>
+        <Route element={<Layout/>}>
+          <Route path="/signin" element={<SignIn/>}/>
+          <Route path="/signup" element={<SignUp/>}/>
+        </Route>
         <Route path="/addPage" element={<AddPage/>}/>
         <Route path="/addSubCategory" element={<AddSubCategory/>}/>
         <Route path="/addObject" element={<AddObject/>}/>
