@@ -38,16 +38,15 @@
 .modalCat {
     width: 100%;
     height: 100%;
-
+    display: flex;
+    justify-content: right;
 
     background-color: rgba(47, 47, 47, 0.7);
-    position: fixed;
+    position: absolute;
     top: 0;
     left: 0;
     z-index: 1;
     display: flex;
-    justify-content: center;
-    align-items: center;
     opacity: 0;
     transition: .5s;
     pointer-events: none;
@@ -62,9 +61,6 @@
 .modalCat_content {
     width: 1332px;
     height: 693px;
-    position: absolute;
-    top: 160px;
-    left: 379px;
     text-align: center;
     border-bottom-left-radius: 50px;
     border-bottom-right-radius: 50px;

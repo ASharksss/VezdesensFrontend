@@ -96,6 +96,7 @@
     font-size: 24px;
     font-weight: bold;
     margin-bottom: 10px;
+    width: 250px;
     height: 40px;
     white-space: nowrap;
     text-overflow: ellipsis;
