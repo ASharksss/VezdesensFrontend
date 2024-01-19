@@ -59,6 +59,9 @@
 }
 
 .modalCat_content {
+    position: absolute;
+    top: 160px;
+    right: 209px;
     width: 1332px;
     height: 693px;
     text-align: center;
