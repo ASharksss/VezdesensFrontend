@@ -1,7 +1,14 @@
 import React from 'react';
 import MyAd from "./myAd";
 
-const ActiveAds = ({dataUser, setDataAds}) => {
+const ActiveAds = ({dataUser, setDataAds, loading}) => {
+	if (loading) {
+		return (
+			<div>
+				Загрузка...
+			</div>
+		)
+	}
 
   return (
     <div>

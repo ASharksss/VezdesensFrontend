@@ -1,7 +1,14 @@
 import React from 'react';
 import MyAd from "./myAd";
 
-const ArchiveAd = ({typeAd, dataUser, setDataAds}) => {
+const ArchiveAd = ({dataUser, setDataAds, loading}) => {
+	if (loading) {
+		return (
+			<div>
+				Загрузка...
+			</div>
+		)
+	}
   return (
     <div>
       {dataUser.ads.length === 0 ? <p>Ничего нет</p>

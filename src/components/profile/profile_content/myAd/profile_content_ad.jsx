@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useRef, useState} from 'react';
 import './myAd.css'
 import '../../../categoryAccordion/categoryAccordion.css'
 import ActiveAds from "./ActiveAds";
@@ -8,14 +8,50 @@ import arrow_icon from '../../../../asserts/icons/arrow_down.svg'
 
 const ProfileContentAd = ({dataUser, setDataAds}) => {
 
+	const choiceRef = useRef(null)
 	const [search, setSearch] = useState('')
 	const [typeAd, setTypeAd] = useState('activeAd')
 	const [open, setOpen] = useState(false)
+	const [loading, setLoading] = useState(false)
+	const [data, setData] = useState([...dataUser])
+	const [choice, setChoice] = useState('old')
+	const [choiceTitle, setChoiceTitle] = useState('Сначала старые')
 
-	const dataSearch = {
-		...dataUser,
-		ads: dataUser.filter(item => item.title.toLowerCase().includes(search.toLowerCase()))
+	let dataSearch = {
+		...data,
+		ads: data.filter(item => item.title.toLowerCase().includes(search.toLowerCase()))
 	}
+
+	const handleClickOutside = (event) => {
+		if (choiceRef.current && !choiceRef.current.contains(event.target))
+			setOpen(false)
+	}
+
+	useEffect(() => {
+		document.addEventListener('mousedown', handleClickOutside)
+		return () => document.removeEventListener('mousedown', handleClickOutside)
+	}, [])
+
+	useEffect(() => {
+		if (choice === 'new') {
+			setLoading(true)
+			setData(data.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt)))
+		} else if (choice === 'old') {
+			setLoading(true)
+			setData(data.sort((a, b) => new Date(a.createdAt) - new Date(b.createdAt)))
+		} else if (choice === 'views_down') {
+			setLoading(true)
+			setData(data.sort((a, b) => new Date(a.views) - new Date(b.views)))
+		} else if (choice === 'views_up') {
+			setLoading(true)
+			setData(data.sort((a, b) => new Date(b.views) - new Date(a.views)))
+		}
+	}, [choice])
+
+	useEffect(() => {
+		if (loading)
+			setLoading(false)
+	}, [loading])
 
 	return (
 		<div className='profile_content_ad'>
@@ -41,14 +77,32 @@ const ProfileContentAd = ({dataUser, setDataAds}) => {
 				<div className='flex'>
 					<div className="content_ads_filter">
 						<div className="filter">
-							<div className="ads_filter_select">
+							<div className="ads_filter_select" ref={choiceRef}>
 								<div className="flex items-center space-between ads_filter-header" onClick={() => setOpen(!open)}>
-									Сначала новые
+									{choiceTitle}
 									<img src={arrow_icon} alt=""/>
 								</div>
 								<div className={ open ? 'block ads_filter_select-body' : 'filter_select-body-none'}>
-									<div className='filter_select-item' onClick={() => setOpen(!open)}>Сначала новые</div>
-									<div className='filter_select-item' onClick={() => setOpen(!open)}>Сначала старые</div>
+									<div className='filter_select-item' onClick={() => {
+										setChoice('old')
+										setChoiceTitle('Сначала старые')
+										setOpen(!open)
+									}}>Сначала старые</div>
+									<div className='filter_select-item' onClick={() => {
+										setChoice('new')
+										setChoiceTitle('Сначала новые')
+										setOpen(!open)
+									}}>Сначала новые</div>
+									<div className='filter_select-item' onClick={() => {
+										setChoice('views_down')
+										setChoiceTitle('По просмотрам ↑')
+										setOpen(!open)
+									}}>По просмотрам ↑</div>
+									<div className='filter_select-item' onClick={() => {
+										setChoice('views_up')
+										setChoiceTitle('По просмотрам ↓')
+										setOpen(!open)
+									}}>По просмотрам ↓</div>
 								</div>
 							</div>
 						</div>
@@ -64,8 +118,8 @@ const ProfileContentAd = ({dataUser, setDataAds}) => {
 
 			</div>
 			{
-				typeAd === 'archiveAd' ? <ArchiveAd dataUser={dataSearch} setDataAds={setDataAds}/> :
-					typeAd === 'activeAd' ? <ActiveAds dataUser={dataSearch} setDataAds={setDataAds}/> : 'нишо'
+				typeAd === 'archiveAd' ? <ArchiveAd dataUser={dataSearch} setDataAds={setDataAds} loading={loading}/> :
+					typeAd === 'activeAd' ? <ActiveAds dataUser={dataSearch} setDataAds={setDataAds} loading={loading}/> : 'нишо'
 			}
 		</div>
 	);
