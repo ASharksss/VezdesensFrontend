@@ -57,22 +57,16 @@ const BookingCalc = ({bookingDateStart, bookingDateEnd, setBookingStartDate, set
 						selectRange
 					/>
 
-					<div className='mt-50'>
-						<div className='flex items-center booking_info-title'><span
-							className='booking_info-name'>Количество дней:</span></div>
-						<div className='flex items-center booking_info-title'><span
-							className='booking_info-name'>Стоимость 1 дня:</span></div>
-						<div className='flex items-center booking_info-title'><span
-							className='booking_info-name'>Общая стоимость: </span></div>
-					</div>
-
 
 				</div>
 				<div className="booking_endDate flex column">
 					<div className='mt-50'>
+						<label className='label_calc'>Количество дней</label>
 						<span className='booking_info-text'>{bookingDateEnd === null ? 0 :
 							<span>{days}</span>}</span>
+						<label className='label_calc'>Стоимость 1 дня</label>
 						<span className='booking_info-text'>{items.length > 0 ? items[0].price : 0 + ' р'}</span>
+						<label className='label_calc'>Общая сумма</label>
 						<span className='booking_info-text'>{(bookingDateEnd === null && items.length === 0) ? null :
 							<span>{items[0].price * days + ' р'}</span>}</span>
 					</div>

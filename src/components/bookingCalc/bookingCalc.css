@@ -65,3 +65,9 @@
     font-family: OpenSansBold;
     margin-bottom: 17px;
 }
+
+.label_calc {
+    display: block;
+    font-family: OpenSansBold;
+    margin-bottom: 10px;
+}
