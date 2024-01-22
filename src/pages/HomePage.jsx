@@ -25,6 +25,7 @@ const HomePage = () => {
 
     useEffect(() => {
         if (location.pathname === '/') {
+						document.title = 'Главная'
             dispatch(fetchPremium())
         }
     }, [location.pathname])

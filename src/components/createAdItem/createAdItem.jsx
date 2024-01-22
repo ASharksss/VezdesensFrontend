@@ -4,12 +4,12 @@ import photoStandart from "../../asserts/icons/upload_stanrat.svg";
 import photoStandartPlus from "../../asserts/icons/upload_standartPlus.svg";
 import photoPremium from "../../asserts/icons/upload_premium.svg";
 
-const CreateAdItem = ({setTypeAd, typeAd, premium, categories}) => {
+const CreateAdItem = ({setTypeAd, typeAd}) => {
 
 
-  return (
-    <>
-      <form>
+	return (
+		<>
+			<form>
 				<div className="">
 					<div className="create_ad_size-item">
 						<input id='standart' type="radio" name='standart' className='create_ad_size-checkbox'
@@ -76,34 +76,33 @@ const CreateAdItem = ({setTypeAd, typeAd, premium, categories}) => {
 							</div>
 						</div>
 					</div>
-					{premium ?
-						<div className="create_ad_size-item">
-							<input id='premium' type="radio" name='premium' className='create_ad_size-checkbox'
-										 onChange={() => setTypeAd('premium')} checked={typeAd === 'premium'}
-							/>
-							<div className="create_ad_size-item-description">
-								<div className='flex items-center'>
-									<label htmlFor="premium" className='create_ad_size-item-title'>Премиум</label>
-									<span className='create_ad_size-item-cost'>3000</span>
-								</div>
-								<p className='create_ad_size-item-text'>Формат изображения , размер изображения такой то такой то,
-									преимущества и недостатки если выберешь такой размер объявления,
-									сколько по времени будет висеть объявление
-								</p>
+					<div className="create_ad_size-item">
+						<input id='premium' type="radio" name='premium' className='create_ad_size-checkbox'
+									 onChange={() => setTypeAd('premium')} checked={typeAd === 'premium'}
+						/>
+						<div className="create_ad_size-item-description">
+							<div className='flex items-center'>
+								<label htmlFor="premium" className='create_ad_size-item-title'>Премиум</label>
+								<span className='create_ad_size-item-cost'>3000</span>
 							</div>
-							{categories.premium ? <div>
-								<div className={`create_ad_block premium ${typeAd === 'premium' ? 'checked_type_ad' : ''}`}
-										 onClick={() => setTypeAd('premium')}>
-									<img src={photoPremium} alt=""/>
-								</div>
-							</div> : null}
-						</div> : null}
+							<p className='create_ad_size-item-text'>Формат изображения , размер изображения такой то такой то,
+								преимущества и недостатки если выберешь такой размер объявления,
+								сколько по времени будет висеть объявление
+							</p>
+						</div>
+						<div>
+							<div className={`create_ad_block premium ${typeAd === 'premium' ? 'checked_type_ad' : ''}`}
+									 onClick={() => setTypeAd('premium')}>
+								<img src={photoPremium} alt=""/>
+							</div>
+						</div>
+					</div>
 				</div>
 
 
-      </form>
-    </>
-  );
+			</form>
+		</>
+	);
 };
 
 export default CreateAdItem;

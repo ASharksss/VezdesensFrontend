@@ -263,7 +263,7 @@ const CreateAdPage = () => {
 
 						<div className="create_ad-size">
 							<h2 className='create_ad-size-title'>Размер объявления</h2>
-							<CreateAdItem setTypeAd={setTypeAd} typeAd={typeAd} premium={categories.premium} categories={categories}/>
+							<CreateAdItem setTypeAd={setTypeAd} typeAd={typeAd}/>
 						</div>
 
 						{typeAd !== 'standart' ? <BookingCalc typeAd={typeAd} setBookingEndDate={setBookingEndDate}
