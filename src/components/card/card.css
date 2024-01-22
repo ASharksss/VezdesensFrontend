@@ -102,6 +102,15 @@
 .card_description-pre {
     white-space: pre-line;
     font-family: OpenSansRegular;
+
+}
+
+.service_description-pre {
+    width: 473px;
+    height: 135px;
+    overflow: hidden;
+    white-space: pre-line;
+    font-family: OpenSansRegular;
 }
 
 .card_info {

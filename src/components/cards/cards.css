@@ -243,6 +243,7 @@
     border-radius: 10px;
     transition: .25s;
     cursor: pointer;
+    margin-bottom: 26px;
 }
 
 .card_service:hover {
@@ -258,12 +259,14 @@
     font-size: 28px;
     font-family: OpenSansBold;
     margin-bottom: 20px;
+    color: black;
 }
 
 .card_service-wage {
     font-size: 24px;
     font-family: OpenSansSemiBold;
     margin-bottom: 20px;
+    color: black;
 }
 
 .card_service-description {
