@@ -29,7 +29,8 @@ const SelectInput = ({data, setSelectValue, id, isRequired=false, mainValue=''})
 		<div>
 			<h1 className='enter_input-title'>{data.name}</h1>
 			<select defaultValue={mainValue !== '' ? mainValue : null}
-							className='select_input' onChange={event => setValue(event.target.value)} required={isRequired}>
+							className='select_input'
+							onChange={event => setValue(event.target.value)} required={isRequired}>
 				<option hidden>Выберите значение</option>
 				{data['characteristicValues'].map((item, index) => (
 					<option key={'characteristicValues' + index} value={item.id}>{item.name}</option>
