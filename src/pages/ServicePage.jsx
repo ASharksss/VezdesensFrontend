@@ -6,12 +6,16 @@ import CardService from "../components/cards/CardService";
 import CategoryAccordion from "../components/categoryAccordion/categoryAccordion";
 import {fetchCategoryList} from "../redux/slices/categorySlice";
 import {fetchAllAds} from "../redux/slices/boardSlice";
+import PhoneModal from "../components/modal/phoneModal";
+import ModalMain from "../components/modal/modalMain";
 
 
 const ServicePage = () => {
   const location = useLocation()
 	const [searchParams, setSearchParams] = useSearchParams()
-	const paramsObjectId = searchParams.get('object') || null
+	const [activeModal, setActiveModal] = useState(false)
+	const [phone, setPhone] = useState('')
+	const paramsObjectId = searchParams.get('object') || 1
 	const paramsCategory = searchParams.get('category') || 1
 	const paramsSubCategory = searchParams.get('subCategory') || 1
 	const [selectedCategory, setSelectedCategory] = useState([]);
@@ -49,7 +53,7 @@ const ServicePage = () => {
 	const isLoading = categoriesList.status === 'loading'
 	useEffect(() => {
 		if (paramsCategory) {
-			dispatch(fetchCategoryList(parseInt(paramsCategory)))
+			dispatch(fetchCategoryList({paramsCategory, objectId}))
 		}
 	}, [paramsObjectId, paramsCategory, paramsSubCategory])
 
@@ -68,7 +72,7 @@ const ServicePage = () => {
 	}, [location.search, paramsObjectId, paramsCategory, paramsSubCategory])
 
   useEffect(() => {
-    if(!isLoading) {
+    if(!isLoading && categoriesList.items[0].length > 0) {
       categoriesList.items[0].subCategories.map(item => {
         if(parseInt(item.id) === parseInt(paramsSubCategory))
           setTitle(item.name)
@@ -101,9 +105,12 @@ const ServicePage = () => {
                                 selectedCategory={selectedCategory}/> : null}
                                 </div>
 				<div className="catalogBoardPage_cards" style={{minWidth: '900px'}}>
-          {data.length > 0 ? data.map(item => <CardService type={parseInt(paramsSubCategory) === 9 ? 'vacancy' : null}/>) : 
-          <p>Нет данных</p>}
-        </div>    
+          {data.length > 0 ? data.map(item => (
+							<CardService type={parseInt(paramsSubCategory) === 9 ? 'vacancy' : null} item={item} setPhone={setPhone} setActiveModal={setActiveModal}/>
+						)) : <p>Нет данных</p>}
+        </div>
+				<ModalMain activeModal={activeModal} setActiveModal={setActiveModal}
+									 children={<PhoneModal phone={phone}/>}/>
       </div>
     </div>
   );
