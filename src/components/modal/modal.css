@@ -346,19 +346,19 @@
     margin-top: 40px;
 }
 
-.hide_ad-title {
+.hide_title {
     font-size: 32px;
     font-family: OpenSansBold;
     margin-bottom: 5px;
 
 }
 
-.hide_ad-subtitle {
+.hide_subtitle {
     font-size: 20px;
     color: #838690;
 }
 
-.hide_ad-btn {
+.hide_btn {
     width: 93px;
     height: 54px;
     border-radius: 10px;
