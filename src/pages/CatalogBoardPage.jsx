@@ -7,8 +7,7 @@ import Ad from "../components/cards/Ad";
 import {fetchCategoryList} from "../redux/slices/categorySlice";
 import {useSearchParams} from "react-router-dom";
 import Card from "../components/cards/Card";
-import {STATIC_HOST, encryptArrayWithKey} from "../utils";
-import ad_image from "../asserts/ad_image_small.png";
+import {STATIC_HOST, encryptArrayWithKey, getStaticAd} from "../utils";
 import EnterFilter from "../components/filters/enterFilter";
 import ChoiceFilter from "../components/filters/choiceFilter";
 
@@ -22,11 +21,12 @@ const chunkArray = (myArray, chunkSize) => {
 
 const CatalogBoardPage = () => {
 	const triggerDivRef = useRef()
-	// const history = useHistory();
+	const dispatch = useDispatch()
 	const [searchParams, setSearchParams] = useSearchParams()
 	const paramsObjectId = parseInt(searchParams.get('object')) || 1
 	const paramsCategory = parseInt(searchParams.get('category')) || 1
 	const paramsSubCategory = parseInt(searchParams.get('subCategory')) || 1
+
 	const [selectedCategory, setSelectedCategory] = useState([]);
 	const [choiceFilter, setChoiceFilter] = useState([]);
 	const [enterFilter, setEnterFilter] = useState([]);
@@ -36,15 +36,21 @@ const CatalogBoardPage = () => {
 	const [lastOffset, setLastOffset] = useState(0)
 	const [objectId, setObjectId] = useState(parseInt(paramsObjectId))
 	const [data, setData] = useState([])
-	const dispatch = useDispatch()
+	const [staticAd, setStaticAd] = useState([])
 	const {categoriesList} = useSelector(state => state.categories)
 
 	const isLoading = categoriesList.status === 'loading'
+
 	useEffect(() => {
 		if (paramsCategory) {
 			dispatch(fetchCategoryList({paramsCategory, objectId}))
 		}
 	}, [paramsObjectId, paramsCategory, paramsSubCategory]) // самый первый запрос при загрузке страницы
+
+
+	useEffect(() => {
+		getStaticAd(1, setStaticAd)
+	}, [])
 
 	const getData = async () => {
 		const lastPath = localStorage.getItem('last_path')
@@ -146,7 +152,7 @@ const CatalogBoardPage = () => {
 
 	return (
 		<div className='container'>
-			<Ad/>
+			<Ad image={`${STATIC_HOST}/promotion/${staticAd[0]?.imageName}`} href={staticAd[0]?.href}/>
 
 			{/*<BreadCrumbs/>*/}
 			<h1 className='catalogBoardPage-title'>{!isLoading ? categoriesList.items[0].name : null}</h1>

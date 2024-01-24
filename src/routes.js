@@ -1,4 +1,3 @@
-import MainPage from "./pages/MainPage";
 import CreateAdPage from "./pages/CreateAdPage";
 import ProfilePage from "./pages/ProfilePage";
 import CardPage from "./pages/CardPage";
@@ -12,9 +11,6 @@ import HomePage from "./pages/HomePage";
 export const publicRoutes = [
     {
         path: '/',
-        Component: HomePage
-    }, {
-        path: '/home',
         Component: HomePage
     }, {
         path: '/card/:id',

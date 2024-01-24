@@ -32,19 +32,20 @@ const CreateAdPage = () => {
 	const [addressData, setAddressData] = useState([])
 	const [title, setTitle] = useState('')
 	const [objectId, setObjectId] = useState(1)
-	const [phone, setPhone] = useState('')
-	const [phoneShow, setPhoneShow] = useState(1)
+	const [phoneShow, setPhoneShow] = useState(0)
 	const [price, setPrice] = useState('')
 	const [enterValue, setEnterValue] = useState([])
 	const [selectValue, setSelectValue] = useState([])
 	const [bookingStartDate, setBookingStartDate] = useState(null)
 	const [bookingEndDate, setBookingEndDate] = useState(null)
 	const [mainImage, setMainImage] = useState('')
+	const [position, setPosition] = useState('top')
 
 	const dispatch = useDispatch()
 
 	const {categories} = useSelector(state => state.categories)
 	const {character} = useSelector(state => state.ad)
+	const {user} = useSelector(state => state.user)
 
 	const checkCorrectImage = () => {
 		saveImages.map(item => {
@@ -88,6 +89,7 @@ const CreateAdPage = () => {
 		formData.append('price', price.replace(/\s+/g, ''))
 		formData.append('typeAd', typeAd)
 		formData.append('objectId', objectId)
+		formData.append('showPhone', phoneShow)
 		formData.append('bookingDateStart', new Date(bookingStartDate).toString())
 		formData.append('bookingDateEnd', new Date(bookingEndDate).toString())
 		formData.append('characteristicsInput', JSON.stringify(enterValue))
@@ -98,6 +100,7 @@ const CreateAdPage = () => {
 		} else {
 			let preview = DataURIToBlob(saveImages.filter(item => item.key === mainImage)[0]['value'])
 			formData.append('previewImage', preview)
+			formData.append('position', position)
 		}
 		saveImages.map((item) => {
 			let image = DataURIToBlob(item.value)
@@ -156,6 +159,8 @@ const CreateAdPage = () => {
 
 							<select className='create_ad-select' onChange={event => {
 								dispatch(newFetchCategory())
+								setEnterValue([])
+								setSelectValue([])
 								dispatch(fetchCategoryForCharacter())
 								dispatch(fetchSubCategories(event.target.value))
 							}}
@@ -170,6 +175,8 @@ const CreateAdPage = () => {
 							<select className='create_ad-select' disabled={categories.subCategories.status === 'loading'}
 											onChange={event => {
 												dispatch(fetchCategoryForCharacter())
+												setEnterValue([])
+												setSelectValue([])
 												dispatch(fetchObjects(event.target.value))
 											}} required>
 								<option hidden>Выберите подкатегорию</option>
@@ -183,6 +190,8 @@ const CreateAdPage = () => {
 							<select className='create_ad-select' disabled={categories.subCategories.objects.status === 'loading'}
 											onChange={event => {
 												setObjectId(parseInt(event.target.value))
+												setEnterValue([])
+												setSelectValue([])
 												dispatch(fetchCharacterObjects(event.target.value))
 											}} required>
 								<option hidden>Выберите значение</option>
@@ -267,9 +276,9 @@ const CreateAdPage = () => {
 						</div>
 
 						{typeAd !== 'standart' ? <BookingCalc typeAd={typeAd} setBookingEndDate={setBookingEndDate}
-																									setBookingStartDate={setBookingStartDate}
-																									bookingDateStart={bookingStartDate}
-																									bookingDateEnd={bookingEndDate}/> : null}
+															setBookingStartDate={setBookingStartDate} position={position}
+															bookingDateStart={bookingStartDate} setPosition={setPosition}
+															bookingDateEnd={bookingEndDate}/> : null}
 
 						{typeAd !== '' &&
 							<div className="upload_photo">
@@ -312,33 +321,28 @@ const CreateAdPage = () => {
 							<div className="flex mb-40">
 								<label htmlFor="" className='create_ad_label'>Телефон</label>
 								<div>
-									<InputMask mask="+7(999)999-99-99" type="text" onChange={event => setPhone(event.target.value)}
-														 placeholder='Введите номер' className='create_ad_phone' value={phone}/>
+									<InputMask mask="+7(999)999-99-99" type="text" value={user.items.phone} disabled
+														 placeholder='Введите номер' className='create_ad_phone'/>
 									<form className="flex column created_ad-contact">
 										<div className='flex created_ad-radio'>
-											<input type="radio" id='only_messages' name='only_messages' value={1} checked={phoneShow === 1}
+											<input type="radio" id='only_messages' name='only_messages' value={2} checked={phoneShow === 2}
 														 onChange={event => setPhoneShow(parseInt(event.target.value))}/>
 											<label htmlFor="only_messages" className='create_ad-contact'>Только сообщения</label>
 										</div>
 										<div className="flex created_ad-radio">
-											<input type="radio" id='only_calls' name='only_calls' value={2} checked={phoneShow === 2}
+											<input type="radio" id='only_calls' name='only_calls' value={1} checked={phoneShow === 1}
 														 onChange={event => setPhoneShow(parseInt(event.target.value))}/>
 											<label htmlFor="only_calls" className='create_ad-contact'>Только звонки</label>
 										</div>
 										<div className="flex created_ad-radio">
-											<input type="radio" id='messages_and_calls' name='messages_and_calls' value={3}
-														 checked={phoneShow === 3}
+											<input type="radio" id='messages_and_calls' name='messages_and_calls' value={0}
+														 checked={phoneShow === 0}
 														 onChange={event => setPhoneShow(parseInt(event.target.value))}/>
 											<label htmlFor="messages_and_calls" className='create_ad-contact'>Звонки и сообщения</label>
 										</div>
 									</form>
-
 								</div>
-
-
 							</div>
-
-
 						</div>
 						<div className="create_ad_btns">
 							<button className='create_ad_btn' type='submit' onClick={handleSubmit} disabled={loading}>

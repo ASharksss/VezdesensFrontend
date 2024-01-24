@@ -9,7 +9,7 @@ import message from "../../asserts/icons/message.svg"
 import Rating from "../../ui/rating/rating";
 import {formatDate, numberWithSpaces} from "../../utils";
 
-const CardInfo = ({userId, price, sellerName, sellerCreated, address, setActiveModal, setTypeModal, id, favorite, rating}) => {
+const CardInfo = ({userId, price, sellerName, sellerCreated, address, setActiveModal, setTypeModal, id, favorite, rating, show}) => {
 	const {isAuth, user} = useSelector(state => state.user)
 	return (
 		<div className='card_info'>
@@ -18,16 +18,16 @@ const CardInfo = ({userId, price, sellerName, sellerCreated, address, setActiveM
 				{isAuth ? userId !== user.items.id ? <Favorite id={id} favorite={favorite}/> : null : null}
 			</div>
 			<div className="flex card_info-btn">
-				<div onClick={() => {
+				{show !== 2 ? <div onClick={() => {
 					setActiveModal(true)
 					setTypeModal('phone')
 				}}>
 					<Button classname={'show_phone'} children={'Показать телефон'}/>
-				</div>
-				{isAuth ? userId !== user.items.id ?
+				</div> : null}
+				{isAuth && (userId !== user.items.id && show !== 1) ?
 					<NavLink to={`/profile/${user.items.id}?adId=${id}&senderId=${user.items.id === userId ? userId : user.items.id}&receiverId=${user.items.id !== userId && userId}#chat-${uuidV4()}`}>
 						<Button classname={'message'} icon={message}/>
-					</NavLink> : null : null}
+					</NavLink> : null}
 			</div>
 			<div>
 				<div className='seller_info'>

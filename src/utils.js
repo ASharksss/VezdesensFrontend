@@ -1,3 +1,5 @@
+import axios from "axios";
+
 // export const STATIC_HOST = 'http://localhost:5000/static'
 // export const AVATAR_HOST = 'http://localhost:5000/static/avatar'
 export const AVATAR_HOST = 'https://backend.vezdesens.ru/static/avatar'
@@ -137,4 +139,11 @@ export function relativeDate(date) {
 	} else {
 		return formatDateToRelative(date);
 	}
+}
+
+export const getStaticAd = async (limit=2, setValue) => {
+	await axios.get(`api/other/promotion?limit=${limit}`)
+		.then(res => {
+			setValue(res.data)
+		})
 }

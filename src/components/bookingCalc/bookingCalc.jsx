@@ -3,17 +3,36 @@ import {useSelector} from "react-redux";
 import './bookingCalc.css'
 import Calendar from "react-calendar";
 import 'react-calendar/dist/Calendar.css';
+import axios from "axios";
 
-const booked = [{start: '2024-01-23T00:00:00.000', end: '2024-01-25T00:00:00.000'}, {start: '2024-01-31T00:00:00.000', end: '2024-02-12T00:00:00.000'}]
-
-const BookingCalc = ({bookingDateStart, bookingDateEnd, setBookingStartDate, setBookingEndDate}) => {
+const BookingCalc = ({bookingDateStart, bookingDateEnd, setBookingStartDate, setBookingEndDate, typeAd, position, setPosition}) => {
 
 	const {items} = useSelector(state => state.ad.bookingInfo)
 
 	const start = bookingDateStart !== null ? new Date(bookingDateStart) : null
 	const end = bookingDateEnd !== null ? new Date(bookingDateEnd) : null
 	const [days, setDays] = useState(0)
+	const [loading, setLoading] = useState(false)
 	const [valueDate, setValueDate] = useState(null)
+	const [bookedDate, setBookedDate] = useState([])
+
+	const getDateByPosition = async() => {
+		await axios.get(`api/ad/getPremiumDate?position=${position}`)
+			.then(res => {
+				setBookedDate(res.data)
+				setValueDate(null)
+				setLoading(false)
+			})
+	}
+
+	useEffect(() => {
+		if (typeAd === 'premium') {
+			setLoading(true)
+			getDateByPosition()
+		} else {
+			setBookedDate([])
+		}
+	}, [position])
 
 	useEffect(() => {
 		if (valueDate !== null) {
@@ -40,24 +59,29 @@ const BookingCalc = ({bookingDateStart, bookingDateEnd, setBookingStartDate, set
 			<h1 className='booking-title'>Бронирование рекламного баннера</h1>
 			<div className="flex">
 				<div className="booking_startDate flex column">
+					<select className='mb-20' onChange={event => setPosition(event.target.value)}>
+						<option value="top">Верхний банер</option>
+						<option value="bottom">Нижний банер</option>
+					</select>
 					<label htmlFor="startDate" className='booking_label'>Выберите дату</label>
-					<Calendar
+					{!loading ?<Calendar
 						onChange={setValueDate}
 						value={valueDate}
 						tileDisabled={({ activeStartDate, date, view }) => {
 							const clonedDate = new Date(date);
 							clonedDate.setHours(0, 0, 0, 0);
-							return booked.some(item => {
-								const startDate = new Date(item.start);
-								const endDate = new Date(item.end);
-								return currentDate > clonedDate || (startDate <= clonedDate && clonedDate <= endDate);
+							return bookedDate.some(item => {
+								const startDate = new Date(item.dateStart);
+								const endDate = new Date(item.dateEnd);
+								return currentDate > clonedDate ||(typeAd === 'premium' && (startDate <= clonedDate && clonedDate <= endDate));
 							});
 						}}
 						allowPartialRange
 						selectRange
-					/>
-
-
+					/> :
+						<div>
+							<p>Календарь прогружается</p>
+						</div>}
 				</div>
 				<div className="booking_endDate flex column">
 					<div className='mt-50'>

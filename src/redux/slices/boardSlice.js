@@ -60,7 +60,7 @@ const BoardSlice = createSlice({
 			}
 		},
 		[fetchPremium.fulfilled]: (state, action) => {
-			state.premium.items = action.payload.ads
+			state.premium.items = action.payload
 			state.premium.status = 'loaded'
 		},
 		[fetchPremium.rejected]: (state) => {
