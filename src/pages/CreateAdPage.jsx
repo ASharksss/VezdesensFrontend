@@ -188,7 +188,7 @@ const CreateAdPage = () => {
 								<option hidden>Выберите значение</option>
 								{
 									categories.subCategories.objects.items.map((item, index) => (
-										<option key={'object' + index} value={item.id}>{item.name}</option>
+										<option key={'object' + index} value={item.id}>{item.name.indexOf('/') > 0 ? item.name.split('/')[1] : item.name}</option>
 									))
 								}
 							</select>
