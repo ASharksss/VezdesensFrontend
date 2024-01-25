@@ -38,8 +38,6 @@ const Header = () => {
     })
   }
 
-
-
   useEffect(() => {
     setActiveModalCat(false)
     setOpenSubMenu(false)
