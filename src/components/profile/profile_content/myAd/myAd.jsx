@@ -2,7 +2,6 @@ import React from 'react';
 import {NavLink} from "react-router-dom";
 import './myAd.css'
 import Button from "../../../../ui/buttons/button";
-import ad_img from '../../../../asserts/ad_image_xs.png'
 import MyAdActionsActive from "./MyAdActionsActive";
 import MyAdActionsArchive from "./MyAdActionsArchive";
 import MyAdActionsFavorite from "./MyAdActionsFavorite";

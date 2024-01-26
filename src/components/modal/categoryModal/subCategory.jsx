@@ -43,11 +43,12 @@ const SubCategory = ({item, objects, category}) => {
 			<div className="objects_list flex ">
 				<span className='modal_subcategory-subtitle'
 							style={{cursor: 'pointer'}}
-							onClick={() => handleShowCategory(null, category === 3 ? 'service' : null)}>{item.name.indexOf('/') > 1 ? item.name.split('/')[0] : item.name}</span>
+							onClick={() => handleShowCategory(null, category === 3 ? 'service' : 'subCategory')}>{item.name.indexOf('/') > 1 ? item.name.split('/')[0] : item.name}</span>
 				<img src={arrow_category} className='modal_subcategory-icon'/>
 			</div>
 			<div>
 				{objects.map((object, index) => {
+					let mainCategory = category === 3 ? 'service' : 'subCategory'
 					let count = 0;
 					return (
 						parseInt(object.subCategory) === parseInt(item.id) &&
@@ -61,7 +62,7 @@ const SubCategory = ({item, objects, category}) => {
 										className='modal_subcategory-link'
 										key={`objects-${index}-${item.name}-${itemObj.id}`}
 									>
-										<span className='flex items-center modal_subcategory-object'>{itemObj.name}</span>
+										<span className='flex items-center modal_subcategory-object' onClick={() => handleShowCategory(null, mainCategory)}>{itemObj.name}</span>
 									</span>
 								);
 							}

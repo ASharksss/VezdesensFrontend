@@ -1,5 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import './categoryAccordion.css'
+import {useNavigate} from "react-router-dom";
 
 const CategoryAccordion = ({
                              category, selectedCategory, handleCategoryClick, paramsSubCategory,
@@ -8,13 +9,14 @@ const CategoryAccordion = ({
   // category: [{ id: int, name: str, subCategories: [{
   //              id: int, name: str, categoryId: int, objects: [{
   //              id: int, name: str, subCategoryId: int }]}]}]
-  // selectedCategory: [category] родительский стейт, чтобы открывался аккордион и отображать данные 
+  // selectedCategory: [category] родительский стейт, чтобы открывался аккордион и отображать данные
   // handleCategoryClick родительская функция, чтоб получить новые данные
   // paramsSubCategory: int || str параметр подкатегории, чтобы выстроить аккордион и выделить текущую подкатегорию
   // paramsCategory: int || str параметр категории, чтобы выстроить аккордион
   // setObjectId выбор объекта, для получения данных
   // objectId: int || str параметр подкатегории, чтобы выстроить аккордион и выделить текущую подкатегорию
   // setSearchParams родительский аргумент, чтобы передать новые параметры для урла на фронте
+    const navigate = useNavigate()
   const [checked, setChecked] = useState(null)
 
   useEffect(() => {
@@ -28,6 +30,12 @@ const CategoryAccordion = ({
     }
   }, [paramsObjectId])
   const handleCheckedCategory = (index, item) => {
+      if(checked !== null && checked === index) {
+          navigate({
+              pathname: '/category',
+              search: `?subCategory=${parseInt(paramsSubCategory)}&category=${parseInt(paramsCategory)}`,
+          })
+      }
     setChecked(index)
     handleCategoryClick(item.objects)
   }

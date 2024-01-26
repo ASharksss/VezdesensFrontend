@@ -5,7 +5,7 @@ import './pages.css'
 import CategoryAccordion from "../components/categoryAccordion/categoryAccordion";
 import Ad from "../components/cards/Ad";
 import {fetchCategoryList} from "../redux/slices/categorySlice";
-import {useSearchParams} from "react-router-dom";
+import {useNavigate, useSearchParams} from "react-router-dom";
 import Card from "../components/cards/Card";
 import {STATIC_HOST, encryptArrayWithKey, getStaticAd} from "../utils";
 import EnterFilter from "../components/filters/enterFilter";
@@ -22,8 +22,10 @@ const chunkArray = (myArray, chunkSize) => {
 const CatalogBoardPage = () => {
 	const triggerDivRef = useRef()
 	const dispatch = useDispatch()
+	const navigate = useNavigate()
+	const {categoriesList} = useSelector(state => state.categories)
 	const [searchParams, setSearchParams] = useSearchParams()
-	const paramsObjectId = parseInt(searchParams.get('object')) || 1
+	const paramsObjectId = parseInt(searchParams.get('object')) || null
 	const paramsCategory = parseInt(searchParams.get('category')) || 1
 	const paramsSubCategory = parseInt(searchParams.get('subCategory')) || 1
 
@@ -37,7 +39,6 @@ const CatalogBoardPage = () => {
 	const [objectId, setObjectId] = useState(parseInt(paramsObjectId))
 	const [data, setData] = useState([])
 	const [staticAd, setStaticAd] = useState([])
-	const {categoriesList} = useSelector(state => state.categories)
 
 	const isLoading = categoriesList.status === 'loading'
 
@@ -56,7 +57,12 @@ const CatalogBoardPage = () => {
 		const lastPath = localStorage.getItem('last_path')
 		// eslint-disable-next-line no-restricted-globals
 		const responseOffset = lastPath !== location.pathname + location.search ? offset : 0
-		const response = await axios.get(`api/board/getAll?objectId=${paramsObjectId}&offset=${responseOffset}`)
+		let response
+		if (paramsObjectId !== null) {
+			response = await axios.get(`api/board/getAll?objectId=${paramsObjectId}&offset=${responseOffset}`)
+		} else {
+			response = await axios.get(`api/board/getAll?subCategoryId=${paramsSubCategory}&offset=${responseOffset}`)
+		}
 		setData(prevState => [...prevState, ...response.data.ads])
 		setOffset(parseInt(response.data.blockOffset))
 		setLastOffset(0)
@@ -136,9 +142,12 @@ const CatalogBoardPage = () => {
 	const pagination = useMemo(() => {
 		if (!isLoading && selectedCategory.length > 0) {
 			const subName = categoriesList.items[0].subCategories.filter(item => item.id === parseInt(paramsSubCategory))[0].name
-			const name = categoriesList.items[0].subCategories.filter(item => item.id === parseInt(paramsSubCategory))[0].objects.filter(item => item.id === parseInt(paramsObjectId))[0].name
+			const name = categoriesList.items[0].subCategories.filter(item => item.id === parseInt(paramsSubCategory))[0].objects.filter(item => item.id === parseInt(paramsObjectId))[0]?.name
 			return <h1 className='catalogBoardPage-subtitle'>
-				<span className={'main'}>{subName.indexOf('/') > 1 ? subName.split('/')[0] : subName}</span> / <span className={'active'}>{name}</span>
+				<span className={'main'} style={{cursor: 'pointer'}} onClick={() => navigate({
+					pathname: '/category',
+					search: `?subCategory=${parseInt(paramsSubCategory)}&category=${parseInt(paramsCategory)}`,
+				})}>{subName.indexOf('/') > 1 ? subName.split('/')[0] : subName}</span> / <span className={'active'}>{name}</span>
 			</h1>
 		}
 	}, [categoriesList, selectedCategory])

@@ -11,15 +11,15 @@ import ModalMain from "../components/modal/modalMain";
 
 
 const ServicePage = () => {
-  const location = useLocation()
+  	const location = useLocation()
 	const [searchParams, setSearchParams] = useSearchParams()
 	const [activeModal, setActiveModal] = useState(false)
 	const [phone, setPhone] = useState('')
-	const paramsObjectId = searchParams.get('object') || 1
+	const paramsObjectId = searchParams.get('object') || null
 	const paramsCategory = searchParams.get('category') || 1
 	const paramsSubCategory = searchParams.get('subCategory') || 1
 	const [selectedCategory, setSelectedCategory] = useState([]);
-  const [title, setTitle] = useState('')
+  	const [title, setTitle] = useState('')
 	const [ignoreIds, setIgnoreIds] = useState([])
 	const [data, setData] = useState([])
 	const [offset, setOffset] = useState(0)
@@ -32,12 +32,12 @@ const ServicePage = () => {
 		const lastPath = localStorage.getItem('last_path')
 		// eslint-disable-next-line no-restricted-globals
 		const responseOffset = lastPath !== location.pathname + location.search ? offset : 0
-    let response
-    if (paramsObjectId !== null) {
-      response = await axios.get(`api/board/getAll?objectId=${paramsObjectId}&offset=${responseOffset}`)
-    } else {
-      response = await axios.get(`api/board/getAll?subCategoryId=${paramsSubCategory}&offset=${responseOffset}`)
-    }
+		let response
+		if (paramsObjectId !== null) {
+		  response = await axios.get(`api/board/getAll?objectId=${paramsObjectId}&offset=${responseOffset}`)
+		} else {
+		  response = await axios.get(`api/board/getAll?subCategoryId=${paramsSubCategory}&offset=${responseOffset}`)
+		}
 		setData(prevState => [...prevState, ...response.data.ads])
 		setOffset(parseInt(response.data.blockOffset))
 		setLastOffset(0)
