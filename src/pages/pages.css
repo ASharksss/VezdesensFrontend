@@ -147,7 +147,7 @@
 }
 
 .create_ad-category {
-    margin-bottom: 120px;
+    margin-bottom: 70px;
 }
 
 .create_ad-category-title {
@@ -157,9 +157,10 @@
 }
 
 .create_ad-select {
-    width: 242px;
+    width: 260px;
+    height: 35px;
     background-color: #ECECEC;
-    padding: 15px 30px;
+    padding: 6px 10px;
     border-radius: 10px;
 }
 
@@ -170,7 +171,7 @@
 .create_ad-size-title {
     font-size: 32px;
     font-family: OpenSansBold;
-    margin-bottom: 70px;
+    margin-bottom: 40px;
     margin-top: 70px;
 }
 
@@ -179,31 +180,31 @@
 }
 
 .upload_photo {
-    margin-bottom: 60px;
+    margin-bottom: 40px;
 }
 
 .upload_photo-h1 {
     font-size: 32px;
     font-family: OpenSansBold;
-    margin-bottom: 40px;
-    margin-top: 120px;
+    margin-bottom: 30px;
+    margin-top: 70px;
 }
 
 .character-title {
     font-size: 32px;
     font-family: OpenSansBold;
     margin-bottom: 40px;
-    margin-top: 60px;
+    margin-top: 40px;
 }
 
 .create_ad-descr {
-    margin-top: 120px;
+    margin-top: 50px;
 }
 
 .create_ad-descr-title {
     font-size: 32px;
     font-family: OpenSansBold;
-    margin-bottom: 40px;
+    margin-bottom: 30px;
 }
 
 .create_ad_descr-text {
@@ -216,7 +217,7 @@
 
 .create_ad_address {
     width: 524px;
-    height: 47px;
+    height: 34px;
     background-color: #ECECEC;
     padding: 15px;
     border-radius: 10px;
@@ -230,7 +231,7 @@
 
 .create_ad_phone {
     width: 237px;
-    height: 47px;
+    height: 34px;
     background-color: #ECECEC;
     padding: 15px;
     border-radius: 10px;;
