@@ -67,7 +67,7 @@ const CategoryAccordion = ({
                           style={objectId === item.id ? {
                             fontWeight: 'bold',
                             textDecoration: 'underline'
-                          } : {}}>{item.name}</span>
+                          } : {}}>{item.name.indexOf('/') > 1 ? item.name.split('/')[0] : item.name}</span>
                   ))
                 }
               </div>
