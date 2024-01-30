@@ -15,11 +15,9 @@ import EditSVG from '../../asserts/icons/edit.svg'
 import {relativeDate, formatDate, pluralRusVariant} from "../../utils";
 import Button from "../../ui/buttons/button";
 
-const CardAd = () => {
+const CardAd = ({data, setData, isLoading, setIsLoading}) => {
 	const {items} = useSelector(state => state.user.user)
-	const [data, setData] = useState()
 	const [dataRating, setDataRating] = useState()
-	const [isLoading, setIsLoading] = useState()
 	const [activeModal, setActiveModal] = useState(false)
 	const [typeModal, setTypeModal] = useState()
 	const {id} = useParams()

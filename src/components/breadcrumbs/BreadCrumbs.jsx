@@ -1,12 +1,12 @@
 import React from 'react';
 import './breadcrumbs.css'
 
-const BreadCrumbs = () => {
-  return (
-    <div className='breadcrumbs'>
-      Breadcrumbs
-    </div>
-  );
+const BreadCrumbs = ({crumbs}) => {
+    return (
+        <div className='breadcrumbs'>
+            {crumbs.subCategory.category.name} / {crumbs.subCategory.name} / {crumbs.name.indexOf('/') > 1 ? crumbs.name.split('/')[0] : crumbs.name}
+        </div>
+    );
 };
 
 export default BreadCrumbs;

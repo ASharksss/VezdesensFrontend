@@ -43,7 +43,7 @@ const CatalogBoardPage = () => {
 	const isLoading = categoriesList.status === 'loading'
 
 	useEffect(() => {
-		if (paramsCategory) {
+		if (categoriesList.items[0]?.id !== paramsCategory) {
 			dispatch(fetchCategoryList({paramsCategory, objectId}))
 		}
 	}, [paramsObjectId, paramsCategory, paramsSubCategory]) // самый первый запрос при загрузке страницы
@@ -140,17 +140,17 @@ const CatalogBoardPage = () => {
 	}
 
 	const pagination = useMemo(() => {
-		if (!isLoading && selectedCategory.length > 0) {
+		if (!isLoading && paramsObjectId && selectedCategory.length > 0) {
 			const subName = categoriesList.items[0].subCategories.filter(item => item.id === parseInt(paramsSubCategory))[0].name
 			const name = categoriesList.items[0].subCategories.filter(item => item.id === parseInt(paramsSubCategory))[0].objects.filter(item => item.id === parseInt(paramsObjectId))[0]?.name
 			return <h1 className='catalogBoardPage-subtitle'>
 				<span className={'main'} style={{cursor: 'pointer'}} onClick={() => navigate({
 					pathname: '/category',
 					search: `?subCategory=${parseInt(paramsSubCategory)}&category=${parseInt(paramsCategory)}`,
-				})}>{subName.indexOf('/') > 1 ? subName.split('/')[0] : subName}</span> / <span className={'active'}>{name}</span>
+				})}>{subName.indexOf('/') > 1 ? subName.split('/')[0] : subName}</span> / <span className={'active'}>{name.indexOf('/') > 1 ? name.split('/')[0] : name}</span>
 			</h1>
 		}
-	}, [categoriesList, selectedCategory])
+	}, [categoriesList, selectedCategory, paramsObjectId])
 
 	useEffect(() => {
 		if(choiceFilter.length > 0 || enterFilter.length > 0) {
