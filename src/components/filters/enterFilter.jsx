@@ -2,7 +2,7 @@ import React, {useState, useEffect} from 'react';
 import './filters.css'
 import { numberWithSpaces } from '../../utils';
 
-const EnterFilter = ({name='цена', setEnterFilter, id}) => {// name: str = передается имя, по умолчанию "цена"
+const EnterFilter = ({name='price', setEnterFilter, id}) => {// name: str = передается имя, по умолчанию "цена"
                                         // data: [{id: int, name: str}]
                                         // setCheckboxValue: [] родительский стейт
                                         // id: int родительский id, чтобы понимать для кого изменения
@@ -11,8 +11,8 @@ const EnterFilter = ({name='цена', setEnterFilter, id}) => {// name: str = �
 	const [value, setValue] = useState('')
 	useEffect(() => {
 		if (value !== '') {
-      if(name === 'цена')
-        id = 'цена'
+      if(name === 'price')
+        id = 'price'
 			setEnterFilter((prevState) => {
 				const existingEntryIndex = prevState.findIndex((entry) => entry.id === id);
 				if (existingEntryIndex !== -1) {
@@ -25,11 +25,11 @@ const EnterFilter = ({name='цена', setEnterFilter, id}) => {// name: str = �
 			})
 		}
     if(value === '') {
-      if(name === 'цена')
-        id = 'цена'
+      if(name === 'price')
+        id = 'price'
       const removeById = (arr) => {
         const updatedArr = arr.filter(item => item.id !== id);
-        return updatedArr; 
+        return updatedArr;
       };
       setEnterFilter((prevState) => removeById(prevState))
     }
@@ -72,7 +72,7 @@ const EnterFilter = ({name='цена', setEnterFilter, id}) => {// name: str = �
       {name === 'цена' ? <span className='filter_label'>Цена <span>Р</span></span>:
        <span className='filter_label'>{name}</span>}
       <div className="flex">
-        <input type="text" className='filter_input' placeholder='от' 
+        <input type="text" className='filter_input' placeholder='от'
           onChange={event => handleValue1(event.target.value)} value={value1}/>
         <input type="text" className='filter_input' placeholder='до'
           onChange={event => handleValue2(event.target.value)} value={value2}/>

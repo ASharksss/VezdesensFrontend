@@ -10,6 +10,16 @@ const ChoiceFilter = ({name, data, id, setChoiceFilter}) => {// name: str = пе
   const [value, setValue] = useState([]) // временное хранилище для компонента, чтобы записывать id объектов
                                          // value: [List(int)] = [1,4,11]
 	const wrapperRef = useRef(null)
+	const selectRef = useRef(null)
+
+	useEffect(() =>{
+		if (value.length > 0 && selectRef !== null){
+			selectRef.current.innerText = data.filter(item => value.includes(item.id)).map(item => item.name).join(", ")
+		}
+		if (value.length === 0 && selectRef !== null){
+			selectRef.current.innerText = 'Выберите...'
+		}
+	}, [value])
 
   const handleChecked = (event) => {
     const element = parseInt(event.target.value)
@@ -38,7 +48,7 @@ const ChoiceFilter = ({name, data, id, setChoiceFilter}) => {// name: str = пе
     if (value.length === 0) {
       const removeById = (arr) => {
         const updatedArr = arr.filter(item => item.id !== id);
-        return updatedArr; 
+        return updatedArr;
       };
       setChoiceFilter((prevState) => removeById(prevState))
     }
@@ -59,7 +69,7 @@ const ChoiceFilter = ({name, data, id, setChoiceFilter}) => {// name: str = пе
     <div className='filter_item' ref={wrapperRef}>
       <div className="filter_select">
         <div className="filter_label">{name ? name : null}</div>
-        <div className="filter_select-header" onClick={() => setOpen(!open)}>выберите...</div>
+        <div className="filter_select-header" ref={selectRef} onClick={() => setOpen(!open)}>Выберите...</div>
 
         <div className={open ? 'block filter_select-body' : 'filter_select-body-none'}>
           {data.length > 0 ?
