@@ -2,7 +2,7 @@ import React, {useState, useEffect} from 'react';
 import './filters.css'
 import { numberWithSpaces } from '../../utils';
 
-const EnterFilter = ({name='price', setEnterFilter, id}) => {// name: str = передается имя, по умолчанию "цена"
+const EnterFilter = ({name='цена', setEnterFilter, id}) => {// name: str = передается имя, по умолчанию "цена"
                                         // data: [{id: int, name: str}]
                                         // setCheckboxValue: [] родительский стейт
                                         // id: int родительский id, чтобы понимать для кого изменения
@@ -11,7 +11,7 @@ const EnterFilter = ({name='price', setEnterFilter, id}) => {// name: str = пе
 	const [value, setValue] = useState('')
 	useEffect(() => {
 		if (value !== '') {
-      if(name === 'price')
+      if(name === 'цена')
         id = 'price'
 			setEnterFilter((prevState) => {
 				const existingEntryIndex = prevState.findIndex((entry) => entry.id === id);
@@ -25,7 +25,7 @@ const EnterFilter = ({name='price', setEnterFilter, id}) => {// name: str = пе
 			})
 		}
     if(value === '') {
-      if(name === 'price')
+      if(name === 'цена')
         id = 'price'
       const removeById = (arr) => {
         const updatedArr = arr.filter(item => item.id !== id);
@@ -68,7 +68,7 @@ const EnterFilter = ({name='price', setEnterFilter, id}) => {// name: str = пе
   }, [value1, value2])
 
   return (
-    <div className='filter_item'>
+    <div className='filter_item' id={`filter-${id ? id : 0}`}>
       {name === 'цена' ? <span className='filter_label'>Цена <span>Р</span></span>:
        <span className='filter_label'>{name}</span>}
       <div className="flex">

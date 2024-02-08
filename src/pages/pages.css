@@ -5,7 +5,6 @@
 }
 
 .catalogBoardPage_categories {
-
     margin-right: 15px;
 }
 
@@ -267,7 +266,19 @@
 }
 
 .filters{
+    position: relative;
     margin-top: 70px;
+}
+
+.filters .search {
+    position: absolute;
+    padding: 10px;
+    border-radius: 15px;
+    background: rgba(215, 239, 17, 0.7);
+}
+
+.filters .reset {
+
 }
 
 .cropper-bg {

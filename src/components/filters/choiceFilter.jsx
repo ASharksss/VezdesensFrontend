@@ -66,7 +66,7 @@ const ChoiceFilter = ({name, data, id, setChoiceFilter}) => {// name: str = пе
 	}, [])
 
   return (
-    <div className='filter_item' ref={wrapperRef}>
+    <div className='filter_item' ref={wrapperRef} id={`filter-${id}`}>
       <div className="filter_select">
         <div className="filter_label">{name ? name : null}</div>
         <div className="filter_select-header" ref={selectRef} onClick={() => setOpen(!open)}>Выберите...</div>

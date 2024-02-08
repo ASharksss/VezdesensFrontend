@@ -35,11 +35,15 @@ const CatalogBoardPage = () => {
 	const [choiceFilter, setChoiceFilter] = useState([]);
 	const [enterFilter, setEnterFilter] = useState([]);
 	const [showAds, setShowAds] = useState(false)
+	const [userChange, setUserChange] = useState(false)
 	const [ignoreIds, setIgnoreIds] = useState([])
 	const [offset, setOffset] = useState(0)
 	const [query, setQuery] = useState(null)
 	const [objectId, setObjectId] = useState(parseInt(paramsObjectId))
 	const [staticAd, setStaticAd] = useState([])
+	const [buttonPosition, setButtonPosition] = useState({ right: 0, top: 0 });
+	const [lastChoiceLength, setLastChoiceLength] = useState(0);
+	const [lastEnterLength, setLastEnterLength] = useState(0);
 
 	const isLoading = categoriesList.status === 'loading'
 
@@ -116,8 +120,35 @@ const CatalogBoardPage = () => {
 	useEffect(() => {
 		if(choiceFilter.length > 0 || enterFilter.length > 0) {
 			setShowAds(true)
+			setUserChange(true)
+			if (choiceFilter.length !== lastChoiceLength){
+				setLastChoiceLength(choiceFilter.length)
+			}
+			if (enterFilter.length !== lastEnterLength){
+				setLastEnterLength(choiceFilter.length)
+			}
 		}
 	}, [choiceFilter, enterFilter]) // чтоб кнопка стала активной и отправить новый запрос на бэк по параметрам
+
+	const filterRef = useRef(null);
+	useEffect(() => {
+		if (filterRef === null) return;
+		if (choiceFilter.length === 0 && enterFilter.length === 0) return;
+		if (lastChoiceLength === 0 && lastEnterLength === 0) return;
+		let dynamicDiv
+		if ((choiceFilter.length === lastChoiceLength) && (lastChoiceLength !== 0)) {
+			const id = choiceFilter.at(-1).id
+			dynamicDiv = document.getElementById(`filter-${id}`);
+		}
+		if ((enterFilter.length === lastEnterLength) && (lastEnterLength !== 0)) {
+			const id = enterFilter.at(-1).id
+			dynamicDiv = document.getElementById(`filter-${id}`);
+		}
+		const rightOffset = -90;
+		const topOffset = dynamicDiv.offsetTop + 30;
+
+		setButtonPosition({ right: rightOffset, top: topOffset });
+	}, [lastChoiceLength, lastEnterLength]);
 
 	const observerDiv = useRef()
 	const lastElementRef = useCallback(node => {
@@ -162,18 +193,25 @@ const CatalogBoardPage = () => {
 															 selectedCategory={selectedCategory}/>
 
 					{!isLoading ?
-					<div className="filters">
+					<div className="filters" ref={filterRef}>
 						<EnterFilter setEnterFilter={setEnterFilter}/>
-						{!isLoading ? categoriesList.items[1]?.map((item, index) =>
+						{!isLoading ? categoriesList.items[1]?.map((item, index) => item.characteristic.required &&
 						item.characteristic.typeCharacteristic?.name === 'enter' ?
 						<EnterFilter name={item.characteristic.name} key={`enterFilter-${index}=${item.name}`}
-							id={item.id} setEnterFilter={setEnterFilter}/>: // внутри компонентов расписано
-						<ChoiceFilter name={item.characteristic.name} data={item.characteristic.characteristicValues} id={item.id}
+							id={item.characteristic.id} setEnterFilter={setEnterFilter}/>: // внутри компонентов расписано
+						<ChoiceFilter name={item.characteristic.name} data={item.characteristic.characteristicValues} id={item.characteristic.id}
 							key={`choiceFilter-${index}=${item.name}`} setChoiceFilter={setChoiceFilter}/>) : null}
+						{!isLoading ? categoriesList.items[1]?.map((item, index) => !(item.characteristic.required) &&
+						item.characteristic.typeCharacteristic?.name === 'enter' ?
+						<EnterFilter name={item.characteristic.name} key={`enterFilter-${index}=${item.name}`}
+							id={item.characteristic.id} setEnterFilter={setEnterFilter}/>: // внутри компонентов расписано
+						<ChoiceFilter name={item.characteristic.name} data={item.characteristic.characteristicValues} id={item.characteristic.id}
+							key={`choiceFilter-${index}=${item.name}`} setChoiceFilter={setChoiceFilter}/>) : null}
+						{showAds ? <button className='search'
+										   style={{right: `${buttonPosition.right}px`, top: `${buttonPosition.top}px`}}
+										   onClick={showAds ? handleShowAdsByParams : null} disabled={!showAds}
+						>Показать</button> : null}
 					</div> : null}
-					<button style={showAds ? {marginTop: '20px', border: '1px solid orange'} : {marginTop: '20px'}} // тут временно сделал, можешь удалять стили
-					onClick={showAds ? handleShowAdsByParams : null} disabled={!showAds}
-					>Показать</button>
 				</div>
 
 				<div className="catalogBoardPage_cards" style={{minWidth: '900px'}}>
