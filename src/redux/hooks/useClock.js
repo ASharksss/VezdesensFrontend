@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 
-const monthsArray = ["янв", "февр", "март", "апр", "май", "июнь", "июль", "авг", "сент", "окт", "нояб", "дек"]
+const monthsArray = ["янв", "фев", "март", "апр", "май", "июнь", "июль", "авг", "сен", "окт", "ноя", "дек"]
 
 export default function useClock() {
     const [hours, setHours] = useState(null)
