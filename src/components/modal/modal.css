@@ -109,6 +109,11 @@
     white-space: pre-line
 }
 
+.title_characteristic {
+    font-size: 14px;
+    font-family: OpenSansBold;
+}
+
 .phone_modal {
     display: flex;
     flex-direction: column;

@@ -11,7 +11,7 @@ const TimerContainer = ({date}) => (
                 fill="#161616"/>
         </g>
         <text fill='white' textAnchor='middle' x='35%' fontSize='32px' fontWeight='700' y='35%' fontStyle='italic' fontFamily='Open Sans'>{date.day}</text>
-        <text fill='white' textAnchor='middle' x='35%' y='46%' fontSize='32px' fontWeight='700' fontStyle='italic' fontFamily='Open Sans'>{date.month}</text>
+        <text fill='white' textAnchor='middle' x='35%' y='46%' fontSize='24px' fontWeight='700' fontStyle='italic' fontFamily='Open Sans'>{date.month}</text>
         <text fill='white' textAnchor='middle' x='35%' fontSize='25px' fontWeight='700' y='77%' fontStyle='italic' fontFamily='Open Sans'>{date.hours}:{date.minutes}</text>
         <defs>
             <filter id="filter0_d_83_1609" x="-40" y="0" width="157" height="179" filterUnits="userSpaceOnUse"

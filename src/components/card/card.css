@@ -47,8 +47,6 @@
     width: 150px;
     height: 525px;
     overflow-y: auto;
-    scrollbar-width: thin;
-    scrollbar-color: #10c95a #f6f6f6;
 }
 
 .card_img_block::-webkit-scrollbar {

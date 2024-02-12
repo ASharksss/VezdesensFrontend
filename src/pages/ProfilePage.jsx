@@ -123,8 +123,6 @@ const ProfilePage = () => {
                   </button>
                 ))}
               </div>
-
-
               <div className='profile_content'>
                 {
                   choice === 'ads' ? <ProfileContentAd dataUser={dataAds} setDataAds={setDataAds}/> :

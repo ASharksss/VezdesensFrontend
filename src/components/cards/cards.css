@@ -74,6 +74,9 @@
     font-size: 14px;
     color:  rgba(131, 134, 144, 1);
     margin-bottom: 5px;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
 }
 
 .s .card_content-price{
@@ -112,6 +115,9 @@
     font-size: 14px;
     color:  rgba(131, 134, 144, 1);
     margin-bottom: 5px;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
 }
 
 .l .card_content-price{
@@ -150,6 +156,9 @@
     font-size: 14px;
     color:  rgba(131, 134, 144, 1);
     margin-bottom: 5px;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
 }
 
 .xxl .card_content-price{
@@ -189,6 +198,9 @@
     font-size: 14px;
     color:  rgba(131, 134, 144, 1);
     margin-bottom: 5px;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
 }
 
 .xl .card_content-price{
@@ -226,6 +238,9 @@
     font-size: 14px;
     color:  rgba(131, 134, 144, 1);
     margin-bottom: 5px;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
 }
 
 .xs .card_content-price{
