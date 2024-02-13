@@ -98,7 +98,7 @@ const UploadPhotoStandartPlus = ({editedImage, setEditedImage}) => {
               dragMode='crop'
               crop={onCrop}
             />
-            <button type='button' onClick={() => handleSaveImage()}>Save</button>
+            <button type='button' className='uploadPhoto-btn' onClick={() => handleSaveImage() }>Сохранить</button>
           </>}/>)}
     </div>
   );

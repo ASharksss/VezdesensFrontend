@@ -16,7 +16,7 @@ const CategoryAccordion = ({
   // setObjectId выбор объекта, для получения данных
   // objectId: int || str параметр подкатегории, чтобы выстроить аккордион и выделить текущую подкатегорию
   // setSearchParams родительский аргумент, чтобы передать новые параметры для урла на фронте
-    const navigate = useNavigate()
+  const navigate = useNavigate()
   const [checked, setChecked] = useState(null)
 
   useEffect(() => {
@@ -30,12 +30,12 @@ const CategoryAccordion = ({
     }
   }, [paramsObjectId, category])
   const handleCheckedCategory = (index, item) => {
-      if(checked !== null && checked === index) {
-          navigate({
-              pathname: '/category',
-              search: `?subCategory=${parseInt(paramsSubCategory)}&category=${parseInt(paramsCategory)}`,
-          })
-      }
+    if (checked !== null && checked === index) {
+      navigate({
+        pathname: '/category',
+        search: `?subCategory=${parseInt(paramsSubCategory)}&category=${parseInt(paramsCategory)}`,
+      })
+    }
     setChecked(index)
     handleCategoryClick(item.objects)
   }
@@ -46,41 +46,40 @@ const CategoryAccordion = ({
   }
 
   const createAccordion = useMemo(() => (
-      <div className="cat_accordion-item">
-          {category[0]?.subCategories.map((item, index) => (
-              <div key={`div-${index}`}>
-                  <input
-                      checked={checked !== null && checked === index}
-                      type="checkbox" name="category" id={`cat_${index}`} className='cat_accordion-radio'/>
-                  <label className='cat_accordion-title' htmlFor={`cat_${index}`}
-                         onClick={() => handleCheckedCategory(index, item)}>
-                      {item.name.indexOf('/') > 1 ? item.name.split('/')[0] : item.name}
-                  </label>
-                  {selectedCategory.length > 0 ? (
-                      <div className="cat_accordion-objects">
-                          {
-                              selectedCategory?.map((item, index) => (
-                                  <span onClick={() => handleCheckedSubcategory(item)} key={index}
-                                        className="objects-item"
-                                        style={objectId === item.id ? {
-                                            fontWeight: 'bold',
-                                            textDecoration: 'underline'
-                                        } : {}}>{item.name.indexOf('/') > 1 ? item.name.split('/')[0] : item.name}</span>
-                              ))
-                          }
-                      </div>
-                  ) : <div className="cat_accordion-objects">
-                      <span style={{fontWeight: 'bold', textDecoration: 'underline', cursor: 'pointer'}}>Ничего нет</span>
-                  </div>}
-              </div>
-          ))}
-      </div>
+    <div className="cat_accordion-item">
+      {category[0]?.subCategories.map((item, index) => (
+        <div key={`div-${index}`}>
+          <input
+            checked={checked !== null && checked === index}
+            type="checkbox" name="category" id={`cat_${index}`} className='cat_accordion-radio'/>
+          <label className='cat_accordion-title' htmlFor={`cat_${index}`}
+                 onClick={() => handleCheckedCategory(index, item)}>
+            {item.name.indexOf('/') > 1 ? item.name.split('/')[0] : item.name}
+          </label>
+          {selectedCategory.length > 0 ? (
+            <div className="cat_accordion-objects">
+              {
+                selectedCategory?.map((item, index) => (
+                  <span onClick={() => handleCheckedSubcategory(item)} key={index}
+                        className="objects-item"
+                        style={objectId === item.id ? {
+                          fontWeight: 'bold',
+                          textDecoration: 'underline'
+                        } : {}}>{item.name.indexOf('/') > 1 ? item.name.split('/')[0] : item.name}</span>
+                ))}
+            </div>
+          ) : <div className="cat_accordion-objects">
+            <span style={{fontWeight: 'bold', textDecoration: 'underline', cursor: 'pointer'}}>Ничего нет</span>
+          </div>}
+        </div>
+      ))}
+    </div>
   ), [category, selectedCategory, objectId])
 
   return (
     <div className='cat_accordion'>
-        <h1 className='cat_accordion-h1'>Подкатегории</h1>
-        {createAccordion}
+      <h1 className='cat_accordion-h1'>Подкатегории</h1>
+      {createAccordion}
     </div>
   );
 };

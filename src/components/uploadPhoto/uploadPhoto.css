@@ -67,15 +67,34 @@
 .images-flex {
     display: grid;
     grid-template-columns: repeat(8, 1fr);
-    grid-row-gap: 10px;
+    grid-template-rows: 188px;
 }
 
 .images-flex_row {
-    display: flex;
-    flex-direction: row;
+
 }
 
 .images-flex_column {
-    flex: 1;
+
+}
+
+.uploadPhoto-btn {
+    width: 230px !important;
+    height: 54px;
+    background-color: rgba(22, 22, 22, 1);
+    color: white;
+    border-radius: 10px;
+    font-weight: bold;
+    margin-top: 10px;
+}
+
+.uploadPhoto-btn-next {
+    width: 230px;
+    height: 54px;
+    border-radius: 10px;
+    border: 1px solid rgba(236, 236, 236, 1);
+    font-weight: bold;
+    margin-top: 10px;
+    margin-left: 10px;
 }
 

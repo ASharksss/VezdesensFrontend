@@ -14,8 +14,9 @@
 .card:hover .in_card {
     display: block;
 }
+
 .card .in_card.active {
-    display: block!important;
+    display: block !important;
 }
 
 
@@ -29,10 +30,10 @@
     font-family: OpenSansBold;
 }
 
-.card_content-price{
-     font-size: 24px;
-     font-family: OpenSansBold;
- }
+.card_content-price {
+    font-size: 24px;
+    font-family: OpenSansBold;
+}
 
 .thin {
     width: 1400px;
@@ -58,7 +59,6 @@
 
 .s .card_content-title {
     font-size: 20px;
-    height: 40px;
     white-space: nowrap;
     text-overflow: ellipsis;
     overflow: hidden;
@@ -68,19 +68,19 @@
 
 .s .card_content-date {
     font-size: 14px;
-    color:rgba(181, 183, 189, 1);
+    color: rgba(181, 183, 189, 1);
 }
 
 .s .card_content-address {
     font-size: 14px;
-    color:  rgba(131, 134, 144, 1);
+    color: rgba(131, 134, 144, 1);
     margin-bottom: 5px;
     white-space: nowrap;
     text-overflow: ellipsis;
     overflow: hidden;
 }
 
-.s .card_content-price{
+.s .card_content-price {
     margin-top: 15px;
     font-size: 24px;
     font-family: OpenSansBold;
@@ -91,7 +91,7 @@
     height: 562px;
 }
 
-.l .card_content-img{
+.l .card_content-img {
     width: 690px;
     height: 417px;
 }
@@ -101,7 +101,6 @@
     font-weight: bold;
     margin-bottom: 10px;
     width: 250px;
-    height: 40px;
     white-space: nowrap;
     text-overflow: ellipsis;
     overflow: hidden;
@@ -109,19 +108,19 @@
 
 .l .card_content-date {
     font-size: 14px;
-    color:rgba(181, 183, 189, 1);
+    color: rgba(181, 183, 189, 1);
 }
 
 .l .card_content-address {
     font-size: 14px;
-    color:  rgba(131, 134, 144, 1);
+    color: rgba(131, 134, 144, 1);
     margin-bottom: 5px;
     white-space: nowrap;
     text-overflow: ellipsis;
     overflow: hidden;
 }
 
-.l .card_content-price{
+.l .card_content-price {
     margin-right: 50px;
     font-size: 32px;
     font-family: OpenSansBold;
@@ -141,7 +140,6 @@
     font-size: 32px;
     font-weight: bold;
     margin-bottom: 10px;
-    height: 40px;
     white-space: nowrap;
     text-overflow: ellipsis;
     overflow: hidden;
@@ -149,25 +147,24 @@
 
 .xxl .card_content-date {
     font-size: 14px;
-    color:rgba(181, 183, 189, 1);
+    color: rgba(181, 183, 189, 1);
 }
 
 .xxl .card_content-address {
     margin-right: 50px;
     font-size: 14px;
-    color:  rgba(131, 134, 144, 1);
+    color: rgba(131, 134, 144, 1);
     margin-bottom: 5px;
     white-space: nowrap;
     text-overflow: ellipsis;
     overflow: hidden;
 }
 
-.xxl .card_content-price{
+.xxl .card_content-price {
     margin-right: 50px;
     font-size: 32px;
     font-family: OpenSansBold;
 }
-
 
 
 .xl {
@@ -184,7 +181,6 @@
     font-size: 24px;
     font-weight: bold;
     margin-bottom: 10px;
-    height: 40px;
     white-space: nowrap;
     text-overflow: ellipsis;
     overflow: hidden;
@@ -192,19 +188,19 @@
 
 .xl .card_content-date {
     font-size: 14px;
-    color:rgba(181, 183, 189, 1);
+    color: rgba(181, 183, 189, 1);
 }
 
 .xl .card_content-address {
     font-size: 14px;
-    color:  rgba(131, 134, 144, 1);
+    color: rgba(131, 134, 144, 1);
     margin-bottom: 5px;
     white-space: nowrap;
     text-overflow: ellipsis;
     overflow: hidden;
 }
 
-.xl .card_content-price{
+.xl .card_content-price {
     margin-right: 50px;
     font-size: 32px;
     font-family: OpenSansBold;
@@ -224,7 +220,6 @@
     font-size: 18px;
     font-weight: bold;
     margin-bottom: 10px;
-    height: 40px;
     white-space: nowrap;
     text-overflow: ellipsis;
     overflow: hidden;
@@ -232,19 +227,19 @@
 
 .xs .card_content-date {
     font-size: 14px;
-    color:rgba(181, 183, 189, 1);
+    color: rgba(181, 183, 189, 1);
 }
 
 .xs .card_content-address {
     font-size: 14px;
-    color:  rgba(131, 134, 144, 1);
+    color: rgba(131, 134, 144, 1);
     margin-bottom: 5px;
     white-space: nowrap;
     text-overflow: ellipsis;
     overflow: hidden;
 }
 
-.xs .card_content-price{
+.xs .card_content-price {
     margin-top: 15px;
     font-size: 24px;
     font-family: OpenSansBold;

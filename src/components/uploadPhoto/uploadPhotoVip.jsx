@@ -93,7 +93,9 @@ const UploadPhotoVip = ({editedImage, setEditedImage}) => {
               dragMode='crop'
               crop={onCrop}
             />
-            <button type='button' onClick={() => handleSaveImage()}>Save</button>
+            <button type='button'
+                    onClick={() => handleSaveImage()} className='uploadPhoto-btn'>Сохранить
+            </button>
           </>}/>)}
     </div>
   );

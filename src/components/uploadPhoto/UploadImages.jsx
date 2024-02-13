@@ -9,7 +9,7 @@ import photoStandart from "../../asserts/icons/upload_stanrat.svg";
 import deleteImg from "../../asserts/icons/deleteImg.svg";
 
 
-const UploadImages = ({cropData, setCropData, mainSrcData=[], mainImage, setMainImage}) => {      // родительское хранилище, куда записываются изменения
+const UploadImages = ({cropData, setCropData, mainSrcData = [], mainImage, setMainImage}) => {      // родительское хранилище, куда записываются изменения
   // cropData: []
   const cropperRef = useRef(null)
   const [srcData, setSrcData] = useState([])            // первоначальные файлы
@@ -20,11 +20,11 @@ const UploadImages = ({cropData, setCropData, mainSrcData=[], mainImage, setMain
   const [key, setKey] = useState(null)                  // uuid картинки для изменения
   const [lastKey, setLastKey] = useState(null)
 
-	useEffect(() => {
-		if (mainSrcData.length > 0) {
-			setSrcData(mainSrcData)
-		}
-	}, [mainSrcData])
+  useEffect(() => {
+    if (mainSrcData.length > 0) {
+      setSrcData(mainSrcData)
+    }
+  }, [mainSrcData])
 
   const onCrop = () => {
     const cropper = cropperRef.current?.cropper
@@ -41,45 +41,45 @@ const UploadImages = ({cropData, setCropData, mainSrcData=[], mainImage, setMain
   }
 
   const handleSaveImage = () => {
-		const updatedTimeArray = cropData.map(item => {
-			if (item.key === key) {
-				return { key: key, value: croppedData, change: true };
-			}
-			return item;
-		});
-		setCropData(updatedTimeArray);
+    const updatedTimeArray = cropData.map(item => {
+      if (item.key === key) {
+        return {key: key, value: croppedData, change: true};
+      }
+      return item;
+    });
+    setCropData(updatedTimeArray);
     setChangeImage(null)
     setKey(null)
     setCroppedData(null)
     setActiveModal(false)
   }
 
-	function getNextByKey() {
-		for (let i = 0; i < cropData.length; i++) {
-			if (cropData[i].key === key && !cropData[i].change) {
-				return cropData[(i - 1 + cropData.length) % cropData.length];
-			}
-		}
-		return null;
-	}
+  function getNextByKey() {
+    for (let i = 0; i < cropData.length; i++) {
+      if (cropData[i].key === key && !cropData[i].change) {
+        return cropData[(i - 1 + cropData.length) % cropData.length];
+      }
+    }
+    return null;
+  }
 
   const handleNextImage = () => {
-		const nextImage = getNextByKey();
-		const updatedTimeArray = cropData.map(item => {
-			if (item.key === key) {
-				return { key: key, value: croppedData, change: true };
-			}
-			return item;
-		});
-		setCropData(updatedTimeArray);
-		if(nextImage['key'] === lastKey) {
-			return setActiveModal(false)
-		}
-		if (nextImage !== null) {
-			return handleSetImage(nextImage['key'])
-		} else {
-			setActiveModal(false)
-		}
+    const nextImage = getNextByKey();
+    const updatedTimeArray = cropData.map(item => {
+      if (item.key === key) {
+        return {key: key, value: croppedData, change: true};
+      }
+      return item;
+    });
+    setCropData(updatedTimeArray);
+    if (nextImage['key'] === lastKey) {
+      return setActiveModal(false)
+    }
+    if (nextImage !== null) {
+      return handleSetImage(nextImage['key'])
+    } else {
+      setActiveModal(false)
+    }
   }
 
   useEffect(() => {
@@ -101,9 +101,9 @@ const UploadImages = ({cropData, setCropData, mainSrcData=[], mainImage, setMain
         reader.onloadend = () => {
           const v4Key = uuidv4()
           img.onload = function () {
-						if (lastKey === null){
-							setLastKey(v4Key)
-						}
+            if (lastKey === null) {
+              setLastKey(v4Key)
+            }
             const imageSizeCheck = this.width === 248 && this.height === 333
             setSrcData(prev => [...prev, {key: v4Key, value: reader.result}])
             setCropData(prev => [...prev, {key: v4Key, value: reader.result, change: imageSizeCheck}])
@@ -115,23 +115,23 @@ const UploadImages = ({cropData, setCropData, mainSrcData=[], mainImage, setMain
     }
   };
 
-	useEffect(() => {
-		if (lastKey !== null) {
-			handleSetImage(lastKey)
-		}
-	}, [lastKey])
+  useEffect(() => {
+    if (lastKey !== null) {
+      handleSetImage(lastKey)
+    }
+  }, [lastKey])
 
-	useEffect(() => {
-		if (activeModal === false) {
-			if (lastKey !== null) {
-				setLastKey(null)
-			}
-			setChangeImage(null)
-			setKey(null)
-			setCroppedData(null)
-			setActiveModal(false)
-		}
-	}, [activeModal])
+  useEffect(() => {
+    if (activeModal === false) {
+      if (lastKey !== null) {
+        setLastKey(null)
+      }
+      setChangeImage(null)
+      setKey(null)
+      setCroppedData(null)
+      setActiveModal(false)
+    }
+  }, [activeModal])
 
   const handleRemoveImage = (itemKey) => {
     const timeArraySrc = [...srcData], timeArrayCrop = [...cropData]
@@ -151,24 +151,27 @@ const UploadImages = ({cropData, setCropData, mainSrcData=[], mainImage, setMain
         <p className='mb-20'>Количество загруженных фото: {srcData.length} / 15</p>
         <div className="images-flex">
           {cropData.length > 0 ? cropData.map((item, index) => (
-                <div key={`img-${item.key}`} className='img_block'>
-                  <button onClick={() => handleRemoveImage(item.key)} className='deleteImg_stBtn'><img src={deleteImg} alt=""/></button>
-                  {mainImage !== null ?
-                    <div>
-                      <input type="radio" id={`selected-${item.key}`} checked={item.key === mainImage}
-                             className={`checkedImg_btn`} onChange={() => setMainImage(item.key)} hidden/>
-                      <label className={`checkedImg_label${item.key === mainImage ? ' active' : ''}`}
-                             htmlFor={`selected-${item.key}`}>{item.key === mainImage ? 'Выбрано' : 'Выбрать'}</label>
-                    </div> : null}
-                  <div className='images-flex_column' onClick={() => handleSetImage(item.key)}>
-                    <img src={item.value} alt="" className='upload_photo-img'/>
-                  </div>
-                </div>
+            <div key={`img-${item.key}`} className='img_block'>
+              <button onClick={() => handleRemoveImage(item.key)} className='deleteImg_stBtn'>
+                <img src={deleteImg} alt=""/>
+              </button>
+              {mainImage !== null ?
+                <div>
+                  <input type="radio" id={`selected-${item.key}`} checked={item.key === mainImage}
+                         className={`checkedImg_btn`} onChange={() => setMainImage(item.key)} hidden/>
+                  <label className={`checkedImg_label${item.key === mainImage ? ' active' : ''}`}
+                         htmlFor={`selected-${item.key}`}>{item.key === mainImage ? 'Выбрано' : 'Выбрать'}</label>
+                </div> : null}
+              <div className='images-flex_column' onClick={() => handleSetImage(item.key)}>
+
+                <img src={item.value} alt="" className='upload_photo-img'/>
+              </div>
+            </div>
           )) : null}
           {cropData.length < 15 ?
             <div {...getRootProps()}>
               <label htmlFor="standart_input" className='upload_file_input upload_standart-label'>
-                <img  src={photoStandart} alt=""/>
+                <img src={photoStandart} alt=""/>
               </label>
             </div> : null}
         </div>
@@ -197,8 +200,10 @@ const UploadImages = ({cropData, setCropData, mainSrcData=[], mainImage, setMain
               dragMode='crop'
               crop={onCrop}
             />
-            <button type='button' onClick={() => handleSaveImage()}>Save</button>
-						<button type='button' onClick={() => handleNextImage()}>Next</button>
+            <button type='button' className='uploadPhoto-btn' onClick={() => handleSaveImage()}>Сохранить</button>
+            <button type='button' className='uploadPhoto-btn-next'
+                    onClick={() => handleNextImage()}>Дальше
+            </button>
           </>}/>
       )}
     </div>

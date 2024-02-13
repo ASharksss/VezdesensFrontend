@@ -6,9 +6,10 @@
 .filter_label {
     display: block;
     margin-bottom: 10px;
-    font-size: 18px;
+    font-size: 16px;
     font-family: OpenSansBold;
     z-index: 0;
+
 }
 
 .filter_input {
@@ -16,7 +17,7 @@
     border-radius: 10px;
     padding: 15px;
     width: 116px;
-    height: 47px;
+    height: 34px;
 }
 
 .filter_input + .filter_input {
@@ -24,27 +25,28 @@
 }
 
 
-
-
-
 .filter_select {
     position: relative;
     width: 237px;
 }
+
 .filter_select-header {
     display: flex;
     align-items: center;
-     background-color: #ECECEC;
-     padding: 10px;
-     border-radius: 10px;
-     width: 237px;
-     height: 37px;
-     cursor: pointer;
+    background-color: #ECECEC;
+    padding: 10px;
+    border-radius: 10px;
+    width: 225px;
+    height: 34px;
+    cursor: pointer;
     z-index: 0;
     color: rgba(181, 183, 189, 1);
- }
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis
+}
 
-.filter_select-header:focus-visible{
+.filter_select-header:focus-visible {
     border: 1px solid black;
 }
 
