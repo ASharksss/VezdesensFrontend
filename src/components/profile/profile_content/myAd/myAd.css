@@ -79,6 +79,7 @@
     width: 248px;
     height: 333px;
     border-radius: 20px;
+    object-fit: cover;
 }
 
 .myAd_description {
