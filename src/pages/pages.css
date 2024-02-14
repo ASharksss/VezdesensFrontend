@@ -421,3 +421,35 @@
     position: relative;
 }
 
+/* support */
+
+.support {
+    margin-top: 30px;
+    margin-bottom: 40px;
+}
+
+.support_item {
+    border-radius: 20px;
+    padding: 20px;
+    width: 1050px;
+    height: 156px;
+    background-color: rgba(246, 246, 246, 1);
+
+    color: #838690;
+    cursor: pointer;
+    transition: .5s;
+}
+
+.support_item:hover {
+    background-color: rgb(231, 230, 230);
+}
+
+.support_item + .support_item {
+    margin-top: 10px;
+}
+
+.support_item-title {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 5px;
+}

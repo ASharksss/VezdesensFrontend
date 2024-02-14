@@ -17,8 +17,8 @@ import AddSubCategory from "./pages/admin/addSubCategory";
 import AddObject from "./pages/admin/addObject";
 
 
-// axios.defaults.baseURL = 'http://localhost:5000/';
-axios.defaults.baseURL = 'https://backend.vezdesens.ru/';
+axios.defaults.baseURL = 'http://localhost:5000/';
+//axios.defaults.baseURL = 'https://backend.vezdesens.ru/';
 axios.defaults.withCredentials = true
 
 function App() {
@@ -32,9 +32,10 @@ function App() {
     function checkAuth() {
       const checkSession = getCookie('session')
       if (checkSession !== undefined) {
-         dispatch(fetchAuth(checkSession))
+        dispatch(fetchAuth(checkSession))
       }
     }
+
     return checkAuth()
   }, [])
 

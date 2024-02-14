@@ -46,15 +46,17 @@ const SmoothScroll = ({children}) => {
             {isVisible && <button onClick={scrollToTop} id={'buttonUp'} style={{
                 position: 'absolute',
                 left: 0,
-                width: '8%',
+                width: '142px',
                 height: '100vh',
                 bottom: 0,
-                background: 'linear-gradient(to right, #0000ff2b, #fff)',
+                background: 'rgb(246,245,245)',
                 display: 'flex',
                 alignItems: 'start',
                 padding: '15px 5px',
             }}>
-                Наверх <img src={arrowSVG} alt="Прокрутить наверх" width={32} style={{marginLeft: '5px'}}/>
+                <div className='flex items-center '>
+                    <span style={{color:'rgba(181, 183, 189, 1)'}}>Наверх</span> <img src={arrowSVG} alt="Прокрутить наверх" width={10} style={{marginLeft: '15px'}}/>
+                </div>
             </button>}
         </div>
     );
