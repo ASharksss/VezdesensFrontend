@@ -16,6 +16,14 @@
   font-weight: 400;
 }
 
+.text-right{
+  text-align: right;
+}
+
+.text-left{
+  text-align: left;
+}
+
 .w-315 {
   width: 315px;
 }
