@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import {useSearchParams} from "react-router-dom";
+import {useNavigate, useSearchParams} from "react-router-dom";
 import axios from "axios";
 
 import attach_icon from '../../../../asserts/messages/attach_icon.svg'
@@ -13,6 +13,9 @@ const DialogAppeal = () => {
 
   const [searchParams, setSearchParams] = useSearchParams()
   const appealId = searchParams.get('id')
+
+  const navigate = useNavigate()
+
   const getData = async () => {
     await axios.get(`api/support/getMessagesOfAppeal?id=${appealId}`)
       .then(res => setData(res.data))
@@ -30,6 +33,11 @@ const DialogAppeal = () => {
         await getData()
         setMessage('')
       })
+  }
+
+  const closeAppeal = async () => {
+    await axios.put('api/support/closeAppeal', {appealId})
+      .then(() => navigate(`#help`))
   }
 
   const postMessageSupport = async () => {
@@ -50,21 +58,28 @@ const DialogAppeal = () => {
     <div className='messages_container'>
       <div className='flex space-between items-center'>
         <h1 className='dialog_appeal-title'>Тема обращения: {data[0]?.appeal.topicOfAppeal.name}</h1>
-        <button className='dialog_appeal-btn'>Вопрос решен</button>
+
+        {
+          data[0]?.appeal.statusOfAppealId === 1 ?
+            <button className='dialog_appeal-btn' onClick={closeAppeal}>
+              Вопрос решен
+            </button> : null
+        }
+
       </div>
       <div className='flex column dialog_appeal-messages'>
         {
           data.map((item, index) => (
               <>
-                <span
-                  className={`${item.isSupport ? 'support-text text-left' : 'user_text text-right'}`}>{item.isSupport ? 'Техническая поддержка' : 'Вы'}</span>
+                <span className={`${item.isSupport ? 'support-text text-left' : 'user_text text-right'}`}>
+                  {item.isSupport ? 'Техническая поддержка' : 'Вы'}
+                </span>
                 <div key={`message-${index}`}
                      className={`message_appeal_block ${item.isSupport ? 'left_message' : 'right_message'}`}>
 
                   <div>{item.text}</div>
                 </div>
               </>
-
             )
           )
         }
