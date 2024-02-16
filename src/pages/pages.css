@@ -298,15 +298,31 @@
     transition: .5s;
 }
 
+.filters .buttons {
+    margin-bottom: 10px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    align-items: center;
+}
+
 .filters .search {
-    position: absolute;
     padding: 10px;
     border-radius: 15px;
-    background: rgba(215, 239, 17, 0.7);
+    background: #76baff;
+    color: #fff;
+}
+.filters .search:hover {
+    box-shadow: 0 0 5px 2px rgba(0,0,0,0.175);
 }
 
 .filters .reset {
-
+    padding: 10px;
+    border-radius: 15px;
+    border: 1px solid rgba(0,0,0,0.135);
+}
+.filters .reset:hover {
+    box-shadow: 0 0 5px 2px rgba(0,0,0,0.175);
 }
 
 .cropper-bg {

@@ -1,13 +1,12 @@
 import React, {useEffect, useState, useRef, useMemo, useCallback} from 'react';
 import {useDispatch, useSelector} from "react-redux";
-import axios from "axios";
 import {useLocation, useNavigate, useSearchParams} from "react-router-dom";
 import './pages.css'
 import CategoryAccordion from "../components/categoryAccordion/categoryAccordion";
 import Ad from "../components/cards/Ad";
 import {fetchCategoryList} from "../redux/slices/categorySlice";
 import Card from "../components/cards/Card";
-import {STATIC_HOST, encryptArrayWithKey, getStaticAd} from "../utils";
+import {STATIC_HOST, getStaticAd} from "../utils";
 import EnterFilter from "../components/filters/enterFilter";
 import ChoiceFilter from "../components/filters/choiceFilter";
 import useCatalogCard from "../redux/hooks/useCatalogCard";
@@ -41,7 +40,6 @@ const CatalogBoardPage = () => {
   const [query, setQuery] = useState(null)
   const [objectId, setObjectId] = useState(parseInt(paramsObjectId))
   const [staticAd, setStaticAd] = useState([])
-  const [buttonPosition, setButtonPosition] = useState({right: 0, top: 0});
   const [lastChoiceLength, setLastChoiceLength] = useState(0);
   const [lastEnterLength, setLastEnterLength] = useState(0);
   const [openChar, setOpenChar] = useState(false)
@@ -132,26 +130,6 @@ const CatalogBoardPage = () => {
     }
   }, [choiceFilter, enterFilter]) // чтоб кнопка стала активной и отправить новый запрос на бэк по параметрам
 
-  const filterRef = useRef(null);
-  useEffect(() => {
-    if (filterRef === null) return;
-    if (choiceFilter.length === 0 && enterFilter.length === 0) return;
-    if (lastChoiceLength === 0 && lastEnterLength === 0) return;
-    let dynamicDiv
-    if ((choiceFilter.length === lastChoiceLength) && (lastChoiceLength !== 0)) {
-      const id = choiceFilter.at(-1).id
-      dynamicDiv = document.getElementById(`filter-${id}`);
-    }
-    if ((enterFilter.length === lastEnterLength) && (lastEnterLength !== 0)) {
-      const id = enterFilter.at(-1).id
-      dynamicDiv = document.getElementById(`filter-${id}`);
-    }
-    const rightOffset = -90;
-    const topOffset = dynamicDiv.offsetTop + 30;
-
-    setButtonPosition({right: rightOffset, top: topOffset});
-  }, [lastChoiceLength, lastEnterLength]);
-
   const observerDiv = useRef()
   const lastElementRef = useCallback(node => {
     if (loading) return
@@ -165,6 +143,10 @@ const CatalogBoardPage = () => {
     })
     if (node) observerDiv.current.observe(node)
   }, [loading, hasMore, offset])
+
+  const handleResetSearch = () => {
+    window.location.reload()
+  }
 
   const headerName = useMemo(() => {
     if (!isLoading) {
@@ -196,7 +178,15 @@ const CatalogBoardPage = () => {
                              selectedCategory={selectedCategory}/>
 
           {!isLoading ?
-            <div className="filters" ref={filterRef}>
+            <div className="filters">
+              <div className='buttons'>
+                <button className='search'
+                        onClick={showAds ? handleShowAdsByParams : null} disabled={!showAds}
+                >Показать</button>
+                <button className='reset'
+                        onClick={userChange ? handleResetSearch : null} disabled={!userChange}
+                >Сбросить</button>
+              </div>
               <EnterFilter setEnterFilter={setEnterFilter}/>
               {!isLoading ? categoriesList.items[1]?.map((item, index) => item.characteristic.required ?
                 item.characteristic.typeCharacteristic?.name === 'enter' ?
@@ -227,10 +217,6 @@ const CatalogBoardPage = () => {
                   </div> : null
 
               }
-              {showAds ? <button className='search'
-                                 style={{right: `${buttonPosition.right}px`, top: `${buttonPosition.top}px`}}
-                                 onClick={showAds ? handleShowAdsByParams : null} disabled={!showAds}
-              >Показать</button> : null}
             </div> : null}
         </div>
 
