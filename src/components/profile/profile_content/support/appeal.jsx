@@ -1,6 +1,8 @@
 import React from 'react';
 
 const Appeal = ({item}) => {
+
+
   return (
     <div className='support_item flex space-between'>
       <div>

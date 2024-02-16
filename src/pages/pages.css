@@ -434,7 +434,6 @@
     width: 1050px;
     height: 156px;
     background-color: rgba(246, 246, 246, 1);
-
     color: #838690;
     cursor: pointer;
     transition: .5s;
@@ -444,7 +443,8 @@
     background-color: rgb(231, 230, 230);
 }
 
-.support_item + .support_item {
+.appeal + .appeal {
+    display: block;
     margin-top: 10px;
 }
 
@@ -452,4 +452,80 @@
     display: block;
     font-weight: bold;
     margin-bottom: 5px;
+}
+
+
+.addAppeal-btn {
+    width: 200px;
+    height: 47px;
+    background-color: rgba(22, 22, 22, 1);
+    color: white;
+    font-weight: bold;
+    border-radius: 10px;
+    margin-bottom: 20px;
+}
+
+.dialog_appeal-title {
+    margin-top: 40px;
+    margin-bottom: 40px;
+    font-size: 24px;
+}
+
+.dialog_appeal-messages {
+    overflow: auto;
+    height: 400px;
+    padding-top: 10px;
+}
+
+.message_appeal_block {
+    width: 434px;
+    box-shadow: 0px 6px 40px 0px rgba(38, 38, 38, 0.1);
+    padding: 20px;
+    font-size: 14px;
+    color: rgba(8, 9, 43, 1);
+
+}
+
+.message_appeal_block + .message_appeal_block {
+    margin-top: 20px;
+}
+
+.left_message {
+    align-self: flex-start;
+    margin-left: 15px;
+}
+
+.right_message {
+    align-self: flex-end;
+    margin-right: 15px;
+}
+
+.support-text {
+    font-size: 16px;
+    font-weight: bold;
+    margin-left: 15px;
+    margin-bottom: 10px;
+}
+
+.user_text {
+    font-size: 16px;
+    font-weight: bold;
+    margin-right: 15px;
+    margin-bottom: 10px;
+}
+
+.dialog_appeal-btn {
+    width: 200px;
+    height: 36px;
+    background-color: rgb(82, 82, 82);
+    color: white;
+    border-radius: 10px;
+}
+
+.support-filter {
+    width: 250px;
+    height: 47px;
+    background-color: rgba(236, 236, 236, 1);
+    padding: 10px;
+    border-radius: 10px;
 }
