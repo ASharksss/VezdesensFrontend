@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react';
-import {fetchCategory, fetchObjects, fetchSubCategories} from "../../redux/slices/categorySlice";
+import {fetchCategory, fetchObjects, fetchSubCategories} from "../../../redux/slices/categorySlice";
 import {useDispatch, useSelector} from "react-redux";
-import {fetchTypeCharacteristic} from "../../redux/slices/admin/characterSlice";
+import {fetchTypeCharacteristic} from "../../../redux/slices/admin/characterSlice";
 import axios from "axios";
 
 const AddObject = () => {

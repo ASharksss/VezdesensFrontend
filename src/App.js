@@ -10,14 +10,15 @@ import {fetchAuth} from "./redux/slices/userSlice";
 import {privateRoutes, publicRoutes} from "./routes";
 import SignIn from "./pages/SignIn";
 import SignUp from "./pages/SignUp.";
-import Characteristic from "./pages/admin/Characteristic";
-import AddPage from "./pages/admin/AddPage";
-import AddCategory from "./pages/admin/addCategory";
-import AddSubCategory from "./pages/admin/addSubCategory";
-import AddObject from "./pages/admin/addObject";
+import Characteristic from "./pages/admin/Characteristics/Characteristic";
+import AddPage from "./pages/admin/Characteristics/AddPage";
+import AddCategory from "./pages/admin/Characteristics/addCategory";
+import AddSubCategory from "./pages/admin/Characteristics/addSubCategory";
+import AddObject from "./pages/admin/Characteristics/addObject";
+import SupportPage from "./pages/admin/support/SupportPage";
 
 
-// axios.defaults.baseURL = 'http://localhost:5000/';
+//axios.defaults.baseURL = 'http://localhost:5000/';
 axios.defaults.baseURL = 'https://backend.vezdesens.ru/';
 axios.defaults.withCredentials = true
 
@@ -56,6 +57,7 @@ function App() {
         <Route path="/addSubCategory" element={<AddSubCategory/>}/>
         <Route path="/addObject" element={<AddObject/>}/>
         <Route path="/characteristic" element={<Characteristic/>}/>
+        <Route path="/supportAdmin" element={<SupportPage/>}/>
         <Route path="/addCategory" element={<AddCategory/>}/>
         <Route path="/" element={<Layout/>}>
           {publicRoutes.map(({key, path, Component}) => (

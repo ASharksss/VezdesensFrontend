@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import {useDispatch, useSelector} from "react-redux";
-import {fetchTypeCharacteristic} from "../../redux/slices/admin/characterSlice";
-import {fetchCategory} from "../../redux/slices/categorySlice";
+import {fetchTypeCharacteristic} from "../../../redux/slices/admin/characterSlice";
+import {fetchCategory} from "../../../redux/slices/categorySlice";
 import axios from "axios";
 
 const AddSubCategory = () => {

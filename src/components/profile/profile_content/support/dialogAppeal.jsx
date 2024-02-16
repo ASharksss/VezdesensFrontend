@@ -85,9 +85,16 @@ const DialogAppeal = () => {
         }
       </div>
       <form className="dialogs-form" onSubmit={postMessage}>
-        <textarea rows="1" className="dialogs-input" placeholder="Ваше сообщение..." value={message}
-                  onChange={e => setMessage(e.target.value)}></textarea>
-        <button type="submit" className="dialogs-sendBtn blocked"></button>
+        <div className="dialogs-input flex space-between">
+          <textarea rows="1" placeholder="Ваше сообщение..." className='dialogs-textarea' value={message}
+                    onChange={e => setMessage(e.target.value)}>
+        </textarea>
+          <img src={attach_icon} alt=""/>
+        </div>
+
+        <button type="submit" className="dialogs-sendBtn blocked">
+          <img src={send_icon} alt=""/>
+        </button>
       </form>
 
 

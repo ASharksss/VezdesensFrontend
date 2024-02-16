@@ -1,9 +1,9 @@
 import React, {useEffect, useState} from 'react';
 import './character.css'
 import {useDispatch, useSelector} from "react-redux";
-import {fetchTypeCharacteristic} from "../../redux/slices/admin/characterSlice";
-import {fetchCategory, fetchObjects, fetchSubCategories} from "../../redux/slices/categorySlice";
-import {fetchCharacterObjects} from "../../redux/slices/adSlice";
+import {fetchTypeCharacteristic} from "../../../redux/slices/admin/characterSlice";
+import {fetchCategory, fetchObjects, fetchSubCategories} from "../../../redux/slices/categorySlice";
+import {fetchCharacterObjects} from "../../../redux/slices/adSlice";
 import axios from "axios";
 
 

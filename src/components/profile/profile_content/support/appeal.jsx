@@ -14,7 +14,6 @@ const Appeal = ({item}) => {
         <div>12.02.12</div>
         <div>{item.statusOfAppeal.name}</div>
       </div>
-
     </div>
   );
 };

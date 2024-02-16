@@ -529,3 +529,12 @@
     padding: 10px;
     border-radius: 10px;
 }
+
+/* Support Page Admin */
+
+.support_wrapper {
+    width:1050px;
+    height: 600px;
+    margin: 100px auto;
+}
+

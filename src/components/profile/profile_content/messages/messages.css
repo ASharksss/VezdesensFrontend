@@ -12,7 +12,6 @@
 }
 
 
-
 .message_item:hover {
     background-color: rgba(246, 246, 246, 1);
 }
@@ -108,7 +107,7 @@
     box-shadow: 0px 6px 40px 0px rgba(38, 38, 38, 0.1);
     margin-bottom: 55px;
     padding: 20px;
-    border-radius:10px 0 0 10px;
+    border-radius: 10px 0 0 10px;
 
 }
 
@@ -127,7 +126,7 @@
     border: 1px solid transparent;
     border-radius: 10px 0 0 10px;
     padding: 16px 30px;
-    font-size:16px;
+    font-size: 16px;
     max-height: 70px;
     width: 941px;
     height: 54px;
@@ -135,8 +134,7 @@
     overflow: hidden;
 }
 
-.dialogs-form .dialogs-input:focus{
-    border: 1px solid rgba(181, 183, 189, 1);
+.dialogs-form .dialogs-textarea:focus {
     outline: none;
 }
 
@@ -149,6 +147,14 @@
     justify-content: center;
     align-items: center;
 }
+
+.dialogs-textarea {
+    width: 90%;
+    height: 54px;
+    resize: none;
+    overflow: hidden;
+}
+
 
 .dialogs-form .dialogs-sendBtn.blocked {
 
@@ -164,7 +170,7 @@
     flex-direction: column;
 }
 
- .dialogs-time{
+.dialogs-time {
     font-size: 14px;
     color: rgba(181, 183, 189, 1);
 
