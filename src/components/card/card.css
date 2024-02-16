@@ -1,7 +1,7 @@
 
 .card_ad-title {
     width: 1300px;
-    justify-content: space-between;
+    /* justify-content: space-between; */
 }
 
 .card_ad_wrapper {
@@ -9,7 +9,8 @@
 }
 
 .card_ad_address {
-    margin-left: 20px;
+    /* margin-left: 20px; */
+    width: 519px; 
     justify-content: center;
 }
 
@@ -63,10 +64,18 @@
 }
 
 .card_description {
-    width: 432px;
-    height: 315px;
+    max-width: 432px;
+    max-height: 421px;
     margin-left: 10px;
-    overflow: auto;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -moz-box;
+    -moz-box-orient: vertical;
+    display: -webkit-box;
+    -webkit-line-clamp: 8;
+    -webkit-box-orient: vertical;
+    line-clamp: 3;
+    box-orient: vertical;
 }
 
 .show_more-btn {
@@ -76,6 +85,7 @@
 .number_time_views {
     color: #B5B7BD;
     margin-bottom: 31px;
+    width: 502px;
 }
 
 .card_description-title {
@@ -86,7 +96,7 @@
 }
 
 .card_description-text {
-    width: 435px;
+    width: -webkit-fill-available;
     color: #838690;
     font-size: 14px;
     line-height: 20.68px;
@@ -96,8 +106,17 @@
 .card_description-pre {
     white-space: pre-line;
     margin-bottom: 20px;
-    height: 100%;
+    /* height: 100%; */
     font-family: OpenSansRegular;
+    overflow: hidden;
+      text-overflow: ellipsis;
+      display: -moz-box;
+      -moz-box-orient: vertical;
+      display: -webkit-box;
+      -webkit-line-clamp: 8;
+      -webkit-box-orient: vertical;
+      line-clamp: 3;
+      box-orient: vertical;
 
 }
 
@@ -132,9 +151,9 @@
 .seller_info {
     margin-bottom: 15px;
 }
-
 .rating_info {
     margin-bottom: 30px;
+    cursor: pointer;
 }
 
 .seller_info-name {
@@ -163,4 +182,9 @@
     width: 230px;
     color: rgba(131, 134, 144, 1);
 }
+
+/* .description_overflow{
+    overflow: hidden;
+      
+} */
 

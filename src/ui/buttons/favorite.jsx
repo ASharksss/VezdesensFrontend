@@ -39,6 +39,7 @@ const Favorite = ({classname, id, favorite}) => {
 	return (
 		<div className={isFavorite ? classname + ' active' : classname}
 				 onMouseEnter={handleMouseEnter}
+				 style={{marginBottom: '30px', cursor: "pointer"}}
 				 onMouseLeave={handleMouseLeave}
 				 onClick={() => handleFavorite()}>
 			<img src={isFavorite ? isFavoriteSVG : !isHovered ? favoriteSVG : favoriteHover} alt="в избранное"/>

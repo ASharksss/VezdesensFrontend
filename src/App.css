@@ -135,6 +135,10 @@ body {
 .jy-end {
   justify-content: end;
 }
+.jy-start{
+  display: flex;
+  justify-content: flex-start;
+}
 
 .items-center {
   align-items: center;
@@ -171,8 +175,13 @@ body {
 
 .count_grade {
   margin-left: 20px;
+  color: #B5B7BD;
+  cursor: pointer;
 }
-
+.count_grade:hover {
+  margin-left: 20px;
+  color: black;
+}
 .opacity-50 {
   opacity: 50%;
 }
