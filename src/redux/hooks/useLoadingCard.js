@@ -28,7 +28,7 @@ export default function useLoadingCard(offset) {
                 const uniqueData = _.uniqWith(combinedData, _.isEqual);
                 return uniqueData;
             });
-            setHasMore(res.data.ads.length > 10)
+            setHasMore(res.data.ads.length > 8)
             setLoading(false)
         }).catch(e => {
             if (axios.isCancel(e)) return

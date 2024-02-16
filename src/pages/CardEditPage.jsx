@@ -1,7 +1,6 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect, useRef, useState} from 'react';
 import {useNavigate, useParams} from "react-router-dom";
 import axios from "axios";
-import {v4 as uuidv4} from 'uuid';
 import EnterInput from "../ui/characteristicInputs/enterInput";
 import SelectInput from "../ui/characteristicInputs/selectInput";
 import CheckboxInput from "../ui/characteristicInputs/checkboxInputs";
@@ -14,11 +13,14 @@ import UploadPhotoStandartPlus from "../components/uploadPhoto/uploadPhotoStanda
 
 const CardEditPage = () => {
   const navigate = useNavigate()
+  const imagesRef = useRef(null)
+  const {id} = useParams()
   let formData = new FormData()
+
   const [cardData, setCardData] = useState({})
   const [saveImages, setSaveImages] = useState([])
   const [previewImage, setPreviewImage] = useState('')
-  const [mainImage, setMainImage] = useState(null)
+  const [mainImage, setMainImage] = useState('')
   const [exception, setException] = useState(false)
   const [loading, setLoading] = useState(false)
   const [loadingPage, setLoadingPage] = useState(false)
@@ -29,7 +31,7 @@ const CardEditPage = () => {
   const [description, setDescription] = useState('')
   const [enterValue, setEnterValue] = useState([])
   const [selectValue, setSelectValue] = useState([])
-  const {id} = useParams()
+
   const handleGetInfo = async () => {
     setLoadingPage(true)
     await axios.get(`api/ad/getEditAd/${id}`)
@@ -97,18 +99,29 @@ const CardEditPage = () => {
       setLoadingPage(false)
       cardData.imageAds.map(item => {
         toDataURL(item.name).then(async dataUrl => {
-          const v4Key = uuidv4()
-          setSaveImages(prevState => [...prevState, {key: v4Key, value: dataUrl}])
+          setSaveImages(prevState => [...prevState, {key: item.name, value: dataUrl}])
         })
       })
-      if (cardData.typeAdId !== 1)
-        cardData.previewImageAds.length > 0 && cardData.previewImageAds.map(item => {
+      if (cardData.typeAdId !== 1) {
+        cardData.commercialImageAds.length > 0 && cardData.commercialImageAds.map(item => {
           toDataURL(item.name).then(dataUrl => {
-            setPreviewImage({change:false, value: dataUrl})
+            setPreviewImage({change: false, value: dataUrl})
           })
         })
+      }
     }
   }, [adCharacteristic])
+
+  useEffect(() => {
+    if (saveImages.length !== 0 && mainImage === '') {
+      cardData.previewImageAds.length > 0 && cardData.previewImageAds.map(item => {
+        toDataURL(item.name).then(dataUrl => {
+          const index = saveImages.findIndex(val => val.value === dataUrl)
+          setMainImage(saveImages[index]['key'])
+        })
+      })
+    }
+  }, [saveImages])
 
   useEffect(() => {
     if (saveImages.length > 0) {
@@ -131,6 +144,12 @@ const CardEditPage = () => {
 
   const handleSubmit = async (event) => {
     event.preventDefault()
+
+    if (mainImage === '') {
+      imagesRef.current.scrollIntoView({behavior: 'smooth'})
+      return window.alert('Выберите основную фотографию')
+    }
+
     setLoading(true)
     formData.append('title', title)
     formData.append('description', description)
@@ -138,7 +157,9 @@ const CardEditPage = () => {
     formData.append('characteristicsInput', JSON.stringify(enterValue))
     formData.append('characteristicsSelect', JSON.stringify(selectValue))
     if (cardData.typeAdId !== 1) {
-      let preview = DataURIToBlob(previewImage.value)
+      let commercial = DataURIToBlob(previewImage.value)
+      formData.append('commercialImage', commercial)
+      let preview = DataURIToBlob(saveImages.filter(item => item.key === mainImage)[0]['value'])
       formData.append('previewImage', preview)
     } else {
       let preview = DataURIToBlob(saveImages.filter(item => item.key === mainImage)[0]['value'])
@@ -272,8 +293,10 @@ const CardEditPage = () => {
                       cardData.typeAdId === 2 ? <UploadPhotoStandartPlus editedImage={previewImage} setEditedImage={setPreviewImage}/> : null
             }
           </div>
-          <UploadImages cropData={saveImages} setCropData={setSaveImages} mainSrcData={saveImages}
-                        mainImage={mainImage} setMainImage={setMainImage}/>
+          <div ref={imagesRef}>
+            <UploadImages cropData={saveImages} setCropData={setSaveImages} mainSrcData={saveImages}
+                          mainImage={mainImage} setMainImage={setMainImage}/>
+          </div>
           <div className="create_ad_btns">
             <button className='create_ad_btn' type='submit' onClick={() => {
             }} disabled={loading}>

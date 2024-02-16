@@ -66,9 +66,8 @@ const CardAd = ({data, setData, isLoading, setIsLoading}) => {
 				<CardImgBlock ad_address={data.ad.address} images={data.ad.imageAds.length > 0 ? data.ad.imageAds : []}
 											id={data.ad.objectId}/>
 				<div>
-					<CardDescription card_number={`№ ${data.ad.id}`} card_time={data.ad.createdAt}
-													 card_views={data.ad.views} desription={data.ad.description}
-													 setActiveModal={setActiveModal} setTypeModal={setTypeModal}/>
+					<CardDescription description={data.ad.description}
+									 characteristics={{input: data.ad.adCharacteristicInputs, select: data.ad.adCharacteristicSelects}}/>
 					<div className="flex jy-end" onClick={() => {
 						setActiveModal(true)
 						setTypeModal('description')

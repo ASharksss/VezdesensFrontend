@@ -1,10 +1,9 @@
 import {v4 as uuidv4} from 'uuid';
 import React, {useState, useRef, useEffect} from 'react'
-import ModalMain from '../modal/modalMain'
 import {useDropzone} from 'react-dropzone';
 import Cropper from 'react-cropper'
 import 'cropperjs/dist/cropper.css'
-import Card from '../cards/Card';
+import ModalMain from '../modal/modalMain'
 import photoStandart from "../../asserts/icons/upload_stanrat.svg";
 import deleteImg from "../../asserts/icons/deleteImg.svg";
 
@@ -19,6 +18,7 @@ const UploadImages = ({cropData, setCropData, mainSrcData = [], mainImage, setMa
   const [activeModal, setActiveModal] = useState(false) // модальное окно
   const [key, setKey] = useState(null)                  // uuid картинки для изменения
   const [lastKey, setLastKey] = useState(null)
+  const [imageIndex, setImageIndex] = useState(0)
 
   useEffect(() => {
     if (mainSrcData.length > 0) {
@@ -36,8 +36,10 @@ const UploadImages = ({cropData, setCropData, mainSrcData = [], mainImage, setMa
   const handleSetImage = (itemKey) => {
     setActiveModal(true)
     const object = srcData.find(item => item.key === itemKey)
+    const index = srcData.findIndex(item => item.key === itemKey)
     setChangeImage(object.value)
     setKey(object.key)
+    setImageIndex(index)
   }
 
   const handleSaveImage = () => {
@@ -54,31 +56,12 @@ const UploadImages = ({cropData, setCropData, mainSrcData = [], mainImage, setMa
     setActiveModal(false)
   }
 
-  function getNextByKey() {
-    for (let i = 0; i < cropData.length; i++) {
-      if (cropData[i].key === key && !cropData[i].change) {
-        return cropData[(i - 1 + cropData.length) % cropData.length];
-      }
-    }
-    return null;
-  }
-
   const handleNextImage = () => {
-    const nextImage = getNextByKey();
-    const updatedTimeArray = cropData.map(item => {
-      if (item.key === key) {
-        return {key: key, value: croppedData, change: true};
-      }
-      return item;
-    });
-    setCropData(updatedTimeArray);
-    if (nextImage['key'] === lastKey) {
-      return setActiveModal(false)
-    }
-    if (nextImage !== null) {
-      return handleSetImage(nextImage['key'])
+    if (imageIndex >= (srcData.length - 1)) {
+      handleSetImage(srcData[0]['key'])
     } else {
-      setActiveModal(false)
+      setImageIndex(imageIndex + 1)
+      handleSetImage(srcData[imageIndex + 1]['key'])
     }
   }
 
@@ -150,7 +133,7 @@ const UploadImages = ({cropData, setCropData, mainSrcData = [], mainImage, setMa
       <div>
         <p className='mb-20'>Количество загруженных фото: {srcData.length} / 15</p>
         <div className="images-flex">
-          {cropData.length > 0 ? cropData.map((item, index) => (
+          {cropData.length > 0 ? cropData.map((item) => (
             <div key={`img-${item.key}`} className='img_block'>
               <button onClick={() => handleRemoveImage(item.key)} className='deleteImg_stBtn'>
                 <img src={deleteImg} alt=""/>

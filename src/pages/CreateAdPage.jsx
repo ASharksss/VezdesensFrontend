@@ -20,11 +20,13 @@ import UploadImages from '../components/uploadPhoto/UploadImages';
 
 const CreateAdPage = () => {
 
+	const navigate = useNavigate()
 	const imagesRef = useRef(null)
 	let formData = new FormData()
-	const navigate = useNavigate()
-	const [previewImage, setPreviewImage] = useState(null)
+
 	const [saveImages, setSaveImages] = useState([])
+	const [previewImage, setPreviewImage] = useState(null)
+	const [mainImage, setMainImage] = useState('')
 	const [loading, setLoading] = useState(false)
 	const [typeAd, setTypeAd] = useState('standart')
 	const [description, setDescription] = useState('')
@@ -38,7 +40,6 @@ const CreateAdPage = () => {
 	const [selectValue, setSelectValue] = useState([])
 	const [bookingStartDate, setBookingStartDate] = useState(null)
 	const [bookingEndDate, setBookingEndDate] = useState(null)
-	const [mainImage, setMainImage] = useState('')
 	const [position, setPosition] = useState('top')
 
 	const dispatch = useDispatch()
@@ -78,7 +79,7 @@ const CreateAdPage = () => {
 		if (!checkImages) {
 			return window.alert('Не все фотографии нужного размера')
 		}
-		if (typeAd === 'standart' && mainImage === '') {
+		if (mainImage === '') {
 			imagesRef.current.scrollIntoView({behavior: 'smooth'})
 			return window.alert('Выберите основную фотографию')
 		}
@@ -95,12 +96,14 @@ const CreateAdPage = () => {
 		formData.append('characteristicsInput', JSON.stringify(enterValue))
 		formData.append('characteristicsSelect', JSON.stringify(selectValue))
 		if (typeAd !== 'standart') {
-			let preview = DataURIToBlob(previewImage.value)
-			formData.append('previewImage', preview)
-		} else {
+			let commercial = DataURIToBlob(previewImage.value)
+			formData.append('commercialImage', commercial)
 			let preview = DataURIToBlob(saveImages.filter(item => item.key === mainImage)[0]['value'])
 			formData.append('previewImage', preview)
 			formData.append('position', position)
+		} else {
+			let preview = DataURIToBlob(saveImages.filter(item => item.key === mainImage)[0]['value'])
+			formData.append('previewImage', preview)
 		}
 		saveImages.map((item) => {
 			let image = DataURIToBlob(item.value)
@@ -296,8 +299,8 @@ const CreateAdPage = () => {
 						<span className='upload_photo-title'>Фото для карточки объявления </span>
 						<div ref={imagesRef}>
 							<UploadImages cropData={saveImages} setCropData={setSaveImages}
-														mainImage={typeAd === 'standart' ? mainImage : null}
-														setMainImage={typeAd === 'standart' ? setMainImage : null}/>
+														mainImage={mainImage}
+														setMainImage={setMainImage}/>
 						</div>
 
 						<div>
