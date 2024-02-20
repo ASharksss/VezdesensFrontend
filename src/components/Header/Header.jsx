@@ -5,17 +5,22 @@ import categories from '../../asserts/icons/categories.svg'
 import searchSVG from '../../asserts/icons/search.svg'
 import geo from '../../asserts/icons/geo.svg'
 import profile from '../../asserts/icons/profile.svg'
-import {useSelector} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import {NavLink, useLocation, useNavigate} from "react-router-dom";
+import axios from "axios";
 import CategoryModalTemplate from "../modal/categoryModal/categoryModalTemplate";
 import CategoryModal from "../modal/categoryModal/categoryModal";
-import axios from "axios";
 import SubMenu from "./SubMenu";
+import {showCities} from "../../redux/slices/geoSlice";
 
 const Header = () => {
   const location = useLocation()
   const navigate = useNavigate()
+
+  const dispatch = useDispatch()
   const {isAuth, user} = useSelector(state => state.user)
+  const {mainCity} = useSelector(state => state.geo)
+
   const [activeModalCat, setActiveModalCat] = useState(false)
   const [search, setSearch] = useState('')
   const [categoriesData, setCategoriesData] = useState([])
@@ -45,7 +50,6 @@ const Header = () => {
 
   return (
     <div className='container'>
-
         <div className={activeModalCat ? "header_wrapper z2 l_radius" : "header_wrapper header_shadow l_radius r_radius"}>
           <div className="header_logo">
             <NavLink to='/'>
@@ -75,9 +79,9 @@ const Header = () => {
                 </button>
               </div>
             </div>
-            <div className="header_content-geo">
+            <div className="header_content-geo" onClick={() => dispatch(showCities())}>
               <img src={geo} alt="гео"/>
-              <span className='header_geo-name'>Казань</span>
+              <span className='header_geo-name'>{mainCity}</span>
             </div>
           </div>
           <div className="flex column header_profile">

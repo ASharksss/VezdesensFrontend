@@ -16,9 +16,10 @@ import AddCategory from "./pages/admin/Characteristics/addCategory";
 import AddSubCategory from "./pages/admin/Characteristics/addSubCategory";
 import AddObject from "./pages/admin/Characteristics/addObject";
 import SupportPage from "./pages/admin/support/SupportPage";
+import {takeFromCookie} from "./redux/slices/geoSlice";
 
 
-//axios.defaults.baseURL = 'http://localhost:5000/';
+// axios.defaults.baseURL = 'http://localhost:5000/';
 axios.defaults.baseURL = 'https://backend.vezdesens.ru/';
 axios.defaults.withCredentials = true
 
@@ -37,6 +38,16 @@ function App() {
       }
     }
     return checkAuth()
+  }, [])
+
+  useEffect(() => {
+    function checkPosition() {
+      const checkGeo = getCookie('position')
+      if (checkGeo !== undefined) {
+         dispatch(takeFromCookie(checkGeo))
+      }
+    }
+    return checkPosition()
   }, [])
 
   useEffect(() => {
