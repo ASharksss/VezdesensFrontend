@@ -20,7 +20,6 @@ const MyAdActionsArchive = ({dataUser, setDataAds}) => {
 		const {data} = await axios.get(`api/ad/publish/${dataUser.id}`)
 		setDataAds(data)
 		window.location.reload();
-
 	}
 
 	useEffect(() => {

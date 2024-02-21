@@ -31,7 +31,7 @@ const MyAdActionsFavorite = ({dataUser, setDataAds, statusAd}) => {
           <>
           <Button classname={'phoneTall'} icon={phone} handleClick={handleShowPhone} disabled={true} />
           <br/>
-          <Button classname={'edit'} icon={trash} handleClick={handleRemoveFavorite} styles={{ position: "relative", zIndex: 4   }}/>
+          <Button classname={'edit'} icon={trash} handleClick={handleRemoveFavorite} styles={{ position: "relative", zIndex: 3   }}/>
           </>
         ) : (
           <>
