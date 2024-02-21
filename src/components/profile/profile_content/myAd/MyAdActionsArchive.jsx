@@ -19,6 +19,8 @@ const MyAdActionsArchive = ({dataUser, setDataAds}) => {
 	const fetchPublish = async () => {
 		const {data} = await axios.get(`api/ad/publish/${dataUser.id}`)
 		setDataAds(data)
+		window.location.reload();
+
 	}
 
 	useEffect(() => {
@@ -26,6 +28,7 @@ const MyAdActionsArchive = ({dataUser, setDataAds}) => {
 			fetchPublish()
 		}
 		setCheck(false)
+		setActive(false)
 	}, [check])
 	const handleRemove = async () => {
 		const check = window.confirm('Удалить объявление?')
@@ -62,7 +65,7 @@ const MyAdActionsArchive = ({dataUser, setDataAds}) => {
 				<div className="actions_row flex space-between semi_bold"><p className='myAd_actions-title'>Просмотров</p><p
 					className='myAd_actions-value'>{dataUser.views}</p></div>
 			</div>
-			<ModalMain activeModal={active} setActiveModal={setActive} children={<ReturnAd setCheck={setCheck}/>} />
+			<ModalMain activeModal={active} setActiveModal={setActive} children={<ReturnAd setCheck={setCheck} setActive={setActive}/>} />
 
 		</div>
 	);

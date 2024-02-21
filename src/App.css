@@ -135,6 +135,12 @@ body {
 .jy-end {
   justify-content: end;
 }
+.position-absolute-tp{
+  position: absolute;
+  top: 30px;
+  right: 30px;
+  
+}
 .jy-start{
   display: flex;
   justify-content: flex-start;
@@ -197,4 +203,12 @@ body {
   position: fixed;
   top: 80px;
   left: 0;
+}
+.close-btn{
+  background: url(asserts/icons/close-button.svg);
+  background-repeat:no-repeat ;
+  height: 15px;
+  width: 15px;
+  padding: 15px;
+  align-items: center;
 }

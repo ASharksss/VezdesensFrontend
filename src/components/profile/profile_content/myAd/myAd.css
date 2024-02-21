@@ -48,6 +48,7 @@
 
 .myAd_actions {
     font-size: 14px;
+    
 }
 
 .myAd_actions_archive {
@@ -117,6 +118,7 @@
 }
 
 .myAd_type {
+    font-family: 'OpenSansRegular';
     font-size: 18px;
     color: rgba(181, 183, 189, 1);
 }
@@ -131,6 +133,10 @@
     color: rgba(131, 134, 144, 1);
     margin-bottom: 52px;
     font-size: 14px;
+}
+.myAd_actions_favorite-category.edit{
+    position: relative;
+    z-index: 3;
 }
 
 .myAd_actions_favorite-time {

@@ -17,6 +17,7 @@ const MyAdActionsActive = ({dataUser, setDataAds}) => {
 	const fetchArchive = async () => {
 		const {data} = await axios.get(`api/ad/archive/${dataUser.id}`);
 		setDataAds(data);
+		window.location.reload();
 	}
 
 	useEffect(() => {
@@ -27,6 +28,7 @@ const MyAdActionsActive = ({dataUser, setDataAds}) => {
 	}, [check])
 	const handleArchive = async () => {
 		setActive(true)
+		// window.location.reload();
 	}
 	const handleClick = (idCart) => {
 	  navigate(`/card/${idCart}/edit`)

@@ -44,7 +44,7 @@ const Header = () => {
   }, [location.pathname, location.search])
 
   return (
-    <div className='container'>
+    <div className='container mr-b'>
 
         <div className={activeModalCat ? "header_wrapper z2 l_radius" : "header_wrapper header_shadow l_radius r_radius"}>
           <div className="header_logo">

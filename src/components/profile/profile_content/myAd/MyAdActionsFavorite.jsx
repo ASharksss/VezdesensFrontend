@@ -14,23 +14,33 @@ const MyAdActionsFavorite = ({dataUser, setDataAds, statusAd}) => {
   const handleRemoveFavorite = async () => {
     const {data} = await axios.delete(`api/ad/removeFavorite?adId=${dataUser.id}`)
     setDataAds(data)
+    window.location.reload();
   }
 
   const handleShowPhone = () => {
     setShowPhone(true)
   }
-
   return (
     <div className="myAd_actions">
       <div className="myAd_actions_favorite">
         <p className='myAd_actions_favorite-status semi_bold'>
           <span className={statusAd === 'myAd_grey' ? 'myAd_grey-red' : '' }>{dataUser.statusAd.name}</span>
-
         </p>
         <p className='myAd_actions_favorite-category'>{dataUser.object.name}</p>
-        <Button classname={'phoneTall'} icon={phone} handleClick={handleShowPhone}/>
-        <br/>
-        <Button classname={'edit'} icon={trash} handleClick={handleRemoveFavorite}/>
+        {statusAd === 'myAd_grey' ? (
+          <>
+          <Button classname={'phoneTall'} icon={phone} handleClick={handleShowPhone} disabled={true} />
+          <br/>
+          <Button classname={'edit'} icon={trash} handleClick={handleRemoveFavorite} styles={{ position: "relative", zIndex: 4   }}/>
+          </>
+        ) : (
+          <>
+          <Button classname={'phoneTall'} icon={phone} handleClick={handleShowPhone} disabled={false}/>
+          <br/>
+          <Button classname={'edit'} icon={trash} handleClick={handleRemoveFavorite} />
+          </>
+        )}
+        
         <p className='myAd_actions_favorite-time'>{formatDate(new Date(dataUser.createdAt))}</p>
         <p className='myAd_actions_favorite-views'>{dataUser.views} просмотров</p>
       </div>
