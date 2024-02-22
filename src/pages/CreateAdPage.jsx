@@ -211,7 +211,7 @@ const CreateAdPage = () => {
 								<div className='flex column'>
 									<label className='enter_input-title '>Заголовок</label>
 									<input value={title} onChange={event => setTitle(event.target.value)}
-												 type="text" className='enter_input-input create_ad-z' required/>
+												 type="text" className='enter_input-input create_ad-z' maxLength={100} required/>
 								</div>
 								<div className='flex column ml-20'>
 									<label className='enter_input-title'>Цена</label>

@@ -89,7 +89,7 @@ const BookingCalc = ({bookingDateStart, bookingDateEnd, setBookingStartDate, set
 						<span className='booking_info-text'>{bookingDateEnd === null ? 0 :
 							<span>{days}</span>}</span>
 						<label className='label_calc'>Стоимость 1 дня</label>
-						<span className='booking_info-text'>{items.length > 0 ? items[0].price : 0 + ' р'}</span>
+						<span className='booking_info-text'>{items.length > 0 ? items[0].price : 0 } р</span>
 						<label className='label_calc'>Общая сумма</label>
 						<span className='booking_info-text'>{(bookingDateEnd === null && items.length === 0) ? null :
 							<span>{items[0].price * days + ' р'}</span>}</span>
