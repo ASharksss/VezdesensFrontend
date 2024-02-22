@@ -17,6 +17,7 @@ import LoadGIF from '../asserts/load.gif'
 import './pages.css'
 import BookingCalc from "../components/bookingCalc/bookingCalc";
 import UploadImages from '../components/uploadPhoto/UploadImages';
+import arrow_icon from "../asserts/icons/arrow_down.svg"
 
 const CreateAdPage = () => {
 
@@ -41,6 +42,15 @@ const CreateAdPage = () => {
 	const [bookingStartDate, setBookingStartDate] = useState(null)
 	const [bookingEndDate, setBookingEndDate] = useState(null)
 	const [position, setPosition] = useState('top')
+
+	const [topic, setTopic] = useState('')
+	const [subTopic, setSubTopic] = useState('')
+	const [subValueTopic, setSubValueTopic] = useState('')
+	const [open, setOpen] = useState(false)
+	const [subOpen, setSubOpen] = useState(false)
+	const [subValueOpen, setSubValueOpen] = useState(false)
+
+
 
 	const dispatch = useDispatch()
 
@@ -82,6 +92,9 @@ const CreateAdPage = () => {
 		if (mainImage === '') {
 			imagesRef.current.scrollIntoView({behavior: 'smooth'})
 			return window.alert('Выберите основную фотографию')
+		}
+		if (!title){
+			return window.alert('Отсуствует заговловок')
 		}
 		setLoading(true)
 		formData.append('title', title)
@@ -159,8 +172,8 @@ const CreateAdPage = () => {
 					<form className="create_ad_wrapper" onSubmit={handleSubmit}>
 						<div className="create_ad-category">
 							<h2 className='create_ad-category-title'>Категория</h2>
-
-							<select className='create_ad-select' onChange={event => {
+							{/* Страый селектор  */}
+							{/* <select className='create_ad-select' onChange={event => {
 								dispatch(newFetchCategory())
 								setEnterValue([])
 								setSelectValue([])
@@ -174,8 +187,32 @@ const CreateAdPage = () => {
 										<option key={'category' + index} value={item.id}>{item.name}</option>
 									))
 								}
-							</select>
-							<select className='create_ad-select' disabled={categories.subCategories.status === 'loading'}
+							</select> */}
+							<div className='jy-start'>
+							<div className="Edited_appeal-select" >
+								<div className="flex items-center space-between Edited_filter-header w-250 mr-r" onClick={() => setOpen(!open)} required>
+                 					{/* Вывожу значние topic  */}
+									{topic ? topic :'Выберете категорию' }
+									<img src={arrow_icon} alt=""/>
+								</div>
+								<div className={ open ? 'block Edited_filter_select-body' : 'filter_select-body-none'}>
+										{
+										categories.items.map((item, index) => (
+										// Предаю значиение item.name после topic присваиваю значиение при клике 
+										<div className='Edited_filter_select-item' key={'category' + index} value={item.id} onClick={() => {
+											setTopic(item.name)
+											setOpen(!open)
+											dispatch(newFetchCategory())
+											setEnterValue([])
+											setSelectValue([])
+											dispatch(fetchCategoryForCharacter())
+											dispatch(fetchSubCategories(item.id))
+											}}>{item.name}</div>
+										))
+										}
+								</div>
+							</div>
+							{/* <select className='create_ad-select' disabled={categories.subCategories.status === 'loading'}
 											onChange={event => {
 												dispatch(fetchCategoryForCharacter())
 												setEnterValue([])
@@ -189,8 +226,30 @@ const CreateAdPage = () => {
 														value={item.id}>{item.name.indexOf('/') > 0 ? item.name.split('/')[1] : item.name}</option>
 									))
 								}
-							</select>
-							<select className='create_ad-select' disabled={categories.subCategories.objects.status === 'loading'}
+							</select> */}
+							<div className="Edited_appeal-select" >
+								<div className="flex items-center space-between Edited_filter-header w-250 mr-r" onClick={() => setSubOpen(!subOpen)} required>
+                 					{/* Вывожу значние topic  */}
+									{subTopic ? subTopic :'Выберете подкатегорию' }
+									<img src={arrow_icon} alt=""/>
+								</div>
+								<div className={ subOpen ? 'block Edited_filter_select-body' : 'filter_select-body-none'}>
+										{
+										categories.subCategories.items.map((item, index) => (
+										// Предаю значиение item.name после topic присваиваю значиение при клике 
+										<div className='Edited_filter_select-item' key={'subCategory' + index} value={item.id} onClick={() => {
+											setSubTopic(item.name)
+											setSubOpen(!subOpen)
+											dispatch(fetchCategoryForCharacter())
+											setEnterValue([])
+											setSelectValue([])
+											dispatch(fetchObjects(item.id))
+											}}>{item.name.indexOf('/') > 0 ? item.name.split('/')[1] : item.name}</div>
+										))
+										}
+								</div>
+							</div>
+						{/*	<select className='create_ad-select' disabled={categories.subCategories.objects.status === 'loading'}
 											onChange={event => {
 												setObjectId(parseInt(event.target.value))
 												setEnterValue([])
@@ -203,7 +262,31 @@ const CreateAdPage = () => {
 										<option key={'object' + index} value={item.id}>{item.name.indexOf('/') > 0 ? item.name.split('/')[1] : item.name}</option>
 									))
 								}
-							</select>
+							</select> */}
+							<div className="Edited_appeal-select" >
+								<div className="flex items-center space-between Edited_filter-header w-250 mr-r" onClick={() => setSubValueOpen(!subValueOpen)} required>
+                 					{/* Вывожу значние topic  */}
+									{subValueTopic ? subValueTopic :'Выберете Значение' }
+									<img src={arrow_icon} alt=""/>
+								</div>
+								<div className={ subValueOpen ? 'block Edited_filter_select-body' : 'filter_select-body-none'}>
+										{
+										categories.subCategories.objects.items.map((item, index) => (
+										// Предаю значиение item.name после topic присваиваю значиение при клике 
+										<div className='Edited_filter_select-item' key={'object' + index} value={item.id} onClick={() => {
+											setSubValueTopic(item.name)
+											setSubValueOpen(!subValueOpen)
+											setObjectId(parseInt(item.id))
+											setEnterValue([])
+											setSelectValue([])
+											dispatch(fetchCharacterObjects(item.id))
+											}}>{item.name.indexOf('/') > 0 ? item.name.split('/')[1] : item.name}</div>
+										))
+										}
+								</div>
+							</div>
+							</div>
+
 						</div>
 
 						<div className="create_ad-character">
