@@ -53,7 +53,7 @@ const ProfileCard = ({avatar, dataUser}) => {
 			{
 				editModal ?
 					<ModalMain activeModal={editModal} setActiveModal={setEditModel}
-										 children={<EditModal data={dataUser}/>}/> : null
+										 children={<EditModal data={dataUser} setModal={setEditModel}/>} /> : null
 			}
 
 		</div>

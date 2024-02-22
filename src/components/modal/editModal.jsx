@@ -6,7 +6,7 @@ import avatar from '../../asserts/profile/default_avatar.svg'
 import loadGif from '../../asserts/load.gif'
 import {AVATAR_HOST, DataURIToBlob} from "../../utils";
 
-const EditModal = ({data}) => {
+const EditModal = ({data, setModal}) => {
 	const formData = new FormData();
 	const editImageRef = useRef(null)
 	const [image, setImage] = useState(null)
@@ -176,7 +176,7 @@ const EditModal = ({data}) => {
 			</div>
 			<div className={'flex editProfile-btns'} style={{justifyContent: 'space-evenly'}}>
 				<button type={'submit'} className='editProfile-save'>Сохранить</button>
-				<button type={'button'} className='editProfile-cancel'>Отменить</button>
+				<button type={'button'} className='editProfile-cancel' onClick={() => setModal(false)}>Отменить</button>
 			</div>
     </form>
   );
