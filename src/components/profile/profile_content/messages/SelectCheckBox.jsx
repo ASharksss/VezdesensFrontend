@@ -1,17 +1,19 @@
 import React from "react";
+import '../messages/messages.css'
 
-const SelectCheckBox = ({ checked, onChange, children }) => {
+const selectCheckBox = ({ setIsChecked, onChange, children }) => {
     return (
-      <label>
+      <label className="chbx_label">
         <input
-            style={{background: "black"}}
+          className="chbx_for_message"
+          style={{background: "black"}}
           type="checkbox"
-          checked={checked}
           onChange={onChange}
         />
+        <span className="chbx_marker" onClick={() => setIsChecked(true)}></span>
         {children}
       </label>
     );
   };
 
-  export default SelectCheckBox;
+  export default selectCheckBox;

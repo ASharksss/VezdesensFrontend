@@ -6,7 +6,8 @@ import {useSelector} from "react-redux";
 import './messages.css'
 import MessageItem from "./messageItem";
 import arrow_icon from '../../../../asserts/icons/arrow_down.svg'
-import SelectCheckBox from './SelectCheckBox';
+import SelectCheckBox from './selectCheckBox';
+import SelectedMessages from './selectedMessages';
 
 const Messages = () => {
 	const {items} = useSelector(state => state.user.user)
@@ -16,13 +17,21 @@ const Messages = () => {
 	const [choice, setChoice] = useState('old')
 	const [choiceTitle, setChoiceTitle] = useState('Сначала старые')
 	const [open, setOpen] = useState(false)
+	// const [check, setCheck] = useState(false)
+
+
 
 	const [isChecked, setIsChecked] = useState(false);
-	const handleCheckBoxChange = (event) => {
-		setIsChecked(event.target.checked);
+	const handleCheckBoxChange = () => {
+			setIsChecked(!isChecked);
 	};
 
-
+	// useEffect(() => {
+	// 	if (check) {
+			
+	// 	}
+	// 	setCheck(false)
+	// }, [check])
 
 	const handleGetMessages = async () => {
 		setLoadingPage(true)
@@ -64,12 +73,12 @@ const Messages = () => {
 			<p>Загрузка...</p>
 		</div>
 	}
-
+	
 	return (
 		<div>
 			<div className="messages_header flex">
 				<SelectCheckBox/>
-				{/* открываются вместе потомочту одинаковые данные приходят, и одниаковые реакциии  */}
+				{/* открываются вместе потомочту одинаковые данные приходят, и одниаковые реакциии OnClick  */}
 				<div className="filter">
 							<div className="ads_filter_select" >
 								<div className="flex items-center space-between ads_filter-header" onClick={() => setOpen(!open)}>
@@ -132,18 +141,30 @@ const Messages = () => {
 				</div>
 			</div>
 
-			<SelectCheckBox 
-			checked={isChecked}
-        	onChange={handleCheckBoxChange}>
 			<div className="messages_list">
+			<SelectCheckBox 
+			setIsChecked={setIsChecked}
+        	onChange={handleCheckBoxChange}>
 				{data.length > 0 ? data.map((item, index) => (
 					<NavLink state={{from: item[0].user}} to={`?adId=${item[0].id}&senderId=${items.id === item[1].id ? item[1].id : item[0].user.id}&receiverId=${items.id !== item[0].user.id ? item[0].user.id : item[1].id}#chat-${uuidV4()}`}>
 						<MessageItem data={item[0]} seller={item[0].user}
 												 status={item[0].statusAd.name} image={item[0].previewImageAds[0]?.name}/>
 					</NavLink>
 				)) : <p>Пока нет сообщений</p>}
-			</div>
 			</SelectCheckBox>
+
+			{
+				isChecked ? (
+					<>
+					<SelectedMessages/>
+					</>
+				) : (
+					<>
+					<p> Ne Robit</p>
+					</>
+				)
+			}
+			</div>
 		</div>
 	);
 };

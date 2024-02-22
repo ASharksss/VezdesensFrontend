@@ -8,7 +8,7 @@ import AddAppeal from "../../../modal/addAppeal";
 const Support = () => {
   const [data, setData] = useState([])
   const [activeModal, setActiveModal] = useState(false)
-  const [statusOfAppealId, setTypeAppeal] = useState(1  )
+  const [statusOfAppealId, setTypeAppeal] = useState(1)
 
   const getData = async () => {
     await axios({
@@ -21,7 +21,6 @@ const Support = () => {
   useEffect(() => {
     getData()
   }, [statusOfAppealId])
-
   return (
     <div className='support'>
       <div className="flex space-between">
