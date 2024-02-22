@@ -348,7 +348,7 @@ const CreateAdPage = () => {
 							</div>
 						</div>
 						<div className="create_ad_btns">
-							<button className='create_ad_btn' type='submit' onClick={handleSubmit} disabled={loading}>
+							<button className='create_ad_btn' type='submit'  disabled={loading}>
 								{loading ? <><img src={LoadGIF} width={32} alt={"Отправка"}/> Отправка...</> : 'Разместить'}
 							</button>
 						</div>
