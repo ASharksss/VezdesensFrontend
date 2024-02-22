@@ -45,7 +45,7 @@ const DialogAppeal = ({isSupport}) => {
   return (
     <div className='messages_container'>
       <div className='flex space-between items-center'>
-        <h1 className='dialog_appeal-title'>Тема обращения: {data[0]?.appeal.topicOfAppeals.name}</h1>
+        <h1 className='dialog_appeal-title'>Тема обращения: {data[0]?.appeal.topicOfAppeal.name}</h1>
 
         {
           data[0]?.appeal.statusOfAppealId === 1 ?

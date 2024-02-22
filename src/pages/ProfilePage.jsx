@@ -14,6 +14,7 @@ import {AVATAR_HOST, getStaticAd, STATIC_HOST} from "../utils";
 import Dialog from "../components/profile/profile_content/messages/Dialog";
 import Support from "../components/profile/profile_content/support/support";
 import DialogAppeal from "../components/profile/profile_content/support/dialogAppeal";
+import PreloaderComponent from "../components/Preloader/PreloaderComponent";
 
 const ProfilePage = () => {
 
@@ -95,7 +96,7 @@ const ProfilePage = () => {
   const OtherElements = [{name: "Объявления", choice: 'ads'}]
 
   if (isLoadingUser || dataUser.length === 0) {
-    return <div>Loading...</div>
+    return <PreloaderComponent />
   } else {
     return (
       <div className='container'>

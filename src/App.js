@@ -20,7 +20,7 @@ import {takeFromCookie} from "./redux/slices/geoSlice";
 
 
 axios.defaults.baseURL = 'http://localhost:5000/';
-//axios.defaults.baseURL = 'https://backend.vezdesens.ru/';
+// axios.defaults.baseURL = 'https://backend.vezdesens.ru/';
 axios.defaults.withCredentials = true
 
 function App() {
