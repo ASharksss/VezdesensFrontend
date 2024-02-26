@@ -52,7 +52,7 @@ const CardAd = ({data, setData, isLoading, setIsLoading}) => {
 
 	return (
 		<div className='card_ad_wrapper'>
-			<div className="flex">
+			<div className="flex items-center">
 				<h1 className='card_ad_name'>{data.ad.title}</h1>
 				{items.id === data.ad.user.id ? <NavLink to={`/card/${data.ad.id}/edit`}><img src={EditSVG} alt="Измемнить"/></NavLink> : null}
 			</div>
@@ -61,7 +61,7 @@ const CardAd = ({data, setData, isLoading, setIsLoading}) => {
 				<p className='number_time_views'
 					 title={formatDate(data.ad.createdAt)}>{'№ ' + data.ad.id + ' · ' + relativeDate(new Date(data.ad.createdAt)) + ' · ' +
 					data.ad.views + ` ${["просмотр", "просмотра", "просмотров"][pluralRusVariant(parseInt(data.ad.views))]}`}</p>
-				<p>{parseInt(data.ad.viewsToday) > 0 ? `+${data.ad.viewsToday} (сегодня)` : 'За сегодня нет просмотров'}</p>
+				<p style={{color: '#B5B7BD'}}>{parseInt(data.ad.viewsToday) > 0 ? `+${data.ad.viewsToday} (сегодня)` : 'За сегодня нет просмотров'}</p>
 			</div>
 			<div className="flex">
 				<CardImgBlock ad_address={data.ad.address} images={data.ad.imageAds.length > 0 ? data.ad.imageAds : []}

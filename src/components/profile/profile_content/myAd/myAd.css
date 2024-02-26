@@ -94,6 +94,9 @@
     font-size: 24px;
     color: rgba(7, 12, 32, 1);
     margin-bottom: 30px;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
 }
 
 .myAd_price {

@@ -1,6 +1,7 @@
 
 .card_ad-title {
     width: 1300px;
+    margin-top: 30px;
     /* justify-content: space-between; */
 }
 
@@ -17,7 +18,7 @@
 .card_ad_name {
     font-family: OpenSansBold;
     font-size: 32px;
-    margin-bottom: 30px;
+    margin-right: 20px;
 }
 
 .card_ad_address {

@@ -96,6 +96,7 @@ const CreateAdPage = () => {
 		if (!title){
 			return window.alert('Отсуствует заговловок')
 		}
+
 		setLoading(true)
 		formData.append('title', title)
 		formData.append('description', description)
@@ -334,12 +335,12 @@ const CreateAdPage = () => {
 													{item['characteristic']['typeCharacteristic']['name'] === 'enter' &&
 														<EnterInput setEnterValue={setEnterValue} key={'enter' + index}
 																				data={item['characteristic']}
-																				id={item['characteristicId']} isRequired={true}/>}
+																				id={item['characteristicId']} isRequired={false}/>}
 													{item['characteristic']['typeCharacteristic']['name'] === 'select' &&
-														<SelectInput setSelectValue={setSelectValue} key={'select' + index} isRequired={true}
+														<SelectInput setSelectValue={setSelectValue} key={'select' + index} isRequired={false}
 																				 data={item['characteristic']} id={item['characteristicId']}/>}
 													{item['characteristic']['typeCharacteristic']['name'] === 'checkbox' &&
-														<CheckboxInput setCheckboxValue={setSelectValue} key={'checkbox' + index} isRequired={true}
+														<CheckboxInput setCheckboxValue={setSelectValue} key={'checkbox' + index} isRequired={false}
 																					 data={item['characteristic']} id={item['characteristicId']}/>}
 												</> : null
 										))

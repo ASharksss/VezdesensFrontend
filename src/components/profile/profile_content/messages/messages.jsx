@@ -6,7 +6,7 @@ import {useSelector} from "react-redux";
 import './messages.css'
 import MessageItem from "./messageItem";
 import arrow_icon from '../../../../asserts/icons/arrow_down.svg'
-import SelectCheckBox from './selectCheckBox';
+import SelectCheckBox from './SelectCheckBox';
 import SelectedMessages from './selectedMessages';
 
 const Messages = () => {
