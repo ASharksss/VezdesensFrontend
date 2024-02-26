@@ -3,20 +3,15 @@ import './App.css';
 import './reset.css'
 import axios from "axios";
 import {BrowserRouter, Route, Routes} from "react-router-dom";
-import Layout from "./Layout";
 import {useDispatch, useSelector} from "react-redux";
+import Layout from "./Layout";
 import {getCookie} from "./utils";
 import {fetchAuth} from "./redux/slices/userSlice";
+import {takeFromCookie} from "./redux/slices/geoSlice";
 import {privateRoutes, publicRoutes} from "./routes";
 import SignIn from "./pages/SignIn";
 import SignUp from "./pages/SignUp.";
-import Characteristic from "./pages/admin/Characteristics/Characteristic";
-import AddPage from "./pages/admin/Characteristics/AddPage";
-import AddCategory from "./pages/admin/Characteristics/addCategory";
-import AddSubCategory from "./pages/admin/Characteristics/addSubCategory";
-import AddObject from "./pages/admin/Characteristics/addObject";
-import SupportPage from "./pages/admin/support/SupportPage";
-import {takeFromCookie} from "./redux/slices/geoSlice";
+import ForgotPassword from "./pages/ForgotPassword";
 
 
 // axios.defaults.baseURL = 'http://localhost:5000/';
@@ -63,13 +58,8 @@ function App() {
         <Route element={<Layout/>}>
           <Route path="/signin" element={<SignIn/>}/>
           <Route path="/signup" element={<SignUp/>}/>
+          <Route path="/forgot-password" element={<ForgotPassword/>}/>
         </Route>
-        <Route path="/addPage" element={<AddPage/>}/>
-        <Route path="/addSubCategory" element={<AddSubCategory/>}/>
-        <Route path="/addObject" element={<AddObject/>}/>
-        <Route path="/characteristic" element={<Characteristic/>}/>
-        <Route path="/supportAdmin" element={<SupportPage/>}/>
-        <Route path="/addCategory" element={<AddCategory/>}/>
         <Route path="/" element={<Layout/>}>
           {publicRoutes.map(({key, path, Component}) => (
             <Route key={`public-${key}`} path={path} element={<Component/>}/>

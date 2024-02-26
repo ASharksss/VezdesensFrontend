@@ -75,7 +75,9 @@ const SignIn = () => {
                     </div>
                     {(errorSubmit && password === '') && <span style={{color: 'red'}}>Поле не заполнено</span>}
                     {user.status === 'error' && <span style={{color: 'red'}}>{user.errorMsg}</span>}
-                    <span className='miss_password'>Забыли пароль?</span>
+                    <NavLink className='miss_password' to='/forgot-password'>
+                        Забыли пароль?
+                    </NavLink>
                 </div>
                 <div className="auth_form-btns">
                     <button type={'submit'} className='auth_btn signin' onClick={handleSubmit}>Войти</button>

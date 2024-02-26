@@ -8,6 +8,7 @@ import MessageItem from "./messageItem";
 import arrow_icon from '../../../../asserts/icons/arrow_down.svg'
 import SelectCheckBox from './SelectCheckBox';
 import SelectedMessages from './selectedMessages';
+import PreloaderComponent from "../../../Preloader/PreloaderComponent";
 
 const Messages = () => {
 	const {items} = useSelector(state => state.user.user)
@@ -25,13 +26,6 @@ const Messages = () => {
 	const handleCheckBoxChange = () => {
 			setIsChecked(!isChecked);
 	};
-
-	// useEffect(() => {
-	// 	if (check) {
-			
-	// 	}
-	// 	setCheck(false)
-	// }, [check])
 
 	const handleGetMessages = async () => {
 		setLoadingPage(true)
@@ -66,14 +60,10 @@ const Messages = () => {
 		}
 	}, [choice])
 
-
-
 	if (loadingPage) {
-		return <div>
-			<p>Загрузка...</p>
-		</div>
+		return <PreloaderComponent />
 	}
-	
+
 	return (
 		<div>
 			<div className="messages_header flex">
@@ -142,7 +132,7 @@ const Messages = () => {
 			</div>
 
 			<div className="messages_list">
-			<SelectCheckBox 
+			<SelectCheckBox
 			setIsChecked={setIsChecked}
         	onChange={handleCheckBoxChange}>
 				{data.length > 0 ? data.map((item, index) => (

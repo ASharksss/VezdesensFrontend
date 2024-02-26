@@ -50,7 +50,7 @@ const CatalogBoardPage = () => {
     dispatch(fetchCategoryList({paramsCategory, objectId}))
   }, [paramsSubCategory, paramsCategory, objectId]) // самый первый запрос при загрузке страницы
 
-  const {data, loading, hasMore} = useCatalogCard(0, paramsObjectId, paramsSubCategory, paramsCategory, query)
+  const {data, loading, hasMore} = useCatalogCard(offset, paramsObjectId, paramsSubCategory, paramsCategory, query)
 
   useEffect(() => {
     getStaticAd(1, setStaticAd)
