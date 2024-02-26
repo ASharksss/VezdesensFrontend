@@ -14,6 +14,7 @@ import RatingModal from "../modal/ratingModal";
 import EditSVG from '../../asserts/icons/edit.svg'
 import {relativeDate, formatDate, pluralRusVariant} from "../../utils";
 import Button from "../../ui/buttons/button";
+import PreloaderComponent from "../Preloader/PreloaderComponent";
 
 const CardAd = ({data, setData, isLoading, setIsLoading}) => {
 	const {items} = useSelector(state => state.user.user)
@@ -46,7 +47,7 @@ const CardAd = ({data, setData, isLoading, setIsLoading}) => {
 	}, [])
 
 	if (!isLoading) {
-		return <div>Loading...</div>
+		return <PreloaderComponent />
 	}
 
 	return (

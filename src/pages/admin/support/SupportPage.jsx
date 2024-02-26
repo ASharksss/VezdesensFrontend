@@ -61,7 +61,7 @@ const SupportPage = () => {
             choice === 'dialog' ?
               <>
                 <button onClick={() => navigate(-1)}>Назад</button>
-                <DialogAppeal/>
+                <DialogAppeal isSupport={true}/>
               </>
               : null
         }

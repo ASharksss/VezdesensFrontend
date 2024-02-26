@@ -2,7 +2,7 @@ import React from 'react';
 import './preloader.css'
 import logoSVG from '../../asserts/logo.svg';
 
-const PreloaderComponent = ({}) => {
+const PreloaderComponent = () => {
     return (
         <div className='container_preloader'>
             <div className="loader">

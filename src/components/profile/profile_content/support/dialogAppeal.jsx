@@ -5,11 +5,10 @@ import axios from "axios";
 import attach_icon from '../../../../asserts/messages/attach_icon.svg'
 import send_icon from '../../../../asserts/messages/send_icon.svg'
 
-const DialogAppeal = () => {
+const DialogAppeal = ({isSupport}) => {
 
   const [data, setData] = useState([])
   const [message, setMessage] = useState('')
-  const [response, setResponse] = useState('')
 
   const [searchParams, setSearchParams] = useSearchParams()
   const appealId = searchParams.get('id')
@@ -26,7 +25,7 @@ const DialogAppeal = () => {
     const info = {
       text: message,
       appealId: appealId,
-
+      isSupport
     }
     await axios.post(`api/support/createMessage`, info)
       .then(async () => {
@@ -34,20 +33,9 @@ const DialogAppeal = () => {
         setMessage('')
       })
   }
-
   const closeAppeal = async () => {
     await axios.put('api/support/closeAppeal', {appealId})
       .then(() => navigate(`#help`))
-  }
-
-  const postMessageSupport = async () => {
-    const info = {
-      text: response,
-      appealId: appealId,
-      isSupport: true
-    }
-    await axios.post(`api/support/createMessage`, info)
-      .then(window.location.reload())
   }
 
   useEffect(() => {
@@ -69,10 +57,24 @@ const DialogAppeal = () => {
       </div>
       <div className='flex column dialog_appeal-messages'>
         {
+          isSupport ?
+            data.map((item, index) => (
+              <>
+                <span className={`${item.isSupport ? 'user_text text-right' : 'support-text text-left'}`}>
+                  {item.isSupport ? 'Техническая поддержка' : item.appeal.user.name}
+                </span>
+                <div key={`message-${index}`}
+                     className={`message_appeal_block ${item.isSupport ? 'right_message' : 'left_message'}`}>
+
+                  <div>{item.text}</div>
+                </div>
+              </>
+            ))
+            :
           data.map((item, index) => (
               <>
                 <span className={`${item.isSupport ? 'support-text text-left' : 'user_text text-right'}`}>
-                  {item.isSupport ? 'Техническая поддержка' : 'Вы'}
+                  {item.isSupport ? 'Техническая поддержка' : item.appeal.user.name}
                 </span>
                 <div key={`message-${index}`}
                      className={`message_appeal_block ${item.isSupport ? 'left_message' : 'right_message'}`}>
@@ -80,10 +82,11 @@ const DialogAppeal = () => {
                   <div>{item.text}</div>
                 </div>
               </>
-            )
-          )
+            ))
         }
       </div>
+
+
       <form className="dialogs-form" onSubmit={postMessage}>
         <div className="dialogs-input flex space-between">
           <textarea rows="1" placeholder="Ваше сообщение..." className='dialogs-textarea' value={message}
@@ -97,11 +100,13 @@ const DialogAppeal = () => {
         </button>
       </form>
 
+      {/*
 
-      {/*<input type="text" placeholder='ответ поддержки' value={response}
+      <input type="text" placeholder='ответ поддержки' value={response}
              onChange={e => setResponse(e.target.value)}/>
       <button onClick={postMessageSupport}>Отправить</button>
 */}
+
     </div>
   );
 };

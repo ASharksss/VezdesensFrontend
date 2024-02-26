@@ -5,6 +5,7 @@ import {AdReducer} from "./slices/adSlice";
 import {UserReducer} from "./slices/userSlice";
 import {CategoriesReducer} from "./slices/categorySlice";
 import {CharacteristicReducer} from "./slices/admin/characterSlice";
+import {GeoReducer} from "./slices/geoSlice";
 
 
 export const store = configureStore({
@@ -14,7 +15,8 @@ export const store = configureStore({
     chats: ChatsReducer,
     categories: CategoriesReducer,
     user: UserReducer,
-    characteristics: CharacteristicReducer
+    characteristics: CharacteristicReducer,
+    geo: GeoReducer
   }
 })
 

@@ -1,0 +1,88 @@
+.wrapper {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 1000px;
+    height: 520px;
+    overflow: hidden;
+}
+
+.container {
+    width: 300px;
+}
+
+.container .title {
+    font-weight: 700;
+    margin-bottom: 10px;
+}
+
+.content {
+    text-align: left;
+    overflow: auto;
+    height: 100%;
+}
+
+.content::-webkit-scrollbar{
+    width: 0.4rem;
+    background-color: #f6f6f6;
+}
+.content::-webkit-scrollbar-thumb {
+    background-color: #8c8c8c;
+    box-shadow: inset 1px 1px 10px rgba(0,0,0,0.135);
+}
+.content::-webkit-scrollbar-button:vertical:start:decrement {
+    background: linear-gradient(120deg, #f6f6f6 40%, rgba(0, 0, 0, 0) 41%),
+    linear-gradient(240deg, #f6f6f6 40%, rgba(0, 0, 0, 0) 41%),
+    linear-gradient(0deg, #f6f6f6 30%, rgba(0, 0, 0, 0) 31%);
+    background-color: #8c8c8c;
+}
+
+.content::-webkit-scrollbar-button:vertical:end:increment {
+    background:
+            linear-gradient(300deg, #f6f6f6 40%, rgb(0, 0, 0, 0) 41%),
+            linear-gradient(60deg, #f6f6f6 40%, rgb(0, 0, 0, 0) 41%),
+            linear-gradient(180deg, #f6f6f6 40%, rgb(0, 0, 0, 0) 31%);
+    background-color: #8c8c8c;
+}
+
+.choice {
+    position: relative;
+    padding: 10px 0 10px 5px;
+    margin-bottom: 5px;
+    cursor: pointer;
+}
+
+.active {
+    position: relative;
+    background: rgba(255,115,0, 0.135);
+}
+
+.active:before{
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 3px;
+    height: 100%;
+    background-color: rgba(255,115,0,.9);
+}
+
+.buttonWrapper {
+    display: flex;
+    justify-content: end;
+    align-items: center;
+    margin-top: 20px;
+}
+
+.button {
+    padding: 10px;
+    border-radius: 15px;
+    border: 1px solid #8c8c8c;
+    background: #f6f6f6;
+}
+
+.button:hover {
+    box-shadow: 0 0 5px 2px #8c8c8c;
+    padding: 11px;
+    border: none;
+}
