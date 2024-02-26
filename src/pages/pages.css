@@ -215,11 +215,12 @@
     background-color: #ECECEC;
     border-radius: 10px;
     padding: 25px;
+    max-width: 1100px;
 }
 
 .create_ad_address {
     width: 524px;
-    height: 34px;
+    height: 47px;
     background-color: #ECECEC;
     padding: 15px;
     border-radius: 10px;
@@ -233,7 +234,7 @@
 
 .create_ad_phone {
     width: 237px;
-    height: 34px;
+    height: 47px;
     background-color: #ECECEC;
     padding: 15px;
     border-radius: 10px;;

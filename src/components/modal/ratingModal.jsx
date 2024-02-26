@@ -48,7 +48,7 @@ const RatingModal = ({data, userId, setActiveModal, setDataRating}) => {
 		<div className='rating_modal'>
 			<div className={'flex'} style={{justifyContent: 'space-between', alignItems: 'flex-start'}}>
 				<h1 className='rating_modal-title'>Отзывы о пользователе</h1>
-				<button onClick={() => setActiveModal(false)} style={{fontSize: '20px', padding: 5}}>X</button>
+				<button onClick={() => setActiveModal(false)} className='close-btn'>&nbsp;</button>
 			</div>
 			<div className='rating_modal-text'>
 				<Rating type='ratings' data={data} userId={userId} setActiveModal={setActiveModal} setDataRating={setDataRating}/>

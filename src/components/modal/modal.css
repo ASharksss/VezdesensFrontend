@@ -40,7 +40,6 @@
     height: 100%;
     display: flex;
     justify-content: right;
-
     background-color: rgba(47, 47, 47, 0.7);
     position: absolute;
     top: 0;
@@ -55,7 +54,7 @@
 .modalCat.activeModalCat {
     opacity: 1;
     pointer-events: all;
-    z-index: 2;
+    z-index: 4;
 }
 
 .modalCat_content {
@@ -370,6 +369,7 @@
     font-size: 16px;
     font-family: OpenSansBold;
     margin-top: 30px;
+    margin-right: 10px;
     transition: .5s;
 }
 
@@ -502,6 +502,7 @@
     padding: 15px 20px;
     border-radius: 10px;
     margin-top: 27px;
+    outline: none;
 }
 
 .add_appeal-textarea {
@@ -523,7 +524,65 @@
     margin-top: 60px;
 }
 
-.dialog_message {
+/* Filter (Edited)  */
+
+.Edited_appeal-select{
+    position: relative;
+    margin-top: 27px;
+    
 
 }
 
+.Edited_filter-header {
+    font-size: 16px;
+    padding: 15px;
+    box-shadow: 0px 5px 35px 0px rgba(38, 38, 38, 0.1);
+    background-color: rgba(236, 236, 236, 1);
+    border-radius: 10px;
+    height: 47px;
+    cursor: pointer;
+    z-index: 0;
+}
+
+.Edited_filter-header:focus {
+    border: 1px solid black;
+}
+
+.filter_select-body-none {
+    z-index: 1;
+    display: none;
+    padding: 5px;
+    margin-top: 5px;
+    border-radius: 10px;
+    left: 0;
+    position: absolute;
+    top: 100%;
+    right: 0;
+    background-color: white;
+    box-shadow: 0px 6px 40px 0px #2626261A;
+}
+
+.Edited_filter_select-body {
+    background-color: white;
+    z-index: 1;
+    padding: 5px;
+    margin-top: 5px;
+    border-radius: 10px;
+    left: 0;
+    position: absolute;
+    top: 100%;
+    right: 0;
+    box-shadow: 0px 6px 40px 0px #2626261A;
+}
+
+.Edited_filter_select-item {
+    font-size: 14px;
+    height: 47px;
+    text-align: left;
+    border-radius: 10px;
+    cursor: pointer;
+    padding: 15px 20px;
+    z-index: 3;
+}
+
+/* Filter (Edited)  */

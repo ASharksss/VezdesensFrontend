@@ -56,7 +56,7 @@ const CardAd = ({data, setData, isLoading, setIsLoading}) => {
 				<h1 className='card_ad_name'>{data.ad.title}</h1>
 				{items.id === data.ad.user.id ? <NavLink to={`/card/${data.ad.id}/edit`}><img src={EditSVG} alt="Измемнить"/></NavLink> : null}
 			</div>
-			<div className='flex card_ad-title'>
+			<div className='jy-start card_ad-title'>
 				<p className='card_ad_address'>{data.ad.address}</p>
 				<p className='number_time_views'
 					 title={formatDate(data.ad.createdAt)}>{'№ ' + data.ad.id + ' · ' + relativeDate(new Date(data.ad.createdAt)) + ' · ' +

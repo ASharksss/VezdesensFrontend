@@ -56,6 +56,11 @@ const DescriptionModal = ({adCharacteristicSelects, adCharacteristicInputs, desc
     )
 
   }, [adCharacteristicInputs, adCharacteristicSelects])
+   
+ // Проверка на наличие Характеристик для вывода 
+ const isCharacteristic = function(){
+  return content.props.children[0].length === 0 && content.props.children[1].length === 0  ? false : true;
+  }
 
   return (
     <div className='description_modal'>
@@ -64,11 +69,21 @@ const DescriptionModal = ({adCharacteristicSelects, adCharacteristicInputs, desc
         <pre className='description_modal-text'>{description}</pre>
       </p>
       <br/>
+      {
+        isCharacteristic() ? (
+          <>
       <h1 className='description_modal-title'>Характеристики</h1>
       <p className='description_modal-text'>
         <div></div>
         {content}
       </p>
+      </>
+        ) : (
+         <>
+         </> 
+        )
+      }
+      
     </div>
   );
 };

@@ -54,6 +54,13 @@ const CardDescription = ({description, characteristics}) => {
         )
 
     }, [characteristics])
+
+    // Проверка на наличие Характеристик для вывода 
+    const isCharacteristic = function(){
+        return characteristicsContent.props.children[0].length === 0 && characteristicsContent.props.children[1].length === 0  ? false : true;
+    }
+
+    console.log(isCharacteristic())
     return (
         <div className='card_description'>
 
@@ -61,10 +68,22 @@ const CardDescription = ({description, characteristics}) => {
             <p className='card_description-text'>
               <pre className='card_description-pre'>{description}</pre>
             </p>
-            <h1 className='card_description-title'>Характеристки</h1>
-            <div className='grid'>
-                {characteristicsContent}
-            </div>
+            {
+                // Результата 
+                isCharacteristic() ? (
+                    <>
+                <h1 className='card_description-title'>Характеристки</h1>
+                <div className='grid description_overflow'>
+                    {characteristicsContent}
+                </div>
+                    </>
+                
+                ) : (
+                    <>
+                    </>
+                )
+            }
+            
 
         </div>
     );

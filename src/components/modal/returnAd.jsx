@@ -1,16 +1,21 @@
 import React from 'react';
 import './modal.css'
 
-const ReturnAd = ({setCheck}) => {
+const ReturnAd = ({setCheck, setActive}) => {
 	return (
-		<div className='hide_ad flex column center items-center'>
-			<h1 className='hide_ad-title'>Вы уверены,</h1>
-			<span className='hide_ad-subtitle'>что хотите повторно опубликовать объявление?</span>
+		<>
+		<div className='position-absolute-tp'>
+		<button className='close-btn' onClick={() => setActive(false)}>&nbsp;</button>
+		</div>
+		<div className='flex column center items-center'>
+			<h1 className='hide_title'>Вы уверены,</h1>
+			<span className='hide_subtitle'>что хотите повторно опубликовать публикацю?</span>
 			<div className="flex center" >
-				<button className='hide_ad-btn hide_ad-yes' onClick={() => setCheck(true)}>Да</button>
-				<button className='hide_ad-btn hide_ad-no' onClick={() => setCheck(true)}>Нет</button>
+				<button className='hide_btn hide_ad-yes' onClick={() => setCheck(true)}>Да</button>
+				<button className='hide_btn hide_ad-no' onClick={() => setActive(false)}>Нет</button>
 			</div>
 		</div>
+		</>
 	);
 };
 

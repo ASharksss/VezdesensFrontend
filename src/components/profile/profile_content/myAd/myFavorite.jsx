@@ -1,11 +1,16 @@
 import React, {useEffect, useState} from 'react';
 import MyAd from "./myAd";
 import axios from "axios";
+import arrow_icon from '../../../../asserts/icons/arrow_down.svg'
+
 
 const MyFavorite = () => {
 	const [data, setData] = useState([])
 	const [loading, setLoading] = useState(false)
 	const [filter, setFilter] = useState('')
+	const [open, setOpen] = useState(false)
+
+
 	useEffect(() => {
 		const getFavorite = async () => {
 			setLoading(true)
@@ -38,13 +43,36 @@ const MyFavorite = () => {
 	}
 	return (
 		<div>
-			<select className='favorite_filter' onChange={event => setFilter(event.target.value)}>
+			{/* <select className='favorite_filter' onChange={event => setFilter(event.target.value)}>
 				<option hidden>Фильтр</option>
 				<option value={''}>Все</option>
 				{data.length > 0 ? favoriteFilterSelect.map((item) => (
 					<option value={item.ad.statusAd.name}>{item.ad.statusAd.name}</option>
 				)) : null}
-			</select>
+			</select> */}
+			
+			<div className="favorite_filter">
+							<div className="ads_filter_select" >
+								<div className="flex items-center space-between ads_filter-header" onClick={() => setOpen(!open)}>
+									{filter != '' ? filter : 'Фильтер' } 
+									<img src={arrow_icon} alt=""/>
+								</div>
+								<div className={ open ? 'block ads_filter_select-body' : 'filter_select-body-none'}>
+								<div className='filter_select-item' value={''} onClick={() => {
+										setFilter('')
+										setOpen(!open)
+									}}>Все</div>
+								{data.length > 0 ? favoriteFilterSelect.map((item) => (
+									<div className='filter_select-item' value={item.ad.statusAd.name} onClick={() => {
+										setFilter(item.ad.statusAd.name)
+										setOpen(!open)
+									}}>{item.ad.statusAd.name}</div>
+								)) : null}
+								</div>
+							</div>
+				</div>
+
+
 			<div className="ads">
 				{data.length > 0 ? filteredFavoriteData.map((item, index) => (
 						<MyAd key={'active' + index} typeAd={'favoriteAd'} item={item.ad} setDataAds={setData}

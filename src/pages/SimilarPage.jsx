@@ -1,9 +1,10 @@
 import React, {useEffect, useState} from 'react';
 import {useLocation, useSearchParams} from "react-router-dom";
 import axios from "axios";
-import {STATIC_HOST, encryptArrayWithKey} from "../utils";
+import {STATIC_HOST, encryptArrayWithKey, getStaticAd} from "../utils";
 import Card from "../components/cards/Card";
 import ad_image from "../asserts/ad_image_small.png";
+import Ad from '../components/cards/Ad';
 
 const chunkArray = (myArray, chunkSize) => {
 	const results = [];
@@ -20,6 +21,8 @@ const SimilarPage = () => {
 	const location = useLocation()
 	let [searchParams, ] = useSearchParams();
 	const objectId = searchParams.get('object')
+	const [staticAd, setStaticAd] = useState([])
+
 
 	const getData = async () => {
 		const lastPath = localStorage.getItem('last_path')
@@ -45,6 +48,9 @@ const SimilarPage = () => {
 		const ids = data.map(item => item.id)
 		setIgnoreIds(ids)
 	}, [data])
+	useEffect(() => {
+		getStaticAd(1, setStaticAd)
+	  }, [])
 
 	// useEffect(() => {
 	// 	console.log(encryptArrayWithKey(ignoreIds))
@@ -57,7 +63,9 @@ const SimilarPage = () => {
 		return <p>Ошибка в запросе</p>
 	}
 	return (
-		<div className='container'>
+		
+		<div className="container">
+            <Ad image={`${STATIC_HOST}/promotion/${staticAd[0]?.imageName}`} href={staticAd[0]?.href}/>
 			{chunkedData.length > 0 && chunkedData.map((chunk, index) => (
 				<div className='flex small_ads align-items' key={`chunk-${index}`}>
 					{chunk.map((item, itemIndex) => (
