@@ -6,7 +6,7 @@ import {useSelector} from "react-redux";
 import './messages.css'
 import MessageItem from "./messageItem";
 import arrow_icon from '../../../../asserts/icons/arrow_down.svg'
-import SelectCheckBox from './selectCheckBox';
+import SelectCheckBox from '../messages/SelectCheckBox'
 import SelectedMessages from './selectedMessages';
 
 const Messages = () => {
@@ -17,7 +17,7 @@ const Messages = () => {
 	const [choice, setChoice] = useState('old')
 	const [choiceTitle, setChoiceTitle] = useState('Сначала старые')
 	const [open, setOpen] = useState(false)
-	// const [check, setCheck] = useState(false)
+	const [check, setCheck] = useState(false)
 
 
 
@@ -26,12 +26,12 @@ const Messages = () => {
 			setIsChecked(!isChecked);
 	};
 
-	// useEffect(() => {
-	// 	if (check) {
+	useEffect(() => {
+		if (check) {
 			
-	// 	}
-	// 	setCheck(false)
-	// }, [check])
+		}
+		setCheck(false)
+	}, [check])
 
 	const handleGetMessages = async () => {
 		setLoadingPage(true)

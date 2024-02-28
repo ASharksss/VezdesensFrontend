@@ -108,6 +108,10 @@
     padding: 10px 16px;
     border-radius: 10px;
 }
+.auth_back_btn {
+    height: 54px;
+    border-radius: 10px;
+}
 
 .signin {
     background-color: #161616;

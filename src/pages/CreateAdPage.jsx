@@ -143,6 +143,14 @@ const CreateAdPage = () => {
 		setLoading(false)
 	}
 
+	const ChangedTopci = (topic) => {
+		setSubTopic('');
+		setSubValueTopic('');
+	};
+	const changedSubTopic = (subTopic) => {
+		setSubValueTopic('');
+	}
+
 	const handlePrice = (value) => {
 		if (value.replace(/\s+/g, '') > 1500000000) {
 			alert('Значение превышает норму')
@@ -163,6 +171,7 @@ const CreateAdPage = () => {
 		dispatch(fetchBookingInfo(typeAd))
 		setPreviewImage(null)
 	}, [typeAd])
+
 
 	return (
 		<div>
@@ -199,9 +208,11 @@ const CreateAdPage = () => {
 										{
 										categories.items.map((item, index) => (
 										// Предаю значиение item.name после topic присваиваю значиение при клике 
-										<div className='Edited_filter_select-item' key={'category' + index} value={item.id} onClick={() => {
+										<div className='Edited_filter_select-item' key={'category' + index} value={item.id}
+											onClick={() => {
 											setTopic(item.name)
 											setOpen(!open)
+										  ChangedTopci()
 											dispatch(newFetchCategory())
 											setEnterValue([])
 											setSelectValue([])
@@ -228,6 +239,7 @@ const CreateAdPage = () => {
 								}
 							</select> */}
 							<div className="Edited_appeal-select" >
+								
 								<div className="flex items-center space-between Edited_filter-header w-250 mr-r" onClick={() => setSubOpen(!subOpen)} required>
                  					{/* Вывожу значние topic  */}
 									{subTopic ? subTopic :'Выберете подкатегорию' }
@@ -240,6 +252,7 @@ const CreateAdPage = () => {
 										<div className='Edited_filter_select-item' key={'subCategory' + index} value={item.id} onClick={() => {
 											setSubTopic(item.name)
 											setSubOpen(!subOpen)
+											changedSubTopic()
 											dispatch(fetchCategoryForCharacter())
 											setEnterValue([])
 											setSelectValue([])
@@ -248,6 +261,7 @@ const CreateAdPage = () => {
 										))
 										}
 								</div>
+								
 							</div>
 						{/*	<select className='create_ad-select' disabled={categories.subCategories.objects.status === 'loading'}
 											onChange={event => {

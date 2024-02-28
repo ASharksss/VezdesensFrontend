@@ -58,7 +58,7 @@ const SignIn = () => {
         <div className='auth'>
             <form className="auth_form" onSubmit={handleSubmit}>
 								<NavLink to='/'>
-									<button type={'button'} className='auth_btn signup' style={{border: 'none'}}>← На главную</button>
+									<button type={'button'} className='auth_back_btn signup' style={{border: 'none'}}>← На главную</button>
 								</NavLink>
                 <h1 className='auth_form-title'>Вход</h1>
                 <div className="auth_form-inputs">
