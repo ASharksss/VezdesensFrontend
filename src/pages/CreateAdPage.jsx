@@ -96,6 +96,9 @@ const CreateAdPage = () => {
 		if (!title){
 			return window.alert('Отсуствует заговловок')
 		}
+		if(!topic && !subTopic && !subValueTopic){
+			return window.alert('Вы не выбрали категорию')
+		}
 		setLoading(true)
 		formData.append('title', title)
 		formData.append('description', description)
@@ -316,8 +319,6 @@ const CreateAdPage = () => {
 												 type="text" className='enter_input-input' required/>
 								</div>
 							</div>
-
-
 							{!isLoadingCharacter && <>
 								<h1 className='character-title'>Обязательные характеристики</h1>
 								<div className='grid_character'>
@@ -426,18 +427,24 @@ const CreateAdPage = () => {
 									<form className="flex column created_ad-contact">
 										<div className='flex created_ad-radio'>
 											<input type="radio" id='only_messages' name='only_messages' value={2} checked={phoneShow === 2}
-														 onChange={event => setPhoneShow(parseInt(event.target.value))}/>
+														 onChange={event => setPhoneShow(parseInt(event.target.value))}
+														 className='mob-input'
+														 />
 											<label htmlFor="only_messages" className='create_ad-contact'>Только сообщения</label>
 										</div>
 										<div className="flex created_ad-radio">
 											<input type="radio" id='only_calls' name='only_calls' value={1} checked={phoneShow === 1}
-														 onChange={event => setPhoneShow(parseInt(event.target.value))}/>
+														 onChange={event => setPhoneShow(parseInt(event.target.value))}
+														 className='mob-input'
+														 />
 											<label htmlFor="only_calls" className='create_ad-contact'>Только звонки</label>
 										</div>
 										<div className="flex created_ad-radio">
 											<input type="radio" id='messages_and_calls' name='messages_and_calls' value={0}
 														 checked={phoneShow === 0}
-														 onChange={event => setPhoneShow(parseInt(event.target.value))}/>
+														 onChange={event => setPhoneShow(parseInt(event.target.value))}
+														 className='mob-input'
+														 />
 											<label htmlFor="messages_and_calls" className='create_ad-contact'>Звонки и сообщения</label>
 										</div>
 									</form>

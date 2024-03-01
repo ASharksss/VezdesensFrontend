@@ -12,8 +12,9 @@ const CreateAdItem = ({setTypeAd, typeAd}) => {
 			<form>
 				<div className="">
 					<div className="create_ad_size-item">
-						<input id='standart' type="radio" name='standart' className='create_ad_size-checkbox'
+						<input id='standart' type="radio" name='standart' className='create_ad_size-checkbox '
 									 onChange={() => setTypeAd('standart')} checked={typeAd === 'standart'}/>
+						<label onClick={() => setTypeAd('standart')}>
 						<div className="create_ad_size-item-description">
 							<div className='flex items-center'>
 								<label htmlFor="standart" className='create_ad_size-item-title'>Стандарт</label>
@@ -31,11 +32,14 @@ const CreateAdItem = ({setTypeAd, typeAd}) => {
 								<img src={photoStandart} alt=""/>
 							</div>
 						</div>
+						</label>
 					</div>
+
 					<div className="create_ad_size-item">
 						<input id='standartPlus' type="radio" name='standartPlus' className='create_ad_size-checkbox'
 									 onChange={() => setTypeAd('standartPlus')} checked={typeAd === 'standartPlus'}
 						/>
+						<label onClick={() => setTypeAd('standartPlus')}>
 						<div className="create_ad_size-item-description">
 							<div className='flex items-center'>
 								<label htmlFor="standartPlus" className='create_ad_size-item-title'>Стандарт +</label>
@@ -46,12 +50,14 @@ const CreateAdItem = ({setTypeAd, typeAd}) => {
 								сколько по времени будет висеть объявление
 							</p>
 						</div>
+						
 						<div>
 							<div className={`create_ad_block standart_plus ${typeAd === 'standartPlus' ? 'checked_type_ad' : ''}`}
 									 onClick={() => setTypeAd('standartPlus')}>
 								<img src={photoStandartPlus} alt=""/>
 							</div>
 						</div>
+						</label>
 					</div>
 
 
@@ -59,6 +65,7 @@ const CreateAdItem = ({setTypeAd, typeAd}) => {
 						<input id='vip' type="radio" name='vip' className='create_ad_size-checkbox'
 									 onChange={() => setTypeAd('vip')} checked={typeAd === 'vip'}
 						/>
+						<label onClick={() => setTypeAd('vip')}>
 						<div className="create_ad_size-item-description">
 							<div className='flex items-center'>
 								<label htmlFor="vip" className='create_ad_size-item-title'>ВИП</label>
@@ -75,11 +82,14 @@ const CreateAdItem = ({setTypeAd, typeAd}) => {
 								<img src={photoPremium} alt=""/>
 							</div>
 						</div>
+						</label>
 					</div>
+
 					<div className="create_ad_size-item">
 						<input id='premium' type="radio" name='premium' className='create_ad_size-checkbox'
 									 onChange={() => setTypeAd('premium')} checked={typeAd === 'premium'}
 						/>
+						<label onClick={() => setTypeAd('premium')}>
 						<div className="create_ad_size-item-description">
 							<div className='flex items-center'>
 								<label htmlFor="premium" className='create_ad_size-item-title'>Премиум</label>
@@ -96,6 +106,7 @@ const CreateAdItem = ({setTypeAd, typeAd}) => {
 								<img src={photoPremium} alt=""/>
 							</div>
 						</div>
+						</label>
 					</div>
 				</div>
 

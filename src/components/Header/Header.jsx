@@ -49,21 +49,22 @@ const Header = () => {
   }, [location.pathname, location.search])
 
   return (
-    <div className='container mr-b'>
-      <div className='container'>
+    // <div className='container mr-b'>
+      <div className='container mr-b'>
           <div className={activeModalCat ? "header_wrapper z2 l_radius" : "header_wrapper header_shadow l_radius r_radius"}>
             <div className="header_logo">
               <NavLink to='/'>
                 <img src={logo} alt="Vezdesens"/>
               </NavLink>
             </div>
-            <div className="header_content">
+
               <div className="header_content-button">
                 <button className='categories-btn' onClick={() => setActiveModalCat(true)}>
                   <img src={categories} alt=""/>
                   <span className='categories_btn-text'>Категории</span>
                 </button>
               </div>
+            <div className="header_content">
               <div className="header_content-main">
                 <div className="header_content-ads">
                   <button onClick={() => alert('Функция временно не доступна')}>Продать как компания</button>
@@ -80,12 +81,13 @@ const Header = () => {
                   </button>
                 </div>
               </div>
+            </div>
               <div className="header_content-geo" onClick={() => dispatch(showCities())}>
                 <img src={geo} alt="гео"/>
                 <span className='header_geo-name'>{mainCity}</span>
               </div>
-            </div>
-            <div className="flex column header_profile">
+
+            <div id='subMneuHere' className="flex column header_profile">
               <div className='flex'>
                 <img src={profile} alt="Профиль"/>
                 {isAuth ? <>
@@ -102,13 +104,13 @@ const Header = () => {
             </div>
 
           </div>
-        <div>
+        <div id='modalCat'>
           {activeModalCat ? <CategoryModalTemplate activeModalCat={activeModalCat}
                                                    setActiveModalCat={setActiveModalCat}
                                                    children={<CategoryModal data={categoriesData}/>}/> : null}
         </div>
       </div>
-    </div>
+    // </div>
   );
 };
 
