@@ -564,13 +564,13 @@
 .mob-input{
     display: none;
 }
-  
+
  /* для элемента label связанного с .mob-input  */
  .mob-input+label {
     display: inline-flex;
     align-items: center;
     user-select: none;
-   
+
   }
   /* создание в label псевдоэлемента  before со следующими стилями */
   .mob-input+label::before {
@@ -588,7 +588,7 @@
     background-position: center center;
     background-size: 50% 50%;
   }
-  
+
   /* стили при наведении курсора на радио */
   .mob-input:not(:disabled):not(:checked)+label:hover::before {
     border-color: #b3d7ff;

@@ -51,11 +51,11 @@ const MyFavorite = () => {
 					<option value={item.ad.statusAd.name}>{item.ad.statusAd.name}</option>
 				)) : null}
 			</select> */}
-			
+
 			<div className="favorite_filter">
 							<div className="ads_filter_select" >
 								<div className="flex items-center space-between ads_filter-header" onClick={() => setOpen(!open)}>
-									{filter != '' ? filter : 'Фильтер' } 
+									{filter != '' ? filter : 'Фильтр' }
 									<img src={arrow_icon} alt=""/>
 								</div>
 								<div className={ open ? 'block ads_filter_select-body' : 'filter_select-body-none'}>

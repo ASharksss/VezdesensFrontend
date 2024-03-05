@@ -53,7 +53,7 @@ const CatalogBoardPage = () => {
     dispatch(fetchCategoryList({paramsCategory, objectId}))
   }, [paramsSubCategory, paramsCategory, objectId]) // самый первый запрос при загрузке страницы
 
-  const {data, loading, hasMore} = useCatalogCard(0, paramsObjectId, paramsSubCategory, paramsCategory, query) 
+  const {data, loading, hasMore} = useCatalogCard(0, paramsObjectId, paramsSubCategory, paramsCategory, query)
 
   useEffect(() => {
     getStaticAd(1, setStaticAd)
@@ -121,7 +121,7 @@ const CatalogBoardPage = () => {
       //   })}>{subName.indexOf('/') > 1 ? subName.split('/')[0] : subName}</span> / <span
       //   className={'active'}>{name.indexOf('/') > 1 ? name.split('/')[0] : name}</span>
       // </h1>
-    }   
+    }
   }, [categoriesList, selectedCategory, paramsObjectId])
 
   useEffect(() => {
@@ -169,10 +169,10 @@ console.log(paramsObjectId, paramsSubCategory, paramsCategory, query );
   return (
     <div className='container'>
       {staticAd[0]?.imageName !== undefined ?
-        <Ad image={`${STATIC_HOST}/promotion/${staticAd[0]?.imageName}`} href={staticAd[0]?.href}/> : null}      
+        <Ad image={`${STATIC_HOST}/promotion/${staticAd[0]?.imageName}`} href={staticAd[0]?.href}/> : null}
       {pagination}
       {headerName}
-      <h2 className='grey w-1180 mb-20'>{Name}</h2>
+      <h2 className='grey w-1180 mb-20'>{Name.indexOf('/') > 0 ? Name.split('/')[0] : Name}</h2>
       <div className="catalogBoardPage">
         <div className="catalogBoardPage_categories">
           <CategoryAccordion category={categoriesList.items}
@@ -208,7 +208,7 @@ console.log(paramsObjectId, paramsSubCategory, paramsCategory, query );
 
               <div className='filter_title'
                    onClick={() => setOpenChar(!openChar)}
-              >{openChar ? 'Скрыть характеристики' : 'Расскрыть все характеристики'}</div>
+              >{openChar ? 'Скрыть характеристики' : 'Раскрыть все характеристики'}</div>
 
               {
                 openChar ?

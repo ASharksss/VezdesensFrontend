@@ -27,12 +27,13 @@ const CardService = ({type, item, setPhone, setActiveModal}) => {
 					setPhone(item.user.phone)
 					setActiveModal(true)
 				}}/> : null}
-				{isAuth ? item.user.id !== user.items.id ?
-
-					<NavLink className='ml-20'
-						to={`/profile/${item.user.id}?adId=${item.id}&senderId=${user.items.id === item.user.id ? item.user.id : user.items.id}&receiverId=${user.items.id !== item.user.id && item.user.id}#chat-${uuidV4()}`}>
-						<Button classname={'message'} icon={message}/>
-					</NavLink> : null : null}
+				{/*{isAuth ? item?.user?.id !== user.items.id ?*/}
+				{console.log(item.user?.id)}
+				{/*	<NavLink className='ml-20'*/}
+				{/*		to={`/profile/${item.user?.id}?adId=${item?.id}&senderId=${user.items.id === item.user?.id ? item.user?.id : user.items.id}&receiverId=${user.items.id !== item.user?.id && item.user.id}#chat-${uuidV4()}`}>*/}
+				{/*		<Button classname={'message'} icon={message}/>*/}
+				{/*</NavLink>*/}
+				{/*	: null : null}*/}
 			</div>
 
 		</div>);

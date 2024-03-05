@@ -1,11 +1,9 @@
 import React, {useCallback, useEffect, useRef, useState} from 'react';
 import {useSearchParams, useLocation} from "react-router-dom";
 import {useDispatch, useSelector} from "react-redux";
-import axios from 'axios';
 import CardService from "../components/cards/CardService";
 import CategoryAccordion from "../components/categoryAccordion/categoryAccordion";
 import {fetchCategoryList} from "../redux/slices/categorySlice";
-import {fetchAllAds} from "../redux/slices/boardSlice";
 import PhoneModal from "../components/modal/phoneModal";
 import ModalMain from "../components/modal/modalMain";
 import useCatalogCard from "../redux/hooks/useCatalogCard";
