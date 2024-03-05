@@ -50,7 +50,7 @@ const CreateAdPage = () => {
 	const [subOpen, setSubOpen] = useState(false)
 	const [subValueOpen, setSubValueOpen] = useState(false)
 
-
+	const rootEl = useRef(null);
 
 	const dispatch = useDispatch()
 
@@ -96,7 +96,9 @@ const CreateAdPage = () => {
 		if (!title){
 			return window.alert('Отсуствует заговловок')
 		}
-
+		if(!topic || !subTopic || !subValueTopic){
+			return window.alert('Вы не выбрали категорию или подкатегорию')
+		}
 		setLoading(true)
 		formData.append('title', title)
 		formData.append('description', description)
@@ -144,6 +146,14 @@ const CreateAdPage = () => {
 		setLoading(false)
 	}
 
+	const ChangedTopci = (topic) => {
+		setSubTopic('');
+		setSubValueTopic('');
+	};
+	const changedSubTopic = (subTopic) => {
+		setSubValueTopic('');
+	}
+
 	const handlePrice = (value) => {
 		if (value.replace(/\s+/g, '') > 1500000000) {
 			alert('Значение превышает норму')
@@ -158,6 +168,11 @@ const CreateAdPage = () => {
 	useEffect(() => {
 		dispatch(fetchCategory())
 		document.title = 'Создание объявления'
+
+
+		const onClick = e => rootEl.current.contains(e.target) || setOpen(false) || setSubOpen(false) || setSubValueOpen(false);
+  		document.addEventListener('click', onClick);
+  		return () => document.removeEventListener('click', onClick);
 	}, [])
 
 	useEffect(() => {
@@ -165,13 +180,14 @@ const CreateAdPage = () => {
 		setPreviewImage(null)
 	}, [typeAd])
 
+
 	return (
 		<div>
 			<div className="container">
 				<div className="create_ad">
 					<h1 className='create_ad-title'>Подать объявление</h1>
 					<form className="create_ad_wrapper" onSubmit={handleSubmit}>
-						<div className="create_ad-category">
+						<div className="create_ad-category" >
 							<h2 className='create_ad-category-title'>Категория</h2>
 							{/* Страый селектор  */}
 							{/* <select className='create_ad-select' onChange={event => {
@@ -189,7 +205,7 @@ const CreateAdPage = () => {
 									))
 								}
 							</select> */}
-							<div className='jy-start'>
+							<div className='jy-start' ref={rootEl}>
 							<div className="Edited_appeal-select" >
 								<div className="flex items-center space-between Edited_filter-header w-250 mr-r" onClick={() => setOpen(!open)} required>
                  					{/* Вывожу значние topic  */}
@@ -200,9 +216,11 @@ const CreateAdPage = () => {
 										{
 										categories.items.map((item, index) => (
 										// Предаю значиение item.name после topic присваиваю значиение при клике 
-										<div className='Edited_filter_select-item' key={'category' + index} value={item.id} onClick={() => {
+										<div className='Edited_filter_select-item' key={'category' + index} value={item.id}
+											onClick={() => {
 											setTopic(item.name)
 											setOpen(!open)
+										  ChangedTopci()
 											dispatch(newFetchCategory())
 											setEnterValue([])
 											setSelectValue([])
@@ -241,6 +259,7 @@ const CreateAdPage = () => {
 										<div className='Edited_filter_select-item' key={'subCategory' + index} value={item.id} onClick={() => {
 											setSubTopic(item.name)
 											setSubOpen(!subOpen)
+											changedSubTopic()
 											dispatch(fetchCategoryForCharacter())
 											setEnterValue([])
 											setSelectValue([])
@@ -249,21 +268,22 @@ const CreateAdPage = () => {
 										))
 										}
 								</div>
+								
 							</div>
-						{/*	<select className='create_ad-select' disabled={categories.subCategories.objects.status === 'loading'}
-											onChange={event => {
-												setObjectId(parseInt(event.target.value))
-												setEnterValue([])
-												setSelectValue([])
-												dispatch(fetchCharacterObjects(event.target.value))
-											}} required>
-								<option hidden>Выберите значение</option>
-								{
-									categories.subCategories.objects.items.map((item, index) => (
-										<option key={'object' + index} value={item.id}>{item.name.indexOf('/') > 0 ? item.name.split('/')[1] : item.name}</option>
-									))
-								}
-							</select> */}
+							{/*	<select className='create_ad-select' disabled={categories.subCategories.objects.status === 'loading'}
+												onChange={event => {
+													setObjectId(parseInt(event.target.value))
+													setEnterValue([])
+													setSelectValue([])
+													dispatch(fetchCharacterObjects(event.target.value))
+												}} required>
+									<option hidden>Выберите значение</option>
+									{
+										categories.subCategories.objects.items.map((item, index) => (
+											<option key={'object' + index} value={item.id}>{item.name.indexOf('/') > 0 ? item.name.split('/')[1] : item.name}</option>
+										))
+									}
+								</select> */}
 							<div className="Edited_appeal-select" >
 								<div className="flex items-center space-between Edited_filter-header w-250 mr-r" onClick={() => setSubValueOpen(!subValueOpen)} required>
                  					{/* Вывожу значние topic  */}
@@ -303,8 +323,6 @@ const CreateAdPage = () => {
 												 type="text" className='enter_input-input' required/>
 								</div>
 							</div>
-
-
 							{!isLoadingCharacter && <>
 								<h1 className='character-title'>Обязательные характеристики</h1>
 								<div className='grid_character'>
@@ -413,18 +431,24 @@ const CreateAdPage = () => {
 									<form className="flex column created_ad-contact">
 										<div className='flex created_ad-radio'>
 											<input type="radio" id='only_messages' name='only_messages' value={2} checked={phoneShow === 2}
-														 onChange={event => setPhoneShow(parseInt(event.target.value))}/>
+														 onChange={event => setPhoneShow(parseInt(event.target.value))}
+														 className='mob-input'
+														 />
 											<label htmlFor="only_messages" className='create_ad-contact'>Только сообщения</label>
 										</div>
 										<div className="flex created_ad-radio">
 											<input type="radio" id='only_calls' name='only_calls' value={1} checked={phoneShow === 1}
-														 onChange={event => setPhoneShow(parseInt(event.target.value))}/>
+														 onChange={event => setPhoneShow(parseInt(event.target.value))}
+														 className='mob-input'
+														 />
 											<label htmlFor="only_calls" className='create_ad-contact'>Только звонки</label>
 										</div>
 										<div className="flex created_ad-radio">
 											<input type="radio" id='messages_and_calls' name='messages_and_calls' value={0}
 														 checked={phoneShow === 0}
-														 onChange={event => setPhoneShow(parseInt(event.target.value))}/>
+														 onChange={event => setPhoneShow(parseInt(event.target.value))}
+														 className='mob-input'
+														 />
 											<label htmlFor="messages_and_calls" className='create_ad-contact'>Звонки и сообщения</label>
 										</div>
 									</form>

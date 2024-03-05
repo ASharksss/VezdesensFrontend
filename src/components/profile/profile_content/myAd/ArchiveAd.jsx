@@ -1,7 +1,8 @@
-import React from 'react';
+import NothingYeat from "../../../nothingYeat/nothingYeat";
 import MyAd from "./myAd";
 
-const ArchiveAd = ({dataUser, setDataAds, loading}) => {
+const ArchiveAd = ({dataUser, setDataAds, loading, status}) => {
+
 	if (loading) {
 		return (
 			<div>

@@ -49,8 +49,8 @@ const Header = () => {
   }, [location.pathname, location.search])
 
   return (
-    <div className='container mr-b'>
-      <div className='container'>
+    // <div className='container mr-b'>
+      <div className='container mr-b'>
           <div className={activeModalCat ? "header_wrapper z2 l_radius" : "header_wrapper header_shadow l_radius r_radius"}>
             <div className="header_logo">
               <NavLink to='/'>
@@ -102,13 +102,12 @@ const Header = () => {
             </div>
 
           </div>
-        <div>
           {activeModalCat ? <CategoryModalTemplate activeModalCat={activeModalCat}
                                                    setActiveModalCat={setActiveModalCat}
                                                    children={<CategoryModal data={categoriesData}/>}/> : null}
         </div>
       </div>
-    </div>
+    // </div>
   );
 };
 

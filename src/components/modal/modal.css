@@ -531,8 +531,6 @@
 .Edited_appeal-select{
     position: relative;
     margin-top: 27px;
-
-
 }
 
 .Edited_filter-header {
@@ -588,3 +586,18 @@
 }
 
 /* Filter (Edited)  */
+
+
+@media (min-width: 1920px) and (max-width: 3000px)  {
+    .modalCat_content{
+        right: calc(209px + (745 - 209) * ((100vw - 1920px) / (3000 - 1920)));
+    }
+    
+}
+
+@media (max-width: 1910px) and (min-width: 1200px)  {
+    .modalCat_content{
+        right: calc(-30px + (200 - -30) * ((100vw - 1200px) / (1960 - 1200)));
+    }
+    
+}

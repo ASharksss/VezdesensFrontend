@@ -135,6 +135,16 @@ body {
 .jy-end {
   justify-content: end;
 }
+.position-absolute-tp{
+  position: absolute;
+  top: 30px;
+  right: 30px;
+  
+}
+.jy-start{
+  display: flex;
+  justify-content: flex-start;
+}
 
 .jy-space-around {
   justify-content: space-around;
@@ -223,7 +233,20 @@ body {
 .w-237{
   width: 237px;
 }
+.h-200{
+  height: 200px;
+}
 
 .mr-r{
   margin-right: 30px;
+}
+@media (max-width:1600px ) {
+  .container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    width: auto;
+    margin: 0 auto;
+  }
 }

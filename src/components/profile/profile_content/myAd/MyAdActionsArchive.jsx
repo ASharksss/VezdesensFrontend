@@ -34,6 +34,7 @@ const MyAdActionsArchive = ({dataUser, setDataAds}) => {
 		if (check) {
 			const {data} = await axios.delete(`api/ad/remove?adId=${dataUser.id}`)
 			setDataAds(data)
+			window.location.reload();
 		}
 	}
 	return (

@@ -1,7 +1,8 @@
 import React from 'react';
 import MyAd from "./myAd";
+import NothingYeat from '../../../nothingYeat/nothingYeat';
 
-const ActiveAds = ({dataUser, setDataAds, loading}) => {
+const ActiveAds = ({dataUser, setDataAds, loading, status}) => {
 	if (loading) {
 		return (
 			<div>
@@ -12,10 +13,7 @@ const ActiveAds = ({dataUser, setDataAds, loading}) => {
 
   return (
     <div>
-      {dataUser.ads.length === 0 ?
-        <div className=" myAd_container flex">
-          <p>Ничего нет</p>
-        </div>
+      {dataUser.ads.length === 0 || status === false ? <NothingYeat/>
         : dataUser.ads.map((item, index) => (
 					<MyAd key={'active' + index} typeAd={'activeAd'} item={item.statusAdId === 2 && item} setDataAds={setDataAds}/>
 				))}

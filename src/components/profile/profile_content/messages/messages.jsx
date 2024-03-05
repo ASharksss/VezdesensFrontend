@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect, useRef, useState} from 'react';
 import {v4 as uuidV4} from 'uuid';
 import {NavLink} from "react-router-dom";
 import axios from "axios";
@@ -6,9 +6,9 @@ import {useSelector} from "react-redux";
 import './messages.css'
 import MessageItem from "./messageItem";
 import arrow_icon from '../../../../asserts/icons/arrow_down.svg'
-import SelectCheckBox from './SelectCheckBox';
+import SelectCheckBox from '../messages/SelectCheckBox'
 import SelectedMessages from './selectedMessages';
-import PreloaderComponent from "../../../Preloader/PreloaderComponent";
+import NothingYeat from '../../../nothingYeat/nothingYeat';
 
 const Messages = () => {
 	const {items} = useSelector(state => state.user.user)
@@ -16,9 +16,14 @@ const Messages = () => {
 	const [loadingPage, setLoadingPage] = useState(false)
 	const [loading, setLoading] = useState(false)
 	const [choice, setChoice] = useState('old')
+	const [choiceAnother, setChoiceAnother] = useState('old')
 	const [choiceTitle, setChoiceTitle] = useState('Сначала старые')
+	const [choiceTitleAnother, setChoiceTitleAnother] = useState('Сначала старые')
 	const [open, setOpen] = useState(false)
-	// const [check, setCheck] = useState(false)
+	const [openanother, setOpenAnother] = useState(false)
+	const [check, setCheck] = useState(false)
+
+	const rootEl = useRef(null);
 
 
 
@@ -26,6 +31,12 @@ const Messages = () => {
 	const handleCheckBoxChange = () => {
 			setIsChecked(!isChecked);
 	};
+	useEffect(() => {
+		if (check) {
+			
+		}
+		setCheck(false)
+	}, [check])
 
 	const handleGetMessages = async () => {
 		setLoadingPage(true)
@@ -42,6 +53,12 @@ const Messages = () => {
 
 	useEffect(() => {
 		handleGetMessages()
+	}, [])
+
+	useEffect(() => {
+		const onClick = e => rootEl.current.contains(e.target) || setOpen(false) || setOpenAnother(false) ;
+  		document.addEventListener('click', onClick);
+  		return () => document.removeEventListener('click', onClick);
 	}, [])
 
 	useEffect(() => {
@@ -63,43 +80,43 @@ const Messages = () => {
 	if (loadingPage) {
 		return <PreloaderComponent />
 	}
-
+	
 	return (
 		<div>
-			<div className="messages_header flex">
+			<div className="messages_header flex" ref={rootEl}>
 				<SelectCheckBox/>
 				{/* открываются вместе потомочту одинаковые данные приходят, и одниаковые реакциии OnClick  */}
-				<div className="filter">
-							<div className="ads_filter_select" >
-								<div className="flex items-center space-between ads_filter-header" onClick={() => setOpen(!open)}>
-									{choiceTitle}
+				<div className="filter" >
+							<div className="ads_filter_select mr-r" >
+								<div className="flex items-center space-between ads_filter-header" onClick={() => setOpenAnother(!openanother)}>
+									{choiceTitleAnother}
 									<img src={arrow_icon} alt=""/>
 								</div>
-								<div className={ open ? 'block ads_filter_select-body' : 'filter_select-body-none'}>
+								<div className={ openanother ? 'block ads_filter_select-body' : 'filter_select-body-none'}>
 									<div className='filter_select-item' onClick={() => {
-										setChoice('old')
-										setChoiceTitle('Сначала старые')
-										setOpen(!open)
+										setChoiceAnother('old')
+										setChoiceTitleAnother('Сначала старые')
+										setOpenAnother(!openanother)
 									}}>Сначала старые</div>
 									<div className='filter_select-item' onClick={() => {
-										setChoice('new')
-										setChoiceTitle('Сначала новые')
-										setOpen(!open)
+										setChoiceAnother('new')
+										setChoiceTitleAnother('Сначала новые')
+										setOpenAnother(!openanother)
 									}}>Сначала новые</div>
 									<div className='filter_select-item' onClick={() => {
-										setChoice('views_down')
-										setChoiceTitle('По просмотрам ↑')
-										setOpen(!open)
+										setChoiceAnother('views_down')
+										setChoiceTitleAnother('По просмотрам ↑')
+										setOpenAnother(!openanother)
 									}}>По просмотрам ↑</div>
 									<div className='filter_select-item' onClick={() => {
-										setChoice('views_up')
-										setChoiceTitle('По просмотрам ↓')
-										setOpen(!open)
+										setChoiceAnother('views_up')
+										setChoiceTitleAnother('По просмотрам ↓')
+										setOpenAnother(!openanother)
 									}}>По просмотрам ↓</div>
 								</div>
 							</div>
 				</div>
-				<div className="filter">
+				<div className="filter" >
 							<div className="ads_filter_select" >
 								<div className="flex items-center space-between ads_filter-header" onClick={() => setOpen(!open)}>
 									{choiceTitle}
@@ -132,16 +149,16 @@ const Messages = () => {
 			</div>
 
 			<div className="messages_list">
-			<SelectCheckBox
-			setIsChecked={setIsChecked}
-        	onChange={handleCheckBoxChange}>
 				{data.length > 0 ? data.map((item, index) => (
+					<SelectCheckBox 
+					setIsChecked={setIsChecked}
+					onChange={handleCheckBoxChange}>
 					<NavLink state={{from: item[0].user}} to={`?adId=${item[0].id}&senderId=${items.id === item[1].id ? item[1].id : item[0].user.id}&receiverId=${items.id !== item[0].user.id ? item[0].user.id : item[1].id}#chat-${uuidV4()}`}>
 						<MessageItem data={item[0]} seller={item[0].user}
 												 status={item[0].statusAd.name} image={item[0].previewImageAds[0]?.name}/>
 					</NavLink>
-				)) : <p>Пока нет сообщений</p>}
-			</SelectCheckBox>
+					</SelectCheckBox>
+				)) : <NothingYeat message={"Пока нет сообщений"}/>}
 
 			{
 				isChecked ? (
@@ -150,7 +167,6 @@ const Messages = () => {
 					</>
 				) : (
 					<>
-					<p> Ne Robit</p>
 					</>
 				)
 			}

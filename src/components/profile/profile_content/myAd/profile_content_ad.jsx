@@ -9,6 +9,8 @@ import arrow_icon from '../../../../asserts/icons/arrow_down.svg'
 const ProfileContentAd = ({dataUser, setDataAds}) => {
 
 	const choiceRef = useRef(null)
+	const [status, setStatusActive] = useState(false);
+	const [statusArchive, setStatusArchive] = useState(false);
 	const [search, setSearch] = useState('')
 	const [typeAd, setTypeAd] = useState('activeAd')
 	const [open, setOpen] = useState(false)
@@ -48,10 +50,28 @@ const ProfileContentAd = ({dataUser, setDataAds}) => {
 		}
 	}, [choice])
 
+	const checkStatus = () => {
+		for (let i = 0; i < dataSearch.ads.length; i++) {
+		  if (dataSearch.ads[i].statusAdId === 2) {
+			setStatusActive(true);
+			break;
+		  }
+		  if (dataSearch.ads[i].statusAdId === 4) {
+			setStatusArchive(true);
+			break;
+		  }
+		}
+	  };
+	useEffect(() => {
+		checkStatus();
+	});
+
 	useEffect(() => {
 		if (loading)
 			setLoading(false)
 	}, [loading])
+
+	
 
 	return (
 		<div className='profile_content_ad'>
@@ -118,8 +138,8 @@ const ProfileContentAd = ({dataUser, setDataAds}) => {
 
 			</div>
 			{
-				typeAd === 'archiveAd' ? <ArchiveAd dataUser={dataSearch} setDataAds={setDataAds} loading={loading}/> :
-					typeAd === 'activeAd' ? <ActiveAds dataUser={dataSearch} setDataAds={setDataAds} loading={loading}/> : 'нишо'
+				typeAd === 'archiveAd' ? <ArchiveAd dataUser={dataSearch} setDataAds={setDataAds} loading={loading} status={statusArchive}/> :
+					typeAd === 'activeAd' ? <ActiveAds dataUser={dataSearch} setDataAds={setDataAds} loading={loading} status={status}/> : 'нишо'
 			}
 		</div>
 	);

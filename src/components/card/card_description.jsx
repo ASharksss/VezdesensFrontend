@@ -55,7 +55,6 @@ const CardDescription = ({description, characteristics}) => {
 
     }, [characteristics])
 
-    // Проверка на наличие Характеристик для вывода
     const isCharacteristic = function(){
         return characteristicsContent.props.children[0].length === 0 && characteristicsContent.props.children[1].length === 0  ? false : true;
     }
@@ -68,7 +67,6 @@ const CardDescription = ({description, characteristics}) => {
               <pre className='card_description-pre'>{description}</pre>
             </p>
             {
-                // Результата
                 isCharacteristic() ? (
                     <>
                 <h1 className='card_description-title'>Характеристки</h1>
@@ -76,13 +74,11 @@ const CardDescription = ({description, characteristics}) => {
                     {characteristicsContent}
                 </div>
                     </>
-
                 ) : (
                     <>
                     </>
                 )
             }
-
 
         </div>
     );
