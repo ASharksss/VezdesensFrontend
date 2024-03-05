@@ -34,7 +34,6 @@ const Messages = () => {
 	};
 	useEffect(() => {
 		if (check) {
-
 		}
 		setCheck(false)
 	}, [check])
@@ -81,7 +80,7 @@ const Messages = () => {
 	if (loadingPage) {
 		return <PreloaderComponent />
 	}
-
+	
 	return (
 		<div>
 			<div className="messages_header flex" ref={rootEl}>

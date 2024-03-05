@@ -107,6 +107,9 @@ body {
   width: 1518px;
   margin: 0 auto;
 }
+.grey{
+  color: grey;
+}
 
 .grid {
   display: grid;
@@ -232,6 +235,10 @@ body {
 }
 .w-237{
   width: 237px;
+}
+.w-1180{
+  width: 1180px;
+  align-self: end;
 }
 .h-200{
   height: 200px;

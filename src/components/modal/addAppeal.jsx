@@ -6,42 +6,45 @@ import arrow_icon from '../../asserts/icons/arrow_down.svg'
 import {useNavigate, useParams} from "react-router-dom";
 
 const AddAppeal = () => {
-	const [topics, setTopics] = useState([])
-	const [topic, setTopic] = useState(0)
-	const [text, setText] = useState('')
+  const [topics, setTopics] = useState([])
+  const [topic, setTopic] = useState('Выберите вариант...')
+  const [text, setText] = useState('')
 	const [open, setOpen] = useState(false)
 
 
-	const {id} = useParams()
-	const navigate = useNavigate()
+  const {id} = useParams()
+  const navigate = useNavigate()
 
-	const getTopics = async () => {
-		await axios.get('api/support/getTopicAppeals')
-			.then(res => setTopics(res.data))
-	}
+  const getTopics = async () => {
+    await axios.get('api/support/getTopicAppeals')
+      .then(res => setTopics(res.data))
+  }
 
-	const addAppeal = async () => {
-		const data = {
-			topicOfAppealId: topic,
-			userId: id,
-			text
-		}
-		await axios.post('api/support/createAppeal', data)
-			.then(res => {
-				navigate(`?id=${res.data.id}#appeal`)
-			})
-	}
+  const addAppeal = async () => {
+    const data = {
+      topicOfAppealId: topic,
+      userId: id,
+      text
+    }
+    await axios.post('api/support/createAppeal', data)
+      .then(res => {
+        navigate(`?id=${res.data.id}#appeal`)
+      })
+  }
 
-	useEffect(() => {
-		getTopics()
-	}, [])
+  useEffect(() => {
+    getTopics()
+  }, [])
 
 
-	return (
+  return (
+    <div className='column flex'>
+      <h1 className='add_appeal-title'>Создание обращения</h1>
+      {/* <select className='add_appeal-select'
+
 		<div className='column flex'>
 			<h1 className='add_appeal-title'>Создание обращения</h1>
 			{/* <select className='add_appeal-select'
-
               onChange={(e) => setTopic(e.target.value)}>
         <option disabled={true}>Выберите вариант...</option>
         {
