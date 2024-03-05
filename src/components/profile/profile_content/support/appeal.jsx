@@ -1,7 +1,6 @@
 import React from 'react';
 
 const Appeal = ({item}) => {
-	console.log(typeof item.createdAt)
   return (
     <div className='support_item flex space-between'>
       <div>
