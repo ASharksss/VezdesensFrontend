@@ -9,7 +9,7 @@ import {NavLink} from "react-router-dom";
 import {pluralRusVariant} from "../../utils";
 
 
-const Rating = ({data = [], type='user', userId, setDataRating}) => {
+const Rating = ({data = [], type='user', userId, setDataRating, active=false}) => {
 	const {isAuth, user} = useSelector(state => state.user)
 	const [activeModal, setActiveModal] = useState(false)
 
@@ -38,8 +38,8 @@ const Rating = ({data = [], type='user', userId, setDataRating}) => {
 					</div>
 
 					<div className='flex'>
-						{isAuth ? user.items.id !== userId ? 
-							<button className='rating_btn' onClick={() => setActiveModal(true)}>Написать отзыв</button> : null
+						{isAuth ? user.items.id !== userId ?
+							!active && <button className='rating_btn' onClick={() => setActiveModal(true)}>Написать отзыв</button> : null
 							: <NavLink style={{textAlign: 'center'}} className='rating_btn' to={'/signin'}>Войти</NavLink>}
 					</div>
 					<ModalMain touched={false} activeModal={activeModal} setActiveModal={setActiveModal}

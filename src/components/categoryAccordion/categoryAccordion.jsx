@@ -32,7 +32,7 @@ const CategoryAccordion = ({
   const handleCheckedCategory = (index, item) => {
     if (checked !== null && checked === index) {
       navigate({
-        pathname: '/category',
+        pathname: `${window.location.pathname}`,
         search: `?subCategory=${parseInt(paramsSubCategory)}&category=${parseInt(paramsCategory)}`,
       })
     }

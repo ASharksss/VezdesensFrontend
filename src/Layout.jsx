@@ -19,10 +19,10 @@ const Layout = () => {
 		dispatch(hideCities())
 	}
 
-	const {hours, minutes, day, month} = useClock()
+	const {hours, minutes, day, month, seconds} = useClock()
 
 	useEffect(() => {
-		if (location.pathname !== '/signin' && location.pathname !== '/signup')
+		if (location.pathname !== '/signin' && location.pathname !== '/signup' && location.pathname !== '/forgot-password')
 			localStorage.setItem('last_path', location.pathname + location.search)
 	}, [location.pathname]);
 
@@ -30,11 +30,11 @@ const Layout = () => {
 		<SmoothScroll>
 			{hours !== null &&
 			<div className='timer-container'>
-				<TimerContainer date={{day, month, hours, minutes}}/>
+				<TimerContainer date={{day, month, hours, minutes, seconds}}/>
 			</div>}
 			<div className='container'>
 				{showCitiesModal ? <ModalMain activeModal={showCitiesModal} setActiveModal={handleCloseModal}><CitiesModal /></ModalMain> : null}
-				{(location.pathname !== '/signin' && location.pathname !== '/signup') && <Header/> }
+				{(location.pathname !== '/signin' && location.pathname !== '/signup' && location.pathname !== '/forgot-password') && <Header/> }
 				<Outlet/>
 			</div>
 		</SmoothScroll>

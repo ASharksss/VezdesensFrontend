@@ -41,6 +41,7 @@ const AddAppeal = () => {
     <div className='column flex'>
       <h1 className='add_appeal-title'>Создание обращения</h1>
       {/* <select className='add_appeal-select'
+
               onChange={(e) => setTopic(e.target.value)}>
         <option disabled={true}>Выберите вариант...</option>
         {
@@ -48,8 +49,7 @@ const AddAppeal = () => {
             <option  value={item.id}>{item.name}</option>
           ))
         }
-      </select> */}
-      
+      </select> */}      
 {/* Постарся ничиго глобально не трогать, новые классы новые значиения, схожие с предыдущим вариантом */}
       <div className="filter">
 							<div className="Edited_appeal-select" >
@@ -76,8 +76,7 @@ const AddAppeal = () => {
       <button className='add_appeal-btn' onClick={addAppeal}>Содать обращени</button>
     </div>
 
-
-  );
+	);
 };
 
 export default AddAppeal;

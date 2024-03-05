@@ -4,6 +4,7 @@ import arrow_category from '../../../asserts/icons/arrow_category.svg'
 import '../modal.css'
 
 const SubCategory = ({item, objects, category}) => {
+	console.log(category)
   // item: {id: int, name: str, categoryId: int, objects: [{id: int, name: str, subCategoryId: int}]}
   // objects: [{subCategory: int, objects: [{id: int, name: str, subCategoryId: int}]}]
   // category: int
@@ -73,7 +74,7 @@ const SubCategory = ({item, objects, category}) => {
               count++;
               return <span className='modal_subcategory-link' style={{cursor: 'pointer'}}
                            key={`objects-${index}-${item.name}-${itemObj.id}`}
-                           onClick={() => handleShowCategory(null, category === 3 ? 'service' : null)}>
+                           onClick={() => handleShowCategory(null, category === 3 ? 'service' : 'subCategory')}>
 								<span style={{fontWeight: 'bold'}} key={`objects-${index}-${item.name}-${itemObj.id}`}
                       className='flex items-center modal_subcategory-object'>Показать ещё</span>
 							</span>

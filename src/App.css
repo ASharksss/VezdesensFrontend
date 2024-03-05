@@ -149,6 +149,21 @@ body {
   justify-content: flex-start;
 }
 
+.jy-space-around {
+  justify-content: space-around;
+}
+
+.position-absolute-tp{
+  position: absolute;
+  top: 30px;
+  right: 30px;
+
+}
+.jy-start{
+  display: flex;
+  justify-content: flex-start;
+}
+
 .items-center {
   align-items: center;
 }
@@ -232,7 +247,6 @@ body {
 .mr-r{
   margin-right: 30px;
 }
-
 @media (max-width:1600px ) {
   .container {
     display: flex;

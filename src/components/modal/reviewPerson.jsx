@@ -8,10 +8,10 @@ const ReviewPerson = ({data}) => {
 	return (
 		<div className='review_person'>
 			<div className="review_avatar">
-				<img src={`${AVATAR_HOST}/${data.user.userAvatars[0]?.name}`} style={{borderRadius: '50%'}} alt="" className='review_avatar-img'/>
+				<img src={`${AVATAR_HOST}/${data.writer.userAvatars[0]?.name}`} style={{borderRadius: '50%'}} alt="" className='review_avatar-img'/>
 			</div>
 			<div className="review_info">
-				<NavLink to={`/profile/${data.user.id}`} className="review_info-name">{data.user.name}</NavLink>
+				<NavLink to={`/profile/${data.writer.id}`} className="review_info-name">{data.writer.name}</NavLink>
 				<span className="review_date">{formatDate(data.createdAt)}</span>
 				<StarComponent average={data.grade}/>
 				<div className='review_text'>

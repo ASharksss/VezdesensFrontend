@@ -31,7 +31,6 @@ const Messages = () => {
 	const handleCheckBoxChange = () => {
 			setIsChecked(!isChecked);
 	};
-
 	useEffect(() => {
 		if (check) {
 			
@@ -77,13 +76,9 @@ const Messages = () => {
 			setData(data.sort((a, b) => new Date(b.views) - new Date(a.views)))
 		}
 	}, [choice])
-	
-
 
 	if (loadingPage) {
-		return <div>
-			<p>Загрузка...</p>
-		</div>
+		return <PreloaderComponent />
 	}
 	
 	return (
@@ -154,7 +149,6 @@ const Messages = () => {
 			</div>
 
 			<div className="messages_list">
-			
 				{data.length > 0 ? data.map((item, index) => (
 					<SelectCheckBox 
 					setIsChecked={setIsChecked}
@@ -165,7 +159,6 @@ const Messages = () => {
 					</NavLink>
 					</SelectCheckBox>
 				)) : <NothingYeat message={"Пока нет сообщений"}/>}
-			
 
 			{
 				isChecked ? (
@@ -174,7 +167,6 @@ const Messages = () => {
 					</>
 				) : (
 					<>
-					
 					</>
 				)
 			}

@@ -57,14 +57,13 @@ const Header = () => {
                 <img src={logo} alt="Vezdesens"/>
               </NavLink>
             </div>
-
+            <div className="header_content">
               <div className="header_content-button">
                 <button className='categories-btn' onClick={() => setActiveModalCat(true)}>
                   <img src={categories} alt=""/>
                   <span className='categories_btn-text'>Категории</span>
                 </button>
               </div>
-            <div className="header_content">
               <div className="header_content-main">
                 <div className="header_content-ads">
                   <button onClick={() => alert('Функция временно не доступна')}>Продать как компания</button>
@@ -81,13 +80,12 @@ const Header = () => {
                   </button>
                 </div>
               </div>
-            </div>
               <div className="header_content-geo" onClick={() => dispatch(showCities())}>
                 <img src={geo} alt="гео"/>
                 <span className='header_geo-name'>{mainCity}</span>
               </div>
-
-            <div id='subMneuHere' className="flex column header_profile">
+            </div>
+            <div className="flex column header_profile">
               <div className='flex'>
                 <img src={profile} alt="Профиль"/>
                 {isAuth ? <>
@@ -104,7 +102,6 @@ const Header = () => {
             </div>
 
           </div>
-        <div id='modalCat'>
           {activeModalCat ? <CategoryModalTemplate activeModalCat={activeModalCat}
                                                    setActiveModalCat={setActiveModalCat}
                                                    children={<CategoryModal data={categoriesData}/>}/> : null}
