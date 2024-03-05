@@ -2,6 +2,7 @@ import React, {useEffect, useState} from 'react';
 import MyAd from "./myAd";
 import axios from "axios";
 import arrow_icon from '../../../../asserts/icons/arrow_down.svg'
+import NothingYeat from '../../../nothingYeat/nothingYeat';
 
 
 const MyFavorite = () => {
@@ -77,7 +78,7 @@ const MyFavorite = () => {
 				{data.length > 0 ? filteredFavoriteData.map((item, index) => (
 						<MyAd key={'active' + index} typeAd={'favoriteAd'} item={item.ad} setDataAds={setData}
 									statusAd={item.ad.statusAd.name !== 'Активно' ? 'myAd_grey' : null}/>)) :
-					<p>Нет данных</p>}
+					<NothingYeat message={"Вы ничего не добавили"}/>}
 			</div>
 		</div>
 	);

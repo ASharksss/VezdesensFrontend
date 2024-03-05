@@ -8,6 +8,7 @@ import MessageItem from "./messageItem";
 import arrow_icon from '../../../../asserts/icons/arrow_down.svg'
 import SelectCheckBox from '../messages/SelectCheckBox'
 import SelectedMessages from './selectedMessages';
+import NothingYeat from '../../../nothingYeat/nothingYeat';
 
 const Messages = () => {
 	const {items} = useSelector(state => state.user.user)
@@ -163,7 +164,7 @@ const Messages = () => {
 												 status={item[0].statusAd.name} image={item[0].previewImageAds[0]?.name}/>
 					</NavLink>
 					</SelectCheckBox>
-				)) : <p>Пока нет сообщений</p>}
+				)) : <NothingYeat message={"Пока нет сообщений"}/>}
 			
 
 			{
