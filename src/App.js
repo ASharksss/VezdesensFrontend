@@ -19,8 +19,8 @@ import SupportPage from "./pages/admin/support/SupportPage";
 import {takeFromCookie} from "./redux/slices/geoSlice";
 
 
-// axios.defaults.baseURL = 'http://localhost:5000/';
-axios.defaults.baseURL = 'https://backend.vezdesens.ru/';
+axios.defaults.baseURL = 'http://192.168.1.119:5000/';
+// axios.defaults.baseURL = 'https://backend.vezdesens.ru/';
 axios.defaults.withCredentials = true
 
 function App() {
