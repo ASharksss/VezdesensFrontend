@@ -50,7 +50,7 @@ const CatalogBoardPage = () => {
     dispatch(fetchCategoryList({paramsCategory, objectId}))
   }, [paramsSubCategory, paramsCategory, objectId]) // самый первый запрос при загрузке страницы
 
-  const {data, loading, hasMore} = useCatalogCard(0, paramsObjectId, paramsSubCategory, paramsCategory, query)
+  const {data, loading, hasMore} = useCatalogCard(offset, paramsObjectId, paramsSubCategory, paramsCategory, query)
 
   useEffect(() => {
     getStaticAd(1, setStaticAd)
@@ -105,14 +105,14 @@ const CatalogBoardPage = () => {
 
   const pagination = useMemo(() => {
     if (!isLoading && paramsObjectId && selectedCategory.length > 0) {
-      const subName = categoriesList.items[0].subCategories.filter(item => item.id === parseInt(paramsSubCategory))[0].name
-      const name = categoriesList.items[0].subCategories.filter(item => item.id === parseInt(paramsSubCategory))[0].objects.filter(item => item.id === parseInt(paramsObjectId))[0]?.name
+      const subName = categoriesList.items[0].subCategories.filter(item => item.id === parseInt(paramsSubCategory))[0]?.name
+      const name = categoriesList.items[0].subCategories.filter(item => item.id === parseInt(paramsSubCategory))[0]?.objects.filter(item => item.id === parseInt(paramsObjectId))[0]?.name
       return <h1 className='catalogBoardPage-subtitle'>
 				<span className={'main'} style={{cursor: 'pointer'}} onClick={() => navigate({
           pathname: '/category',
           search: `?subCategory=${parseInt(paramsSubCategory)}&category=${parseInt(paramsCategory)}`,
-        })}>{subName.indexOf('/') > 1 ? subName.split('/')[0] : subName}</span> / <span
-        className={'active'}>{name.indexOf('/') > 1 ? name.split('/')[0] : name}</span>
+        })}>{subName?.indexOf('/') > 1 ? subName.split('/')[0] : subName}</span> / <span
+        className={'active'}>{name?.indexOf('/') > 1 ? name.split('/')[0] : name}</span>
       </h1>
     }
   }, [categoriesList, selectedCategory, paramsObjectId])

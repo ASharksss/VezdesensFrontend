@@ -1,10 +1,12 @@
 import React from 'react';
 import {NavLink} from "react-router-dom";
+import {useSelector} from "react-redux";
 import Card from "../../cards/Card";
 import {STATIC_HOST} from "../../../utils";
 
 
 const CommercialBlocksLss = ({items}) => {
+    const {isAuth} = useSelector(state => state.user)
     let length = 0
     let countL = 0, countStPl = 0
     if (items !== undefined) {
@@ -14,7 +16,7 @@ const CommercialBlocksLss = ({items}) => {
     }
     return (
         <div className='grid'
-             style={{gridTemplateColumns: `repeat(${length === 1 ? '2' : '3'}, ${length === 1 ? '400px' : '1fr'})`}}>
+             style={{gridTemplateColumns: `repeat(${length === 1 ? '2' : '3'}, ${length === 1 ? `${countL === 0 ? '400px' : '1fr'}` : '1fr'})`}}>
             {items !== undefined && items.map((item, index) => ((item.typeAdId === 2 || item.typeAdId === 3) &&
                 <Card key={`card-${index}`}
                       classname={item.typeAdId === 2 && 's' || item.typeAdId === 3 && 'l'}
@@ -28,14 +30,14 @@ const CommercialBlocksLss = ({items}) => {
                 />
             ))}
             {items !== undefined && (length === 2 || length === 1) ? (
-                <NavLink to='/createAd' target='_blank'>
-                    <div className={`card ${countL === 0 ? 'l' : 's'}`}>
+                <NavLink to={isAuth ? `/createAd` : '/signin'} target={isAuth ? '_blank' : '_self'}>
+                    <div className={`card ${length === 1 ? 'l' : 's'}`}>
                         <span style={{
                             width: '100%',
                             position: 'absolute',
-                            left: `${countL === 0 ? '20%' : 0}`,
+                            left: `${length === 1 ? '20%' : 0}`,
                             transform: 'rotate(45deg)',
-                            top: `${countL === 0 ? 70 : 50}%`,
+                            top: `${length === 1 ? 70 : 50}%`,
                             fontSize: '26px',
                             fontWeight: 700
                         }}>Место для вашей карточки</span>

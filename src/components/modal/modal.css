@@ -193,6 +193,8 @@
 }
 
 .review_avatar-img {
+    width: 47px;
+    height: 48px;
     min-width: 45px;
     min-height: 45px;
 }
@@ -529,8 +531,6 @@
 .Edited_appeal-select{
     position: relative;
     margin-top: 27px;
-    
-
 }
 
 .Edited_filter-header {

@@ -1,6 +1,7 @@
 import React from 'react';
 import './preloader.css'
 import logoSVG from '../../asserts/logo.svg';
+import {preloaderText} from "../../utils";
 
 const PreloaderComponent = () => {
     return (
@@ -11,7 +12,7 @@ const PreloaderComponent = () => {
                 <img src={logoSVG} alt="Логотип" width={256}/>
             </div>
             <div className='loader-text'>
-                <span>Загрузка страницы</span>
+                <span>{preloaderText()}</span>
             </div>
         </div>
     );

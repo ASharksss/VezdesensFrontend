@@ -7,7 +7,7 @@ import Favorite from "../../ui/buttons/favorite";
 import Button from "../../ui/buttons/button";
 import message from "../../asserts/icons/message.svg"
 import Rating from "../../ui/rating/rating";
-import {formatDate, numberWithSpaces} from "../../utils";
+import {formatDate, numberWithSpaces, relativeDate} from "../../utils";
 
 const CardInfo = ({userId, price, sellerName, sellerCreated, address, setActiveModal, setTypeModal, id, favorite, rating, show}) => {
 	const {isAuth, user} = useSelector(state => state.user)
@@ -34,7 +34,7 @@ const CardInfo = ({userId, price, sellerName, sellerCreated, address, setActiveM
 					<NavLink to={`/profile/${userId}`}>
 						<h2 className='seller_info-name'>{sellerName}</h2>
 					</NavLink>
-					<p className='seller_info-date'>{formatDate(sellerCreated)}</p>
+					<p className='seller_info-date'>На сервисе с {relativeDate(new Date(sellerCreated))}</p>
 				</div>
 				<div className="flex rating_info" onClick={() => {
 					setActiveModal(true)
