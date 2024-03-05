@@ -2,4 +2,13 @@
     color: rgba(181, 183, 189, 1);
     margin-top: 20px;
     margin-bottom: 25px;
+    font-family: 'OpenSansRegular';
+    width: 1390px;
+    
+}
+.txt-black{
+    color: black;
+}
+.fz-18{
+    font-size: 18px;
 }

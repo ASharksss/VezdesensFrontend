@@ -11,6 +11,8 @@ import EnterFilter from "../components/filters/enterFilter";
 import ChoiceFilter from "../components/filters/choiceFilter";
 import useCatalogCard from "../redux/hooks/useCatalogCard";
 import PreloaderComponent from "../components/Preloader/PreloaderComponent";
+import BreadCrumbs from '../components/breadcrumbs/BreadCrumbs';
+import NothingYeat from '../components/nothingYeat/nothingYeat'
 
 const chunkArray = (myArray, chunkSize) => {
   const results = [];
@@ -43,6 +45,7 @@ const CatalogBoardPage = () => {
   const [lastChoiceLength, setLastChoiceLength] = useState(0);
   const [lastEnterLength, setLastEnterLength] = useState(0);
   const [openChar, setOpenChar] = useState(false)
+  const [Name, SetName] = useState('');
 
   const isLoading = categoriesList.status === 'loading'
 
@@ -50,7 +53,7 @@ const CatalogBoardPage = () => {
     dispatch(fetchCategoryList({paramsCategory, objectId}))
   }, [paramsSubCategory, paramsCategory, objectId]) // самый первый запрос при загрузке страницы
 
-  const {data, loading, hasMore} = useCatalogCard(0, paramsObjectId, paramsSubCategory, paramsCategory, query)
+  const {data, loading, hasMore} = useCatalogCard(0, paramsObjectId, paramsSubCategory, paramsCategory, query) 
 
   useEffect(() => {
     getStaticAd(1, setStaticAd)
@@ -107,14 +110,18 @@ const CatalogBoardPage = () => {
     if (!isLoading && paramsObjectId && selectedCategory.length > 0) {
       const subName = categoriesList.items[0].subCategories.filter(item => item.id === parseInt(paramsSubCategory))[0].name
       const name = categoriesList.items[0].subCategories.filter(item => item.id === parseInt(paramsSubCategory))[0].objects.filter(item => item.id === parseInt(paramsObjectId))[0]?.name
-      return <h1 className='catalogBoardPage-subtitle'>
-				<span className={'main'} style={{cursor: 'pointer'}} onClick={() => navigate({
-          pathname: '/category',
-          search: `?subCategory=${parseInt(paramsSubCategory)}&category=${parseInt(paramsCategory)}`,
-        })}>{subName.indexOf('/') > 1 ? subName.split('/')[0] : subName}</span> / <span
-        className={'active'}>{name.indexOf('/') > 1 ? name.split('/')[0] : name}</span>
-      </h1>
-    }
+      SetName(name);
+      return(
+        <BreadCrumbs name={name} subName={subName}/>
+      );
+      // <h1 className='catalogBoardPage-subtitle'>
+			// 	<span className={'main'} style={{cursor: 'pointer'}} onClick={() => navigate({
+      //     pathname: '/category',
+      //     search: `?subCategory=${parseInt(paramsSubCategory)}&category=${parseInt(paramsCategory)}`,
+      //   })}>{subName.indexOf('/') > 1 ? subName.split('/')[0] : subName}</span> / <span
+      //   className={'active'}>{name.indexOf('/') > 1 ? name.split('/')[0] : name}</span>
+      // </h1>
+    }   
   }, [categoriesList, selectedCategory, paramsObjectId])
 
   useEffect(() => {
@@ -158,13 +165,14 @@ const CatalogBoardPage = () => {
   if (isLoading) {
     return <PreloaderComponent/>
   }
-
+console.log(paramsObjectId, paramsSubCategory, paramsCategory, query );
   return (
     <div className='container'>
       {staticAd[0]?.imageName !== undefined ?
-        <Ad image={`${STATIC_HOST}/promotion/${staticAd[0]?.imageName}`} href={staticAd[0]?.href}/> : null}
-      {headerName}
+        <Ad image={`${STATIC_HOST}/promotion/${staticAd[0]?.imageName}`} href={staticAd[0]?.href}/> : null}      
       {pagination}
+      {headerName}
+      <h2 className='grey w-1180 mb-20'>{Name}</h2>
       <div className="catalogBoardPage">
         <div className="catalogBoardPage_categories">
           <CategoryAccordion category={categoriesList.items}
@@ -223,7 +231,7 @@ const CatalogBoardPage = () => {
         <div className="catalogBoardPage_cards" style={{minWidth: '900px'}}>
           {
             data.length === 0 ?
-              <p>Список пуст!</p> :
+              <NothingYeat/> :
               chunkedData.length > 0 && chunkedData.map((chunk, index) => (
                 <div className='grid' key={`chunk-${index}`} style={{gridTemplateColumns: 'repeat(5, 1fr)'}}
                      ref={lastElementRef}>
