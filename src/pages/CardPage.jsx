@@ -13,7 +13,7 @@ const CardPage = () => {
     }, [])
   return (
     <div className='container'>
-        <Ad image={`${STATIC_HOST}/promotion/${staticAd[0]?.imageName}`} href={staticAd[0]?.href}/>
+        {staticAd[0]?.imageName && <Ad image={`${STATIC_HOST}/promotion/${staticAd[0]?.imageName}`} href={staticAd[0]?.href}/>}
         <div className="wrapper">
             {isLoading && <BreadCrumbs crumbs={data.ad.object}/>}
             <CardAd data={data} setData={setData} isLoading={isLoading} setIsLoading={setIsLoading}/>

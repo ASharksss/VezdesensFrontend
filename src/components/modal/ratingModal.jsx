@@ -1,4 +1,5 @@
 import React from 'react';
+import {useSelector} from "react-redux";
 import Rating from "../../ui/rating/rating";
 import StarComponent from "../../ui/rating/starComponent";
 import ReviewPerson from "./reviewPerson";
@@ -21,9 +22,15 @@ const statusBar = {
 };
 
 const RatingModal = ({data, userId, setActiveModal, setDataRating}) => {
+
+	const {user} = useSelector(state => state.user)
+
 	if (data === undefined) {
 		return <p>Loading...</p>
 	}
+
+	const writerChecked = data.some(item => item.writer.id === user.items.id) ||  false
+
 	const statusBarFive = {
 		...statusBar,
 		"--size": `${Math.floor(data.filter(item => item.grade === 5).length / (data.length / 100))}%`
@@ -51,7 +58,7 @@ const RatingModal = ({data, userId, setActiveModal, setDataRating}) => {
 				<button onClick={() => setActiveModal(false)} className='close-btn'>&nbsp;</button>
 			</div>
 			<div className='rating_modal-text'>
-				<Rating type='ratings' data={data} userId={userId} setActiveModal={setActiveModal} setDataRating={setDataRating}/>
+				<Rating type='ratings' data={data} userId={userId} setActiveModal={setActiveModal} setDataRating={setDataRating} active={writerChecked}/>
 				<div style={{marginTop: '10px'}}>
 					<div style={{display: 'flex', marginTop: '10px'}}>
 						<StarComponent average={5}/>

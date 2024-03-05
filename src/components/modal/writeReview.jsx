@@ -1,8 +1,8 @@
 import React, {useState} from 'react';
 import './modal.css'
+import axios from "axios";
 import back_btn from '../../asserts/icons/back_btn.svg'
 import StarComponent from "../../ui/rating/starComponent";
-import axios from "axios";
 
 const WriteReview = ({userId, setActiveModal, setDataRating}) => {
 	const [average, setAverage] = useState(1)

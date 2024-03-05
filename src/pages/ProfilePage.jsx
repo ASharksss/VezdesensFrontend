@@ -101,7 +101,7 @@ const ProfilePage = () => {
     return (
       <div className='container'>
         <div className="wrapper">
-          <Ad image={`${STATIC_HOST}/promotion/${staticAd[0]?.imageName}`} href={staticAd[0]?.href}/>
+          {staticAd[0]?.imageName && <Ad image={`${STATIC_HOST}/promotion/${staticAd[0]?.imageName}`} href={staticAd[0]?.href}/>}
           <div className="flex profile_container">
             <div className="column">
               <ProfileCard

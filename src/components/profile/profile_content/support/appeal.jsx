@@ -1,8 +1,7 @@
 import React from 'react';
 
 const Appeal = ({item}) => {
-
-  console.log(item)
+	console.log(typeof item.createdAt)
   return (
     <div className='support_item flex space-between'>
       <div>
@@ -10,7 +9,7 @@ const Appeal = ({item}) => {
         <div>{item.topicOfAppeal.name}</div>
       </div>
       <div>
-        <div>12.02.12</div>
+        <div>{new Date(Date.parse(item.createdAt)).toLocaleDateString()}</div>
         <div>{item.statusOfAppeal.name}</div>
       </div>
     </div>

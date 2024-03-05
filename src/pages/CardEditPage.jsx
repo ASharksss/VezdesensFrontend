@@ -40,7 +40,7 @@ const CardEditPage = () => {
         setTitle(res.data.title)
         setDescription(res.data.description)
         setPrice(numberWithSpaces(res.data.price))
-        setCharacteristicData(res.data.object.characteristicObjects)
+        setCharacteristicData(res.data.object.characteristicObject)
         setAdCharacteristic([res.data.adCharacteristicInputs, res.data.adCharacteristicSelects])
         return res.data
       })
@@ -70,7 +70,7 @@ const CardEditPage = () => {
 
   useEffect(() => {
     if (adCharacteristic.length > 0) {
-      const timeArray = characteristicData
+      const timeArray = characteristicData || []
       const groupByCharacteristicId = adCharacteristic[1].reduce((acc, {characteristic, characteristicValue}) => {
         const id = characteristic.id;
         const valueId = characteristicValue.id;
