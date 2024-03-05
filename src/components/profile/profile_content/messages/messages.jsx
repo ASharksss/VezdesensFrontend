@@ -9,6 +9,7 @@ import arrow_icon from '../../../../asserts/icons/arrow_down.svg'
 import SelectCheckBox from '../messages/SelectCheckBox'
 import SelectedMessages from './selectedMessages';
 import NothingYeat from '../../../nothingYeat/nothingYeat';
+import PreloaderComponent from "../../../Preloader/PreloaderComponent";
 
 const Messages = () => {
 	const {items} = useSelector(state => state.user.user)
@@ -33,7 +34,7 @@ const Messages = () => {
 	};
 	useEffect(() => {
 		if (check) {
-			
+
 		}
 		setCheck(false)
 	}, [check])
@@ -80,7 +81,7 @@ const Messages = () => {
 	if (loadingPage) {
 		return <PreloaderComponent />
 	}
-	
+
 	return (
 		<div>
 			<div className="messages_header flex" ref={rootEl}>
@@ -150,7 +151,7 @@ const Messages = () => {
 
 			<div className="messages_list">
 				{data.length > 0 ? data.map((item, index) => (
-					<SelectCheckBox 
+					<SelectCheckBox
 					setIsChecked={setIsChecked}
 					onChange={handleCheckBoxChange}>
 					<NavLink state={{from: item[0].user}} to={`?adId=${item[0].id}&senderId=${items.id === item[1].id ? item[1].id : item[0].user.id}&receiverId=${items.id !== item[0].user.id ? item[0].user.id : item[1].id}#chat-${uuidV4()}`}>
