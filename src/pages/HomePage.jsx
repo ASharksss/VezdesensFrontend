@@ -62,13 +62,13 @@ const HomePage = () => {
         <>
             {premium.items[0] !== undefined ?
                 <Card classname={'xxl'}
-                      ad_image={`${STATIC_HOST}/${premium.items[0].previewImageAds[0]?.name}`}
+                      ad_image={`${STATIC_HOST}/${premium.items[0].commercialImageAds[0]?.name}`}
                       title={premium.items[0].title} address={premium.items[0].address} price={premium.items[0].price}
                       favorite={premium.items[0].favorites} date={premium.items[0].date} id={premium.items[0].id}/> : null}
             {staticAd[0]?.imageName !== undefined ? <Ad image={`${STATIC_HOST}/promotion/${staticAd[0]?.imageName}`} href={staticAd[0]?.href}/> : null}
             {premium.items[1] !== undefined ?
                 <Card classname={'xxl'}
-                      ad_image={`${STATIC_HOST}/${premium.items[1].previewImageAds[0]?.name}`}
+                      ad_image={`${STATIC_HOST}/${premium.items[1].commercialImageAds[0]?.name}`}
                       title={premium.items[1].title} address={premium.items[1].address} price={premium.items[1].price}
                       favorite={premium.items[1].favorites} date={premium.items[1].date} id={premium.items[1].id}/> : null}
             {staticAd[1]?.imageName !== undefined ? <Ad image={`${STATIC_HOST}/promotion/${staticAd[1]?.imageName}`} href={staticAd[1]?.href}/> : null}
