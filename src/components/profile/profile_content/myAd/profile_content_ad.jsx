@@ -71,7 +71,7 @@ const ProfileContentAd = ({dataUser, setDataAds}) => {
 			setLoading(false)
 	}, [loading])
 
-	
+
 
 	return (
 		<div className='profile_content_ad'>

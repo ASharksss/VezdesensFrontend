@@ -41,9 +41,9 @@ const SubMenu = ({setOpenSubMenu}) => {
     <div className='subMenu_wrapper' ref={wrapperRef}>
       <div className='subMenu'>
         <div className="subMenu_avatar">
-          <img src="" alt="" className='subMenu-img'/>
+          <img src="" alt="" />
           <div className="subMenu_avatar-info">
-            <img style={{borderRadius: '50%'}} src={`${AVATAR_HOST}/${user.items['userAvatars.name']}`} width={61} alt="Аватар профиля"/>
+            <img style={{borderRadius: '50%'}} className='subMenu-img' src={`${AVATAR_HOST}/${user.items['userAvatars.name']}`} width={61} alt="Аватар профиля"/>
             <div className='subMenu_info'>
               {
                 !isLoading ?

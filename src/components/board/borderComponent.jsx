@@ -18,7 +18,7 @@ const BorderComponent = ({allData, lastElementRef}) => {
     return (
         <div>
             {data.map((datas, indexDatas) => (
-                <div ref={indexDatas === data.length - 1 ? lastElementRef : null} key={`grid-${indexDatas}`}>
+                <div style={{width: '1440px'}} ref={indexDatas === data.length - 1 ? lastElementRef : null} key={`grid-${indexDatas}`}>
                     <SmallBlocks items={datas} />
                     <CommercialBlocksLss items={datas}/>
                 </div>

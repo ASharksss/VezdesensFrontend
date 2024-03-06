@@ -5,7 +5,9 @@ import {STATIC_HOST} from "../../../utils";
 
 const SmallBlocks = ({items}) => {
     return (
-        <div className='grid' style={{gridTemplateColumns: 'repeat(5, 1fr)'}}>
+        <div className='grid' style={{
+            gridTemplateColumns: 'repeat(5, 1fr)'
+        }}>
             {items !== undefined && items.map((item, index) => ( item.typeAdId === 1 &&
                 <Card key={`card-${index}`}
                       classname={'xs' }
