@@ -63,7 +63,6 @@ const ProfileContentAd = ({dataUser, setDataAds}) => {
 	useEffect(() => {
 		checkStatus();
 	});
-	console.log(dataSearch)
 
 	useEffect(() => {
 		if (loading)

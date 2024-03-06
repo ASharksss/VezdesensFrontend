@@ -180,7 +180,6 @@ const CreateAdPage = () => {
 		setPreviewImage(null)
 	}, [typeAd])
 
-
 	return (
 		<div>
 			<div className="container">

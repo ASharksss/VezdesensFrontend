@@ -7,7 +7,7 @@ import {useNavigate, useParams} from "react-router-dom";
 
 const AddAppeal = () => {
   const [topics, setTopics] = useState([])
-  const [topic, setTopic] = useState('Выберите вариант...')
+  const [topic, setTopic] = useState(0)
   const [text, setText] = useState('')
 	const [open, setOpen] = useState(false)
 
@@ -58,7 +58,7 @@ const AddAppeal = () => {
 				<div className="Edited_appeal-select">
 					<div className="flex items-center space-between Edited_filter-header" onClick={() => setOpen(!open)}>
 						{/* Вывожу значние topic  */}
-						{topic === 0 ? 'Выберите вариант...' : topics.find(item => item.id === parseInt(topic)).name}
+						{topic === 0 ? 'Выберите вариант...' : topics.find(item => item.id === parseInt(topic))?.name}
 						<img src={arrow_icon} alt=""/>
 					</div>
 					<div className={open ? 'block Edited_filter_select-body' : 'filter_select-body-none'}>

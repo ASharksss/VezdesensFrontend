@@ -22,35 +22,38 @@ const Messages = () => {
 	const [choiceTitleAnother, setChoiceTitleAnother] = useState('Сначала старые')
 	const [open, setOpen] = useState(false)
 	const [openanother, setOpenAnother] = useState(false)
-	const [check, setCheck] = useState(false)
+	// const [check, setCheck] = useState(false)
 
 	const rootEl = useRef(null);
 
 
 
 	const [isChecked, setIsChecked] = useState(false);
+
 	const handleCheckBoxChange = () => {
 			setIsChecked(!isChecked);
-	};
-	useEffect(() => {
-		if (check) {
-		}
-		setCheck(false)
-	}, [check])
-
+		};
+	// useEffect(() => {
+	// 	if (check) {
+	// 	}
+	// 	setCheck(false)
+	// }, [check])
+	
 	const handleGetMessages = async () => {
 		setLoadingPage(true)
-		await axios('api/chat/getMessages')
-			.then(res => {
-				setData(res.data)
-				setLoadingPage(false)
-			}).catch(err => {
-				console.log(err)
-				window.alert(err.response.data.message)
-				setLoadingPage(false)
-			})
+		await axios.get('api/chat/getMessages')
+		.then((res) => {
+			setData(res.data)
+			setLoadingPage(false)
+		})
+		.catch(err => {
+			console.log(err)
+			window.alert(err.response.data.message)
+			setLoadingPage(false)
+		})
+		// console.log(data);
 	}
-
+	
 	useEffect(() => {
 		handleGetMessages()
 	}, [])
@@ -84,7 +87,9 @@ const Messages = () => {
 	return (
 		<div>
 			<div className="messages_header flex" ref={rootEl}>
-				<SelectCheckBox/>
+				<SelectCheckBox
+					setIsChecked={setIsChecked}
+					onChange={handleCheckBoxChange}/>
 				{/* открываются вместе потомочту одинаковые данные приходят, и одниаковые реакциии OnClick  */}
 				<div className="filter" >
 							<div className="ads_filter_select mr-r" >

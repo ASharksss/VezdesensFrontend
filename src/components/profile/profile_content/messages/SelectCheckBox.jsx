@@ -10,7 +10,7 @@ const selectCheckBox = ({ setIsChecked, onChange, children }) => {
           type="checkbox"
           onChange={onChange}
         />
-        <span className="chbx_marker" onClick={() => setIsChecked(true)}></span>
+        <span className="chbx_marker" onClick={() => !setIsChecked}></span>
         {children}
       </label>
     );

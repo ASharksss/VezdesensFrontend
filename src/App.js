@@ -14,8 +14,8 @@ import SignUp from "./pages/SignUp.";
 import ForgotPassword from "./pages/ForgotPassword";
 
 
-// axios.defaults.baseURL = 'http://192.168.1.119:5000/';
-axios.defaults.baseURL = 'https://backend.vezdesens.ru/';
+axios.defaults.baseURL = 'http://192.168.1.119:5000/';
+// axios.defaults.baseURL = 'https://backend.vezdesens.ru/';
 axios.defaults.withCredentials = true
 
 function App() {

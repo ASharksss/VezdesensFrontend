@@ -2,7 +2,7 @@ import React from 'react';
 import './breadcrumbs.css'
 
 const BreadCrumbs = ({crumbs, subName, name}) => {
-    console.log(subName,name)
+   
     return (
         <>
         {/* првоерка отправляли ли data.object в crumbs? */}

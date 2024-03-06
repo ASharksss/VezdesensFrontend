@@ -532,6 +532,9 @@
     position: relative;
     margin-top: 27px;
 }
+.edited_appeal-select{
+    position: relative;
+}
 
 .Edited_filter-header {
     font-size: 16px;

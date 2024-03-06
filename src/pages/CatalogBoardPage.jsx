@@ -165,7 +165,7 @@ const CatalogBoardPage = () => {
   if (isLoading) {
     return <PreloaderComponent/>
   }
-console.log(paramsObjectId, paramsSubCategory, paramsCategory, query );
+// console.log(paramsObjectId, paramsSubCategory, paramsCategory, query );
   return (
     <div className='container'>
       {staticAd[0]?.imageName !== undefined ?

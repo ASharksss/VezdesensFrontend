@@ -4,7 +4,7 @@ import arrow_category from '../../../asserts/icons/arrow_category.svg'
 import '../modal.css'
 
 const SubCategory = ({item, objects, category}) => {
-	console.log(category)
+	// console.log(category)
   // item: {id: int, name: str, categoryId: int, objects: [{id: int, name: str, subCategoryId: int}]}
   // objects: [{subCategory: int, objects: [{id: int, name: str, subCategoryId: int}]}]
   // category: int

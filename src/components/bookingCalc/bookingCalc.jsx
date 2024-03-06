@@ -4,6 +4,8 @@ import './bookingCalc.css'
 import Calendar from "react-calendar";
 import 'react-calendar/dist/Calendar.css';
 import axios from "axios";
+import arrow_icon from '../../asserts/icons/arrow_down.svg'
+
 
 const BookingCalc = ({bookingDateStart, bookingDateEnd, setBookingStartDate, setBookingEndDate, typeAd, position, setPosition}) => {
 
@@ -15,6 +17,8 @@ const BookingCalc = ({bookingDateStart, bookingDateEnd, setBookingStartDate, set
 	const [loading, setLoading] = useState(false)
 	const [valueDate, setValueDate] = useState(null)
 	const [bookedDate, setBookedDate] = useState([])
+	const [open, setOpen] = useState(false);
+	const [topic, setTopic] = useState('')
 
 	const getDateByPosition = async() => {
 		await axios.get(`api/ad/getPremiumDate?position=${position}`)
@@ -32,6 +36,7 @@ const BookingCalc = ({bookingDateStart, bookingDateEnd, setBookingStartDate, set
 		} else {
 			setBookedDate([])
 		}
+		
 	}, [position])
 
 	useEffect(() => {
@@ -53,16 +58,37 @@ const BookingCalc = ({bookingDateStart, bookingDateEnd, setBookingStartDate, set
 		if(end !== null)
 			getDays()
 	}, [end])
+	
 
 	return (
 		<div className='booking'>
 			<h1 className='booking-title'>Бронирование рекламного баннера</h1>
 			<div className="flex">
-				<div className="booking_startDate flex column">
-					<select className='mb-20' onChange={event => setPosition(event.target.value)}>
+				<div className="booking_startDate flex column ">
+					{/* <select className='mb-20' onChange={event => setPosition(event.target.value)}>
 						<option value="top">Верхний банер</option>
 						<option value="bottom">Нижний банер</option>
-					</select>
+					</select> */}
+					<div className="edited_appeal-select mr-b20">
+						<div className="flex items-center space-between Edited_filter-header" onClick={() => setOpen(!open)}>
+							{/* Вывожу значние topic  */}
+							{setPosition !== null || undefined ? topic : null}
+							<img src={arrow_icon} alt=""/>
+						</div>
+						<div className={open ? 'block Edited_filter_select-body' : 'filter_select-body-none'}>
+									{/* Предаю значиение item.name после topic присваиваю значиение при клике */}
+									<div className='Edited_filter_select-item' onClick={() => {
+										setPosition('top')
+										setTopic('Верхний банер')
+										setOpen(!open)
+									}}>Верхний банер</div>
+									<div className='Edited_filter_select-item' onClick={() => {
+										setOpen(!open)
+										setTopic('Нижний банер')
+										setPosition('bottom')
+									}}>Нижний банер</div>
+						</div>
+					</div>
 					<label htmlFor="startDate" className='booking_label'>Выберите дату</label>
 					{!loading ?<Calendar
 						onChange={setValueDate}
