@@ -69,7 +69,7 @@ const BookingCalc = ({bookingDateStart, bookingDateEnd, setBookingStartDate, set
 						<option value="top">Верхний банер</option>
 						<option value="bottom">Нижний банер</option>
 					</select> */}
-					<div className="edited_appeal-select mr-b20">
+					<div className="edited_appeal-select mr-b40">
 						<div className="flex items-center space-between Edited_filter-header" onClick={() => setOpen(!open)}>
 							{/* Вывожу значние topic  */}
 							{setPosition !== null || undefined ? topic : null}
@@ -110,7 +110,7 @@ const BookingCalc = ({bookingDateStart, bookingDateEnd, setBookingStartDate, set
 						</div>}
 				</div>
 				<div className="booking_endDate flex column">
-					<div className='mt-50'>
+					<div className='mt-100'>
 						<label className='label_calc'>Количество дней</label>
 						<span className='booking_info-text'>{bookingDateEnd === null ? 0 :
 							<span>{days}</span>}</span>

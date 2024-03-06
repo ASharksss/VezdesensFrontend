@@ -54,6 +54,10 @@
 .mr-b20{
     margin-bottom: 20px;
 }
+.mr-b40{
+    margin-bottom: 40px;
+}
+
 /* Global to content  */
 .categories-btn:hover {
     background-color: #404040;
