@@ -14,39 +14,39 @@ import SubMenu from "./SubMenu";
 import {showCities} from "../../redux/slices/geoSlice";
 
 const Header = () => {
-  const location = useLocation()
-  const navigate = useNavigate()
+	const location = useLocation()
+	const navigate = useNavigate()
 
-  const dispatch = useDispatch()
-  const {isAuth, user} = useSelector(state => state.user)
-  const {mainCity} = useSelector(state => state.geo)
+	const dispatch = useDispatch()
+	const {isAuth, user} = useSelector(state => state.user)
+	const {mainCity} = useSelector(state => state.geo)
 
-  const [activeModalCat, setActiveModalCat] = useState(false)
-  const [search, setSearch] = useState('')
-  const [categoriesData, setCategoriesData] = useState([])
-  const [openSubMenu, setOpenSubMenu] = useState(false)
+	const [activeModalCat, setActiveModalCat] = useState(false)
+	const [search, setSearch] = useState('')
+	const [categoriesData, setCategoriesData] = useState([])
+	const [openSubMenu, setOpenSubMenu] = useState(false)
 
-  useEffect(() => {
-    const getCategories = async () => {
-      const {data} = await axios.get(`api/categories/getCategoriesList`)
-      setCategoriesData(data)
-    }
-    if (activeModalCat) {
-      getCategories()
-    }
-  }, [activeModalCat])
+	useEffect(() => {
+		const getCategories = async () => {
+			const {data} = await axios.get(`api/categories/getCategoriesList`)
+			setCategoriesData(data)
+		}
+		if (activeModalCat) {
+			getCategories()
+		}
+	}, [activeModalCat])
 
-  const handleSearch = () => {
-    navigate({
-      pathname: '/search',
-      search: `query=${search}`
-    })
-  }
+	const handleSearch = () => {
+		navigate({
+			pathname: '/search',
+			search: `query=${search}`
+		})
+	}
 
-  useEffect(() => {
-    setActiveModalCat(false)
-    setOpenSubMenu(false)
-  }, [location.pathname, location.search])
+	useEffect(() => {
+		setActiveModalCat(false)
+		setOpenSubMenu(false)
+	}, [location.pathname, location.search])
 
   return (
     // <div className='container mr-b'>
@@ -93,14 +93,13 @@ const Header = () => {
                     <span className='header_profile-text' onClick={() => setOpenSubMenu(!openSubMenu)}>Профиль</span>
                     {/*   </NavLink>*/}
 
-                  </> :
-                  <NavLink to='/signin'><span className='subMenu_list-item'>Войти</span></NavLink>}
-              </div>
-              {
-                openSubMenu ?  <SubMenu setOpenSubMenu={setOpenSubMenu}/> : ''
-              }
-            </div>
-
+							</> :
+							<NavLink to='/signin'><span className='subMenu_list-item'>Войти</span></NavLink>}
+					</div>
+					{
+						openSubMenu ? <SubMenu setOpenSubMenu={setOpenSubMenu}/> : ''
+					}
+				</div>
           </div>
           {activeModalCat ? <CategoryModalTemplate activeModalCat={activeModalCat}
                                                    setActiveModalCat={setActiveModalCat}

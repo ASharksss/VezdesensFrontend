@@ -42,6 +42,9 @@ const AddAppeal = () => {
       <h1 className='add_appeal-title'>Создание обращения</h1>
       {/* <select className='add_appeal-select'
 
+		<div className='column flex'>
+			<h1 className='add_appeal-title'>Создание обращения</h1>
+			{/* <select className='add_appeal-select'
               onChange={(e) => setTopic(e.target.value)}>
         <option disabled={true}>Выберите вариант...</option>
         {
@@ -49,32 +52,32 @@ const AddAppeal = () => {
             <option  value={item.id}>{item.name}</option>
           ))
         }
-      </select> */}      
-{/* Постарся ничиго глобально не трогать, новые классы новые значиения, схожие с предыдущим вариантом */}
-      <div className="filter">
-							<div className="Edited_appeal-select" >
-								<div className="flex items-center space-between Edited_filter-header" onClick={() => setOpen(!open)}>
-                  {/* Вывожу значние topic  */}
-									{topic}
-									<img src={arrow_icon} alt=""/>
-								</div>
-								<div className={ open ? 'block Edited_filter_select-body' : 'filter_select-body-none'}>
-                {
-                topics.map(item => (
-                  // Предаю значиение item.name после topic присваиваю значиение при клике 
-                  <div className='Edited_filter_select-item' value={item.id} onClick={() => {
-                    setTopic(item.name)
-										setOpen(!open)
-									}}>{item.name}</div>
-                ))
-                }
-								</div>
-							</div>
+      </select> */}
+			{/* Постарся ничиго глобально не трогать, новые классы новые значиения, схожие с предыдущим вариантом */}
+			<div className="filter">
+				<div className="Edited_appeal-select">
+					<div className="flex items-center space-between Edited_filter-header" onClick={() => setOpen(!open)}>
+						{/* Вывожу значние topic  */}
+						{topic === 0 ? 'Выберите вариант...' : topics.find(item => item.id === parseInt(topic)).name}
+						<img src={arrow_icon} alt=""/>
+					</div>
+					<div className={open ? 'block Edited_filter_select-body' : 'filter_select-body-none'}>
+						{
+							topics.map(item => (
+								// Предаю значиение item.name после topic присваиваю значиение при клике
+								<div className='Edited_filter_select-item' onClick={() => {
+									setTopic(item.id)
+									setOpen(!open)
+								}}>{item.name}</div>
+							))
+						}
+					</div>
 				</div>
-      <textarea className='add_appeal-textarea' value={text}
-                onChange={(e) => setText(e.target.value)}></textarea>
-      <button className='add_appeal-btn' onClick={addAppeal}>Содать обращени</button>
-    </div>
+			</div>
+			<textarea className='add_appeal-textarea' value={text}
+								onChange={(e) => setText(e.target.value)}></textarea>
+			<button className='add_appeal-btn' onClick={addAppeal}>Содать обращени</button>
+		</div>
 
 	);
 };
