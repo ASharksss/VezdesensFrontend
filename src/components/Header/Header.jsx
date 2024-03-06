@@ -106,7 +106,7 @@ const Header = () => {
                                                    setActiveModalCat={setActiveModalCat}
                                                    children={<CategoryModal data={categoriesData}/>}/> : null}
         </div>
-      </div>
+      // </div>
     // </div>
   );
 };
