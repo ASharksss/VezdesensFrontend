@@ -76,8 +76,10 @@ const CreateAdPage = () => {
 		if (event.target.value !== '') {
 			const {data} = await axios.post('api/position/search', {query: event.target.value})
 			setAddressData(data)
+			setOpen(true);
 		} else {
 			setAddressData([])
+			setOpen(false)
 		}
 	}
 
@@ -163,6 +165,7 @@ const CreateAdPage = () => {
 		}
 	}
 
+			
 	const isLoadingCharacter = character.status === 'loading'
 
 	useEffect(() => {
@@ -247,7 +250,7 @@ const CreateAdPage = () => {
 								}
 							</select> */}
 							<div className="Edited_appeal-select" >
-								<div className="flex items-center space-between Edited_filter-header w-250 mr-r" onClick={() => setSubOpen(!subOpen)} required>
+								<div className="flex items-center space-between Edited_filter-header w-250 mr-r" onClick={() => topic ? setSubOpen(!subOpen) : null} required>
                  					{/* Вывожу значние topic  */}
 									{subTopic ? subTopic :'Выберете подкатегорию' }
 									<img src={arrow_icon} alt=""/>
@@ -285,7 +288,7 @@ const CreateAdPage = () => {
 									}
 								</select> */}
 							<div className="Edited_appeal-select" >
-								<div className="flex items-center space-between Edited_filter-header w-250 mr-r" onClick={() => setSubValueOpen(!subValueOpen)} required>
+								<div className="flex items-center space-between Edited_filter-header w-250 mr-r" onClick={() => subTopic ?  setSubValueOpen(!subValueOpen) : null} required>
                  					{/* Вывожу значние topic  */}
 									{subValueTopic ? subValueTopic :'Выберете Значение' }
 									<img src={arrow_icon} alt=""/>
@@ -320,7 +323,9 @@ const CreateAdPage = () => {
 								<div className='flex column ml-20'>
 									<label className='enter_input-title'>Цена</label>
 									<input value={price} onChange={event => handlePrice(event.target.value)}
-												 type="text" className='enter_input-input' required/>
+												 type="text" className='enter_input-input' required 
+												 id='numericInput'
+												 />
 								</div>
 							</div>
 							{!isLoadingCharacter && <>
@@ -410,13 +415,34 @@ const CreateAdPage = () => {
 								<h1 className='create_ad-descr-title'>Местоположение</h1>
 								<input type="text" onChange={handleAddress} value={address}
 											 placeholder='Введите адрес' className='create_ad_address' required/>
-							</div>
-							<div>
-								{(addressData.length > 0 && address !== '') ? addressData.map(item => (
+							
+								{/* {(addressData.length > 0 && address !== '') ? addressData.map(item => (
 									item.positionStreets ? item.positionStreets.map(itemStreet => (
 										<p onClick={() => setAddress(`${item.name}, ${itemStreet.name}`)}>{item.name}, {itemStreet.name}</p>
 									)) : <p onClick={() => setAddress(item.name + ', ')}>{item.name}</p>
+								)) : null} */}
+								<div className={open ? 'adress-promation' : 'adress-promation ds-none'}>
+								{(addressData.length > 0 && address !== '') ? addressData.map(item => (
+									item.positionStreets ? item.positionStreets.map(itemStreet => (
+										<div className='Edited_filter_select-item' onClick={() => {
+											setAddress(`${item.name}, ${itemStreet.name}`) 
+											setAddressData([])
+											setOpen(!open)
+										}}>
+										{"г. " + item.name}, {itemStreet.name}
+										</div> 
+									)) 
+									: 
+									<div className='Edited_filter_select-item' onClick={() => { 
+											setAddress("г. " + item.name + ', ')
+											setAddressData([]) 
+											setOpen(!open)
+										}}>
+										{item.name}
+									</div>  
 								)) : null}
+								</div>	
+
 							</div>
 						</div>
 

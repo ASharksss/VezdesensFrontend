@@ -567,6 +567,8 @@
     z-index: 1;
     padding: 5px;
     margin-top: 5px;
+    height: 250px;
+    overflow-y: scroll; 
     border-radius: 10px;
     left: 0;
     position: absolute;
@@ -583,6 +585,21 @@
     cursor: pointer;
     padding: 15px 20px;
     z-index: 3;
+}
+
+.adress-promation{
+    background-color: white;
+    padding: 5px;
+    width: 300px;
+    margin-top: 5px;
+    height: fit-content;
+    max-height: 200px;
+    overflow-y: scroll; 
+    border-radius: 10px;
+    box-shadow: 0px 6px 40px 0px #2626261A;
+}
+.ds-none{
+    display: none;
 }
 
 /* Filter (Edited)  */

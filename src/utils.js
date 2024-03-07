@@ -141,6 +141,9 @@ export function relativeDate(date) {
 	}
 }
 
+
+
+
 export const getStaticAd = async (limit=2, setValue) => {
 	await axios.get(`api/other/promotion?limit=${limit}`)
 		.then(res => {
