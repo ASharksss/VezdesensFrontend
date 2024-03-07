@@ -44,7 +44,7 @@ const Dialog = () => {
     event.preventDefault();
     setValue('')
     socket.timeout(100).emit('message', value, () => {
-      textareaRef.current.style.height = '37px'
+      textareaRef.current.style.height = '54px'
     });
   }
 
@@ -112,7 +112,6 @@ const Dialog = () => {
       };
     }
   }, [isConnected, socket]);
-
 
   return (
     <div className='dialog'>

@@ -4,7 +4,6 @@ import {formatDateToRelative, relativeDate} from "../../../../utils";
 const DialogItem = ({text, sender='me', date, name}) => {
   return (
     <div className='relative'>
-
       <div className={sender === 'me' ? 'dialogs-sender' : 'dialogs-receiver'} >
         <h1 className='dialogs-name'>
           <span className='dialogs-name-text'>{name}</span>
@@ -12,7 +11,6 @@ const DialogItem = ({text, sender='me', date, name}) => {
         </h1>
         <p className='dialogs-text'>
           {text}
-
         </p>
       </div>
     </div>

@@ -1,16 +1,17 @@
 import React from "react";
 import '../messages/messages.css'
 
-const selectCheckBox = ({ setIsChecked, onChange, children }) => {
+const selectCheckBox = ({ setIsChecked=false, onChange, children, chatId }) => {
     return (
-      <label className="chbx_label">
+      <label className={`chbx_label${setIsChecked ? ' active': ''}`}>
         <input
+          checked={setIsChecked}
           className="chbx_for_message"
           style={{background: "black"}}
           type="checkbox"
-          onChange={onChange}
+          onChange={() => onChange(chatId)}
         />
-        <span className="chbx_marker" onClick={() => setIsChecked(true)}></span>
+        <span className="chbx_marker"></span>
         {children}
       </label>
     );

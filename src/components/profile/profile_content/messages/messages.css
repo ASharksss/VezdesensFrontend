@@ -237,7 +237,16 @@
     -moz-user-select: none;
     -ms-user-select: none;
     user-select: none;
-  }
+}
+
+.chbx_label.active {
+    display: block;
+    border-radius: 20px;
+    height: 100%;
+    content: " ";
+    width: 100%;
+    background: rgba(0,0,0,0.175);
+}
 
   /* Hide the browser's default checkbox */
 .chbx_label input {
@@ -275,19 +284,19 @@
     border: none;
     padding: 1;
   }
-  
+
   /* Create the checkmark/indicator (hidden when not checked) */
   .chbx_marker:after {
     content: "";
     position: absolute;
     display: none;
   }
-  
+
   /* Show the checkmark when checked */
   .chbx_label input:checked ~ .chbx_marker:after {
     display: block;
   }
-  
+
   /* Style the checkmark/indicator */
   .chbx_label .chbx_marker:after {
     left: 6px;
