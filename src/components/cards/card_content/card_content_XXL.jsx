@@ -4,7 +4,7 @@ import phone_icon from "../../../asserts/icons/phone.svg";
 import message_icon from "../../../asserts/icons/message.svg";
 import {numberWithSpaces} from "../../../utils";
 
-const CardContentXXl = ({title, address, date, price}) => {
+const CardContentXXl = ({title, address, date, price, show=0}) => {
   return (
 
   <div className='flex items-center space-between'>
@@ -19,8 +19,8 @@ const CardContentXXl = ({title, address, date, price}) => {
     </div>
     <div className="flex items-center">
       <p className='card_content-price'>{numberWithSpaces(parseInt(price))} ₽</p>
-      <Button classname={'phone'} icon={phone_icon}/>
-      <Button classname={'message'} icon={message_icon}/>
+      {show !== 2 ? <Button classname={'phone'} icon={phone_icon}/> : null}
+      {show !== 1 ? <Button classname={'message'} icon={message_icon}/> : null}
     </div>
   </div>
   );

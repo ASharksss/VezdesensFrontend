@@ -10,7 +10,7 @@ import CardContentXXl from "./card_content/card_content_XXL";
 import Favorite from "../../ui/buttons/favorite";
 
 
-const Card = ({classname, ad_image, title, address, date, price, id, favorite, type='also'}) => {
+const Card = ({classname, ad_image, title, address, date, price, id, favorite, type='also', show}) => {
   const {isAuth} = useSelector(state => state.user)
   if (type === 'newAd') {
     return (
@@ -34,7 +34,7 @@ const Card = ({classname, ad_image, title, address, date, price, id, favorite, t
               classname === 's' ? <CardContentS title={title} address={address} price={price} date={date}/> :
                 classname === 'l' ? <CardContentL title={title} address={address} price={price} date={date}/> :
                   classname === 'xl' ? <CardContentXL title={title} address={address} price={price} date={date}/> :
-                    classname === 'xxl' ? <CardContentXXl title={title} address={address} price={price} date={date}/> :
+                    classname === 'xxl' ? <CardContentXXl title={title} address={address} price={price} date={date} show={show} /> :
                       ''
           }
         </NavLink>
