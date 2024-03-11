@@ -13,12 +13,12 @@ const SubMenu = ({setOpenSubMenu}) => {
   const {user} = useSelector(state => state.user)
 
   const isLoading = user.status === 'loading'
-  
+
   const handleClickOutside = (event) => {
     if (wrapperRef.current && !wrapperRef.current.contains(event.target))
       setOpenSubMenu(false)
   }
-  
+
   useEffect(() => {
     document.addEventListener('mousedown', handleClickOutside)
     return () => document.removeEventListener('mousedown', handleClickOutside)
@@ -43,7 +43,7 @@ const SubMenu = ({setOpenSubMenu}) => {
         <div className="subMenu_avatar">
           <img src="" alt="" />
           <div className="subMenu_avatar-info">
-            <img style={{borderRadius: '50%'}} className='subMenu-img' src={`${AVATAR_HOST}/${user.items['userAvatars.name']}`} width={61} alt="Аватар профиля"/>
+            <img style={{borderRadius: '50%', objectFit: 'cover'}} className='subMenu-img' src={`${AVATAR_HOST}/${user.items['userAvatars.name'] ? user.items['userAvatars.name'] : undefined}`} width={61} alt="Аватар профиля"/>
             <div className='subMenu_info'>
               {
                 !isLoading ?

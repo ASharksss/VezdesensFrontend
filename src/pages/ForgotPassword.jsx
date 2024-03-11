@@ -5,13 +5,18 @@ import SendEmailComponent from "../components/password/SendEmailComponent";
 import axios from "axios";
 import CodeComponent from "../components/password/CodeComponent";
 import NewPasswordComponent from "../components/password/NewPasswordComponent";
+import {useNavigate} from "react-router-dom";
 
 const ForgotPassword = () => {
+	const navigate = useNavigate()
+
 	const [loading, setLoading] = useState(false)
 	const [step, setStep] = useState(1)
 	const [email, setEmail] = useState('')
 	const [code, setCode] = useState('')
 	const [error, setError] = useState('')
+	const [password, setPassword] = useState('')
+	const [repeatPassword, setRepeatPassword] = useState('')
 
 	useEffect(() => {
 		document.title = 'Восстановление пароля'
@@ -48,6 +53,23 @@ const ForgotPassword = () => {
 			})
 	}
 
+	const handleChangePassword = async (event) => {
+		event.preventDefault()
+		setError('')
+		if (password !== repeatPassword) return setError('Пароли не совпадают!');
+		setLoading(true)
+		await axios.post('api/user/password/change', {code, password})
+			.then(res => {
+				window.alert(res.data.message)
+				setLoading(false)
+				navigate('/signin')
+			})
+			.catch(err => {
+				setError(err.data.message)
+				setLoading(false)
+			})
+	}
+
 	if (loading)
 		return (
 			<div style={{display: 'flex', height: '100vh', justifyContent: 'center', alignItems: 'center'}}>
@@ -62,7 +84,7 @@ const ForgotPassword = () => {
 				: step === 2 ?
 					<CodeComponent code={code} setCode={setCode} handleSubmit={handleSendCode} descriptionStyle={descriptionStyle} handleAgain={handleSendEmail} />
 					:
-					<NewPasswordComponent />
+					<NewPasswordComponent setPassword={setPassword} password={password} repeatPassword={repeatPassword} setRepeatPassword={setRepeatPassword} handleSubmit={handleChangePassword}/>
 			}
 			{error !== '' && <span style={{color: 'red'}}>{error}</span>}
 		</div>

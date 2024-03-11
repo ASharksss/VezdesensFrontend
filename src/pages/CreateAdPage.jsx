@@ -165,7 +165,7 @@ const CreateAdPage = () => {
 		}
 	}
 
-			
+
 	const isLoadingCharacter = character.status === 'loading'
 
 	useEffect(() => {
@@ -212,13 +212,13 @@ const CreateAdPage = () => {
 							<div className="Edited_appeal-select" >
 								<div className="flex items-center space-between Edited_filter-header w-250 mr-r" onClick={() => setOpen(!open)} required>
                  					{/* Вывожу значние topic  */}
-									{topic ? topic :'Выберете категорию' }
+									{topic ? topic.indexOf('/') > 0 ? topic.split('/')[1] : topic :'Выберете категорию' }
 									<img src={arrow_icon} alt=""/>
 								</div>
 								<div className={ open ? 'block Edited_filter_select-body' : 'filter_select-body-none'}>
 										{
 										categories.items.map((item, index) => (
-										// Предаю значиение item.name после topic присваиваю значиение при клике 
+										// Предаю значиение item.name после topic присваиваю значиение при клике
 										<div className='Edited_filter_select-item' key={'category' + index} value={item.id}
 											onClick={() => {
 											setTopic(item.name)
@@ -252,13 +252,13 @@ const CreateAdPage = () => {
 							<div className="Edited_appeal-select" >
 								<div className="flex items-center space-between Edited_filter-header w-250 mr-r" onClick={() => topic ? setSubOpen(!subOpen) : null} required>
                  					{/* Вывожу значние topic  */}
-									{subTopic ? subTopic :'Выберете подкатегорию' }
+									{subTopic.indexOf('/') > 0 ? subTopic.split('/')[1] : subTopic ? subTopic :'Выберете подкатегорию' }
 									<img src={arrow_icon} alt=""/>
 								</div>
 								<div className={ subOpen ? 'block Edited_filter_select-body' : 'filter_select-body-none'}>
 										{
 										categories.subCategories.items.map((item, index) => (
-										// Предаю значиение item.name после topic присваиваю значиение при клике 
+										// Предаю значиение item.name после topic присваиваю значиение при клике
 										<div className='Edited_filter_select-item' key={'subCategory' + index} value={item.id} onClick={() => {
 											setSubTopic(item.name)
 											setSubOpen(!subOpen)
@@ -271,7 +271,7 @@ const CreateAdPage = () => {
 										))
 										}
 								</div>
-								
+
 							</div>
 							{/*	<select className='create_ad-select' disabled={categories.subCategories.objects.status === 'loading'}
 												onChange={event => {
@@ -290,13 +290,13 @@ const CreateAdPage = () => {
 							<div className="Edited_appeal-select" >
 								<div className="flex items-center space-between Edited_filter-header w-250 mr-r" onClick={() => subTopic ?  setSubValueOpen(!subValueOpen) : null} required>
                  					{/* Вывожу значние topic  */}
-									{subValueTopic ? subValueTopic :'Выберете Значение' }
+									{subValueTopic.indexOf('/') > 0 ? subValueTopic.split('/')[1] : subValueTopic ? subValueTopic :'Выберете Значение' }
 									<img src={arrow_icon} alt=""/>
 								</div>
 								<div className={ subValueOpen ? 'block Edited_filter_select-body' : 'filter_select-body-none'}>
 										{
 										categories.subCategories.objects.items.map((item, index) => (
-										// Предаю значиение item.name после topic присваиваю значиение при клике 
+										// Предаю значиение item.name после topic присваиваю значиение при клике
 										<div className='Edited_filter_select-item' key={'object' + index} value={item.id} onClick={() => {
 											setSubValueTopic(item.name)
 											setSubValueOpen(!subValueOpen)
@@ -323,7 +323,7 @@ const CreateAdPage = () => {
 								<div className='flex column ml-20'>
 									<label className='enter_input-title'>Цена</label>
 									<input value={price} onChange={event => handlePrice(event.target.value)}
-												 type="text" className='enter_input-input' required 
+												 type="text" className='enter_input-input' required
 												 id='numericInput'
 												 />
 								</div>
@@ -415,7 +415,7 @@ const CreateAdPage = () => {
 								<h1 className='create_ad-descr-title'>Местоположение</h1>
 								<input type="text" onChange={handleAddress} value={address}
 											 placeholder='Введите адрес' className='create_ad_address' required/>
-							
+
 								{/* {(addressData.length > 0 && address !== '') ? addressData.map(item => (
 									item.positionStreets ? item.positionStreets.map(itemStreet => (
 										<p onClick={() => setAddress(`${item.name}, ${itemStreet.name}`)}>{item.name}, {itemStreet.name}</p>
@@ -425,23 +425,23 @@ const CreateAdPage = () => {
 								{(addressData.length > 0 && address !== '') ? addressData.map(item => (
 									item.positionStreets ? item.positionStreets.map(itemStreet => (
 										<div className='Edited_filter_select-item' onClick={() => {
-											setAddress(`${item.name}, ${itemStreet.name}`) 
+											setAddress(`${item.name}, ${itemStreet.name}`)
 											setAddressData([])
 											setOpen(!open)
 										}}>
 										{"г. " + item.name}, {itemStreet.name}
-										</div> 
-									)) 
-									: 
-									<div className='Edited_filter_select-item' onClick={() => { 
+										</div>
+									))
+									:
+									<div className='Edited_filter_select-item' onClick={() => {
 											setAddress("г. " + item.name + ', ')
-											setAddressData([]) 
+											setAddressData([])
 											setOpen(!open)
 										}}>
 										{item.name}
-									</div>  
+									</div>
 								)) : null}
-								</div>	
+								</div>
 
 							</div>
 						</div>
