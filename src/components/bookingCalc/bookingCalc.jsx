@@ -71,9 +71,9 @@ const BookingCalc = ({bookingDateStart, bookingDateEnd, setBookingStartDate, set
 							const clonedDate = new Date(date);
 							clonedDate.setHours(0, 0, 0, 0);
 							return bookedDate.some(item => {
-								const startDate = new Date(item.dateStart);
-								const endDate = new Date(item.dateEnd);
-								return currentDate > clonedDate ||(typeAd === 'premium' && (startDate <= clonedDate && clonedDate <= endDate));
+								const startDate = new Date(item.dateStart).setHours(0,0,0,0);
+								const endDate = new Date(item.dateEnd).setHours(0,0,0,0);
+								return currentDate > clonedDate || (typeAd === 'premium' && (startDate <= clonedDate && clonedDate <= endDate));
 							});
 						}}
 						allowPartialRange

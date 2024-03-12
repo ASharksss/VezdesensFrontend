@@ -73,3 +73,49 @@
     background-color: red;
     border-radius: 50%;
 }
+
+.profile-payment_notice {
+    margin-top: 10px;
+    width: 100%;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    background: rgba(241, 224, 90, 0.5);
+    border-radius: 15px;
+    height: 170px;
+}
+
+.profile-payment_notice .payment_button{
+    align-self: flex-end;
+    padding: 10px;
+    border-radius: 15px;
+    font-size: 18px;
+    color: #fff;
+    background: #6fa660;
+}
+.profile-payment_notice .payment_button:hover{
+    box-shadow: 0 0 5px 2px rgba(0,0,0,0.175);
+}
+
+.profile-payment_notice .header {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    height: 50px;
+}
+.profile-payment_notice .header .title {
+    font-size: 18px;
+    margin-left: 15px;
+    width: 75%;
+}
+.profile-payment_notice .header .price {
+    font-size: 24px;
+    font-weight: 400;
+}
+
+.profile-payment_notice .header img {
+    border-radius: 50%;
+    object-fit: cover;
+    height: 128px;
+    width: 128px;
+}

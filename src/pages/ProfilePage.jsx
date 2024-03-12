@@ -23,12 +23,24 @@ const ProfilePage = () => {
   const [dataAds, setDataAds] = useState([])
   const [newMessage, setNewMessage] = useState("0")
   const [staticAd, setStaticAd] = useState([])
+  const [paymentData, setPaymentData] = useState([])
   const [isLoadingUser, setIsLoadingUser] = useState(false)
+
   const {user} = useSelector(state => state.user)
   const {hash} = useLocation();
   const navigate = useNavigate();
 
   const {id} = useParams()
+
+  const getPaymentData = async () => {
+    await axios.get('api/payment/ads')
+        .then(res => {
+          setPaymentData(res.data)
+        })
+        .catch(err => {
+          console.log(err.data.message)
+        })
+  }
 
   useEffect(() => {
     getStaticAd(1, setStaticAd)
@@ -60,6 +72,7 @@ const ProfilePage = () => {
       })
     }
     getUserInfo()
+    if (parseInt(user.items.id) === parseInt(id)) getPaymentData()
   }, [id])
 
 
@@ -131,6 +144,22 @@ const ProfilePage = () => {
                   </button>
                 ))}
               </div>
+              {(paymentData.length > 0 && choice === 'ads') ?
+              <div className='profile-payment_notice'>
+                {paymentData.map((item, index) => (
+                    <React.Fragment key={`payment-${index}`}>
+                      <div className='header'>
+                        <img src={`${STATIC_HOST}/${item.previewImage}`} alt="Название товара"/>
+                        <p className='title'>{item.title} Тип: {item.name}</p>
+                        <p className='price'>{new Intl.NumberFormat('ru-RU', { style: 'currency', currency: 'RUB', maximumSignificantDigits: 3 }).format(parseInt(item.OutSum))}</p>
+                      </div>
+                      <a target='_blank' href={`https://auth.robokassa.ru/Merchant/Index.aspx?MerchantLogin=vezdesens&OutSum=${item.OutSum}&InvoiceID=${item.InvId}&Description=${item.Description}&SignatureValue=${item.crc}&IsTest=${item.IsTest}&Email=${user.items.email}`}
+                         className='payment_button'>
+                        Оплатить
+                      </a>
+                    </React.Fragment>
+                ))}
+              </div> : null}
               <div className='profile_content'>
                 {
                   choice === 'ads' ? <ProfileContentAd dataUser={dataAds} setDataAds={setDataAds}/> :
@@ -138,7 +167,8 @@ const ProfilePage = () => {
                       choice === 'chat' ? <Dialog/> :
                         choice === 'favorites' ? <MyFavorite dataUser={dataUser}/> :
                           choice === 'help' ? <Support/> :
-                            choice === 'appeal' ? <DialogAppeal />
+                            choice === 'appeal' ? <DialogAppeal /> :
+                                choice === 'errorPayed' ? <>Ошибка оплаты услуги</>
                   : 'ничего не выбрано'
                 }
               </div>
