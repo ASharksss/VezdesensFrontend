@@ -3,14 +3,19 @@ import {Provider} from 'react-redux'
 import {store} from "./redux/store";
 import ReactDOM from 'react-dom/client';
 import App from './App';
+import Stub from "./components/Stub/Stub";
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
-root.render(
-  <>
-    <Provider store={store}>
-        <App />
-    </Provider>
+if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|BB|PlayBook|IEMobile|Windows Phone|Kindle|Silk|Opera Mini/i
+  .test(navigator.userAgent)) {
+  root.render(<Stub/>)
+} else {
+  root.render(
+    <>
+      <Provider store={store}>
+        <App/>
+      </Provider>
+    </>
+  );
+}
 
-  </>
-
-);

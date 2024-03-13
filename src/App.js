@@ -12,6 +12,8 @@ import {privateRoutes, publicRoutes} from "./routes";
 import SignIn from "./pages/SignIn";
 import SignUp from "./pages/SignUp.";
 import ForgotPassword from "./pages/ForgotPassword";
+import AddPage from "./pages/admin/Characteristics/AddPage";
+import AddObject from "./pages/admin/Characteristics/addObject";
 
 
 // axios.defaults.baseURL = 'http://192.168.1.119:5000/';
@@ -56,6 +58,8 @@ function App() {
     <BrowserRouter>
       <Routes>
         <Route element={<Layout/>}>
+          <Route path="/addPage" element={<AddPage/>}/>
+          <Route path="/addObject" element={<AddObject/>}/>
           <Route path="/signin" element={<SignIn/>}/>
           <Route path="/signup" element={<SignUp/>}/>
           <Route path="/forgot-password" element={<ForgotPassword/>}/>

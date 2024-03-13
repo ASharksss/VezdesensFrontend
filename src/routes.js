@@ -7,6 +7,8 @@ import SearchPage from "./pages/SearchPage";
 import ServicePage from "./pages/ServicePage";
 import CardEditPage from "./pages/CardEditPage";
 import HomePage from "./pages/HomePage";
+import AddPage from "./pages/admin/Characteristics/AddPage";
+import AddObject from "./pages/admin/Characteristics/addObject";
 
 export const publicRoutes = [
     {
