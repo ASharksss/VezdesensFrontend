@@ -145,19 +145,24 @@ const ProfilePage = () => {
                 ))}
               </div>
               {(paymentData.length > 0 && choice === 'ads') ?
-              <div className='profile-payment_notice'>
+              <div>
                 {paymentData.map((item, index) => (
-                    <React.Fragment key={`payment-${index}`}>
+                    <div key={`payment-${index}`} className='profile-payment_notice'>
                       <div className='header'>
                         <img src={`${STATIC_HOST}/${item.previewImage}`} alt="Название товара"/>
-                        <p className='title'>{item.title} Тип: {item.name}</p>
-                        <p className='price'>{new Intl.NumberFormat('ru-RU', { style: 'currency', currency: 'RUB', maximumSignificantDigits: 3 }).format(parseInt(item.OutSum))}</p>
+                        <p className='title'>{item.title} </p>
+                        <p>Тип: {item.name}</p>
+                        <div>
+                          <p className='price'>{new Intl.NumberFormat('ru-RU', { style: 'currency', currency: 'RUB', maximumSignificantDigits: 3 }).format(parseInt(item.OutSum))}</p>
+                          <a target='_blank' href={`https://auth.robokassa.ru/Merchant/Index.aspx?MerchantLogin=vezdesens&OutSum=${item.OutSum}&InvoiceID=${item.InvId}&Description=${item.Description}&SignatureValue=${item.crc}&IsTest=${item.IsTest}&Email=${user.items.email}`}
+                             className='payment_button'>
+                            Оплатить
+                          </a>
+                        </div>
+
                       </div>
-                      <a target='_blank' href={`https://auth.robokassa.ru/Merchant/Index.aspx?MerchantLogin=vezdesens&OutSum=${item.OutSum}&InvoiceID=${item.InvId}&Description=${item.Description}&SignatureValue=${item.crc}&IsTest=${item.IsTest}&Email=${user.items.email}`}
-                         className='payment_button'>
-                        Оплатить
-                      </a>
-                    </React.Fragment>
+
+                    </div>
                 ))}
               </div> : null}
               <div className='profile_content'>

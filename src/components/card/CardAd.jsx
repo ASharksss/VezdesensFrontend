@@ -52,7 +52,7 @@ const CardAd = ({data, setData, isLoading, setIsLoading}) => {
 
 	return (
 		<div className='card_ad_wrapper'>
-			<div className="flex items-center">
+			<div className="flex items-center mb-20">
 				<h1 className='card_ad_name'>{data.ad.title}</h1>
 				{items.id === data.ad.user.id ? <NavLink to={`/card/${data.ad.id}/edit`}><img src={EditSVG} alt="Измемнить"/></NavLink> : null}
 			</div>
