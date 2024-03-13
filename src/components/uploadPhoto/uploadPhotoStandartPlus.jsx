@@ -78,6 +78,7 @@ const UploadPhotoStandartPlus = ({editedImage, setEditedImage}) => {
                 <div className="upload_info">
                   <p className='upload_info-premium-text'>Загрузите 1 фото</p>
                   <p className='upload_info-premium-format'>Формат JPG, JPEG, PNG</p>
+                  <span className='uploadPhoto-description'>Отображается только на главной странице</span>
                 </div>
               </>}
           </div>

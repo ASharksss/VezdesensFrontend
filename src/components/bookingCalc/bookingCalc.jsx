@@ -59,10 +59,11 @@ const BookingCalc = ({bookingDateStart, bookingDateEnd, setBookingStartDate, set
 			<h1 className='booking-title'>Бронирование рекламного баннера</h1>
 			<div className="flex">
 				<div className="booking_startDate flex column">
+					{typeAd === 'premium' ?
 					<select className='mb-20' onChange={event => setPosition(event.target.value)}>
 						<option value="top">Верхний банер</option>
 						<option value="bottom">Нижний банер</option>
-					</select>
+					</select> : null}
 					<label htmlFor="startDate" className='booking_label'>Выберите дату</label>
 					{!loading ?<Calendar
 						onChange={setValueDate}
@@ -70,11 +71,15 @@ const BookingCalc = ({bookingDateStart, bookingDateEnd, setBookingStartDate, set
 						tileDisabled={({ activeStartDate, date, view }) => {
 							const clonedDate = new Date(date);
 							clonedDate.setHours(0, 0, 0, 0);
-							return bookedDate.some(item => {
-								const startDate = new Date(item.dateStart).setHours(0,0,0,0);
-								const endDate = new Date(item.dateEnd).setHours(0,0,0,0);
-								return currentDate > clonedDate || (typeAd === 'premium' && (startDate <= clonedDate && clonedDate <= endDate));
-							});
+							if (typeAd === 'premium') {
+								if (bookedDate.length === 0) return currentDate > clonedDate
+								return bookedDate.some(item => {
+									const startDate = new Date(item.dateStart).setHours(0, 0, 0, 0);
+									const endDate = new Date(item.dateEnd).setHours(0, 0, 0, 0);
+									return currentDate > clonedDate || (typeAd === 'premium' && (startDate <= clonedDate && clonedDate <= endDate));
+								});
+							} else
+								return currentDate > clonedDate
 						}}
 						allowPartialRange
 						selectRange

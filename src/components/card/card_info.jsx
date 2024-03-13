@@ -34,7 +34,7 @@ const CardInfo = ({userId, price, sellerName, sellerCreated, address, setActiveM
 					<NavLink to={`/profile/${userId}`}>
 						<h2 className='seller_info-name'>{sellerName}</h2>
 					</NavLink>
-					<p className='seller_info-date'>На сервисе с {relativeDate(new Date(sellerCreated))}</p>
+					<p className='seller_info-date'>На сервисе с {formatDateToRegistration(new Date(sellerCreated))}</p>
 				</div>
 				<div className="flex rating_info" onClick={() => {
 					setActiveModal(true)
@@ -51,5 +51,10 @@ const CardInfo = ({userId, price, sellerName, sellerCreated, address, setActiveM
 		</div>
 	);
 };
+
+function formatDateToRegistration(date) {
+	const monthsArray = ["января", "февраля", "марта", "апреля", "мая", "июня", "июля", "августа", "сентября", "октября", "ноября", "декабря"]
+	return `${monthsArray[date.getMonth()]} ${date.getFullYear()}`
+}
 
 export default CardInfo;

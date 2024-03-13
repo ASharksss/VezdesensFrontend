@@ -131,6 +131,8 @@ const UploadImages = ({cropData, setCropData, mainSrcData = [], mainImage, setMa
   return (
     <div>
       <div>
+        {(mainImage === '' || mainImage === null) ?
+          <span className='uploadPhoto-description'>Выберите 1 фотографию, как основную, для отображения на главной странице</span> : null}
         <p className='mb-20'>Количество загруженных фото: {srcData.length} / 15</p>
         <div className="images-flex">
           {cropData.length > 0 ? cropData.map((item) => (

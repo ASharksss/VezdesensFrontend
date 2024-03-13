@@ -12,6 +12,7 @@ const SignUp = () => {
 	const dispatch = useDispatch()
 	const [showPassword, setShowPassword] = useState(false)
 	const [name, setName] = useState('')
+	const [surName, setSurName] = useState('')
 	const [login, setLogin] = useState('')
 	const [phone, setPhone] = useState('')
 	const [email, setEmail] = useState('')
@@ -26,7 +27,7 @@ const SignUp = () => {
 		event.preventDefault()
 		setError('')
 		const data = {
-			login, name, phone, email, password
+			login, name: `${surName} ${name}`, phone, email, password
 		}
 		dispatch(fetchRegistration(data))
 			.then((res) => {
@@ -44,8 +45,11 @@ const SignUp = () => {
 			<form className="auth_form" onSubmit={handleSubmit}>
 				<h1 className='auth_form-title'>Регистрация</h1>
 				<div className="auth_form-inputs">
-					<label className='auth_form-label'>ФИО</label>
-					<input type="text" placeholder='Введите ФИО' className='auth_form-input' required
+					<label className='auth_form-label'>Фамилия</label>
+					<input type="text" placeholder='Введите фамилию' className='auth_form-input' required
+								 onChange={event => setSurName(event.target.value)} value={surName}/>
+					<label className='auth_form-label'>Имя</label>
+					<input type="text" placeholder='Введите имя' className='auth_form-input' required
 								 onChange={event => setName(event.target.value)} value={name}/>
 					<label className='auth_form-label'>Логин</label>
 					<input type="text" placeholder='Введите логин' className='auth_form-input' required
