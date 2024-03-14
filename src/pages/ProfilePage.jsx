@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import {useParams, useLocation, useNavigate} from "react-router-dom";
+import {useParams, useLocation, useNavigate, NavLink} from "react-router-dom";
 import axios from "axios";
 import {useSelector} from "react-redux";
 import '../components/profile/profile.css'
@@ -57,6 +57,8 @@ const ProfilePage = () => {
   }
 
   useEffect(() => {
+    if (user.status === 'loading') return;
+    if (parseInt(user.items.id) === parseInt(id)) getPaymentData()
     setChoice('ads')
     const getUserInfo = async () => {
       setIsLoadingUser(true)
@@ -72,8 +74,7 @@ const ProfilePage = () => {
       })
     }
     getUserInfo()
-    if (parseInt(user.items.id) === parseInt(id)) getPaymentData()
-  }, [id])
+  }, [id, user.status])
 
 
   useEffect(() => {
@@ -149,19 +150,19 @@ const ProfilePage = () => {
                 {paymentData.map((item, index) => (
                     <div key={`payment-${index}`} className='profile-payment_notice'>
                       <div className='header'>
-                        <img src={`${STATIC_HOST}/${item.previewImage}`} alt="Название товара"/>
-                        <p className='title'>{item.title} </p>
-                        <p>Тип: {item.name}</p>
+													<NavLink to={`/card/${item?.adId}`}>
+														<img src={`${STATIC_HOST}/${item.previewImage}`} alt="Название товара"/>
+													</NavLink>
+                          <p className='title'>{item.title} </p>
+                          <p>Тип: {item.name}</p>
                         <div>
                           <p className='price'>{new Intl.NumberFormat('ru-RU', { style: 'currency', currency: 'RUB', maximumSignificantDigits: 3 }).format(parseInt(item.OutSum))}</p>
-                          <a target='_blank' href={`https://auth.robokassa.ru/Merchant/Index.aspx?MerchantLogin=vezdesens&OutSum=${item.OutSum}&InvoiceID=${item.InvId}&Description=${item.Description}&SignatureValue=${item.crc}&IsTest=${item.IsTest}&Email=${user.items.email}`}
+                          <a target='_blank' href={`${item.paymentHref}&Email=${user.items.email}`}
                              className='payment_button'>
                             Оплатить
                           </a>
                         </div>
-
                       </div>
-
                     </div>
                 ))}
               </div> : null}

@@ -105,12 +105,12 @@
     width: 100%;
 }
 
-.profile-payment_notice .header .title {
+.profile-payment_notice .header a .title {
     font-size: 18px;
     margin-left: 15px;
 }
 
-.profile-payment_notice .header .price {
+.profile-payment_notice .header a .price {
     font-size: 20px;
     font-weight: bold;
     margin-bottom: 10px;

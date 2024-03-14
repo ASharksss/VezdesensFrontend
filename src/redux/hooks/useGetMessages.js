@@ -1,7 +1,7 @@
 import {useState, useEffect} from "react";
 import axios from "axios";
 
-export default function useGetMessages() {
+export default function useGetMessages(order) {
     const [loading, setLoading] = useState(true)
     const [error, setError] = useState(false)
     const [data, setData] = useState([])
@@ -16,6 +16,7 @@ export default function useGetMessages() {
         axios({
             method: 'GET',
             url: '/api/chat/getMessages',
+            params: {order},
             cancelToken: new axios.CancelToken(c => cancel = c)
         }).then(res => {
             setData(res.data);
@@ -25,7 +26,6 @@ export default function useGetMessages() {
             setError(true)
         })
         return () => cancel()
-    }, [])
+    }, [order])
     return {loading, error, data, setData}
-
 }

@@ -217,7 +217,7 @@ const CreateAdPage = () => {
 								</div>
 								<div className={ open ? 'block Edited_filter_select-body' : 'filter_select-body-none'}>
 										{
-										categories.items.map((item, index) => (
+										categories.items.map((item, index) => item.id !== 2 && (
 										// Предаю значиение item.name после topic присваиваю значиение при клике
 										<div className='Edited_filter_select-item' key={'category' + index} value={item.id}
 											onClick={() => {

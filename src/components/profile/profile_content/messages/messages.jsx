@@ -10,21 +10,20 @@ import SelectedMessages from './selectedMessages';
 import NothingYeat from '../../../nothingYeat/nothingYeat';
 import PreloaderComponent from "../../../Preloader/PreloaderComponent";
 import useGetMessages from "../../../../redux/hooks/useGetMessages";
+import axios from "axios";
 
 const Messages = () => {
 	const {items} = useSelector(state => state.user.user)
-	const [choice, setChoice] = useState('old')
-	const [choiceAnother, setChoiceAnother] = useState('old')
-	const [choiceTitle, setChoiceTitle] = useState('Сначала старые')
-	const [choiceTitleAnother, setChoiceTitleAnother] = useState('Сначала старые')
+	const [choiceTitleAnother, setChoiceTitleAnother] = useState('Сначала новые')
 	const [open, setOpen] = useState(false)
 	const [openanother, setOpenAnother] = useState(false)
 	const [check, setCheck] = useState(false)
 	const [checked, setChecked] = useState([])
+	const [order, setOrder] = useState('DESC')
 
 	const rootEl = useRef(null);
 
-	const {data, setData, loading} = useGetMessages()
+	const {data, setData, loading} = useGetMessages(order)
 	const handleCheckBoxChange = (chatId) => {
 		setChecked(prevState => {
 			// Проверяем, был ли chatId уже включен
@@ -39,6 +38,21 @@ const Messages = () => {
 			}
 		});
 	};
+
+	const removeChat = async () => {
+		const confirm = window.confirm('Удалится переписка у Вас и у Вашего собеседника, Вы уверены?')
+		if (confirm) {
+			await axios.delete('api/chat/remove', {
+				data: {chats: checked}
+			}).then(() => {
+				setOrder(order === 'DESC' ? 'ASC' : 'DESC')
+				setChoiceTitleAnother(choiceTitleAnother === 'Сначала новые' ? 'Сначала старые' : 'Сначала новые')
+				setChecked([])
+			}).catch(()=> {
+				window.alert('Ошибка при удалении чата!')
+			})
+		}
+	}
 
 	const handleAllChecked = () => {
 		if (checked.length === data.length) {
@@ -60,14 +74,6 @@ const Messages = () => {
 		return () => document.removeEventListener('click', onClick);
 	}, [])
 
-	useEffect(() => {
-		if (choice === 'new') {
-			setData(data.sort((a, b) => new Date(b[0].createdAt) - new Date(a[0].createdAt)))
-		} else if (choice === 'old') {
-			setData(data.sort((a, b) => new Date(a[0].createdAt) - new Date(b[0].createdAt)))
-		}
-	}, [choice])
-
 	if (loading) {
 		return <PreloaderComponent/>
 	}
@@ -76,7 +82,7 @@ const Messages = () => {
 			<div className="messages_header flex" ref={rootEl}>
 				<label className='chbx_label'>
 					<input
-						checked={checked.length === data.length}
+						checked={(checked.length === data.length) && (checked.length !== 0)}
 						className="chbx_for_message"
 						style={{background: "black"}}
 						type="checkbox"
@@ -94,51 +100,16 @@ const Messages = () => {
 						</div>
 						<div className={openanother ? 'block ads_filter_select-body' : 'filter_select-body-none'}>
 							<div className='filter_select-item' onClick={() => {
-								setChoiceAnother('old')
-								setChoiceTitleAnother('Сначала старые')
-								setOpenAnother(!openanother)
-							}}>Сначала старые
-							</div>
-							<div className='filter_select-item' onClick={() => {
-								setChoiceAnother('new')
+								setOrder('DESC')
 								setChoiceTitleAnother('Сначала новые')
 								setOpenAnother(!openanother)
 							}}>Сначала новые
 							</div>
-						</div>
-					</div>
-				</div>
-				<div className="filter">
-					<div className="ads_filter_select">
-						<div className="flex items-center space-between ads_filter-header"
-								 onClick={() => setOpen(!open)}>
-							{choiceTitle}
-							<img src={arrow_icon} alt=""/>
-						</div>
-						<div className={open ? 'block ads_filter_select-body' : 'filter_select-body-none'}>
 							<div className='filter_select-item' onClick={() => {
-								setChoice('old')
-								setChoiceTitle('Сначала старые')
-								setOpen(!open)
+								setOrder('ASC')
+								setChoiceTitleAnother('Сначала старые')
+								setOpenAnother(!openanother)
 							}}>Сначала старые
-							</div>
-							<div className='filter_select-item' onClick={() => {
-								setChoice('new')
-								setChoiceTitle('Сначала новые')
-								setOpen(!open)
-							}}>Сначала новые
-							</div>
-							<div className='filter_select-item' onClick={() => {
-								setChoice('views_down')
-								setChoiceTitle('По просмотрам ↑')
-								setOpen(!open)
-							}}>По просмотрам ↑
-							</div>
-							<div className='filter_select-item' onClick={() => {
-								setChoice('views_up')
-								setChoiceTitle('По просмотрам ↓')
-								setOpen(!open)
-							}}>По просмотрам ↓
 							</div>
 						</div>
 					</div>
@@ -159,7 +130,7 @@ const Messages = () => {
 					</SelectCheckBox>
 				)) : <NothingYeat message={"Пока нет сообщений"}/>}
 
-				{checked.length > 0 ? <SelectedMessages count={checked.length}/> : null}
+				{checked.length > 0 ? <SelectedMessages count={checked.length} removeChat={removeChat}/> : null}
 			</div>
 		</div>
 	);

@@ -1,9 +1,17 @@
 import React, {useRef, useEffect, useState} from 'react';
 import arrowSVG from '../../asserts/icons/arrow.svg'
+import {useLocation} from "react-router-dom";
 
 const SmoothScroll = ({children}) => {
+    const location = useLocation();
+    const { pathname, hash } = location;
     const smoothRef = useRef(null);
     const [isVisible, setIsVisible] = useState(false);
+
+    useEffect(() => {
+        const element = smoothRef.current;
+        element.scroll({top: 0});
+    }, [pathname, hash]);
 
     useEffect(() => {
         const handleScroll = () => {

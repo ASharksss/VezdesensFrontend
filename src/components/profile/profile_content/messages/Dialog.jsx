@@ -24,8 +24,8 @@ const Dialog = () => {
   const {user} = useSelector(state => state.user)
 
   function connect() {
-    // setSocket(io(`http://localhost:5001/?senderId=${paramsSenderId}&receiverId=${paramsReceiverId}&adId=${paramsAdId}`));
-    setSocket(io(`https://chat.vezdesens.ru/?senderId=${paramsSenderId}&receiverId=${paramsReceiverId}&adId=${paramsAdId}`));
+    setSocket(io(`http://localhost:5001/?senderId=${paramsSenderId}&receiverId=${paramsReceiverId}&adId=${paramsAdId}`));
+    // setSocket(io(`https://chat.vezdesens.ru/?senderId=${paramsSenderId}&receiverId=${paramsReceiverId}&adId=${paramsAdId}`));
   }
 
   useEffect(() => {

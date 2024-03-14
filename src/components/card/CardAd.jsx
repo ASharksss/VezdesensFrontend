@@ -12,12 +12,13 @@ import DescriptionModal from "../modal/descriptionModal";
 import PhoneModal from "../modal/phoneModal";
 import RatingModal from "../modal/ratingModal";
 import EditSVG from '../../asserts/icons/edit.svg'
-import {relativeDate, formatDate, pluralRusVariant} from "../../utils";
+import {relativeDate, formatDate, pluralRusVariant, getCookie} from "../../utils";
 import Button from "../../ui/buttons/button";
 import PreloaderComponent from "../Preloader/PreloaderComponent";
 
-const CardAd = ({data, setData, isLoading, setIsLoading}) => {
-	const {items} = useSelector(state => state.user.user)
+const CardAd = ({data, setData, isLoading, setIsLoading, setForbidden}) => {
+	const {user} = useSelector(state => state.user)
+	const {items, status} = user
 	const [dataRating, setDataRating] = useState()
 	const [activeModal, setActiveModal] = useState(false)
 	const [typeModal, setTypeModal] = useState()
@@ -29,22 +30,32 @@ const CardAd = ({data, setData, isLoading, setIsLoading}) => {
 				.then(res => {
 					setDataRating(res.data)
 				}).catch(err => {
-				console.log(err)
-				window.alert('Ошибка получения рейтинга')
+					if (err.response.status === 403)
+						setForbidden('Нет доступа к просмотру этой карточки')
+					console.log(err)
+					setIsLoading(true)
+					window.alert('Ошибка получения рейтинга')
 			})
 		}
 	}, [typeModal, activeModal])
 
 	useEffect(() => {
+		const checkSession = getCookie('session')
+		if (status === 'loading' && checkSession !== undefined) return;
 		axios.get(`api/ad/getOneAd/${id}`).then(res => {
 			document.title = 'Картиочка № ' + res.data.ad.id + ' · ' + res.data.ad.title + ' · ' + relativeDate(new Date(res.data.ad.createdAt))
 			setData(res.data)
 			setIsLoading(true)
 		}).catch(err => {
-			console.warn(err)
-			alert('Ошибка получения объявления')
+			if (err.response.status === 403) {
+				setForbidden('Нет доступа к просмотру этой карточки')
+				setIsLoading(true)
+			}else{
+				setForbidden('Ошибка, что-то с нашим сервером :(')
+				setIsLoading(true)
+			}
 		})
-	}, [])
+	}, [status])
 
 	if (!isLoading) {
 		return <PreloaderComponent />
@@ -61,8 +72,15 @@ const CardAd = ({data, setData, isLoading, setIsLoading}) => {
 				<p className='number_time_views'
 					 title={formatDate(data.ad.createdAt)}>{'№ ' + data.ad.id + ' · ' + relativeDate(new Date(data.ad.createdAt)) + ' · ' +
 					data.ad.views + ` ${["просмотр", "просмотра", "просмотров"][pluralRusVariant(parseInt(data.ad.views))]}`}</p>
-				<p style={{color: '#B5B7BD'}}>{parseInt(data.ad.viewsToday) > 0 ? `+${data.ad.viewsToday} (сегодня)` : 'За сегодня нет просмотров'}</p>
+					<p style={{color: '#B5B7BD'}}>{parseInt(data.ad.viewsToday) > 0 ? `+${data.ad.viewsToday} (сегодня)` : 'За сегодня нет просмотров'}</p>
 			</div>
+			{data.ad?.payment ?
+			<div className='flex mb-20'>
+				<a target='_blank' href={`${data.ad?.payment?.href}&Email=${items.email}`}
+					 className='payment_button'>
+					Для показа карточки на доске обявления, оплатите: {new Intl.NumberFormat('ru-RU', { style: 'currency', currency: 'RUB', maximumSignificantDigits: 3 }).format(parseInt(data.ad?.payment?.cost))}
+				</a>
+			</div> : null}
 			<div className="flex">
 				<CardImgBlock ad_address={data.ad.address} images={data.ad.imageAds.length > 0 ? data.ad.imageAds : []}
 											id={data.ad.objectId}/>
@@ -78,7 +96,6 @@ const CardAd = ({data, setData, isLoading, setIsLoading}) => {
 						</div>
 					</div>
 				</div>
-
 				<CardInfo price={data.ad.price} address={data.ad.address} id={data.ad.id} favorite={data.ad.favorites} show={data.ad.showPhone}
 									sellerCreated={data.ad.user.createdAt} userId={data.ad.user.id} rating={data.ad.user.ratings}
 									sellerName={data.ad.user.name} setActiveModal={setActiveModal} setTypeModal={setTypeModal}/>
