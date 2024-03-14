@@ -27,7 +27,7 @@ const SignUp = () => {
 		event.preventDefault()
 		setError('')
 		const data = {
-			login, name: `${surName} ${name}`, phone, email, password
+			login, name: `${name} ${surName}`, phone, email, password
 		}
 		dispatch(fetchRegistration(data))
 			.then((res) => {

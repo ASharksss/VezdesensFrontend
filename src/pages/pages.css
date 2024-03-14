@@ -276,6 +276,7 @@
 .filters {
     position: relative;
     margin-top: 70px;
+    margin-bottom: 70px;
 }
 
 .filter_title {
@@ -304,17 +305,16 @@
 }
 
 .filters .buttons {
-    margin-bottom: 10px;
+    margin-bottom: 20px;
     display: flex;
-    flex-direction: row;
-    justify-content: space-evenly;
     align-items: center;
 }
 
 .filters .search {
-    padding: 10px;
+    width: 110px;
+    height: 45px;
     border-radius: 15px;
-    background: #76baff;
+    background: #161616;
     color: #fff;
 }
 .filters .search:hover {
@@ -322,7 +322,9 @@
 }
 
 .filters .reset {
-    padding: 10px;
+    margin-left: 10px;
+    width: 110px;
+    height: 45px;
     border-radius: 15px;
     border: 1px solid rgba(0,0,0,0.135);
 }

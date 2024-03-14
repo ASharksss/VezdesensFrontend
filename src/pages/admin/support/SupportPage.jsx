@@ -17,7 +17,7 @@ const SupportPage = () => {
   const getData = async () => {
     await axios({
       method: 'GET',
-      url: 'api/support/getAllAppeal',
+      url: 'api/support/getAllAppealSupport',
       params: {statusOfAppealId}
     }).then(res => setData(res.data))
   }
@@ -50,7 +50,7 @@ const SupportPage = () => {
                 </select>
               </div>
               {
-                data.map(item => (
+                data?.map(item => (
                   <NavLink state={{data: item}} to={`?id=${item.id}#dialog`} className='appeal'>
                     <Appeal item={item}/>
                   </NavLink>
