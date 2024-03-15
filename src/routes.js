@@ -44,8 +44,8 @@ export const privateRoutes = [
         path: '/profile/:id',
         Component: ProfilePage
     },
-		{
-			path: '/card/:id/edit',
-			Component: CardEditPage
-		}
+    {
+        path: '/card/:id/edit',
+        Component: CardEditPage
+    }
 ]

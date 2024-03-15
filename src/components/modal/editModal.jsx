@@ -10,6 +10,7 @@ const EditModal = ({data, setModal}) => {
 	const formData = new FormData();
 	const editImageRef = useRef(null)
 	const [image, setImage] = useState(null)
+	const [showPhone, setShowPhone] = useState(!data.showPhone || true)
 	const [name, setName] = useState(data.name.split(' ')[0])
 	const [surname, setSurname] = useState(data.name.split(' ')[1] !== undefined ? data.name.split(' ')[1] : '')
 	const [email, setEmail] = useState(data.email)
@@ -46,6 +47,11 @@ const EditModal = ({data, setModal}) => {
 
 		}
 	}, [data])
+
+	const handleChangeShowPhone = async (event) => {
+	  	await axios.post('api/user/showPhone', {show: showPhone})
+			.then(() => setShowPhone(!showPhone))
+	}
 
 	const handleSaveImage = () => {
 		if(editImageRef.current !== null) {
@@ -174,6 +180,8 @@ const EditModal = ({data, setModal}) => {
 										 mask="+7(999)999-99-99" id={'phone'} className='editProfile-input' required/>
 				</div>
 			</div>
+			<label className='editProfile-label' htmlFor={'showPhone'}>Отображать номер телефона</label>
+			<input className={'ml-10'} type="checkbox" value={showPhone} id={'showPhone'} onChange={handleChangeShowPhone}/>
 			<div className={'flex editProfile-btns'} style={{justifyContent: 'space-evenly'}}>
 				<button type={'submit'} className='editProfile-save'>Сохранить</button>
 				<button type={'button'} className='editProfile-cancel' onClick={() => setModal(false)}>Отменить</button>

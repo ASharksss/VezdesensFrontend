@@ -5,14 +5,14 @@ import {useDispatch} from "react-redux";
 import './pages.css'
 import eyeClose from '../asserts/icons/eyeClose.svg'
 import eyeOpen from '../asserts/icons/eyeOpen.svg'
-import {fetchRegistration} from "../redux/slices/userSlice";
+import {fetchRegistrationCompany} from "../redux/slices/userSlice";
 
 const SignUpCompanies = () => {
   const navigate = useNavigate()
   const dispatch = useDispatch()
   const [showPassword, setShowPassword] = useState(false)
   const [inn, setInn] = useState('')
-  const [nameCompany, setNameCompany] = useState('')
+  const [companyName, setCompanyName] = useState('')
   const [name, setName] = useState('')
   const [surName, setSurName] = useState('')
   const [login, setLogin] = useState('')
@@ -29,9 +29,9 @@ const SignUpCompanies = () => {
     event.preventDefault()
     setError('')
     const data = {
-      login, name: `${name} ${surName}`, phone, email, password
+      login, name: `${name} ${surName}`, phone, email, password, companyName, inn
     }
-    dispatch(fetchRegistration(data))
+    dispatch(fetchRegistrationCompany(data))
       .then((res) => {
         if (res.error) {
           setError(res.error.message)
@@ -39,6 +39,7 @@ const SignUpCompanies = () => {
         if (res.error === undefined) {
           const pathname = localStorage.getItem('last_path') || '/'
           navigate(pathname)
+          window.location.reload()
         }
       })
   }
@@ -56,7 +57,7 @@ const SignUpCompanies = () => {
             <div className='reg_company-div'>
               <label className='block auth_form-label'>Наименование компании</label>
               <input type="text" placeholder='Название компании' className='auth_form-input' required disabled
-                     onChange={event => setNameCompany(event.target.value)} value={nameCompany}/>
+                     onChange={event => setCompanyName(event.target.value)} value={companyName}/>
             </div>
           </div>
           <div className='flex'>

@@ -37,6 +37,7 @@ const SignUp = () => {
 				if (res.error === undefined) {
 					const pathname = localStorage.getItem('last_path') || '/'
 					navigate(pathname)
+					window.location.reload()
 				}
 			})
 	}
