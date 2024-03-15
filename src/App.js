@@ -15,6 +15,7 @@ import ForgotPassword from "./pages/ForgotPassword";
 import AddPage from "./pages/admin/Characteristics/AddPage";
 import AddObject from "./pages/admin/Characteristics/addObject";
 import SupportPage from "./pages/admin/support/SupportPage";
+import SignUpCompanies from "./pages/SignUpCopmanies.";
 
 
 // axios.defaults.baseURL = 'http://192.168.1.119:5000/';
@@ -64,6 +65,7 @@ function App() {
           <Route path="/addObject" element={<AddObject/>}/>
           <Route path="/signin" element={<SignIn/>}/>
           <Route path="/signup" element={<SignUp/>}/>
+          <Route path="/signupCompanies" element={<SignUpCompanies/>}/>
           <Route path="/forgot-password" element={<ForgotPassword/>}/>
           <Route path="/supportPage" element={<SupportPage/>}/>
 

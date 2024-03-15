@@ -56,6 +56,10 @@
     flex-direction: column;
 }
 
+.reg_company-div + .reg_company-div {
+    margin-left: 20px;
+}
+
 .auth_form-title {
     font-size: 32px;
     font-family: OpenSansBold;
@@ -118,6 +122,8 @@
     color: white;
     margin-bottom: 20px;
 }
+
+
 
 .signup {
     background-color: white;
