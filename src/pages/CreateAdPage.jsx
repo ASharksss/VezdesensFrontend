@@ -250,9 +250,9 @@ const CreateAdPage = () => {
 								}
 							</select> */}
 							<div className="Edited_appeal-select" >
-								<div className="flex items-center space-between Edited_filter-header w-250 mr-r" onClick={() => topic ? setSubOpen(!subOpen) : null} required>
+								<div className="flex items-center space-between Edited_filter-header mr-r" onClick={() => topic ? setSubOpen(!subOpen) : null} required>
                  					{/* Вывожу значние topic  */}
-									{subTopic.indexOf('/') > 0 ? subTopic.split('/')[1] : subTopic ? subTopic :'Выберете подкатегорию' }
+									{subTopic.indexOf('/') > 0 ? subTopic.split('/')[1] : subTopic ? subTopic :'Выберите подкатегорию' }
 									<img src={arrow_icon} alt=""/>
 								</div>
 								<div className={ subOpen ? 'block Edited_filter_select-body' : 'filter_select-body-none'}>
@@ -290,7 +290,9 @@ const CreateAdPage = () => {
 							<div className="Edited_appeal-select" >
 								<div className="flex items-center space-between Edited_filter-header w-250 mr-r" onClick={() => subTopic ?  setSubValueOpen(!subValueOpen) : null} required>
                  					{/* Вывожу значние topic  */}
-									{subValueTopic.indexOf('/') > 0 ? subValueTopic.split('/')[1] : subValueTopic ? subValueTopic :'Выберете Значение' }
+									<p className='Edited_filter-header-p'>
+										{subValueTopic.indexOf('/') > 0 ? subValueTopic.split('/')[1] : subValueTopic ? subValueTopic :'Выберите Значение' }
+									</p>
 									<img src={arrow_icon} alt=""/>
 								</div>
 								<div className={ subValueOpen ? 'block Edited_filter_select-body' : 'filter_select-body-none'}>
