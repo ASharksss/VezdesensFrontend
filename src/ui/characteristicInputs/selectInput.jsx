@@ -2,8 +2,8 @@ import React, {useEffect, useState} from 'react';
 import arrow_icon from '../../asserts/icons/arrow_down.svg'
 
 const SelectInput = ({data, setSelectValue, id, isRequired = false, mainValue = ''}) => { // data: [{id: int, name: str}]
-  // setCheckboxValue: [] родительский стейт
-  // id: int родительский id, чтобы понимать для кого изменения
+                                                                                          // setCheckboxValue: [] родительский стейт
+                                                                                          // id: int родительский id, чтобы понимать для кого изменения
   const [value, setValue] = useState(mainValue)
   const [open, setOpen] = useState(false)
   const [topic, setTopic] = useState('')
@@ -44,7 +44,9 @@ const SelectInput = ({data, setSelectValue, id, isRequired = false, mainValue = 
         <div className="flex items-center space-between Edited_filter-header w-237" onClick={() => setOpen(!open)}
              required={isRequired}>
           {/* Вывожу значние topic  */}
-          {topic ? topic : 'Выберете значение'}
+          <p className='Edited_filter-header-p'>
+            {topic ? topic : 'Выберите значение'}
+          </p>
           <img src={arrow_icon} alt=""/>
         </div>
         <div className={open ? 'block Edited_filter_select-body' : 'filter_select-body-none'}>

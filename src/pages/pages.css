@@ -216,7 +216,13 @@
 .create_ad-descr-title {
     font-size: 32px;
     font-family: OpenSansBold;
-    margin-bottom: 30px;
+    margin-bottom: 5px;
+}
+
+.create_ad-descr-subtitle {
+    font-size: 15px;
+    margin-bottom: 25px;
+    color: #838690;
 }
 
 .create_ad_descr-text {

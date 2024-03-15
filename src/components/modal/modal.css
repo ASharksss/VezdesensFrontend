@@ -534,13 +534,13 @@
 }
 
 .Edited_filter-header {
-    width: 310px;
+    width: 250px;
     font-size: 16px;
     padding: 15px;
     box-shadow: 0px 5px 35px 0px rgba(38, 38, 38, 0.1);
     background-color: rgba(236, 236, 236, 1);
     border-radius: 10px;
-    height: 47px;
+    height: 30px;
     cursor: pointer;
     z-index: 0;
 

@@ -212,7 +212,7 @@ const CreateAdPage = () => {
 							<div className="Edited_appeal-select" >
 								<div className="flex items-center space-between Edited_filter-header w-250 mr-r" onClick={() => setOpen(!open)} required>
                  					{/* Вывожу значние topic  */}
-									{topic ? topic.indexOf('/') > 0 ? topic.split('/')[1] : topic :'Выберете категорию' }
+									{topic ? topic.indexOf('/') > 0 ? topic.split('/')[1] : topic : 'Выберите категорию' }
 									<img src={arrow_icon} alt=""/>
 								</div>
 								<div className={ open ? 'block Edited_filter_select-body' : 'filter_select-body-none'}>
@@ -377,6 +377,7 @@ const CreateAdPage = () => {
 
 						<div className="create_ad-descr">
 							<h1 className='create_ad-descr-title'>Описание</h1>
+							<p className='create_ad-descr-subtitle'>Вы можете изменять размер блока, потянув за правый нижний угол</p>
 							<textarea onChange={event => setDescription(event.target.value)}
 												className='create_ad_descr-text' placeholder='Опишите подробнее товар' required></textarea>
 						</div>
