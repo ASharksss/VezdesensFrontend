@@ -13,6 +13,7 @@ import useCatalogCard from "../redux/hooks/useCatalogCard";
 import PreloaderComponent from "../components/Preloader/PreloaderComponent";
 import BreadCrumbs from '../components/breadcrumbs/BreadCrumbs';
 import NothingYeat from '../components/nothingYeat/nothingYeat'
+import {Helmet} from "react-helmet";
 
 const chunkArray = (myArray, chunkSize) => {
   const results = [];
@@ -111,11 +112,11 @@ const CatalogBoardPage = () => {
       const subName = categoriesList.items[0].subCategories.filter(item => item.id === parseInt(paramsSubCategory))[0].name
       const name = categoriesList.items[0].subCategories.filter(item => item.id === parseInt(paramsSubCategory))[0].objects.filter(item => item.id === parseInt(paramsObjectId))[0]?.name
       SetName(name);
-      return(
+      return (
         <BreadCrumbs name={name} subName={subName}/>
       );
       // <h1 className='catalogBoardPage-subtitle'>
-			// 	<span className={'main'} style={{cursor: 'pointer'}} onClick={() => navigate({
+      // 	<span className={'main'} style={{cursor: 'pointer'}} onClick={() => navigate({
       //     pathname: '/category',
       //     search: `?subCategory=${parseInt(paramsSubCategory)}&category=${parseInt(paramsCategory)}`,
       //   })}>{subName.indexOf('/') > 1 ? subName.split('/')[0] : subName}</span> / <span
@@ -165,7 +166,7 @@ const CatalogBoardPage = () => {
   if (isLoading) {
     return <PreloaderComponent/>
   }
-console.log(paramsObjectId, paramsSubCategory, paramsCategory, query );
+  let keywords = []
   return (
     <div className='container'>
       {staticAd[0]?.imageName !== undefined ?
@@ -190,10 +191,12 @@ console.log(paramsObjectId, paramsSubCategory, paramsCategory, query );
               <div className='buttons'>
                 <button className='search'
                         onClick={showAds ? handleShowAdsByParams : null} disabled={!showAds}
-                >Показать</button>
+                >Показать
+                </button>
                 <button className='reset'
                         onClick={userChange ? handleResetSearch : null} disabled={!userChange}
-                >Сбросить</button>
+                >Сбросить
+                </button>
               </div>
               <EnterFilter setEnterFilter={setEnterFilter}/>
               {!isLoading ? categoriesList.items[1]?.map((item, index) => item.characteristic.required ?
@@ -235,19 +238,27 @@ console.log(paramsObjectId, paramsSubCategory, paramsCategory, query );
               chunkedData.length > 0 && chunkedData.map((chunk, index) => (
                 <div className='grid' key={`chunk-${index}`} style={{gridTemplateColumns: 'repeat(5, 1fr)'}}
                      ref={lastElementRef}>
-                  {chunk.map((item, itemIndex) => (
-                    <Card
-                      classname={'xs'}
-                      ad_image={`${STATIC_HOST}/${item.previewImageAds[0]?.name}`}
-                      title={item.title}
-                      address={item.address}
-                      price={item.price}
-                      favorite={item.favorites}
-                      date={item.date}
-                      id={item.id}
-                      key={`card-${index}-${item.id}-${itemIndex}`}
-                    />
-                  ))}
+                  {chunk.map((item, itemIndex) => {
+
+                    keywords.push(item.title)
+                    return <>
+                      <Helmet>
+                        <meta name='keywords' content={keywords.toString()}/>
+                      </Helmet>
+                      <Card
+                        classname={'xs'}
+                        ad_image={`${STATIC_HOST}/${item.previewImageAds[0]?.name}`}
+                        title={item.title}
+                        address={item.address}
+                        price={item.price}
+                        favorite={item.favorites}
+                        date={item.date}
+                        id={item.id}
+                        key={`card-${index}-${item.id}-${itemIndex}`}
+                      />
+                    </>
+
+                  })}
                 </div>
               ))}
         </div>

@@ -82,7 +82,7 @@ const CardAd = ({data, setData, isLoading, setIsLoading, setForbidden}) => {
 				</a>
 			</div> : null}
 			<div className="flex">
-				<CardImgBlock ad_address={data.ad.address} images={data.ad.imageAds.length > 0 ? data.ad.imageAds : []}
+				<CardImgBlock title={data.ad.title} ad_address={data.ad.address} images={data.ad.imageAds.length > 0 ? data.ad.imageAds : []}
 											id={data.ad.objectId}/>
 				<div>
 					<CardDescription description={data.ad.description}
