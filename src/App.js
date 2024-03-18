@@ -7,7 +7,7 @@ import {useDispatch, useSelector} from "react-redux";
 import Layout from "./Layout";
 import {getCookie} from "./utils";
 import {fetchAuth} from "./redux/slices/userSlice";
-import {takeFromCookie} from "./redux/slices/geoSlice";
+import {firstLoading, takeFromCookie} from "./redux/slices/geoSlice";
 import {privateRoutes, publicRoutes} from "./routes";
 import SignIn from "./pages/SignIn";
 import SignUp from "./pages/SignUp.";
@@ -45,6 +45,8 @@ function App() {
       const checkGeo = getCookie('position')
       if (checkGeo !== undefined) {
          dispatch(takeFromCookie(checkGeo))
+      }else {
+        dispatch(firstLoading())
       }
     }
     return checkPosition()

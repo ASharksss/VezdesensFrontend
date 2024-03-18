@@ -38,12 +38,20 @@ const GeoSlice = createSlice({
             document.cookie = `position=${action.payload.slug}; path=/; expires=${date.setDate(date.getDate() + 365)}`
         },
         takeFromCookie: (state, action) => {
+            console.log(action.payload)
             state.mainSlugCity = action.payload
             const localCityPath = localStorage.getItem('city_path')
             const localCityName = localStorage.getItem('city_name')
             state.mainCity = localCityName
             state.mainPath = JSON.parse(localCityPath)
             axios.defaults.headers.common['x-position'] = action.payload
+        },
+        firstLoading: state => {
+            localStorage.setItem('city_name', state.mainCity)
+            localStorage.setItem('city_path', JSON.stringify(state.mainPath))
+            const date = new Date()
+            document.cookie = `position=${state.mainSlugCity}; path=/; expires=${date.setDate(date.getDate() + 365)}`
+            axios.defaults.headers.common['x-position'] = state.mainSlugCity
         }
     },
     extraReducers: {
@@ -64,5 +72,5 @@ const GeoSlice = createSlice({
 
 
 export const {showCities, hideCities,
-    setMainCity, takeFromCookie} = GeoSlice.actions
+    setMainCity, takeFromCookie, firstLoading} = GeoSlice.actions
 export const GeoReducer = GeoSlice.reducer

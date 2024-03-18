@@ -14,7 +14,7 @@ const isVisible = (elem) => {
     );
 };
 
-const CitiesModal = () => {
+const CitiesModal = ({handleAddress=undefined}) => {
     const dispatch = useDispatch()
     const {data, mainPath, mainCity, mainSlugCity} = useSelector(state => state.geo)
     const {status, items} = data
@@ -23,6 +23,8 @@ const CitiesModal = () => {
     const [nameCity, setNameCity] = useState(mainCity)
     const [slugCity, setSlugCity] = useState(mainSlugCity)
     const [idRegion, setIdRegion] = useState(1)
+    const [nameRegion, setNameRegion] = useState('')
+    const [nameDistrict, setNameDistrict] = useState('')
     const [idDistrict, setIdDistrict] = useState(1)
 
     const cityRef = useRef(null)
@@ -46,12 +48,14 @@ const CitiesModal = () => {
         }
     }, [isLoading])
 
-    const handleSetDistrict = (id) => {
+    const handleSetDistrict = (id, name) => {
         setIdDistrict(id)
         setIdRegion(0)
+        setNameRegion(name)
     }
-    const handleSetRegion = (id) => {
+    const handleSetRegion = (id, name) => {
         setIdRegion(id)
+        setNameRegion(name)
     }
     const handleSetCity = (id, name, slug) => {
         setIdCity(id)
@@ -60,6 +64,7 @@ const CitiesModal = () => {
     }
 
     const handleSave = (event) => {
+        if (nameCity.trim() === '') return;
         const data = {
             name: nameCity,
             slug: slugCity,
@@ -88,6 +93,15 @@ const CitiesModal = () => {
         }
     }, [regionRef.current]);
 
+    useEffect(() => {
+        if (handleAddress === undefined || (idRegion === 1 && idDistrict === 1 && idCity) || items.length === 0) return;
+        const district = items.districts.find(item => item.id === idDistrict).name
+        const region = items.regions.find(item => item.id === idRegion).name
+        const city = items.cities.find(item => item.id === idCity).name
+        setNameRegion(region)
+        setNameDistrict(district)
+        setNameCity(city)
+    }, [handleAddress, idCity])
 
     if (isLoading)
         return <PreloaderComponent/>
@@ -104,7 +118,7 @@ const CitiesModal = () => {
                     <ul className={style.content}>
                         {districts.map((item, index) => (
                             <li className={`${style.choice} ${idDistrict === item.id ? style.active : ''}`}
-                                key={`district-${index}`} onClick={() => handleSetDistrict(item.id)}>{item.name}</li>
+                                key={`district-${index}`} onClick={() => handleSetDistrict(item.id, item.name)}>{item.name}</li>
                         ))}
                     </ul>
                 </div>
@@ -114,7 +128,7 @@ const CitiesModal = () => {
                         {regions.map((item, index) => (
                             <li ref={idRegion === item.id ? regionRef : null}
                                 className={`${style.choice} ${idRegion === item.id ? style.active : ''}`}
-                                key={`regions-${index}`} onClick={() => handleSetRegion(item.id)}>{item.name}</li>
+                                key={`regions-${index}`} onClick={() => handleSetRegion(item.id, item.name)}>{item.name}</li>
                         ))}
                     </ul>
                 </div>
@@ -131,7 +145,7 @@ const CitiesModal = () => {
                 </div>
             </div>
             <div className={style.buttonWrapper}>
-                <button className={style.button} onClick={handleSave}>Сохранить</button>
+                <button type='button' className={style.button} onClick={handleAddress === undefined ? handleSave : () => handleAddress(nameCity, nameRegion, nameDistrict)}>Сохранить</button>
             </div>
         </>
     );

@@ -18,6 +18,8 @@ import './pages.css'
 import BookingCalc from "../components/bookingCalc/bookingCalc";
 import UploadImages from '../components/uploadPhoto/UploadImages';
 import arrow_icon from "../asserts/icons/arrow_down.svg"
+import ModalMain from "../components/modal/modalMain";
+import CitiesModal from "../components/Header/CityModal/CitiesModal";
 
 const CreateAdPage = () => {
 
@@ -47,6 +49,7 @@ const CreateAdPage = () => {
 	const [subTopic, setSubTopic] = useState('')
 	const [subValueTopic, setSubValueTopic] = useState('')
 	const [open, setOpen] = useState(false)
+	const [addressOpen, setAddressOpen] = useState(false)
 	const [subOpen, setSubOpen] = useState(false)
 	const [subValueOpen, setSubValueOpen] = useState(false)
 
@@ -71,17 +74,17 @@ const CreateAdPage = () => {
 		}
 	}
 
-	const handleAddress = async (event) => {
-		setAddress(event.target.value)
-		if (event.target.value !== '') {
-			const {data} = await axios.post('api/position/search', {query: event.target.value})
-			setAddressData(data)
-			setOpen(true);
-		} else {
-			setAddressData([])
-			setOpen(false)
-		}
-	}
+	// const handleAddress = async (event) => {
+	// 	setAddress(event.target.value)
+	// 	if (event.target.value !== '') {
+	// 		const {data} = await axios.post('api/position/search', {query: event.target.value})
+	// 		setAddressData(data)
+	// 		setOpen(true);
+	// 	} else {
+	// 		setAddressData([])
+	// 		setOpen(false)
+	// 	}
+	// }
 
 	const handleSubmit = async (event) => {
 		event.preventDefault()
@@ -165,14 +168,16 @@ const CreateAdPage = () => {
 		}
 	}
 
+	const handleSetAddress = (city, region, district) => {
+	  	setAddress(`${district}, ${region}, ${city}`)
+		setAddressOpen(false)
+	}
 
 	const isLoadingCharacter = character.status === 'loading'
 
 	useEffect(() => {
 		dispatch(fetchCategory())
 		document.title = 'Создание объявления'
-
-
 		const onClick = e => rootEl.current.contains(e.target) || setOpen(false) || setSubOpen(false) || setSubValueOpen(false);
   		document.addEventListener('click', onClick);
   		return () => document.removeEventListener('click', onClick);
@@ -414,41 +419,43 @@ const CreateAdPage = () => {
 						</div>
 
 						<div>
-							<div className="create_ad-descr address">
+							<div className="create_ad-descr address" onClick={() => setAddressOpen(true)}>
 								<h1 className='create_ad-descr-title'>Местоположение</h1>
-								<input type="text" onChange={handleAddress} value={address}
-											 placeholder='Введите адрес' className='create_ad_address' required/>
+								<input type='text' placeholder='Выберите город' value={address} style={{cursor: 'pointer'}}
+									   className='create_ad_address' required
+									   onFocus={() => setAddressOpen(true)} />
 
 								{/* {(addressData.length > 0 && address !== '') ? addressData.map(item => (
 									item.positionStreets ? item.positionStreets.map(itemStreet => (
 										<p onClick={() => setAddress(`${item.name}, ${itemStreet.name}`)}>{item.name}, {itemStreet.name}</p>
 									)) : <p onClick={() => setAddress(item.name + ', ')}>{item.name}</p>
 								)) : null} */}
-								<div className={open ? 'adress-promation' : 'adress-promation ds-none'}>
-								{(addressData.length > 0 && address !== '') ? addressData.map(item => (
-									item.positionStreets ? item.positionStreets.map(itemStreet => (
-										<div className='Edited_filter_select-item' onClick={() => {
-											setAddress(`${item.name}, ${itemStreet.name}`)
-											setAddressData([])
-											setOpen(!open)
-										}}>
-										{"г. " + item.name}, {itemStreet.name}
-										</div>
-									))
-									:
-									<div className='Edited_filter_select-item' onClick={() => {
-											setAddress("г. " + item.name + ', ')
-											setAddressData([])
-											setOpen(!open)
-										}}>
-										{item.name}
-									</div>
-								)) : null}
-								</div>
+
+								{/*<div className={open ? 'adress-promation' : 'adress-promation ds-none'}>*/}
+								{/*{(addressData.length > 0 && address !== '') ? addressData.map(item => (*/}
+								{/*	item.positionStreets ? item.positionStreets.map(itemStreet => (*/}
+								{/*		<div className='Edited_filter_select-item' onClick={() => {*/}
+								{/*			setAddress(`${item.name}, ${itemStreet.name}`)*/}
+								{/*			setAddressData([])*/}
+								{/*			setOpen(!open)*/}
+								{/*		}}>*/}
+								{/*		{"г. " + item.name}, {itemStreet.name}*/}
+								{/*		</div>*/}
+								{/*	))*/}
+								{/*	:*/}
+								{/*	<div className='Edited_filter_select-item' onClick={() => {*/}
+								{/*			setAddress("г. " + item.name + ', ')*/}
+								{/*			setAddressData([])*/}
+								{/*			setOpen(!open)*/}
+								{/*		}}>*/}
+								{/*		{item.name}*/}
+								{/*	</div>*/}
+								{/*)) : null}*/}
+								{/*</div>*/}
 
 							</div>
 						</div>
-
+						{addressOpen ? <ModalMain activeModal={addressOpen} setActiveModal={setAddressOpen}><CitiesModal handleAddress={handleSetAddress}/></ModalMain> : null}
 
 						<div className="create_ad-descr">
 							<h1 className='create_ad-descr-title'>Контакты</h1>

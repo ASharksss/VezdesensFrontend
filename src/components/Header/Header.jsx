@@ -37,15 +37,19 @@ const Header = () => {
 	}, [activeModalCat])
 
 	const handleSearch = () => {
-		navigate({
-			pathname: '/search',
-			search: `query=${search}`
-		})
+		if (search.trim() !== '') {
+			navigate({
+				pathname: '/search',
+				search: `query=${search}`
+			})
+		}
 	}
 
 	useEffect(() => {
 		setActiveModalCat(false)
 		setOpenSubMenu(false)
+		if (location.pathname !== '/search')
+			setSearch('')
 	}, [location.pathname, location.search])
 
 	return (
@@ -74,7 +78,7 @@ const Header = () => {
 							<NavLink to={isAuth ? '/createAd' : '/signin'} className='create_ad-btn'>Подать объявление</NavLink>
 						</div>
 						<div className="header_content-search">
-							<input type="text" placeholder='Искать объявления' className='search-input'
+							<input type="text" placeholder='Искать объявления' className='search-input' value={search}
 										 onChange={event => setSearch(event.target.value)}/>
 							<button className='search-btn' onClick={handleSearch}>
 								<img src={searchSVG} alt="Поиск"/>
