@@ -140,6 +140,7 @@ const CreateAdPage = () => {
 			if (res.data.status === 403) {
 				window.alert(res.data.message)
 			} else {
+				window.alert('Карточка успешна создана')
 				setLoading(false)
 				navigate(`/card/${res.data.ad.id}`)
 			}

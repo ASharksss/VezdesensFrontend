@@ -51,19 +51,10 @@ const SmoothScroll = ({children}) => {
     return (
         <div ref={smoothRef} style={{height: '100vh', overflow: 'auto'}}>
             {children}
-            {isVisible && <button onClick={scrollToTop} id={'buttonUp'} style={{
-                position: 'absolute',
-                left: 0,
-                width: '142px',
-                height: '100vh',
-                bottom: 0,
-                background: 'rgb(246,245,245)',
-                display: 'flex',
-                alignItems: 'start',
-                padding: '15px 5px',
-            }}>
-                <div className='flex items-center '>
-                    <span style={{color:'rgba(181, 183, 189, 1)'}}>Наверх</span> <img src={arrowSVG} alt="Прокрутить наверх" width={10} style={{marginLeft: '15px'}}/>
+            {isVisible && <button onClick={scrollToTop} id={'buttonUp'} className='up-container'>
+                <div className='up-container_content'>
+                    <span className='up-container_text'>Наверх</span>
+                    <img src={arrowSVG} alt="Прокрутить наверх" width={10} className='up-container_img'/>
                 </div>
             </button>}
         </div>

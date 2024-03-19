@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 import {Outlet, useLocation} from "react-router-dom";
 import {useDispatch, useSelector} from "react-redux";
 import Header from "./components/Header/Header";
@@ -15,11 +15,25 @@ const Layout = () => {
 	const dispatch = useDispatch()
 	const {showCitiesModal} = useSelector(state => state.geo)
 
+	const [windowWidth, setWindowWidth] = useState(window.innerWidth);
+
 	const handleCloseModal = () => {
 		dispatch(hideCities())
 	}
 
 	const {hours, minutes, day, month, seconds} = useClock()
+
+	useEffect(() => {
+		const handleResize = () => {
+			setWindowWidth(window.innerWidth);
+		};
+
+		window.addEventListener('resize', handleResize);
+
+		return () => {
+			window.removeEventListener('resize', handleResize);
+		};
+	}, []);
 
 	useEffect(() => {
 		if (location.pathname !== '/signin' && location.pathname !== '/signup' && location.pathname !== '/forgot-password')
@@ -30,7 +44,7 @@ const Layout = () => {
 		<SmoothScroll>
 			{hours !== null &&
 			<div className='timer-container'>
-				<TimerContainer date={{day, month, hours, minutes, seconds}}/>
+				{windowWidth >= 1600 ? <TimerContainer date={{day, month, hours, minutes, seconds}}/> : null}
 			</div>}
 			<div className='container'>
 				{showCitiesModal ? <ModalMain activeModal={showCitiesModal} setActiveModal={handleCloseModal}><CitiesModal /></ModalMain> : null}

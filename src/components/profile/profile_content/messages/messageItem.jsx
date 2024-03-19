@@ -3,7 +3,7 @@ import {NavLink} from "react-router-dom";
 import {formatDateToRelative, numberWithSpaces, relativeDate, STATIC_HOST} from '../../../../utils'
 
 const MessageItem = ({data, seller, status, image}) => {
-  
+
   return (
     <div className='flex items-center message_item'>
       <img src={`${STATIC_HOST}/${image}`} width={116} className='message_item-img' alt="Название товара"
@@ -23,7 +23,7 @@ const MessageItem = ({data, seller, status, image}) => {
       </div>
       <div className={'flex column'} style={{marginLeft: 'auto', marginRight: 15}}>
         <p className='message_info-date' title={formatDateToRelative(new Date(data.lastMessage))}>
-          {relativeDate(new Date(data.lastMessage))}
+          {data.lastMessage !== null ? relativeDate(new Date(data.lastMessage)) : null}
         </p>
         {data.unreadCount !== '0' ?
           <span style={{
