@@ -25,7 +25,6 @@ const chunkArray = (myArray, chunkSize) => {
 
 const CatalogBoardPage = () => {
   const dispatch = useDispatch()
-  const navigate = useNavigate()
   const location = useLocation()
   const {categoriesList} = useSelector(state => state.categories)
   const [searchParams, setSearchParams] = useSearchParams()

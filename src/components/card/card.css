@@ -133,9 +133,13 @@
 
 }
 
+.card_service-img {
+    border-radius: 15px;
+}
+
 .service_description-pre {
     width: 473px;
-    height: 135px;
+    height: 90px;
     overflow: hidden;
     white-space: pre-line;
     font-family: OpenSansRegular;

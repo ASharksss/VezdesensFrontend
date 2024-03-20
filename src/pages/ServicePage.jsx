@@ -7,6 +7,8 @@ import {fetchCategoryList} from "../redux/slices/categorySlice";
 import PhoneModal from "../components/modal/phoneModal";
 import ModalMain from "../components/modal/modalMain";
 import useCatalogCard from "../redux/hooks/useCatalogCard";
+import EnterFilter from "../components/filters/enterFilter";
+import ChoiceFilter from "../components/filters/choiceFilter";
 
 
 const ServicePage = () => {
@@ -21,8 +23,17 @@ const ServicePage = () => {
 	const [title, setTitle] = useState('')
 	const [ignoreIds, setIgnoreIds] = useState([])
 	const [offset, setOffset] = useState(0)
-	const [lastOffset, setLastOffset] = useState(0)
 	const [objectId, setObjectId] = useState(parseInt(paramsObjectId))
+
+	const [query, setQuery] = useState(null)
+	const [choiceFilter, setChoiceFilter] = useState([]);
+	const [enterFilter, setEnterFilter] = useState([]);
+	const [showAds, setShowAds] = useState(false)
+	const [userChange, setUserChange] = useState(false)
+	const [openChar, setOpenChar] = useState(false)
+	const [lastChoiceLength, setLastChoiceLength] = useState(0);
+	const [lastEnterLength, setLastEnterLength] = useState(0);
+
 	const dispatch = useDispatch()
 	const {categoriesList} = useSelector(state => state.categories)
 
@@ -34,7 +45,7 @@ const ServicePage = () => {
 		}
 	}, [paramsObjectId, paramsCategory, paramsSubCategory])
 
-	const {data, loading, hasMore} = useCatalogCard(offset, paramsObjectId, paramsSubCategory, paramsCategory, null)
+	const {data, loading, hasMore} = useCatalogCard(offset, paramsObjectId, paramsSubCategory, paramsCategory, query)
 
 
 	useEffect(() => {
@@ -47,14 +58,54 @@ const ServicePage = () => {
 		}
 	}, [location.search, paramsObjectId, paramsCategory, paramsSubCategory])
 
-  useEffect(() => {
-    if(!isLoading && categoriesList.items[0].length > 0) {
-      categoriesList.items[0].subCategories.map(item => {
-        if(parseInt(item.id) === parseInt(paramsSubCategory))
-          setTitle(item.name)
-      })
-    }
-  }, [isLoading])
+
+	const handleShowAdsByParams = async () => {
+		console.log(query)
+		let queryValue = ''
+		if (choiceFilter.length > 0) {
+			choiceFilter.map(item => {
+				if (item.value.length > 1) {
+					queryValue += `${item.id}=[${item.value}], `
+				} else {
+					queryValue += `${item.id}=${item.value}, `
+				}
+			})
+		}
+		if (enterFilter.length > 0) {
+			enterFilter.map(item => {
+				queryValue += `${item.id}=${item.value}, `
+			})
+		}
+		setQuery(queryValue.slice(0, -2))
+		setOffset(0)
+		setShowAds(false)
+	}
+
+	const handleResetSearch = () => {
+		window.location.reload()
+	}
+
+	useEffect(() => {
+		if (choiceFilter.length > 0 || enterFilter.length > 0) {
+			setShowAds(true)
+			setUserChange(true)
+			if (choiceFilter.length !== lastChoiceLength) {
+				setLastChoiceLength(choiceFilter.length)
+			}
+			if (enterFilter.length !== lastEnterLength) {
+				setLastEnterLength(choiceFilter.length)
+			}
+		}
+	}, [choiceFilter, enterFilter])
+
+	useEffect(() => {
+	if(!isLoading && categoriesList.items[0].length > 0) {
+	  categoriesList.items[0].subCategories.map(item => {
+		if(parseInt(item.id) === parseInt(paramsSubCategory))
+		  setTitle(item.name)
+	  })
+	}
+	}, [isLoading])
 
 	const handleCategoryClick = (category) => {
 		setSelectedCategory(category);
@@ -89,7 +140,50 @@ const ServicePage = () => {
                                 setSearchParams={setSearchParams}
                                 handleCategoryClick={handleCategoryClick}
                                 selectedCategory={selectedCategory}/> : null}
-                                </div>
+			{!isLoading ?
+				<div className="filters">
+					<div className='buttons'>
+						<button className='search'
+								onClick={showAds ? handleShowAdsByParams : null} disabled={!showAds}
+						>Показать
+						</button>
+						<button className='reset'
+								onClick={userChange ? handleResetSearch : null} disabled={!userChange}
+						>Сбросить
+						</button>
+					</div>
+					<EnterFilter setEnterFilter={setEnterFilter}/>
+					{!isLoading ? categoriesList.items[1]?.map((item, index) => item.characteristic.required ?
+						item.characteristic.typeCharacteristic?.name === 'enter' ?
+							<EnterFilter name={item.characteristic.name} key={`main-enterFilter-${index}=${item.name}`}
+										 id={item.characteristic.id} setEnterFilter={setEnterFilter}/> : // внутри компонентов расписано
+							<ChoiceFilter name={item.characteristic.name} data={item.characteristic.characteristicValues}
+										  id={item.characteristic.id}
+										  key={`main-choiceFilter-${index}=${item.name}`}
+										  setChoiceFilter={setChoiceFilter}/> : null
+					) : null}
+
+					<div className='filter_title'
+						 onClick={() => setOpenChar(!openChar)}
+					>{openChar ? 'Скрыть характеристики' : 'Раскрыть все характеристики'}</div>
+
+					{
+						openChar ?
+							<div className='filters_dop'>
+								{!isLoading ? categoriesList.items[1]?.map((item, index) => !(item.characteristic.required) ?
+									item.characteristic.typeCharacteristic?.name === 'enter' ?
+										<EnterFilter name={item.characteristic.name} key={`enterFilter-${index}=${item.name}`}
+													 id={item.characteristic.id} setEnterFilter={setEnterFilter}/> : // внутри компонентов расписано
+										<ChoiceFilter name={item.characteristic.name} data={item.characteristic.characteristicValues}
+													  id={item.characteristic.id}
+													  key={`choiceFilter-${index}=${item.name}`}
+													  setChoiceFilter={setChoiceFilter}/> : null
+								) : null}
+							</div> : null
+
+					}
+				</div> : null}
+		</div>
 				<div className="catalogBoardPage_cards" style={{minWidth: '900px'}}>
           {data.length > 0 ? data.map(item => (
 						<React.Fragment ref={lastElementRef}>

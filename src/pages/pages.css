@@ -6,6 +6,17 @@
 
 .catalogBoardPage_categories {
     margin-right: 15px;
+    width: 300px;
+    max-height: calc(100vh - 210px);
+    overflow-x: auto;
+}
+
+.catalogBoardPage_categories::-webkit-scrollbar{
+    width: 4px;
+}
+.catalogBoardPage_categories::-webkit-scrollbar-thumb {
+    background-color: #8c8c8c;
+    box-shadow: inset 1px 1px 10px rgba(0,0,0,0.135);
 }
 
 .catalogBoardPage-title {
