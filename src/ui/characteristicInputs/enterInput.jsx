@@ -12,10 +12,10 @@ const EnterInput = ({data, setEnterValue, id, isRequired=false, mainValue=''}) =
 				const existingEntryIndex = prevState.findIndex((entry) => entry.id === id);
 				if (existingEntryIndex !== -1) {
 					const updatedEnterValue = [...prevState];
-					updatedEnterValue[existingEntryIndex] = {id: id, value: parseFloat(value)};
+					updatedEnterValue[existingEntryIndex] = {id: id, value: value};
 					return updatedEnterValue;
 				} else {
-					return [...prevState, {id: id, value: parseFloat(value)}];
+					return [...prevState, {id: id, value: value}];
 				}
 			})
 		}

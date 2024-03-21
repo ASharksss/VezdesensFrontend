@@ -69,6 +69,10 @@ const CardEditPage = () => {
     }))
 
   useEffect(() => {
+    setMainImage(saveImages[0]?.key)
+  }, [saveImages])
+
+  useEffect(() => {
     if (adCharacteristic.length > 0) {
       const timeArray = characteristicData || []
       const groupByCharacteristicId = adCharacteristic[1].reduce((acc, {characteristic, characteristicValue}) => {

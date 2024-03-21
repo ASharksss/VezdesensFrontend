@@ -34,7 +34,6 @@ const CreateAdPage = () => {
 	const [typeAd, setTypeAd] = useState('standart')
 	const [description, setDescription] = useState('')
 	const [address, setAddress] = useState('')
-	const [addressData, setAddressData] = useState([])
 	const [title, setTitle] = useState('')
 	const [objectId, setObjectId] = useState(1)
 	const [phoneShow, setPhoneShow] = useState(0)
@@ -74,17 +73,9 @@ const CreateAdPage = () => {
 		}
 	}
 
-	// const handleAddress = async (event) => {
-	// 	setAddress(event.target.value)
-	// 	if (event.target.value !== '') {
-	// 		const {data} = await axios.post('api/position/search', {query: event.target.value})
-	// 		setAddressData(data)
-	// 		setOpen(true);
-	// 	} else {
-	// 		setAddressData([])
-	// 		setOpen(false)
-	// 	}
-	// }
+	useEffect(() => {
+		setMainImage(saveImages[0]?.key)
+	}, [saveImages])
 
 	const handleSubmit = async (event) => {
 		event.preventDefault()
@@ -198,25 +189,10 @@ const CreateAdPage = () => {
 					<form className="create_ad_wrapper" onSubmit={handleSubmit}>
 						<div className="create_ad-category" >
 							<h2 className='create_ad-category-title'>Категория</h2>
-							{/* Страый селектор  */}
-							{/* <select className='create_ad-select' onChange={event => {
-								dispatch(newFetchCategory())
-								setEnterValue([])
-								setSelectValue([])
-								dispatch(fetchCategoryForCharacter())
-								dispatch(fetchSubCategories(event.target.value))
-							}}
-											required>
-								<option hidden>Выберите категорию</option>
-								{
-									categories.items.map((item, index) => (
-										<option key={'category' + index} value={item.id}>{item.name}</option>
-									))
-								}
-							</select> */}
 							<div className='jy-start' ref={rootEl}>
 							<div className="Edited_appeal-select" >
-								<div className="flex items-center space-between Edited_filter-header w-250 mr-r" onClick={() => setOpen(!open)} required>
+								<div className="flex items-center space-between Edited_filter-header w-250 mr-r"
+									 onClick={() => setOpen(!open)} required>
                  					{/* Вывожу значние topic  */}
 									{topic ? topic.indexOf('/') > 0 ? topic.split('/')[1] : topic : 'Выберите категорию' }
 									<img src={arrow_icon} alt=""/>
@@ -240,23 +216,9 @@ const CreateAdPage = () => {
 										}
 								</div>
 							</div>
-							{/* <select className='create_ad-select' disabled={categories.subCategories.status === 'loading'}
-											onChange={event => {
-												dispatch(fetchCategoryForCharacter())
-												setEnterValue([])
-												setSelectValue([])
-												dispatch(fetchObjects(event.target.value))
-											}} required>
-								<option hidden>Выберите подкатегорию</option>
-								{
-									categories.subCategories.items.map((item, index) => (
-										<option key={'subCategory' + index}
-														value={item.id}>{item.name.indexOf('/') > 0 ? item.name.split('/')[1] : item.name}</option>
-									))
-								}
-							</select> */}
 							<div className="Edited_appeal-select" >
-								<div className="flex items-center space-between Edited_filter-header mr-r" onClick={() => topic ? setSubOpen(!subOpen) : null} required>
+								<div className={`flex items-center space-between Edited_filter-header mr-r${topic.trim() === '' ? ' disabled' : ''}`}
+									 onClick={() => topic ? setSubOpen(!subOpen) : null} required>
                  					{/* Вывожу значние topic  */}
 									{subTopic.indexOf('/') > 0 ? subTopic.split('/')[1] : subTopic ? subTopic :'Выберите подкатегорию' }
 									<img src={arrow_icon} alt=""/>
@@ -277,24 +239,10 @@ const CreateAdPage = () => {
 										))
 										}
 								</div>
-
 							</div>
-							{/*	<select className='create_ad-select' disabled={categories.subCategories.objects.status === 'loading'}
-												onChange={event => {
-													setObjectId(parseInt(event.target.value))
-													setEnterValue([])
-													setSelectValue([])
-													dispatch(fetchCharacterObjects(event.target.value))
-												}} required>
-									<option hidden>Выберите значение</option>
-									{
-										categories.subCategories.objects.items.map((item, index) => (
-											<option key={'object' + index} value={item.id}>{item.name.indexOf('/') > 0 ? item.name.split('/')[1] : item.name}</option>
-										))
-									}
-								</select> */}
 							<div className="Edited_appeal-select" >
-								<div className="flex items-center space-between Edited_filter-header w-250 mr-r" onClick={() => subTopic ?  setSubValueOpen(!subValueOpen) : null} required>
+								<div className={`flex items-center space-between Edited_filter-header w-250 mr-r${subTopic.trim() === '' ? ' disabled' : ''}`}
+									 onClick={() => subTopic ?  setSubValueOpen(!subValueOpen) : null} required>
                  					{/* Вывожу значние topic  */}
 									<p className='Edited_filter-header-p'>
 										{subValueTopic.indexOf('/') > 0 ? subValueTopic.split('/')[1] : subValueTopic ? subValueTopic :'Выберите Значение' }
@@ -318,7 +266,6 @@ const CreateAdPage = () => {
 								</div>
 							</div>
 							</div>
-
 						</div>
 
 						<div className="create_ad-character">

@@ -131,8 +131,7 @@ const UploadImages = ({cropData, setCropData, mainSrcData = [], mainImage, setMa
   return (
     <div>
       <div>
-        {(mainImage === '' || mainImage === null) ?
-          <span className='uploadPhoto-description'>Выберите 1 фотографию, как основную, для отображения на главной странице</span> : null}
+          <span className='uploadPhoto-description'>Выберите 1 фотографию, как основную, для отображения на главной странице</span>
         <p className='mb-20'>Количество загруженных фото: {srcData.length} / 15</p>
         <div className="images-flex">
           {cropData.length > 0 ? cropData.map((item) => (
@@ -186,9 +185,9 @@ const UploadImages = ({cropData, setCropData, mainSrcData = [], mainImage, setMa
               crop={onCrop}
             />
             <button type='button' className='uploadPhoto-btn' onClick={() => handleSaveImage()}>Сохранить</button>
-            <button type='button' className='uploadPhoto-btn-next'
+            {srcData.length > 1 ? <button type='button' className='uploadPhoto-btn-next'
                     onClick={() => handleNextImage()}>Дальше
-            </button>
+            </button> : null}
           </>}/>
       )}
     </div>

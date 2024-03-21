@@ -38,7 +38,6 @@ const GeoSlice = createSlice({
             document.cookie = `position=${action.payload.slug}; path=/; expires=${date.setDate(date.getDate() + 365)}`
         },
         takeFromCookie: (state, action) => {
-            console.log(action.payload)
             state.mainSlugCity = action.payload
             const localCityPath = localStorage.getItem('city_path')
             const localCityName = localStorage.getItem('city_name')

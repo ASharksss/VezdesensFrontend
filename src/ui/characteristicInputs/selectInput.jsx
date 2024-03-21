@@ -29,17 +29,24 @@ const SelectInput = ({data, setSelectValue, id, isRequired = false, mainValue = 
       setSelectValue((prevState) => removeById(prevState))
     }
   }, [id, value]);
+
+  const handleReset = (event) => {
+    setTopic('')
+    setValue('')
+    setOpen(!open)
+    setSelectValue((prevState) => {
+      const existingEntryIndex = prevState.findIndex((entry) => entry.id === id);
+      if (existingEntryIndex !== -1) {
+        return prevState.filter(item => item.id !== id);
+      } else {
+        return prevState;
+      }
+    })
+  }
+
   return (
     <div>
       <h1 className='enter_input-title'>{data.name}</h1>
-      {/* <select defaultValue={mainValue !== '' ? mainValue : null}
-							className='select_input'
-							onChange={event => setValue(event.target.value)} required={isRequired}>
-				<option hidden>Выберите значение</option>
-				{data['characteristicValues'].map((item, index) => (
-					<option key={'characteristicValues' + index} value={item.id}>{item.name}</option>
-				))}
-			</select> */}
       <div className="Edited_appeal-select">
         <div className="flex items-center space-between Edited_filter-header w-237" onClick={() => setOpen(!open)}
              required={isRequired}>
@@ -50,6 +57,9 @@ const SelectInput = ({data, setSelectValue, id, isRequired = false, mainValue = 
           <img src={arrow_icon} alt=""/>
         </div>
         <div className={open ? 'block Edited_filter_select-body' : 'filter_select-body-none'}>
+          {!isRequired ? <div className='Edited_filter_select-item' onClick={handleReset}>
+            Выберите значение
+          </div> : null}
           {
             data['characteristicValues'].map((item, index) => (
               // Предаю значиение item.name после topic присваиваю значиение при клике

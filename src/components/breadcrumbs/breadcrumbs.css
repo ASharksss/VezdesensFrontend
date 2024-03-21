@@ -4,7 +4,16 @@
     margin-bottom: 25px;
     font-family: 'OpenSansRegular';
     width: 1390px;
-
+}
+.breadcrumbLink {
+    color: rgba(181, 183, 189, 1);
+    margin: 0 5px;
+}
+.breadcrumbLink:first-child {
+    margin-left: 0;
+}
+.breadcrumbLink:last-child {
+    margin-right: 0;
 }
 .txt-black{
     color: black;
