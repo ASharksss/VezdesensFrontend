@@ -51,7 +51,7 @@ const Layout = () => {
 				{showCitiesModal ? <ModalMain activeModal={showCitiesModal} setActiveModal={handleCloseModal}><CitiesModal /></ModalMain> : null}
 				{(location.pathname !== '/signin' && location.pathname !== '/signup' && location.pathname !== '/forgot-password') && <Header/> }
 				<Outlet/>
-				{(location.pathname !== '/signin' && location.pathname !== '/signup' && location.pathname !== '/' && location.pathname !== '/forgot-password') && <Footer /> }
+				{(location.pathname !== '/signin' && location.pathname !== '/signup' && location.pathname !== '/' && location.pathname !== '/createAd' && location.pathname !== '/forgot-password') && <Footer /> }
 			</div>
 		</SmoothScroll>
 	);
