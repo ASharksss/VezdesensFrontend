@@ -60,6 +60,10 @@
   margin-bottom: 20px;
 }
 
+.mb-30 {
+  margin-bottom: 30px;
+}
+
 .mb-40 {
   margin-bottom: 40px;
 }
@@ -299,7 +303,8 @@ body {
 }
 
 .disabled {
-  color: rgba(128, 128, 128, 0.7);
+  background-color: rgba(128, 128, 128, 0.7)!important;
+  color: #000!important;
 }
 
 .mr-r{

@@ -270,6 +270,7 @@
 
 .create_ad_btns {
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
     margin-top: 100px;
@@ -287,9 +288,19 @@
     margin-top: 30px;
 }
 
+.create_ad_agree {
+    display: flex;
+    width: 100%;
+    justify-content: flex-start;
+}
+
 .create_ad-contact {
     margin-left: 10px;
     font-size: 14px;
+}
+.create_ad-contact span a {
+    text-decoration: underline;
+    color: #070C20;
 }
 
 .created_ad-radio {

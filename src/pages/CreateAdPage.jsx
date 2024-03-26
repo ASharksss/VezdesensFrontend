@@ -2,7 +2,7 @@ import React, {useEffect, useRef, useState} from 'react';
 import InputMask from 'react-input-mask';
 import {useDispatch, useSelector} from "react-redux";
 import axios from "axios";
-import {useNavigate} from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
 import CreateAdItem from "../components/createAdItem/createAdItem";
 import UploadPhotoPremium from "../components/uploadPhoto/uploadPhotoPremium";
 import UploadPhotoVip from "../components/uploadPhoto/uploadPhotoVip";
@@ -12,7 +12,7 @@ import EnterInput from "../ui/characteristicInputs/enterInput";
 import SelectInput from "../ui/characteristicInputs/selectInput";
 import CheckboxInput from "../ui/characteristicInputs/checkboxInputs";
 import {fetchCategory, fetchObjects, fetchSubCategories, newFetchCategory} from "../redux/slices/categorySlice";
-import {DataURIToBlob, numberWithSpaces} from "../utils";
+import {DataURIToBlob, numberWithSpaces, STATIC_HOST} from "../utils";
 import LoadGIF from '../asserts/load.gif'
 import './pages.css'
 import BookingCalc from "../components/bookingCalc/bookingCalc";
@@ -51,6 +51,8 @@ const CreateAdPage = () => {
 	const [addressOpen, setAddressOpen] = useState(false)
 	const [subOpen, setSubOpen] = useState(false)
 	const [subValueOpen, setSubValueOpen] = useState(false)
+	const [agreeOffers, setAgreeOffers] = useState(false)
+	const [agreeRules, setAgreeRules] = useState(false)
 
 	const rootEl = useRef(null);
 
@@ -178,6 +180,7 @@ const CreateAdPage = () => {
 	useEffect(() => {
 		dispatch(fetchBookingInfo(typeAd))
 		setPreviewImage(null)
+		setAgreeOffers(false)
 	}, [typeAd])
 
 
@@ -440,11 +443,38 @@ const CreateAdPage = () => {
 							</div>
 						</div>
 						<div className="create_ad_btns">
-							<button className='create_ad_btn' type='submit'  disabled={loading}>
+							<div className='mb-20 create_ad_agree'>
+								<div className='flex column'>
+									<div className="flex created_ad-radio">
+										<input type="checkbox" id='agreeRules' name='agreeRules'
+											   onChange={() => setAgreeRules(prevState => !prevState)}
+											   className='mob-input' value={agreeRules}
+										/>
+										<label htmlFor="agreeRules" className='create_ad-contact'>
+											<span>
+												Я ознакомился с <Link to={`${STATIC_HOST}/docs/Rules_for_publication_of_information_by_user_on_the_vezdesens.pdf`}
+																	  target={'_blank'}>правилами публикации на сайте</Link>
+											</span>
+										</label>
+									</div>
+									{typeAd !== 'standart' ? <div className="flex created_ad-radio">
+										<input type="checkbox" id='agreeOffers' name='agreeOffers'
+											   onChange={() => setAgreeOffers(prevState => !prevState)}
+											   className='mob-input' value={agreeOffers}
+										/>
+										<label htmlFor="agreeOffers" className='create_ad-contact'>
+											<span>
+												Я ознакомился с <Link to={`${STATIC_HOST}/docs/Offer_for_site_vezdesens.pdf`}
+																	  target={'_blank'}>офертой сайта</Link>
+											</span>
+										</label>
+									</div> : null}
+								</div>
+							</div>
+							<button className={`create_ad_btn${!agreeRules || (typeAd !== 'standart' && !agreeOffers) ? ' disabled': ''}`} type='submit' disabled={loading}>
 								{loading ? <><img src={LoadGIF} width={32} alt={"Отправка"}/> Отправка...</> : 'Разместить'}
 							</button>
 						</div>
-
 					</form>
 				</div>
 			</div>

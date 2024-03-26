@@ -8,6 +8,7 @@ import TimerContainer from "./ui/timer/TimerContainer";
 import CitiesModal from "./components/Header/CityModal/CitiesModal";
 import ModalMain from "./components/modal/modalMain";
 import {hideCities} from "./redux/slices/geoSlice";
+import Footer from "./components/Footer/Footer";
 
 const Layout = () => {
 	const location = useLocation();
@@ -50,6 +51,7 @@ const Layout = () => {
 				{showCitiesModal ? <ModalMain activeModal={showCitiesModal} setActiveModal={handleCloseModal}><CitiesModal /></ModalMain> : null}
 				{(location.pathname !== '/signin' && location.pathname !== '/signup' && location.pathname !== '/forgot-password') && <Header/> }
 				<Outlet/>
+				{(location.pathname !== '/signin' && location.pathname !== '/signup' && location.pathname !== '/' && location.pathname !== '/forgot-password') && <Footer /> }
 			</div>
 		</SmoothScroll>
 	);

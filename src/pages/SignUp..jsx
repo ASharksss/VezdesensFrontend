@@ -1,16 +1,18 @@
 import React, {useState} from 'react';
 import InputMask from 'react-input-mask';
-import {NavLink, useNavigate} from "react-router-dom";
+import {Link, NavLink, useNavigate} from "react-router-dom";
 import {useDispatch} from "react-redux";
 import './pages.css'
 import eyeClose from '../asserts/icons/eyeClose.svg'
 import eyeOpen from '../asserts/icons/eyeOpen.svg'
 import {fetchRegistration} from "../redux/slices/userSlice";
+import {STATIC_HOST} from "../utils";
 
 const SignUp = () => {
 	const navigate = useNavigate()
 	const dispatch = useDispatch()
 	const [showPassword, setShowPassword] = useState(false)
+	const [agree, setAgree] = useState(false)
 	const [name, setName] = useState('')
 	const [surName, setSurName] = useState('')
 	const [login, setLogin] = useState('')
@@ -24,6 +26,7 @@ const SignUp = () => {
 	}
 
 	const handleSubmit = async (event) => {
+		if (!agree) return window.alert('Надо ознакомиться с правилами сайта и принять их');
 		event.preventDefault()
 		setError('')
 		const data = {
@@ -75,9 +78,20 @@ const SignUp = () => {
 					</NavLink>
 				</div>
 				<div className="auth_form-btns">
-					<button type='submit' className='auth_btn login'>Зарегистрироваться</button>
+					<div className="mb-20 flex">
+						<input type="checkbox" id='agreeRules' name='agreeRules'
+							   onChange={() => setAgree(prevState => !prevState)}
+							   className='mob-input' value={agree}
+						/>
+						<label htmlFor="agreeRules" className='create_ad-contact'>
+							<span>
+								Я ознакомился с <Link to={`${STATIC_HOST}/docs/Personal_data_processing_policy_vezdesens.pdf`}
+													  target={'_blank'}>политикой обработки данных</Link>
+							</span>
+						</label>
+					</div>
+					<button type='submit' className={`auth_btn signin${!agree ? ' disabled' : ''}`} disabled={!agree}>Зарегистрироваться</button>
 				</div>
-
 			</form>
 		</div>
 	);
