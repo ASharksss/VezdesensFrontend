@@ -67,6 +67,7 @@ function App() {
           <Route path="/addObject" element={<AddObject/>}/>
           <Route path="/signin" element={<SignIn/>}/>
           <Route path="/signup" element={<SignUp/>}/>
+          <Route path="/company/register" element={<SignUpCompanies/>}/>
           <Route path="/signupCompanies" element={<SignUpCompanies/>}/>
           <Route path="/forgot-password" element={<ForgotPassword/>}/>
           <Route path="/supportPage" element={<SupportPage/>}/>

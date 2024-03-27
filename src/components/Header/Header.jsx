@@ -70,7 +70,7 @@ const Header = () => {
 					</div>
 					<div className="header_content-main">
 						<div className="header_content-ads">
-							<button onClick={() => alert('Функция временно не доступна')}>Продать как компания</button>
+							<button onClick={() => navigate('/company/register')}>Продать как компания</button>
 							{isAuth ?
 								<button onClick={() => navigate({pathname: `/profile/${user.items.id}`, hash: '#ads'})}><span>Мои объявления</span>
 								</button> :

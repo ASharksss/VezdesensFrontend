@@ -15,6 +15,9 @@
     font-size: 24px;
     margin-bottom: 10px;
 }
+.profile_card-companyName {
+    font-size: 16px;
+}
 
 .news_banner {
     width: 315px;
@@ -28,6 +31,8 @@
 
 .profile_container {
     margin-top: 50px;
+    margin-bottom: 50px;
+    min-height: 75vh;
 }
 
 .profile_wrapper {

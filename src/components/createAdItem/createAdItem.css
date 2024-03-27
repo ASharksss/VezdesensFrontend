@@ -12,13 +12,13 @@
     display: none;
 }
 
-  
+
  /* для элемента label связанного с .create_ad_size-checkbox  */
  .create_ad_size-checkbox+label {
     display: inline-flex;
     align-items: center;
     user-select: none;
-   
+
   }
   /* создание в label псевдоэлемента  before со следующими стилями */
   .create_ad_size-checkbox+label::before {
@@ -36,7 +36,7 @@
     background-position: center center;
     background-size: 50% 50%;
   }
-  
+
   /* стили при наведении курсора на радио */
   .create_ad_size-checkbox:not(:disabled):not(:checked)+label:hover::before {
     border-color: #b3d7ff;
@@ -94,6 +94,7 @@
     font-size: 14px;
     line-height: 20.68px;
     margin-top: 20px;
+    margin-right: 15px;
 }
 
 .create_ad-blocks {

@@ -7,9 +7,10 @@ import Favorite from "../../ui/buttons/favorite";
 import Button from "../../ui/buttons/button";
 import message from "../../asserts/icons/message.svg"
 import Rating from "../../ui/rating/rating";
-import {formatDate, numberWithSpaces, relativeDate} from "../../utils";
+import {numberWithSpaces} from "../../utils";
+import isCompanySVG from '../../asserts/is_company.svg';
 
-const CardInfo = ({userId, price, sellerName, sellerCreated, address, setActiveModal, setTypeModal, id, favorite, rating, show}) => {
+const CardInfo = ({userId, price, sellerName, sellerCreated, address, setActiveModal, setTypeModal, id, favorite, rating, show, companyName, isCompany}) => {
 	const {isAuth, user} = useSelector(state => state.user)
 	return (
 		<div className='card_info'>
@@ -31,8 +32,9 @@ const CardInfo = ({userId, price, sellerName, sellerCreated, address, setActiveM
 			</div>
 			<div>
 				<div className='seller_info'>
-					<NavLink to={`/profile/${userId}`}>
-						<h2 className='seller_info-name'>{sellerName}</h2>
+					<NavLink to={`/profile/${userId}`} className='seller_info_link'>
+						<h2 className='seller_info-name'>{isCompany ? companyName : sellerName}</h2>
+						{isCompany ? <img src={isCompanySVG} width={15} height={15} alt={companyName} style={{marginLeft: 5}}/> : null}
 					</NavLink>
 					<p className='seller_info-date'>На сервисе с {formatDateToRegistration(new Date(sellerCreated))}</p>
 				</div>

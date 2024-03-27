@@ -6,6 +6,7 @@ import Button from "../../ui/buttons/button";
 import ModalMain from "../modal/modalMain";
 import RatingModal from "../modal/ratingModal";
 import EditModal from "../modal/editModal";
+import isCompanySVG from '../../asserts/is_company.svg'
 
 const ProfileCard = ({avatar, dataUser}) => {
 	const [modalShow, setModalShow] = useState(false)
@@ -35,6 +36,12 @@ const ProfileCard = ({avatar, dataUser}) => {
 					<div className={'flex'}>
 						<h1 className='profile_card-name bold'>{dataUser.name}</h1>
 					</div>
+					{dataUser?.isCompany ?
+						<div className="flex mb-10">
+							<h1 className='profile_card-companyName'>{dataUser?.companyName}</h1>
+							<img src={isCompanySVG} height={15} width={15} title={dataUser?.companyName} style={{marginLeft: 10}}
+									 alt={dataUser?.companyName ? dataUser.companyName : 'Название компании'}/>
+						</div> : null}
 					{isAuth ? <p className='profile_card-number'>{dataUser.phone}</p> : null}
 				</div>
 			</div>

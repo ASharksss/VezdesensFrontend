@@ -97,8 +97,8 @@ const CardAd = ({data, setData, isLoading, setIsLoading, setForbidden}) => {
 					</div>
 				</div>
 				<CardInfo price={data.ad.price} address={data.ad.address} id={data.ad.id} favorite={data.ad.favorites} show={data.ad.showPhone}
-									sellerCreated={data.ad.user.createdAt} userId={data.ad.user.id} rating={data.ad.user.ratings}
-									sellerName={data.ad.user.name} setActiveModal={setActiveModal} setTypeModal={setTypeModal}/>
+									sellerCreated={data.ad.user.createdAt} userId={data.ad.user.id} rating={data.ad.user.ratings} companyName={data.ad.user.companyName}
+									sellerName={data.ad.user.name} setActiveModal={setActiveModal} setTypeModal={setTypeModal} isCompany={data.ad.user.isCompany}/>
 			</div>
 
 			{

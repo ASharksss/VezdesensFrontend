@@ -173,11 +173,17 @@
     cursor: pointer;
 }
 
+.seller_info_link {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin-bottom: 5px;
+}
+
 .seller_info-name {
     font-size: 18px;
     color: rgba(7, 12, 32, 1);
     font-weight: bold;
-    margin-bottom: 5px;
 }
 
 .seller_info-name:hover {

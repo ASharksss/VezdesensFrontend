@@ -9,8 +9,8 @@ const BookingCalc = ({bookingDateStart, bookingDateEnd, setBookingStartDate, set
 
 	const {items} = useSelector(state => state.ad.bookingInfo)
 
-	const start = bookingDateStart !== null ? new Date(bookingDateStart) : null
-	const end = bookingDateEnd !== null ? new Date(bookingDateEnd) : null
+	let start = bookingDateStart !== null ? new Date(bookingDateStart) : null
+	let end = bookingDateEnd !== null ? new Date(bookingDateEnd) : null
 	const [days, setDays] = useState(0)
 	const [loading, setLoading] = useState(false)
 	const [valueDate, setValueDate] = useState(null)
@@ -33,6 +33,14 @@ const BookingCalc = ({bookingDateStart, bookingDateEnd, setBookingStartDate, set
 			setBookedDate([])
 		}
 	}, [position])
+	useEffect(() => {
+		setDays(0)
+		setBookingStartDate(null)
+		setBookingEndDate(null)
+		setValueDate(null)
+		start = null
+		end = null
+	}, [typeAd])
 
 	useEffect(() => {
 		if (valueDate !== null) {
@@ -50,13 +58,13 @@ const BookingCalc = ({bookingDateStart, bookingDateEnd, setBookingStartDate, set
 	}
 
 	useEffect(() => {
-		if(end !== null)
+		if(end !== null && bookingDateEnd !== null)
 			getDays()
-	}, [end])
+	}, [bookingDateEnd])
 
 	return (
 		<div className='booking'>
-			<h1 className='booking-title'>Бронирование рекламного баннера</h1>
+			<h1 className='booking-title'>Бронирование {typeAd === 'standartPlus' ? 'стандрт+' : typeAd === 'vip' ? 'ВИП' : 'премиум'} объявления</h1>
 			<div className="flex">
 				<div className="booking_startDate flex column">
 					{typeAd === 'premium' ?
@@ -90,14 +98,14 @@ const BookingCalc = ({bookingDateStart, bookingDateEnd, setBookingStartDate, set
 				</div>
 				<div className="booking_endDate flex column">
 					<div className='mt-50'>
-						<label className='label_calc'>Количество дней</label>
+						<label className='label_calc'>Количество суток</label>
 						<span className='booking_info-text'>{bookingDateEnd === null ? 0 :
 							<span>{days}</span>}</span>
-						<label className='label_calc'>Стоимость 1 дня</label>
+						<label className='label_calc'>Цена за 1 сутки</label>
 						<span className='booking_info-text'>{items.length > 0 ? items[0].price : 0 } р</span>
 						<label className='label_calc'>Общая сумма</label>
 						<span className='booking_info-text'>{(bookingDateEnd === null && items.length === 0) ? null :
-							<span>{items[0].price * days + ' р'}</span>}</span>
+							<span>{items[0]?.price * days + ' р'}</span>}</span>
 					</div>
 
 				</div>
