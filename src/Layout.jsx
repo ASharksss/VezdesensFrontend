@@ -47,7 +47,7 @@ const Layout = () => {
 			<div className='timer-container'>
 				{windowWidth >= 1600 ? <TimerContainer date={{day, month, hours, minutes, seconds}}/> : null}
 			</div>}
-			<div className='container'>
+			<div className='container_layout'>
 				{showCitiesModal ? <ModalMain activeModal={showCitiesModal} setActiveModal={handleCloseModal}><CitiesModal /></ModalMain> : null}
 				{(location.pathname !== '/signin' && location.pathname !== '/signup' && location.pathname !== '/forgot-password' && location.pathname !== '/company/register') && <Header/> }
 				<Outlet/>

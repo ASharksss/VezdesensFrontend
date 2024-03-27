@@ -117,6 +117,16 @@ body {
   width: 1518px;
   margin: 0 auto;
 }
+
+.container_layout {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  width: 1518px;
+  min-height: 100vh;
+  margin: 0 auto;
+}
+
 .grey{
   color: grey;
 }
