@@ -27,6 +27,7 @@ const CommercialBlocksLss = ({items}) => {
                       favorite={item.favorites}
                       date={item.date}
                       id={item.id}
+                      show={item.showPhone}
                 />
             ))}
             {items !== undefined && (length === 2 || length === 1) ? (

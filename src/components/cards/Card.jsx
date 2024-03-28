@@ -32,8 +32,8 @@ const Card = ({classname, ad_image, title, address, date, price, id, favorite, t
           {
             classname === 'xs' ? <CardContentXS title={title} address={address} price={price} date={date}/> :
               classname === 's' ? <CardContentS title={title} address={address} price={price} date={date}/> :
-                classname === 'l' ? <CardContentL title={title} address={address} price={price} date={date}/> :
-                  classname === 'xl' ? <CardContentXL title={title} address={address} price={price} date={date}/> :
+                classname === 'l' ? <CardContentL title={title} address={address} price={price} date={date} showPhone={show}/> :
+                  classname === 'xl' ? <CardContentXL title={title} address={address} price={price} date={date} showPhone={show}/> :
                     classname === 'xxl' ? <CardContentXXl title={title} address={address} price={price} date={date} show={show} /> :
                       ''
           }

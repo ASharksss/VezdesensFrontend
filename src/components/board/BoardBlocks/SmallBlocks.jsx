@@ -18,6 +18,7 @@ const SmallBlocks = ({items}) => {
                       favorite={item.favorites}
                       date={item.date}
                       id={item.id}
+                      show={item.showPhone}
                 />
             ))}
         </div>
