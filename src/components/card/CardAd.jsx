@@ -76,7 +76,7 @@ const CardAd = ({data, setData, isLoading, setIsLoading, setForbidden}) => {
 			</div>
 			{data.ad?.payment ?
 			<div className='flex mb-20'>
-				<a target='_blank' href={`${data.ad?.payment?.href}&Email=${items.email}`}
+				<a target='_blank' href={`${data.ad?.payment?.href}`}
 					 className='payment_button'>
 					Для показа карточки на доске обявления, оплатите: {new Intl.NumberFormat('ru-RU', { style: 'currency', currency: 'RUB', maximumSignificantDigits: 3 }).format(parseInt(data.ad?.payment?.cost))}
 				</a>

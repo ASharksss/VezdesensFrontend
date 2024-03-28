@@ -150,14 +150,14 @@ const ProfilePage = () => {
                 {paymentData.map((item, index) => (
                     <div key={`payment-${index}`} className='profile-payment_notice'>
                       <div className='header'>
-													<NavLink to={`/card/${item?.adId}`}>
-														<img src={`${STATIC_HOST}/${item.previewImage}`} alt="Название товара"/>
-													</NavLink>
+                          <NavLink to={`/card/${item?.adId}`}>
+                              <img src={`${STATIC_HOST}/${item.previewImage}`} alt="Название товара"/>
+                          </NavLink>
                           <p className='title'>{item.title} </p>
                           <p>Тип: {item.name}</p>
                         <div>
                           <p className='price'>{new Intl.NumberFormat('ru-RU', { style: 'currency', currency: 'RUB', maximumSignificantDigits: 3 }).format(parseInt(item.OutSum))}</p>
-                          <a target='_blank' href={`${item.paymentHref}&Email=${user.items.email}`}
+                          <a target='_blank' href={`${item.paymentHref}`}
                              className='payment_button'>
                             Оплатить
                           </a>
