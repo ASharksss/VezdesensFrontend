@@ -109,7 +109,6 @@ body {
 }
 
 .container {
-  position: relative;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -122,8 +121,12 @@ body {
   position: relative;
   display: flex;
   flex-direction: column;
-  width: 1518px;
+  width: 100%;
   min-height: 100vh;
+  margin: 0 auto;
+}
+.wrapper_layout {
+  width: 1536px;
   margin: 0 auto;
 }
 

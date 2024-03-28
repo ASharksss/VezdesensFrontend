@@ -5,10 +5,13 @@
 }
 
 .catalogBoardPage_categories {
+    flex: 1;
     margin-right: 15px;
-    width: 300px;
     max-height: calc(100vh - 210px);
     overflow-x: auto;
+}
+.catalogBoardPage_cards {
+    flex: 4;
 }
 
 .catalogBoardPage_categories::-webkit-scrollbar{

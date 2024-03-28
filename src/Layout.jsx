@@ -48,10 +48,12 @@ const Layout = () => {
 				{windowWidth >= 1600 ? <TimerContainer date={{day, month, hours, minutes, seconds}}/> : null}
 			</div>}
 			<div className='container_layout'>
-				{showCitiesModal ? <ModalMain activeModal={showCitiesModal} setActiveModal={handleCloseModal}><CitiesModal /></ModalMain> : null}
-				{(location.pathname !== '/signin' && location.pathname !== '/signup' && location.pathname !== '/forgot-password' && location.pathname !== '/company/register') && <Header/> }
-				<Outlet/>
-				{(location.pathname !== '/signin' && location.pathname !== '/signup' && location.pathname !== '/' && location.pathname !== '/createAd' && location.pathname !== '/forgot-password') && <Footer /> }
+				<div className='wrapper_layout'>
+					{showCitiesModal ? <ModalMain activeModal={showCitiesModal} setActiveModal={handleCloseModal}><CitiesModal /></ModalMain> : null}
+					{(location.pathname !== '/signin' && location.pathname !== '/signup' && location.pathname !== '/forgot-password' && location.pathname !== '/company/register') && <Header/> }
+						<Outlet/>
+					{(location.pathname !== '/signin' && location.pathname !== '/signup' && location.pathname !== '/' && location.pathname !== '/createAd' && location.pathname !== '/forgot-password') && <Footer /> }
+				</div>
 			</div>
 		</SmoothScroll>
 	);
