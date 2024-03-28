@@ -84,7 +84,7 @@ const CardAd = ({data, setData, isLoading, setIsLoading, setForbidden}) => {
 			<div className="flex">
 				<CardImgBlock title={data.ad.title} ad_address={data.ad.address} images={data.ad.imageAds.length > 0 ? data.ad.imageAds : []}
 											id={data.ad.objectId}/>
-				<div>
+				<div className='card_description-container'>
 					<CardDescription description={data.ad.description}
 									 characteristics={{input: data.ad.adCharacteristicInputs, select: data.ad.adCharacteristicSelects}}/>
 					<div className="flex jy-end" onClick={() => {

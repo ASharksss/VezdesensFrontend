@@ -81,6 +81,8 @@ const CreateAdPage = () => {
 
 	const handleSubmit = async (event) => {
 		event.preventDefault()
+		if (!agreeRules || (typeAd !== 'standart' && !agreeOffers))
+			return window.alert('Примите соглашения перед созданием карты товара')
 		if (saveImages.length === 0 || (previewImage === null && typeAd !== 'standart'))
 			return window.alert('Прикрепите все нужные фотографии')
 		const checkImages = checkCorrectImage()

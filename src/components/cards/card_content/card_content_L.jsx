@@ -16,10 +16,12 @@ const CardContentL = ({title, address, date, price}) => {
           <p className='card_content-date'>{date}</p>
         )}
       </div>
-      <div className="flex items-center">
-        <p className='card_content-price'>{numberWithSpaces(parseInt(price))} ₽</p>
-        <Button classname={'phone'} icon={phone_icon}/>
-        <Button classname={'message'} icon={message_icon}/>
+      <div className="flex items-center column">
+          <div className='flex'>
+              <Button classname={'phone'} icon={phone_icon}/>
+              <Button classname={'message'} icon={message_icon}/>
+          </div>
+          <p className='card_content-price'>{numberWithSpaces(parseInt(price))} ₽</p>
       </div>
     </div>
   );

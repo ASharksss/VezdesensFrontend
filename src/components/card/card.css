@@ -63,6 +63,10 @@
     margin-top: 15px;
 }
 
+.card_description-container {
+    min-width: 420px;
+    margin: 0 45px;
+}
 .card_description {
     max-width: 432px;
     max-height: 421px;
