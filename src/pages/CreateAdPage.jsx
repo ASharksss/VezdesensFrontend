@@ -137,7 +137,10 @@ const CreateAdPage = () => {
 			} else {
 				window.alert('Карточка успешна создана')
 				setLoading(false)
-				navigate(`/card/${res.data.ad.id}`)
+				if (typeAd !== 'standart') {
+					return window.location.replace(res.data?.payment?.href);
+				}
+				return navigate(`/card/${res.data.ad.id}`)
 			}
 		})
 			.catch(err => {
