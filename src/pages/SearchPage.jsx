@@ -38,11 +38,11 @@ const SearchPage = () => {
 	return (
 		<div className='container'>
 			{chunkedData.length > 0 && chunkedData.map((chunk, index) => (
-				<div className='flex small_ads align-items' key={`chunk-${index}`}>
+				<div className='flex align-items' key={`chunk-${index}`}>
 					{chunk.map((item, itemIndex) => (
 						<Card
 							classname={'xs'}
-							ad_image={`${STATIC_HOST}/${item.imageAds[0]?.name}`}
+							ad_image={`${STATIC_HOST}/${item.previewImageAds[0]?.name}`}
 							title={item.title}
 							address={item.address}
 							price={item.price}

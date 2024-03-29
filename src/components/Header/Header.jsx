@@ -36,7 +36,8 @@ const Header = () => {
 		}
 	}, [activeModalCat])
 
-	const handleSearch = () => {
+	const handleSearch = (event) => {
+		event.preventDefault();
 		if (search.trim() !== '') {
 			navigate({
 				pathname: '/search',
@@ -77,13 +78,13 @@ const Header = () => {
 								<button onClick={() => navigate(`/signin`)}><span>Мои объявления</span></button>}
 							<NavLink to={isAuth ? '/createAd' : '/signin'} className='create_ad-btn'>Подать объявление</NavLink>
 						</div>
-						<div className="header_content-search">
+						<form className="header_content-search" onSubmit={handleSearch}>
 							<input type="text" placeholder='Искать объявления' className='search-input' value={search}
-										 onChange={event => setSearch(event.target.value)}/>
-							<button className='search-btn' onClick={handleSearch}>
+										 onChange={event => setSearch(event.target.value)}  />
+							<button className='search-btn' type='submit'>
 								<img src={searchSVG} alt="Поиск"/>
 							</button>
-						</div>
+						</form>
 					</div>
 					<div className="header_content-geo" onClick={() => dispatch(showCities())}>
 						<img src={geo} alt="гео"/>
