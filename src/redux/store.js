@@ -6,6 +6,7 @@ import {UserReducer} from "./slices/userSlice";
 import {CategoriesReducer} from "./slices/categorySlice";
 import {CharacteristicReducer} from "./slices/admin/characterSlice";
 import {GeoReducer} from "./slices/geoSlice";
+import {AlertReducer} from "./slices/alertSlice";
 
 
 export const store = configureStore({
@@ -16,7 +17,8 @@ export const store = configureStore({
     categories: CategoriesReducer,
     user: UserReducer,
     characteristics: CharacteristicReducer,
-    geo: GeoReducer
+    geo: GeoReducer,
+    alert: AlertReducer
   }
 })
 

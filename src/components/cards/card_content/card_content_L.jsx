@@ -18,8 +18,8 @@ const CardContentL = ({title, address, date, price, showPhone = 0}) => {
       </div>
       <div className="flex items-center column">
           <div className='flex'>
-              {showPhone !== 1 ? <Button classname={'phone'} icon={phone_icon}/> : null}
-              {showPhone !== 2 ? <Button classname={'message'} icon={message_icon}/> : null}
+              {showPhone !== 2 ? <Button classname={'phone'} icon={phone_icon}/> : null}
+              {showPhone !== 1 ? <Button classname={'message'} icon={message_icon}/> : null}
           </div>
           <p className='card_content-price'>{numberWithSpaces(parseInt(price))} ₽</p>
       </div>

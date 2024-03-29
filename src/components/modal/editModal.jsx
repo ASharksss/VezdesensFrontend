@@ -5,12 +5,18 @@ import AvatarEditor from 'react-avatar-editor'
 import avatar from '../../asserts/profile/default_avatar.svg'
 import loadGif from '../../asserts/load.gif'
 import {AVATAR_HOST, DataURIToBlob} from "../../utils";
+import Alert from "../../ui/alert/Alert";
+import {useDispatch} from "react-redux";
+import {showAlert} from "../../redux/slices/alertSlice";
 
 const EditModal = ({data, setModal}) => {
+	const dispatch = useDispatch()
+
 	const formData = new FormData();
 	const editImageRef = useRef(null)
+
 	const [image, setImage] = useState(null)
-	const [showPhone, setShowPhone] = useState(!data.showPhone || true)
+	const [showPhone, setShowPhone] = useState(data.showPhone)
 	const [name, setName] = useState(data.name.split(' ')[0])
 	const [surname, setSurname] = useState(data.name.split(' ')[1] !== undefined ? data.name.split(' ')[1] : '')
 	const [email, setEmail] = useState(data.email)
@@ -49,8 +55,11 @@ const EditModal = ({data, setModal}) => {
 	}, [data])
 
 	const handleChangeShowPhone = async (event) => {
-	  	await axios.post('api/user/showPhone', {show: showPhone})
-			.then(() => setShowPhone(!showPhone))
+	  	await axios.post('api/user/showPhone', {show: !showPhone})
+			.then(() => {
+				setShowPhone(!showPhone)
+				dispatch(showAlert(`Телефон${!showPhone ? ' ': ' не '}отображается`))
+			})
 	}
 
 	const handleSaveImage = () => {
@@ -181,10 +190,13 @@ const EditModal = ({data, setModal}) => {
 				</div>
 			</div>
 			<label className='editProfile-label' htmlFor={'showPhone'}>Отображать номер телефона</label>
-			<input className={'ml-10'} type="checkbox" value={showPhone} id={'showPhone'} onChange={handleChangeShowPhone}/>
+			<input className={'ml-10'} type="checkbox" checked={showPhone} id={'showPhone'} onChange={handleChangeShowPhone}/>
 			<div className={'flex editProfile-btns'} style={{justifyContent: 'space-evenly'}}>
 				<button type={'submit'} className='editProfile-save'>Сохранить</button>
-				<button type={'button'} className='editProfile-cancel' onClick={() => setModal(false)}>Отменить</button>
+				<button type={'button'} className='editProfile-cancel' onClick={() => {
+					window.location.reload()
+					setModal(false)
+				}}>Отменить</button>
 			</div>
     </form>
   );

@@ -30,6 +30,7 @@
 }
 
 .main_card_img {
+    object-fit: cover;
     position: relative;
     width: 389px;
     height: 521px;

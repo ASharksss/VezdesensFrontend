@@ -14,8 +14,8 @@ const CardContentS = ({title, address, date, price, showPhone = 0}) => {
           <div className="flex jy-space-between">
               {price !== '' ? <p className='card_content-price'>{numberWithSpaces(parseInt(price))} ₽</p> : null}
               <div className="flex">
-                  {showPhone !== 1 ? <Button iconHeight={15} iconWidth={15} classname={'phone_l'} icon={phone_icon}/> : null}
-                  {showPhone !== 2 ? <Button iconHeight={15} iconWidth={15} classname={'message_l'} icon={message_icon}/> : null}
+                  {showPhone !== 2 ? <Button iconHeight={15} iconWidth={15} classname={'phone_l'} icon={phone_icon}/> : null}
+                  {showPhone !== 1 ? <Button iconHeight={15} iconWidth={15} classname={'message_l'} icon={message_icon}/> : null}
               </div>
           </div>
       </div>

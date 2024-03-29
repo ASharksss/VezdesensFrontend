@@ -9,12 +9,14 @@ import CitiesModal from "./components/Header/CityModal/CitiesModal";
 import ModalMain from "./components/modal/modalMain";
 import {hideCities} from "./redux/slices/geoSlice";
 import Footer from "./components/Footer/Footer";
+import Alert from "./ui/alert/Alert";
 
 const Layout = () => {
 	const location = useLocation();
 
 	const dispatch = useDispatch()
 	const {showCitiesModal} = useSelector(state => state.geo)
+	const {alertMessage} = useSelector(state => state.alert)
 
 	const [windowWidth, setWindowWidth] = useState(window.innerWidth);
 
@@ -55,6 +57,7 @@ const Layout = () => {
 					{(location.pathname !== '/signin' && location.pathname !== '/signup' && location.pathname !== '/' && location.pathname !== '/createAd' && location.pathname !== '/forgot-password') && <Footer /> }
 				</div>
 			</div>
+			{alertMessage !== '' ? <Alert message={alertMessage}/> : null}
 		</SmoothScroll>
 	);
 };

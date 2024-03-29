@@ -30,7 +30,7 @@ const BorderComponent = ({allData, lastElementRef}) => {
             <Helmet>
               <meta name='keywords' content={keywords.toString()}/>
             </Helmet>
-          <div style={{width: '1440px'}} ref={indexDatas === data.length - 1 ? lastElementRef : null}
+          <div style={{width: '1440px', margin: '0 auto'}} ref={indexDatas === data.length - 1 ? lastElementRef : null}
                key={`grid-${indexDatas}`}>
 
             <SmallBlocks items={datas}/>
