@@ -93,6 +93,9 @@
   color: red;
 }
 
+img:hover {
+  cursor: pointer;
+}
 
 body {
   font-family: OpenSansRegular;
@@ -128,6 +131,10 @@ body {
 .wrapper_layout {
   width: 1536px;
   margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  align-items: center;
 
 }
 

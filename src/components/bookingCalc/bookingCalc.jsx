@@ -64,7 +64,7 @@ const BookingCalc = ({bookingDateStart, bookingDateEnd, setBookingStartDate, set
 
 	return (
 		<div className='booking'>
-			<h1 className='booking-title'>Бронирование {typeAd === 'standartPlus' ? 'стандрт+' : typeAd === 'vip' ? 'ВИП' : 'премиум'} объявления</h1>
+			<h1 className='booking-title'>Бронирование {typeAd === 'standartPlus' ? 'Cтандрт +' : typeAd === 'vip' ? 'ВИП' : 'премиум'} объявления</h1>
 			<div className="flex">
 				<div className="booking_startDate flex column">
 					{typeAd === 'premium' ?

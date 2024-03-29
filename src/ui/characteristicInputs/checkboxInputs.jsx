@@ -1,4 +1,5 @@
 import React, {useEffect, useState} from 'react';
+import './characteristicInputs.css'
 
 const CheckboxInput = ({data, setCheckboxValue, id, isRequired=false, mainValue=[]}) => { // data: [{id: int, name: str}]
 														  // setCheckboxValue: [] родительский стейт
@@ -40,7 +41,10 @@ const CheckboxInput = ({data, setCheckboxValue, id, isRequired=false, mainValue=
 	return (
 		<div>
 			<h1 className='enter_input-title'>{data.name}</h1>
-			<div className='flex column mb-40'>
+			<div className='checkbox_body mb-40'>
+				<div>
+
+				</div>
 				{data['characteristicValues'].map((item, index) => (
 					<div className='checkbox-item' key={'characteristicValuesCheckbox' + index}>
 						<input onChange={handleChangeCheckbox} id={`checkbox-${item.name}=${item.id}`} data-id={item.id} checked={value.includes(item.id)} type="checkbox" className='checkbox_input-checkbox'/>

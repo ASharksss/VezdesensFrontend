@@ -22,6 +22,22 @@
     margin-top: 10px;
 }
 
+.checkbox_body {
+    overflow-y: auto;
+    height: 200px;
+    width: 240px;
+}
+
+.checkbox_body::-webkit-scrollbar {
+    width: 5px;
+    margin-right: 10px;
+}
+.checkbox_body::-webkit-scrollbar-thumb {
+    width: 5px;
+    background-color: rgba(169, 169, 169, 0.87);
+    border-radius: 20px;
+}
+
 .select_input {
     width: 237px;
     padding: 6px 10px;

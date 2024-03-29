@@ -593,6 +593,11 @@
     cursor: pointer;
     padding: 15px 20px;
     z-index: 3;
+    transition: .1s;
+}
+
+.Edited_filter_select-item:hover {
+    background-color: #F6F6F6;
 }
 
 .adress-promation{

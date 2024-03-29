@@ -1,8 +1,8 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect, useRef, useState} from 'react';
 import arrow_icon from '../../asserts/icons/arrow_down.svg'
 
 const SelectInput = ({data, setSelectValue, id, isRequired = false, mainValue = ''}) => { // data: [{id: int, name: str}]
-                                                                                          // setCheckboxValue: [] родительский стейт
+  const wrapperRef = useRef(null)                                                                                        // setCheckboxValue: [] родительский стейт
                                                                                           // id: int родительский id, чтобы понимать для кого изменения
   const [value, setValue] = useState(mainValue)
   const [open, setOpen] = useState(false)
@@ -44,21 +44,31 @@ const SelectInput = ({data, setSelectValue, id, isRequired = false, mainValue = 
     })
   }
 
+  const handleClickOutside = (event) => {
+    if (wrapperRef.current && !wrapperRef.current.contains(event.target))
+      setOpen(false)
+  }
+
+  useEffect(() => {
+    document.addEventListener('mousedown', handleClickOutside)
+    return () => document.removeEventListener('mousedown', handleClickOutside)
+  }, [])
+
   return (
-    <div>
+    <div ref={wrapperRef}>
       <h1 className='enter_input-title'>{data.name}</h1>
       <div className="Edited_appeal-select">
         <div className="flex items-center space-between Edited_filter-header w-237" onClick={() => setOpen(!open)}
              required={isRequired}>
           {/* Вывожу значние topic  */}
           <p className='Edited_filter-header-p'>
-            {topic ? topic : 'Выберите значение'}
+            {topic ? topic : '-'}
           </p>
           <img src={arrow_icon} alt=""/>
         </div>
         <div className={open ? 'block Edited_filter_select-body' : 'filter_select-body-none'}>
           {!isRequired ? <div className='Edited_filter_select-item' onClick={handleReset}>
-            Выберите значение
+            -
           </div> : null}
           {
             data['characteristicValues'].map((item, index) => (

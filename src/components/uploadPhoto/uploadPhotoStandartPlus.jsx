@@ -60,7 +60,7 @@ const UploadPhotoStandartPlus = ({editedImage, setEditedImage}) => {
     <div className='upload_standartPlus upload_block'>
       <div className="flex row">
         <div className="column mr-20">
-          <span className='upload_block-title'>Фото для баннера "Стандарт+" </span>
+          <span className='upload_block-title'>Загрузите фото для превью</span>
           <div className='flex mt-20'>
             {(editedImage?.value || image !== null) ?
               <div style={{position: 'relative'}}>

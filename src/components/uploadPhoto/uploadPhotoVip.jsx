@@ -57,7 +57,8 @@ const UploadPhotoVip = ({editedImage, setEditedImage}) => {
   };
   return (
     <div className='upload_vip upload_block'>
-      <span className='upload_block-title'>Фото для баннера "VIP" </span>
+      <span className='upload_block-title'>Загрузите фото для превью</span>
+      <div className='uploadPhoto-description'>Это фото будет привлекать внимание</div>
 
       {(editedImage?.value || image !== null) ?
         <div className='relative mt-20 mb-20'>

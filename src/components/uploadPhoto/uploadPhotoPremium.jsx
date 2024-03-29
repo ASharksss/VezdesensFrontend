@@ -59,7 +59,7 @@ const UploadPhotoPremium = ({editedImage, setEditedImage}) => {
 
 	return (
 		<div className='upload_premium upload_block'>
-			<span className='upload_block-title mb-20'>Фото для баннера "Premium"</span>
+			<span className='upload_block-title mb-20'>Загрузите фото для превью</span>
 			<div className='flex mt-20 mb-20'>
 				<label htmlFor="premium_input" className='upload_file_input upload_premium-label'>
 					<img src={photoPremium} alt=""/>
