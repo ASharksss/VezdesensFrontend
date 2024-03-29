@@ -44,7 +44,6 @@
 }
 .thin:hover {
     background-color: white;
-    box-shadow: 0px 6px 40px 0px rgba(38, 38, 38, 0.22);
 }
 
 .thin .card_content-img {
@@ -52,6 +51,13 @@
     height: 76px;
 }
 
+.card_content-title, .card_content-price {
+    color: #070C20;
+}
+
+.card_content-address {
+    color: #838690;
+}
 
 .s {
     width: 355px;

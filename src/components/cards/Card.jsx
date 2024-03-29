@@ -10,7 +10,7 @@ import CardContentXXl from "./card_content/card_content_XXL";
 import Favorite from "../../ui/buttons/favorite";
 
 
-const Card = ({classname, ad_image, title, address, date, price, id, favorite, type='also', show}) => {
+const Card = ({classname, ad_image, title, address, date, price, id, favorite, type='also', show, user}) => {
   const {isAuth} = useSelector(state => state.user)
   if (type === 'newAd') {
     return (
@@ -29,15 +29,15 @@ const Card = ({classname, ad_image, title, address, date, price, id, favorite, t
         <NavLink to={`/card/${id}`} className='black'>
           {/*<CardCarousel images={ad_image} />*/}
           <img src={ad_image} alt={title} className='card_content-img'/>
+        </NavLink>
           {
-            classname === 'xs' ? <CardContentXS title={title} address={address} price={price} date={date}/> :
-              classname === 's' ? <CardContentS title={title} address={address} price={price} date={date}/> :
-                classname === 'l' ? <CardContentL title={title} address={address} price={price} date={date} showPhone={show}/> :
-                  classname === 'xl' ? <CardContentXL title={title} address={address} price={price} date={date} showPhone={show}/> :
-                    classname === 'xxl' ? <CardContentXXl title={title} address={address} price={price} date={date} show={show} /> :
+            classname === 'xs' ? <CardContentXS id={id} title={title} address={address} price={price} date={date}/> :
+              classname === 's' ? <CardContentS userData={user} id={id} title={title} address={address} price={price} date={date}/> :
+                classname === 'l' ? <CardContentL userData={user} id={id} title={title} address={address} price={price} date={date} showPhone={show}/> :
+                    classname === 'xxl' ? <CardContentXXl id={id} title={title} address={address} price={price} date={date} show={show} /> :
                       ''
           }
-        </NavLink>
+
       </div>
     </div>
   );
