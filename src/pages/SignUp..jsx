@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import InputMask from 'react-input-mask';
 import {Link, NavLink, useNavigate} from "react-router-dom";
 import {useDispatch} from "react-redux";
@@ -44,6 +44,9 @@ const SignUp = () => {
 				}
 			})
 	}
+	useEffect(() => {
+		document.title = 'Vezdesens - Регистрация'
+	}, [])
 	return (
 		<div className='auth'>
 			<form className="auth_form" onSubmit={handleSubmit}>

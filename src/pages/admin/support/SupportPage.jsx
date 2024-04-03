@@ -4,8 +4,10 @@ import axios from "axios";
 import {NavLink, useLocation, useNavigate} from "react-router-dom";
 import dialogAppeal from "../../../components/profile/profile_content/support/dialogAppeal";
 import DialogAppeal from "../../../components/profile/profile_content/support/dialogAppeal";
+import { useSelector } from 'react-redux';
 
 const SupportPage = () => {
+  const {isAuth} = useSelector(state => state.user)
 
   const [data, setData] = useState([])
   const [statusOfAppealId, setTypeAppeal] = useState(1)
@@ -23,8 +25,9 @@ const SupportPage = () => {
   }
 
   useEffect(() => {
+    if(!isAuth) return;
     getData()
-  }, [statusOfAppealId])
+  }, [statusOfAppealId, isAuth])
 
   useEffect(() => {
     if (hash.slice(1, 7) === 'dialog')

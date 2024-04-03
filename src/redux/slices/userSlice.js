@@ -64,8 +64,8 @@ const UserSlice = createSlice({
             state.user.items = action.payload.profile
             axios.defaults.headers.common['Authorization'] = `Bearer ${action.payload.token}`
             const date = new Date()
-            document.cookie = `session=${action.payload.token}; path=/; expires=${date.setDate(date.getDate() + 365)}`
-            document.cookie = `username=${action.payload.username}; path=/; expires=${date.setDate(date.getDate() + 365)}`
+            document.cookie = `session=${action.payload.token}; path=/; expires=${date.setDate(date.getDate() + 365)}; samesite=lax`
+            document.cookie = `username=${action.payload.username}; path=/; expires=${date.setDate(date.getDate() + 365)}; samesite=lax`
             state.user.status = 'loaded'
         },
         [fetchLogin.rejected]: (state, action) => {
@@ -92,8 +92,8 @@ const UserSlice = createSlice({
             state.user.errorMsg = ''
             axios.defaults.headers.common['Authorization'] = `Bearer ${action.payload.token}`
             const date = new Date()
-            document.cookie = `session=${action.payload.token}; path=/; expires=${date.setDate(date.getDate() + 365)}`
-            document.cookie = `username=${action.payload.username}; path=/; expires=${date.setDate(date.getDate() + 365)}`
+            document.cookie = `session=${action.payload.token}; path=/; expires=${date.setDate(date.getDate() + 365)}; samesite=lax`
+            document.cookie = `username=${action.payload.username}; path=/; expires=${date.setDate(date.getDate() + 365)}; samesite=lax`
             state.user.status = 'loaded'
         },
         [fetchRegistration.rejected]: (state, action) => {
@@ -120,8 +120,8 @@ const UserSlice = createSlice({
             state.user.errorMsg = ''
             axios.defaults.headers.common['Authorization'] = `Bearer ${action.payload.token}`
             const date = new Date()
-            document.cookie = `session=${action.payload.token}; path=/; expires=${date.setDate(date.getDate() + 365)}`
-            document.cookie = `username=${action.payload.username}; path=/; expires=${date.setDate(date.getDate() + 365)}`
+            document.cookie = `session=${action.payload.token}; path=/; expires=${date.setDate(date.getDate() + 365)}; samesite=lax`
+            document.cookie = `username=${action.payload.username}; path=/; expires=${date.setDate(date.getDate() + 365)}; samesite=lax`
             state.user.status = 'loaded'
         },
         [fetchRegistrationCompany.rejected]: (state, action) => {
@@ -143,7 +143,7 @@ const UserSlice = createSlice({
             state.user.items = action.payload.profile
             state.user.token = action.payload.token
             state.user.username = action.payload.username
-						axios.defaults.headers.common['Authorization'] = `Bearer ${action.payload.token}`
+            axios.defaults.headers.common['Authorization'] = `Bearer ${action.payload.token}`
             state.isAuth = true
             state.user.status = 'loaded'
         },

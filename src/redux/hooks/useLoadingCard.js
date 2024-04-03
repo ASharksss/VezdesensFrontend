@@ -1,18 +1,24 @@
 import { useEffect, useState } from "react";
 import _ from 'lodash';
 import axios from "axios";
+import {useSelector} from "react-redux";
 
 export default function useLoadingCard(offset) {
+    const {geoStatus} = useSelector(state => state.geo)
+    const isGeoDone = geoStatus === 'done'
+
     const [loading, setLoading] = useState(true)
     const [error, setError] = useState(false)
     const [data, setData] = useState([])
     const [hasMore, setHasMore] = useState(false)
 
     useEffect(() => {
+        if (!isGeoDone) return;
         setData([])
-    }, [offset])
+    }, [offset, isGeoDone])
 
     useEffect(() => {
+        if (!isGeoDone) return;
         setLoading(true)
         setHasMore(false)
         setError(false)
@@ -35,6 +41,6 @@ export default function useLoadingCard(offset) {
             setError(true)
         })
         return () => cancel()
-    }, [offset])
+    }, [offset, isGeoDone])
     return {loading, error, data, hasMore}
 }

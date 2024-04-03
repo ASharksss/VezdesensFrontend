@@ -14,7 +14,8 @@ const initialState = {
     mainPath: {id: 570, positionRegionId: 19, positionDistrictId: 2},
     mainCity: 'Казань',
     mainSlugCity: 'kazan',
-    showCitiesModal: false
+    showCitiesModal: false,
+    geoStatus: 'isInstalled'
 }
 
 const GeoSlice = createSlice({
@@ -35,7 +36,8 @@ const GeoSlice = createSlice({
             localStorage.setItem('city_name', action.payload.name)
             axios.defaults.headers.common['x-position'] = action.payload.slug
             const date = new Date()
-            document.cookie = `position=${action.payload.slug}; path=/; expires=${date.setDate(date.getDate() + 365)}`
+            document.cookie = `position=${action.payload.slug}; path=/; expires=${date.setDate(date.getDate() + 365)}; samesite=lax`
+            state.geoStatus = 'done'
         },
         takeFromCookie: (state, action) => {
             state.mainSlugCity = action.payload
@@ -44,13 +46,15 @@ const GeoSlice = createSlice({
             state.mainCity = localCityName
             state.mainPath = JSON.parse(localCityPath)
             axios.defaults.headers.common['x-position'] = action.payload
+            state.geoStatus = 'done'
         },
         firstLoading: state => {
             localStorage.setItem('city_name', state.mainCity)
             localStorage.setItem('city_path', JSON.stringify(state.mainPath))
             const date = new Date()
-            document.cookie = `position=${state.mainSlugCity}; path=/; expires=${date.setDate(date.getDate() + 365)}`
+            document.cookie = `position=${state.mainSlugCity}; path=/; expires=${date.setDate(date.getDate() + 365)}; samesite=lax`
             axios.defaults.headers.common['x-position'] = state.mainSlugCity
+            state.geoStatus = 'done'
         }
     },
     extraReducers: {

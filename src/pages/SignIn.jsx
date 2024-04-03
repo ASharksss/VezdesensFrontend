@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import './pages.css'
 import eyeClose from '../asserts/icons/eyeClose.svg'
 import eyeOpen from '../asserts/icons/eyeOpen.svg'
@@ -53,6 +53,9 @@ const SignIn = () => {
                 })
         }
     }
+	useEffect(() => {
+		document.title = 'Vezdesens - Вход'
+	}, [])
 
     return (
         <div className='auth'>

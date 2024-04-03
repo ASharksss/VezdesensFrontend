@@ -44,7 +44,7 @@ function App() {
     function checkPosition() {
       const checkGeo = getCookie('position')
       if (checkGeo !== undefined) {
-         dispatch(takeFromCookie(checkGeo))
+        dispatch(takeFromCookie(checkGeo))
       }else {
         dispatch(firstLoading())
       }

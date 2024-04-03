@@ -14,7 +14,6 @@ const CommercialBlocksLss = ({items}) => {
     countStPl = items.filter((item) => (item.typeAdId === 2)).length;
     length = countL + countStPl
   }
-  console.log(items)
   return (
     <div className='grid'
          style={{gridTemplateColumns: `repeat(${length === 1 ? '2' : '3'}, ${length === 1 ? `${countL === 0 ? '400px' : '1fr'}` : '1fr'})`}}>
