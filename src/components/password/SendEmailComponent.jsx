@@ -5,7 +5,7 @@ const SendEmailComponent = ({descriptionStyle, handleSubmit, setEmail, email}) =
 		<form className="auth_form" onSubmit={handleSubmit}>
 			<h1 className='auth_form-title'>Забыли пароль?</h1>
 			<div className="auth_form-inputs">
-				<p style={descriptionStyle}>Введите почту для получение одноразового кода</p>
+				<p style={descriptionStyle}>Введите почту для получения одноразового кода</p>
 				<input onChange={e => setEmail(e.target.value)}
 							 value={email} type="email" placeholder='Введите почту'
 							 className='auth_form-input' required/>
