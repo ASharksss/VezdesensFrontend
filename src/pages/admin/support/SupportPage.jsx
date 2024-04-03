@@ -38,8 +38,6 @@ const SupportPage = () => {
   return (
     <div className='supportPage'>
       <div className='support_wrapper'>
-
-
         {
           choice === '' ?
             <>

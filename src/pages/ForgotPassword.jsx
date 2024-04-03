@@ -33,7 +33,7 @@ const ForgotPassword = () => {
 				setStep(2)
 			})
 			.catch(err => {
-				setError(err.data.message)
+				setError(err.response.data.message)
 				setLoading(false)
 			})
 	}
@@ -48,7 +48,7 @@ const ForgotPassword = () => {
 				setStep(3)
 			})
 			.catch(err => {
-				setError(err.data.message)
+				setError(err.response.data.message)
 				setLoading(false)
 			})
 	}
@@ -65,7 +65,7 @@ const ForgotPassword = () => {
 				navigate('/signin')
 			})
 			.catch(err => {
-				setError(err.data.message)
+				setError(err.response.data.message)
 				setLoading(false)
 			})
 	}
