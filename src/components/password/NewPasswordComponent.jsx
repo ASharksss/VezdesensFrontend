@@ -6,7 +6,7 @@ const NewPasswordComponent = ({setPassword, setRepeatPassword, repeatPassword, p
 	const [showPassword, setShowPassword] = useState(false)
 	const [showRepeatPassword, setShowRepeatPassword] = useState(false)
 	const handleShowPassword = () => setShowPassword(!showPassword)
-	const handleShowRepeatPassword = () => setShowRepeatPassword(!showPassword)
+	const handleShowRepeatPassword = () => setShowRepeatPassword(!showRepeatPassword)
 	return (
 		<form className="auth_form" onSubmit={handleSubmit}>
 			<h1 className='auth_form-title'>Новый пароль</h1>
