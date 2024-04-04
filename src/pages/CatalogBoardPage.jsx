@@ -198,7 +198,7 @@ const CatalogBoardPage = () => {
                 </button>
               </div>
               <EnterFilter setEnterFilter={setEnterFilter}/>
-              {!isLoading ? categoriesList.items[1]?.map((item, index) => item.characteristic.required ?
+              {!isLoading ? categoriesList.items[1]?.map((item, index) => item.characteristic.required && item.characteristic.id !== 3241?
                 item.characteristic.typeCharacteristic?.name === 'enter' ?
                   <EnterFilter name={item.characteristic.name} key={`main-enterFilter-${index}=${item.name}`}
                                id={item.characteristic.id} setEnterFilter={setEnterFilter}/> : // внутри компонентов расписано

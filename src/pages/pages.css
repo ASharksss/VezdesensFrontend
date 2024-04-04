@@ -1,13 +1,14 @@
 .catalogBoardPage {
     display: flex;
     width: 1398px;
+    min-height: 100vh;
     align-items: flex-start;
 }
 
 .catalogBoardPage_categories {
     flex: 1;
     margin-right: 15px;
-    max-height: calc(100vh - 210px);
+    max-height: calc(100vh - 80px);
     overflow-x: auto;
 }
 .catalogBoardPage_cards {

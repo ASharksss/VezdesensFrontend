@@ -20,6 +20,7 @@ import UploadImages from '../components/uploadPhoto/UploadImages';
 import arrow_icon from "../asserts/icons/arrow_down.svg"
 import ModalMain from "../components/modal/modalMain";
 import CitiesModal from "../components/Header/CityModal/CitiesModal";
+import FilteredSelectInput from "../ui/characteristicInputs/filteredSelectInput";
 
 const CreateAdPage = () => {
 
@@ -188,6 +189,7 @@ const CreateAdPage = () => {
     setAgreeOffers(false)
   }, [typeAd])
 
+  const mainModelId = selectValue.length > 0 ? selectValue.filter(item => item.id === 46)[0]['value'] : 0
 
   return (
     <div>
@@ -207,7 +209,7 @@ const CreateAdPage = () => {
                   </div>
                   <div className={open ? 'block Edited_filter_select-body' : 'filter_select-body-none'}>
                     {
-                      categories.items.map((item, index) => item.id !== 2 && (
+                      categories.items.map((item, index) => (
                         // Предаю значиение item.name после topic присваиваю значиение при клике
                         <div className='Edited_filter_select-item' key={'category' + index} value={item.id}
                              onClick={() => {
@@ -307,8 +309,11 @@ const CreateAdPage = () => {
                             <EnterInput setEnterValue={setEnterValue} key={'enter' + index}
                                         data={item['characteristic']}
                                         id={item['characteristicId']} isRequired={true}/>}
-                          {item['characteristic']['typeCharacteristic']['name'] === 'select' &&
+                          {(item['characteristic']['typeCharacteristic']['name'] === 'select' && item['characteristicId'] !== 3241) &&
                             <SelectInput setSelectValue={setSelectValue} key={'select' + index} isRequired={true}
+                                         data={item['characteristic']} id={item['characteristicId']}/>}
+                          {(item['characteristic']['typeCharacteristic']['name'] === 'select' && item['characteristicId'] === 3241) &&
+                            <FilteredSelectInput mainId={mainModelId} setSelectValue={setSelectValue} key={'select' + index} isRequired={true}
                                          data={item['characteristic']} id={item['characteristicId']}/>}
                           {item['characteristic']['typeCharacteristic']['name'] === 'checkbox' &&
                             <CheckboxInput setCheckboxValue={setSelectValue} key={'checkbox' + index} isRequired={true}
