@@ -24,11 +24,14 @@ const ProfilePage = () => {
   const [newMessage, setNewMessage] = useState("0")
   const [staticAd, setStaticAd] = useState([])
   const [paymentData, setPaymentData] = useState([])
-  const [isLoadingUser, setIsLoadingUser] = useState(false)
 
   const {user} = useSelector(state => state.user)
+  const [isLoadingUser, setIsLoadingUser] = useState(user.status !== 'loaded')
+
   const {hash} = useLocation();
   const navigate = useNavigate();
+
+  let timer
 
   const {id} = useParams()
 
@@ -41,6 +44,19 @@ const ProfilePage = () => {
           console.log(err.data.message)
         })
   }
+
+  //timer
+  useEffect(() => {
+    timer = setTimeout(() => {
+      setIsLoadingUser(true)
+    }, 1000)
+    return () => clearTimeout(timer)
+  }, [])
+
+  useEffect(() => {
+    if (!isLoadingUser) return;
+    clearTimeout(timer)
+  }, [isLoadingUser])
 
   useEffect(() => {
     getStaticAd(1, setStaticAd)
@@ -56,23 +72,24 @@ const ProfilePage = () => {
       })
   }
 
+  const getUserInfo = async () => {
+    setIsLoadingUser(true)
+    await axios.get(`api/user/getOneUser/${id}`).then(res => {
+      document.title = `Профиль ${res.data.name}`
+      setDataUser(res.data)
+      setDataAds(res.data.ads)
+      setIsLoadingUser(false)
+    }).catch(err => {
+      console.warn(err)
+      alert(err.message)
+      setIsLoadingUser(false)
+    })
+  }
+
   useEffect(() => {
-    if (user.status === 'loading') return;
+    if (!isLoadingUser) return;
     if (parseInt(user.items.id) === parseInt(id)) getPaymentData()
     setChoice('ads')
-    const getUserInfo = async () => {
-      setIsLoadingUser(true)
-      await axios.get(`api/user/getOneUser/${id}`).then(res => {
-        document.title = `Профиль ${res.data.name}`
-        setDataUser(res.data)
-        setDataAds(res.data.ads)
-        setIsLoadingUser(false)
-      }).catch(err => {
-        console.warn(err)
-        alert(err.message)
-        setIsLoadingUser(false)
-      })
-    }
     getUserInfo()
   }, [id, user.status])
 

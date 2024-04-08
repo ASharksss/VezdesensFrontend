@@ -43,7 +43,7 @@ const CardAd = ({data, setData, isLoading, setIsLoading, setForbidden}) => {
 		const checkSession = getCookie('session')
 		if (status === 'loading' && checkSession !== undefined) return;
 		axios.get(`api/ad/getOneAd/${id}`).then(res => {
-			document.title = 'Картиочка № ' + res.data.ad.id + ' · ' + res.data.ad.title + ' · ' + relativeDate(new Date(res.data.ad.createdAt))
+			document.title = 'Карточка № ' + res.data.ad.id + ' · ' + res.data.ad.title
 			setData(res.data)
 			setIsLoading(true)
 		}).catch(err => {
@@ -96,7 +96,7 @@ const CardAd = ({data, setData, isLoading, setIsLoading, setForbidden}) => {
 						</div>
 					</div>
 				</div>
-				<CardInfo price={data.ad.price} address={data.ad.address} id={data.ad.id} favorite={data.ad.favorites} show={data.ad.showPhone}
+				<CardInfo price={data.ad.price} address={data.ad.address} id={data.ad.id} favorite={data.ad.favorites} show={data.ad.showPhone} phone={data.ad.user?.phone}
 									sellerCreated={data.ad.user.createdAt} userId={data.ad.user.id} rating={data.ad.user.ratings} companyName={data.ad.user.companyName}
 									sellerName={data.ad.user.name} setActiveModal={setActiveModal} setTypeModal={setTypeModal} isCompany={data.ad.user.isCompany}/>
 			</div>

@@ -32,6 +32,10 @@ export const publicRoutes = [
     },{
         path: '/profile/:id',
         Component: ProfilePage
+    },
+    {
+        path: '/profile/:id',
+        Component: ProfilePage
     }
 ]
 
@@ -39,10 +43,6 @@ export const privateRoutes = [
     {
         path: '/createAd',
         Component: CreateAdPage
-    },
-    {
-        path: '/profile/:id',
-        Component: ProfilePage
     },
     {
         path: '/card/:id/edit',

@@ -10,7 +10,7 @@ import Rating from "../../ui/rating/rating";
 import {numberWithSpaces} from "../../utils";
 import isCompanySVG from '../../asserts/is_company.svg';
 
-const CardInfo = ({userId, price, sellerName, sellerCreated, address, setActiveModal, setTypeModal, id, favorite, rating, show, companyName, isCompany}) => {
+const CardInfo = ({userId, price, sellerName, sellerCreated, address, setActiveModal, setTypeModal, id, favorite, rating, show, companyName, isCompany, phone}) => {
 	const {isAuth, user} = useSelector(state => state.user)
 	return (
 		<div className='card_info'>
@@ -19,7 +19,7 @@ const CardInfo = ({userId, price, sellerName, sellerCreated, address, setActiveM
 				{isAuth ? userId !== user.items.id ? <Favorite id={id} favorite={favorite}/> : null : null}
 			</div>
 			<div className="flex card_info-btn">
-				{show !== 2 ? <div onClick={() => {
+				{(show !== 2 && phone !== undefined)? <div onClick={() => {
 					setActiveModal(true)
 					setTypeModal('phone')
 				}}>
