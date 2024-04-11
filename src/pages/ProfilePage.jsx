@@ -26,7 +26,7 @@ const ProfilePage = () => {
   const [paymentData, setPaymentData] = useState([])
 
   const {user} = useSelector(state => state.user)
-  const [isLoadingUser, setIsLoadingUser] = useState(user.status !== 'loaded')
+  const [isLoadingUser, setIsLoadingUser] = useState(user.status !== 'loading')
 
   const {hash} = useLocation();
   const navigate = useNavigate();
@@ -91,7 +91,7 @@ const ProfilePage = () => {
     if (parseInt(user.items.id) === parseInt(id)) getPaymentData()
     setChoice('ads')
     getUserInfo()
-  }, [id, user.status])
+  }, [id, isLoadingUser, user.status])
 
 
   useEffect(() => {

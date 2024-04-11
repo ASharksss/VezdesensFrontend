@@ -139,9 +139,11 @@ const CreateAdPage = () => {
         window.alert('Карточка успешна создана')
         setLoading(false)
         if (typeAd !== 'standart') {
-          return window.location.replace(res.data?.payment?.href);
+          window.location.href = res.data.ad?.payment?.href;
+          return null;
+        } else {
+          return navigate(`/card/${res.data.ad.id}`)
         }
-        return navigate(`/card/${res.data.ad.id}`)
       }
     })
       .catch(err => {
@@ -189,7 +191,7 @@ const CreateAdPage = () => {
     setAgreeOffers(false)
   }, [typeAd])
 
-  const mainModelId = selectValue.length > 0 ? selectValue.filter(item => item.id === 46)[0]['value'] : 0
+  const mainModelId = selectValue.length > 0 ? selectValue.filter(item => item.id === 46)[0]?.value : 0
 
   return (
     <div>
