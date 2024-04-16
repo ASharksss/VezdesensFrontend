@@ -15,6 +15,7 @@ import Dialog from "../components/profile/profile_content/messages/Dialog";
 import Support from "../components/profile/profile_content/support/support";
 import DialogAppeal from "../components/profile/profile_content/support/dialogAppeal";
 import PreloaderComponent from "../components/Preloader/PreloaderComponent";
+import PaymentCard from "../components/profile/payment/PaymentCard";
 
 const ProfilePage = () => {
 
@@ -121,6 +122,16 @@ const ProfilePage = () => {
       hash: choice
     })
   }
+  const handleRemove = async (id) => {
+    const check = window.confirm('Удалить объявление?')
+    if (check) {
+      await axios.delete(`api/ad/remove?adId=${dataUser.id}`)
+          .then(() => {
+            const removedData = paymentData.filter(item => item.id !== id)
+            setPaymentData(removedData)
+          })
+    }
+  }
 
   const MyElements = [{name: "Мои объявления", choice: 'ads'}, {name: "Сообщения", choice: "dialogs"},
     {name: "Избранное", choice: "favorites"}, {name: "Помощь", choice: "help"}]
@@ -165,22 +176,9 @@ const ProfilePage = () => {
               {(paymentData.length > 0 && choice === 'ads') ?
               <div>
                 {paymentData.map((item, index) => (
-                    <div key={`payment-${index}`} className='profile-payment_notice'>
-                      <div className='header'>
-                          <NavLink to={`/card/${item?.adId}`}>
-                              <img src={`${STATIC_HOST}/${item.previewImage}`} alt="Название товара"/>
-                          </NavLink>
-                          <p className='title'>{item.title} </p>
-                          <p>Тип: {item.name}</p>
-                        <div>
-                          <p className='price'>{new Intl.NumberFormat('ru-RU', { style: 'currency', currency: 'RUB', maximumSignificantDigits: 3 }).format(parseInt(item.OutSum))}</p>
-                          <a target='_blank' href={`${item.paymentHref}`}
-                             className='payment_button'>
-                            Оплатить
-                          </a>
-                        </div>
-                      </div>
-                    </div>
+                    <React.Fragment key={`payment-${index}`}>
+                      <PaymentCard item={item} handleRemove={handleRemove} />
+                    </React.Fragment>
                 ))}
               </div> : null}
               <div className='profile_content'>
