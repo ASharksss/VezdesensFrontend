@@ -35,6 +35,7 @@ const CreateAdPage = () => {
   const [typeAd, setTypeAd] = useState('standart')
   const [description, setDescription] = useState('')
   const [address, setAddress] = useState('')
+  const [allAddress, setAllAddress] = useState(false)
   const [title, setTitle] = useState('')
   const [objectId, setObjectId] = useState(1)
   const [phoneShow, setPhoneShow] = useState(0)
@@ -171,8 +172,16 @@ const CreateAdPage = () => {
   }
 
   const handleSetAddress = (city, region, district) => {
-    setAddress(`${district}, ${region}, ${city}`)
+    setAddress(`${district}, ${region}, ${city}${allAddress ? '@Россия' : ''}`)
     setAddressOpen(false)
+  }
+
+  const handleAllAddress = (event) => {
+    setAllAddress(event.target.checked)
+    if (event.target.checked)
+      setAddress(prevState => prevState + "@Россия")
+    else
+      setAddress(prevState => prevState.split('@')[0])
   }
 
   const isLoadingCharacter = character.status === 'loading'
@@ -389,7 +398,7 @@ const CreateAdPage = () => {
             <div>
               <div className="create_ad-descr address" onClick={() => setAddressOpen(true)}>
                 <h1 className='create_ad-descr-title'>Местоположение</h1>
-                <input type='text' placeholder='Выберите город' value={address}
+                <input type='text' placeholder='Выберите город' value={address.indexOf('@') > 0 ? address.split('@')[0] : address}
                        className='create_ad_address' required
                        onFocus={() => setAddressOpen(true)}/>
 
@@ -425,6 +434,15 @@ const CreateAdPage = () => {
             </div>
             {addressOpen ? <ModalMain activeModal={addressOpen} setActiveModal={setAddressOpen}><CitiesModal
               handleAddress={handleSetAddress}/></ModalMain> : null}
+            {(user.items?.isCompany === 1 && address !== '') ?
+                <div className='flex created_ad-radio mt-20'>
+                  <input type="checkbox" id='only_messages' name='only_messages' checked={allAddress}
+                         onChange={handleAllAddress}
+                         className='mob-input'
+                  />
+                  <label htmlFor="only_messages" className='create_ad-contact'>По всей России</label>
+                </div>
+            : null}
 
             <div className="create_ad-descr">
               <h1 className='create_ad-descr-title'>Контакты</h1>

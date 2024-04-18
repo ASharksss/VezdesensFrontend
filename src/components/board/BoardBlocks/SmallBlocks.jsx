@@ -13,7 +13,7 @@ const SmallBlocks = ({items}) => {
                       classname={'xs' }
                       ad_image={`${STATIC_HOST}/${item.previewImageAds[0]?.name}`}
                       title={item.title}
-                      address={item.address}
+                      address={item.address.includes('@') > 0 ? item.address.split('@')[0] : item.address}
                       price={item.price}
                       favorite={item.favorites}
                       date={item.date}

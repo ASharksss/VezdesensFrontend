@@ -68,7 +68,7 @@ const CardAd = ({data, setData, isLoading, setIsLoading, setForbidden}) => {
 				{items.id === data.ad.user.id ? <NavLink to={`/card/${data.ad.id}/edit`}><img src={EditSVG} alt="Измемнить"/></NavLink> : null}
 			</div>
 			<div className='jy-start card_ad-title'>
-				<p className='card_ad_address'>{data.ad.address}</p>
+				<p className='card_ad_address'>{data.ad.address.includes('@') > 0 ? data.ad.address.split('@')[0] : data.ad.address}</p>
 				<p className='number_time_views'
 					 title={formatDate(data.ad.createdAt)}>{'№ ' + data.ad.id + ' · ' + relativeDate(new Date(data.ad.createdAt)) + ' · ' +
 					data.ad.views + ` ${["просмотр", "просмотра", "просмотров"][pluralRusVariant(parseInt(data.ad.views))]}`}</p>

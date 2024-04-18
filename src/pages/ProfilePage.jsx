@@ -175,7 +175,7 @@ const ProfilePage = () => {
               </div>
               {(paymentData.length > 0 && choice === 'ads') ?
               <div>
-                {paymentData.map((item, index) => (
+                {paymentData.map((item, index) => item?.adId && (
                     <React.Fragment key={`payment-${index}`}>
                       <PaymentCard item={item} handleRemove={handleRemove} />
                     </React.Fragment>

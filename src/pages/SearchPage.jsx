@@ -3,7 +3,6 @@ import {useSearchParams} from "react-router-dom";
 import axios from "axios";
 import Card from "../components/cards/Card";
 import {STATIC_HOST} from "../utils";
-import ad_image from "../asserts/ad_image_small.png";
 
 const chunkArray = (myArray, chunkSize) => {
 	const results = [];
@@ -44,7 +43,7 @@ const SearchPage = () => {
 							classname={'xs'}
 							ad_image={`${STATIC_HOST}/${item.previewImageAds[0]?.name}`}
 							title={item.title}
-							address={item.address}
+							address={item.address.includes('@') > 0 ? item.address.split('@')[0] : item.address}
 							price={item.price}
 							favorite={item.favorites}
 							date={item.date}

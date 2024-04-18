@@ -22,7 +22,7 @@ const CommercialBlocksLss = ({items}) => {
               classname={item.typeAdId === 2 && 's' || item.typeAdId === 3 && 'l'}
               ad_image={`${STATIC_HOST}/${item.commercialImageAds[0]?.name}`}
               title={item.title}
-              address={item.address}
+              address={item.address.includes('@') > 0 ? item.address.split('@')[0] : item.address}
               price={item.price}
               favorite={item.favorites}
               date={item.date}

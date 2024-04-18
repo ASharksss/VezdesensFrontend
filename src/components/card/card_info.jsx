@@ -46,7 +46,7 @@ const CardInfo = ({userId, price, sellerName, sellerCreated, address, setActiveM
 				</div>
 				<div className="address">
 					<h2 className='address_title'>Адрес</h2>
-					<p className='address_text'>{address}</p>
+					<p className='address_text'>{address.includes('@') > 0 ? address.split('@')[0] : address}</p>
 				</div>
 
 			</div>
