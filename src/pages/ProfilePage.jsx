@@ -81,18 +81,20 @@ const ProfilePage = () => {
       setDataAds(res.data.ads)
       setIsLoadingUser(false)
     }).catch(err => {
-      console.warn(err)
       alert(err.message)
       setIsLoadingUser(false)
     })
   }
 
   useEffect(() => {
+    getUserInfo()
+  }, [id])
+
+  useEffect(() => {
     if (!isLoadingUser) return;
     if (parseInt(user.items.id) === parseInt(id)) getPaymentData()
     setChoice('ads')
-    getUserInfo()
-  }, [id, isLoadingUser, user.status])
+  }, [id, isLoadingUser])
 
 
   useEffect(() => {

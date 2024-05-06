@@ -13,7 +13,7 @@ const ActiveAds = ({dataUser, setDataAds, loading, status}) => {
 
   return (
     <div>
-      {dataUser.ads.length === 0 || status === false ? <NothingYeat/>
+      {dataUser.ads.length === 0 ? <NothingYeat/>
         : dataUser.ads.map((item, index) => (
 					<MyAd key={'active' + index} typeAd={'activeAd'} item={item.statusAdId === 2 && item} setDataAds={setDataAds}/>
 				))}
