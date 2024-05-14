@@ -45,7 +45,7 @@ const CategoryModal = ({data}) => {
 		<div className='flex'>
 
 			<div className="categoryModal-categories">
-				{data.map((item, index) => item.id !== 2 && (
+				{data.map((item, index) => (
 					<CategoryBtn item={item} setCategory={setCategory} key={`categories-${index}`}/>
 				))}
 

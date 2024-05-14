@@ -14,6 +14,7 @@ import PreloaderComponent from "../components/Preloader/PreloaderComponent";
 import BreadCrumbs from '../components/breadcrumbs/BreadCrumbs';
 import NothingYeat from '../components/nothingYeat/nothingYeat'
 import {Helmet} from "react-helmet";
+import SelectFilter from "../components/filters/selectFilter";
 
 const chunkArray = (myArray, chunkSize) => {
   const results = [];
@@ -166,6 +167,7 @@ const CatalogBoardPage = () => {
     return <PreloaderComponent/>
   }
   let keywords = []
+  let modelToCarMarks = choiceFilter.filter(item => item.id === 46)[0].value[0]
   return (
     <div className='container'>
       {staticAd[0]?.imageName !== undefined ?
@@ -198,14 +200,19 @@ const CatalogBoardPage = () => {
                 </button>
               </div>
               <EnterFilter setEnterFilter={setEnterFilter}/>
-              {!isLoading ? categoriesList.items[1]?.map((item, index) => item.characteristic.required && item.characteristic.id !== 3241?
+              {!isLoading ? categoriesList.items[1]?.map((item, index) => item.characteristic.required ?
                 item.characteristic.typeCharacteristic?.name === 'enter' ?
                   <EnterFilter name={item.characteristic.name} key={`main-enterFilter-${index}=${item.name}`}
                                id={item.characteristic.id} setEnterFilter={setEnterFilter}/> : // внутри компонентов расписано
-                  <ChoiceFilter name={item.characteristic.name} data={item.characteristic.characteristicValues}
-                                id={item.characteristic.id}
-                                key={`main-choiceFilter-${index}=${item.name}`}
-                                setChoiceFilter={setChoiceFilter}/> : null
+                    item.characteristic.id === 46 || item.characteristic.id === 3241 ?
+                        <SelectFilter name={item.characteristic.name} data={item.characteristic.characteristicValues}
+                                      id={item.characteristic.id}
+                                      key={`main-selectFilter-${index}=${item.name}`}
+                                      setChoiceFilter={setChoiceFilter} mainId={modelToCarMarks}/> :
+                        <ChoiceFilter name={item.characteristic.name} data={item.characteristic.characteristicValues}
+                                      id={item.characteristic.id}
+                                      key={`main-choiceFilter-${index}=${item.name}`}
+                                      setChoiceFilter={setChoiceFilter}/> : null
               ) : null}
 
               <div className='filter_title'
