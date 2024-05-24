@@ -16,7 +16,6 @@ const CardContentS = ({title, address, date, price, showPhone = 0, id, userData}
 
   const [activeModal, setActiveModal] = useState(false)
 
-  console.log(user)
   return (
     <div>
       <div className="card_content-text">
