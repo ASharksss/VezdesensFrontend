@@ -109,8 +109,8 @@ const CatalogBoardPage = () => {
 
   const pagination = useMemo(() => {
     if (!isLoading && paramsObjectId && selectedCategory.length > 0) {
-      const subName = categoriesList.items[0].subCategories.filter(item => item.id === parseInt(paramsSubCategory))[0].name
-      const name = categoriesList.items[0].subCategories.filter(item => item.id === parseInt(paramsSubCategory))[0].objects.filter(item => item.id === parseInt(paramsObjectId))[0]?.name
+      const subName = categoriesList.items[0].subCategories.filter(item => item.id === parseInt(paramsSubCategory))[0]?.name
+      const name = categoriesList.items[0].subCategories.filter(item => item.id === parseInt(paramsSubCategory))[0]?.objects.filter(item => item.id === parseInt(paramsObjectId))[0]?.name
       SetName(name);
       return (
         <BreadCrumbs name={name} subName={subName}/>
@@ -167,14 +167,14 @@ const CatalogBoardPage = () => {
     return <PreloaderComponent/>
   }
   let keywords = []
-  let modelToCarMarks = choiceFilter.filter(item => item.id === 46)[0].value[0]
+  let modelToCarMarks = choiceFilter.filter(item => item.id === 46)[0]?.value[0]
   return (
     <div className='container'>
       {staticAd[0]?.imageName !== undefined ?
         <Ad image={`${STATIC_HOST}/promotion/${staticAd[0]?.imageName}`} href={staticAd[0]?.href}/> : null}
       {pagination}
       {headerName}
-      <h2 className='grey w-1180 mb-20'>{Name.indexOf('/') > 0 ? Name.split('/')[0] : Name}</h2>
+      <h2 className='grey w-1180 mb-20'>{Name?.indexOf('/') > 0 ? Name.split('/')[0] : Name}</h2>
       <div className="catalogBoardPage">
         <div className="catalogBoardPage_categories">
           <CategoryAccordion category={categoriesList.items}

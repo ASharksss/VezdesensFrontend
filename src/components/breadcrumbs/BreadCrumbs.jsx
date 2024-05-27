@@ -3,7 +3,6 @@ import './breadcrumbs.css'
 import {NavLink} from "react-router-dom";
 
 const BreadCrumbs = ({crumbs, subName, name}) => {
-	console.log(crumbs)
 	return (
 		<>
 			{/* првоерка отправляли ли data.object в crumbs? */}
@@ -21,10 +20,10 @@ const BreadCrumbs = ({crumbs, subName, name}) => {
 				</div>
 			) : (
 				<div className='breadcrumbs fz-18'>
-					{subName.indexOf('/') > 1 ?
+					{subName?.indexOf('/') > 1 ?
 						subName.split('/')[0]
 						: subName} &nbsp;/&nbsp;  <b
-					className='txt-black'>{name.indexOf('/') > 1 ? name.split('/')[0] : name}</b>
+					className='txt-black'>{name?.indexOf('/') > 1 ? name.split('/')[0] : name}</b>
 				</div>
 			)}
 
