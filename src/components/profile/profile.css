@@ -5,15 +5,19 @@
 .profile_card-img {
     margin-right: 20px;
     border-radius: 50%;
-    width: 112px;
-    height: 112px;
+    width: 100px;
+    height: 100px;
+}
+
+.profile_card-info {
+    margin-left: 10px;
 }
 
 .profile_card-name {
     width: 136px;
     height: 67px;
-    font-size: 24px;
-    margin-bottom: 10px;
+    font-size: 20px;
+
 }
 .profile_card-companyName {
     font-size: 16px;
@@ -25,7 +29,7 @@
 }
 
 .profile_card-number {
-    font-size: 18px;
+    font-size: 16px;
     color: rgba(131, 134, 144, 1);
 }
 
@@ -36,7 +40,7 @@
 }
 
 .profile_wrapper {
-    width: 1035px;
+    width: 100%;
     margin-left: 50px;
 }
 

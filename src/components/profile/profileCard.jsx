@@ -27,7 +27,7 @@ const ProfileCard = ({avatar, dataUser}) => {
 	}, [modalShow])
 
 	return (
-		<div>
+		<>
 			<div className='profile_card flex items-center'>
 				<div>
 					<img src={avatar} alt="аватар" className="profile_card-img"/>
@@ -63,7 +63,7 @@ const ProfileCard = ({avatar, dataUser}) => {
 										 children={<EditModal data={dataUser} setModal={setEditModel}/>} /> : null
 			}
 
-		</div>
+		</>
 
 	);
 };
