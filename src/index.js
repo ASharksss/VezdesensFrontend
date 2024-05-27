@@ -8,7 +8,7 @@ import Stub from "./components/Stub/Stub";
 const root = ReactDOM.createRoot(document.getElementById('root'));
 if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|BB|PlayBook|IEMobile|Windows Phone|Kindle|Silk|Opera Mini/i
   .test(navigator.userAgent)) {
-  root.render(<Stub/>)
+  window.location.href = 'https://m.vezdesens.ru/'
 } else {
   root.render(
     <>

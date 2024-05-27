@@ -306,8 +306,7 @@ const CreateAdPage = () => {
                   <label className='enter_input-title'>Цена</label>
                   <input value={price} onChange={event => handlePrice(event.target.value)}
                          type="text" className='enter_input-input' required
-                         id='numericInput'
-                  />
+                         id='numericInput'/>
                 </div>
               </div>
               {!isLoadingCharacter && <>
@@ -333,7 +332,6 @@ const CreateAdPage = () => {
                     ))
                   }
                 </div>
-
                 {character.items.length > 0 &&<h1 className='character-title'>Дополнительные характеристики</h1>}
                 <div className='grid_character'>
                   {character.items.length > 0 &&
@@ -354,7 +352,6 @@ const CreateAdPage = () => {
                   }
                 </div>
               </>}
-
             </div>
 
             <div className="create_ad-descr">
@@ -363,7 +360,6 @@ const CreateAdPage = () => {
               <textarea onChange={event => setDescription(event.target.value)}
                         className='create_ad_descr-text' placeholder='Опишите подробнее товар' required></textarea>
             </div>
-
 
             <div className="create_ad-size">
               <h2 className='create_ad-size-title'>Размер объявления</h2>
