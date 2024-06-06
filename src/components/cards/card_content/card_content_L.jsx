@@ -13,9 +13,9 @@ const CardContentL = ({title, address, date, price, showPhone = 0, id, userData}
 
 
   return (
-    <div className='flex items-center space-between'>
+    <div className='flex items-center space-between card_content-text'>
       <NavLink to={`/card/${id}`}>
-        <div className="card_content-text">
+        <div className="">
           <h1 className='card_content-title'>{title}</h1>
           <p className='card_content-address'>{address}</p>
           {!date ? (
