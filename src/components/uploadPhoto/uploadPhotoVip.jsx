@@ -3,7 +3,6 @@ import {useDropzone} from 'react-dropzone';
 import {Cropper} from 'react-cropper';
 import 'cropperjs/dist/cropper.css'
 import photoPremium from "../../asserts/icons/upload_premium.svg";
-import Card from '../cards/Card';
 import ModalMain from '../modal/modalMain';
 import deleteImg from "../../asserts/icons/deleteImg.svg";
 
